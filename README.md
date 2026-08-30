@@ -12,6 +12,9 @@ Standalone HTML-app met het 60-daagse voedingsschema. Geen build-stap nodig.
 | `tools/build-data.py` | genereert beide modules uit het Excel-bestand |
 | `tools/winkels.json` | categorieen, winkels en prijzen (met de hand bij te houden) |
 | `tools/patch-index.py` | maakt de data-imports in een nieuwe bundle werkend |
+| `tools/app-shell.py` | haalt de prototype-chrome weg, maakt het schermvullend |
+| `tools/build-icons.py` | genereert de app-iconen |
+| `manifest.webmanifest`, `sw.js`, `icon-*.png` | installeerbaar en offline bruikbaar |
 | `tools/Seb60dagenvoedingsschema.xlsx` | het bronbestand |
 
 ## Data bijwerken
@@ -21,15 +24,31 @@ pip install openpyxl
 python3 tools/build-data.py tools/Seb60dagenvoedingsschema.xlsx
 ```
 
-Na een nieuwe export van de standalone HTML ook eenmalig:
+## Na een nieuwe export van de designtool
+
+De export is een presentatiepagina, geen app. Twee patches maken er weer een
+app van; beide zijn idempotent, dus dubbel draaien kan geen kwaad:
 
 ```sh
-python3 tools/patch-index.py
+cp ~/Downloads/Voedingsschema_App_standalone.html index.html
+python3 tools/patch-index.py   # data-imports werkend maken
+python3 tools/app-shell.py     # chrome eruit, schermvullend, PWA-meta's
 ```
 
-Die patch is nodig omdat de bundler de component vanuit een `blob:`-URL
-draait, waar de relatieve import `./schemaData.js` niet geresolved kan
-worden. De patch maakt er een absolute URL van via `document.baseURI`.
+`patch-index.py` is nodig omdat de bundler de component vanuit een `blob:`-URL
+draait, waar de relatieve import `./schemaData.js` niet geresolved kan worden;
+de patch maakt er een absolute URL van via `document.baseURI`.
+
+`app-shell.py` haalt de kop met uitleg, de iPhone-mockup en de voettekst weg,
+laat de app `100dvh` vullen, en vervangt de vaste marges die de nep-statusbalk
+vrijhielden door `env(safe-area-inset-*)`.
+
+## Op de telefoon zetten
+
+Open de Netlify-URL in Safari (iOS) of Chrome (Android) en kies "Zet op
+beginscherm". Je krijgt dan een echte app zonder browserbalk, met eigen icoon,
+die dankzij `sw.js` ook offline werkt. Bij een nieuwe versie: verhoog `CACHE`
+in `sw.js`, anders blijft de oude versie in de cache staan.
 
 ## Prijzen
 
