@@ -8,7 +8,5 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Geen SPA-catch-all: de app laadt schemaData.js en winkelData.js als
+# echte bestanden, die moeten gewoon geserveerd worden.
