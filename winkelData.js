@@ -4,31 +4,31 @@ export const prijzen = {
   30.0,
   "Upfront",
   0,
-  "bulk bestellen bij Upfront"
+  "bulk bestellen bij Upfront · 1 kg per zak"
  ],
  "Upfront Eiwit Oats (droog)": [
   30.0,
   "Upfront",
   0,
-  "bulk bestellen bij Upfront"
+  "bulk bestellen bij Upfront · 1 kg per zak"
  ],
  "Upfront Rijstpudding vanille (droog)": [
   30.0,
   "Upfront",
   0,
-  "bulk bestellen bij Upfront"
+  "bulk bestellen bij Upfront · 1 kg per zak"
  ],
  "Upfront muesli": [
   15.0,
   "Upfront",
   0,
-  "bulk bestellen bij Upfront"
+  "bulk bestellen bij Upfront · 1 kg per zak"
  ],
  "whey isolaat": [
   30.0,
   "Upfront",
   0,
-  "bulk bestellen bij Upfront"
+  "bulk bestellen bij Upfront · 1 kg per zak"
  ],
  "kipfilet": [
   11.0,
@@ -307,10 +307,10 @@ export const prijzen = {
   "Albert Heijn"
  ],
  "honing": [
-  12.0,
+  10.8,
   "Overig",
   1,
-  "Ekoplaza"
+  "Ekoplaza · 0.9 kg per pot"
  ],
  "kokosmelk (blik, vol)": [
   4.0,
@@ -328,7 +328,7 @@ export const prijzen = {
   10.0,
   "Overig",
   0,
-  "Albert Heijn, per liter"
+  "Albert Heijn, per liter · 1 liter per fles"
  ],
  "Red Bull Peach": [
   1.6,
@@ -451,64 +451,64 @@ export const prijzen = {
   "Albert Heijn"
  ],
  "basmatirijst": [
-  2.5,
+  12.5,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 5 kg per zak"
  ],
  "witte rijst": [
-  2.0,
+  10.0,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 5 kg per zak"
  ],
  "zilvervliesrijst": [
-  3.0,
+  7.5,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 2.5 kg per zak"
  ],
  "pasta": [
   1.8,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 1 kg per pak"
  ],
  "tagliatelle": [
-  3.0,
+  1.5,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 0.5 kg per pak"
  ],
  "noedels": [
-  4.0,
+  2.0,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 0.5 kg per pak"
  ],
  "couscous": [
   3.0,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 1 kg per pak"
  ],
  "quinoa": [
   6.0,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 1 kg per pak"
  ],
  "parelgort": [
-  2.5,
+  1.25,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 0.5 kg per pak"
  ],
  "linzen": [
   3.0,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 1 kg per pak"
  ],
  "kidneybonen (blik)": [
   2.2,
@@ -544,67 +544,67 @@ export const prijzen = {
   16.0,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 1 kg per zak"
  ],
  "walnoten": [
   16.0,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 1 kg per zak"
  ],
  "dadels (medjool)": [
-  14.0,
+  7.0,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 0.5 kg per doos"
  ],
  "abrikozen (gedroogd)": [
-  10.0,
+  5.0,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 0.5 kg per zak"
  ],
  "pindakaas (Calve)": [
-  6.0,
+  3.6,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 0.6 kg per pot"
  ],
  "rijstwafel (per 100 g)": [
-  8.0,
+  1.6,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 0.2 kg per pak"
  ],
  "mayonaise": [
-  4.0,
+  2.6,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 0.65 kg per pot"
  ],
  "pesto (groen)": [
-  12.0,
+  2.28,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 0.19 kg per pot"
  ],
  "currypasta/kruidenpasta": [
-  12.0,
+  2.4,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 0.2 kg per pot"
  ],
  "kruiden/specerijen mix": [
-  20.0,
+  2.0,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 0.1 kg per pot"
  ],
  "pannenkoekmix (droog)": [
   3.0,
   "Overig",
   0,
-  "Albert Heijn"
+  "Albert Heijn · 1 kg per pak"
  ],
  "aardappelpartjes (oven)": [
   2.5,

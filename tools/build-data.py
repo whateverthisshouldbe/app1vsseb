@@ -214,6 +214,61 @@ def hernoem_recepten(recept, hernoem):
             i["n"] = hernoem.get(i["n"], i["n"])
 
 
+def naar_basis(q, eh):
+    """Rekent een regel om naar kilo of liter; None als dat niet kan."""
+    e = eh.lower()
+    if e == "kg":
+        return q
+    if e == "g":
+        return q / 1000
+    if e in ("liter", "l"):
+        return q
+    return None
+
+
+def bulk_verdelen(weken, bulk):
+    """Zet bulkproducten alleen op het lijstje in de week dat ze opraken.
+
+    Een zak van een kilo gaat meerdere weken mee, dus die hoort niet elke week
+    op de lijst. Per product loopt de voorraad door over de negen weken: pas
+    als er te weinig in huis is komen er zoveel verpakkingen bij als nodig.
+    """
+    voorraad = {}
+    for w in weken:
+        houden = []
+        for i in w["items"]:
+            regel = bulk.get(i["n"])
+            nodig = naar_basis(i["q"], i["eh"]) if regel else None
+            if not regel or nodig is None:
+                houden.append(i)
+                continue
+
+            verpakking, eenheid, enkel, meervoud = regel
+            hebben = voorraad.get(i["n"], 0.0)
+            aantal = 0
+            if nodig > hebben + 1e-9:
+                aantal = int(-(-(nodig - hebben) // verpakking))  # naar boven af
+                hebben += aantal * verpakking
+            voorraad[i["n"]] = hebben - nodig
+
+            if aantal:
+                i["q"] = aantal
+                i["eh"] = enkel if aantal == 1 else meervoud
+                houden.append(i)
+        w["items"] = houden
+
+
+def bulk_prijzen(prijzen, bulk):
+    """Bij bulk rekent de app per verpakking, dus de prijs mee omrekenen."""
+    for naam, (verpakking, eenheid, enkel, _) in bulk.items():
+        if naam not in prijzen:
+            continue
+        prijs, groep, bio, winkel = prijzen[naam]
+        maat = ("%g kg" if eenheid == "kg" else "%g liter") % verpakking
+        prijzen[naam] = [round(prijs * verpakking, 2), groep, bio,
+                         "%s · %s per %s" % (winkel, maat, enkel)]
+
+
 def js(naam, data):
     return "export const %s = %s;\n" % (naam, json.dumps(data, ensure_ascii=False, indent=1))
 
@@ -236,6 +291,9 @@ def main():
     hernoem = winkels["hernoem"]
     hernoem_items(weken, hernoem)
     hernoem_recepten(recept, hernoem)
+
+    bulk_verdelen(weken, winkels["bulk"])
+    bulk_prijzen(winkels["prijzen"], winkels["bulk"])
 
     cats = {hernoem.get(k, k): v for k, v in winkels["categorieen"].items()}
     for w in weken:

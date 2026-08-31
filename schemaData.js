@@ -4311,22 +4311,22 @@ export const weken = [
    },
    {
     "n": "Upfront Baked Oats banaan (droog)",
-    "q": 300.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "droog product",
     "cat": "Sport & supplementen"
    },
    {
     "n": "Upfront Eiwit Oats (droog)",
-    "q": 200.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "droog product",
     "cat": "Sport & supplementen"
    },
    {
     "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 370.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "droog product",
     "cat": "Sport & supplementen"
    },
@@ -4346,8 +4346,8 @@ export const weken = [
    },
    {
     "n": "amandelen",
-    "q": 40.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -4367,8 +4367,8 @@ export const weken = [
    },
    {
     "n": "basmatirijst",
-    "q": 154.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast"
    },
@@ -4409,22 +4409,22 @@ export const weken = [
    },
    {
     "n": "couscous",
-    "q": 176.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast"
    },
    {
     "n": "currypasta/kruidenpasta",
-    "q": 25.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast"
    },
    {
     "n": "dadels (medjool)",
-    "q": 40.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "doos",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -4472,8 +4472,8 @@ export const weken = [
    },
    {
     "n": "honing",
-    "q": 345.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -4514,8 +4514,8 @@ export const weken = [
    },
    {
     "n": "kruiden/specerijen mix",
-    "q": 3.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -4535,22 +4535,22 @@ export const weken = [
    },
    {
     "n": "mayonaise",
-    "q": 25.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast"
    },
    {
     "n": "Upfront muesli",
-    "q": 180.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "",
     "cat": "Voorraadkast"
    },
    {
     "n": "olijfolie",
-    "q": 126.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "fles",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -4577,29 +4577,29 @@ export const weken = [
    },
    {
     "n": "pasta",
-    "q": 176.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast"
    },
    {
     "n": "pindakaas (Calve)",
-    "q": 140.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast"
    },
    {
     "n": "quinoa",
-    "q": 140.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast"
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 220.0,
-    "eh": "g",
+    "q": 2,
+    "eh": "pakken",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -4689,22 +4689,22 @@ export const weken = [
    },
    {
     "n": "walnoten",
-    "q": 15.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "",
     "cat": "Voorraadkast"
    },
    {
     "n": "whey isolaat",
-    "q": 60.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "droog product",
     "cat": "Sport & supplementen"
    },
    {
     "n": "witte rijst",
-    "q": 766.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast"
    },
@@ -4743,27 +4743,6 @@ export const weken = [
     "cat": "Sport & supplementen"
    },
    {
-    "n": "Upfront Baked Oats banaan (droog)",
-    "q": 200.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Eiwit Oats (droog)",
-    "q": 300.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 295.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
     "n": "aardappelpartjes (oven)",
     "q": 437.0,
     "eh": "g",
@@ -4778,13 +4757,6 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "amandelen",
-    "q": 40.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "banaan",
     "q": 2.2,
     "eh": "kg",
@@ -4797,27 +4769,6 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "couscous",
-    "q": 140.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "currypasta/kruidenpasta",
-    "q": 25.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "dadels (medjool)",
-    "q": 40.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "feta",
@@ -4846,13 +4797,6 @@ export const weken = [
     "eh": "liter",
     "opm": "",
     "cat": "Zuivel & eieren"
-   },
-   {
-    "n": "honing",
-    "q": 345.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "huttenkase",
@@ -4904,13 +4848,6 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "mayonaise",
-    "q": 12.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "meloen (cantaloupe)",
     "q": 250.0,
     "eh": "g",
@@ -4925,13 +4862,6 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "Upfront muesli",
-    "q": 260.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "naanbrood",
     "q": 160.0,
     "eh": "g",
@@ -4940,16 +4870,9 @@ export const weken = [
    },
    {
     "n": "noedels",
-    "q": 168.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "olijfolie",
-    "q": 78.0,
-    "eh": "g",
-    "opm": "",
     "cat": "Voorraadkast"
    },
    {
@@ -4967,23 +4890,9 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "pasta",
-    "q": 269.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "pesto (groen)",
-    "q": 25.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "pindakaas (Calve)",
-    "q": 155.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -5003,8 +4912,8 @@ export const weken = [
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 220.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -5093,32 +5002,11 @@ export const weken = [
     "cat": "Brood"
    },
    {
-    "n": "walnoten",
-    "q": 30.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "whey isolaat",
-    "q": 60.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
     "n": "wit brood",
     "q": 110.0,
     "eh": "g",
     "opm": "",
     "cat": "Brood"
-   },
-   {
-    "n": "witte rijst",
-    "q": 418.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
    },
    {
     "n": "wortel",
@@ -5162,23 +5050,9 @@ export const weken = [
     "cat": "Sport & supplementen"
    },
    {
-    "n": "Upfront Baked Oats banaan (droog)",
-    "q": 200.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Eiwit Oats (droog)",
-    "q": 200.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
     "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 480.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "droog product",
     "cat": "Sport & supplementen"
    },
@@ -5188,13 +5062,6 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "amandelen",
-    "q": 60.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "avocado",
@@ -5237,13 +5104,6 @@ export const weken = [
     "eh": "g",
     "opm": "rauw inkoopgewicht",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "dadels (medjool)",
-    "q": 40.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "edamame",
@@ -5296,8 +5156,8 @@ export const weken = [
    },
    {
     "n": "honing",
-    "q": 315.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -5351,34 +5211,6 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "mayonaise",
-    "q": 15.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "Upfront muesli",
-    "q": 210.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "noedels",
-    "q": 168.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "olijfolie",
-    "q": 162.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "paprika rood",
     "q": 132.0,
     "eh": "g",
@@ -5387,8 +5219,8 @@ export const weken = [
    },
    {
     "n": "parelgort",
-    "q": 248.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast"
    },
@@ -5400,20 +5232,6 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "pasta",
-    "q": 311.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "pindakaas (Calve)",
-    "q": 195.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "pitabrood",
     "q": 150.0,
     "eh": "g",
@@ -5421,16 +5239,9 @@ export const weken = [
     "cat": "Brood"
    },
    {
-    "n": "quinoa",
-    "q": 122.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "rijstwafel (per 100 g)",
-    "q": 220.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -5471,8 +5282,8 @@ export const weken = [
    },
    {
     "n": "tagliatelle",
-    "q": 168.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast"
    },
@@ -5533,27 +5344,6 @@ export const weken = [
     "cat": "Diepvries"
    },
    {
-    "n": "walnoten",
-    "q": 30.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "whey isolaat",
-    "q": 30.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "witte rijst",
-    "q": 887.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "wortel",
     "q": 946.0,
     "eh": "g",
@@ -5595,27 +5385,6 @@ export const weken = [
     "cat": "Sport & supplementen"
    },
    {
-    "n": "Upfront Baked Oats banaan (droog)",
-    "q": 300.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Eiwit Oats (droog)",
-    "q": 200.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 370.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
     "n": "aardappelpuree (m. melk)",
     "q": 500.0,
     "eh": "g",
@@ -5628,13 +5397,6 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "amandelen",
-    "q": 65.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "appel",
@@ -5684,20 +5446,6 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "currypasta/kruidenpasta",
-    "q": 20.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "dadels (medjool)",
-    "q": 40.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "doperwten",
@@ -5777,13 +5525,6 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "honing",
-    "q": 345.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "kipfilet",
     "q": 226.0,
     "eh": "g",
@@ -5806,8 +5547,8 @@ export const weken = [
    },
    {
     "n": "linzen",
-    "q": 112.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "rauw inkoopgewicht",
     "cat": "Voorraadkast"
    },
@@ -5817,20 +5558,6 @@ export const weken = [
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren"
-   },
-   {
-    "n": "Upfront muesli",
-    "q": 170.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "olijfolie",
-    "q": 89.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "paprika rood",
@@ -5854,16 +5581,9 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "pasta",
-    "q": 139.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "pindakaas (Calve)",
-    "q": 170.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -5875,16 +5595,9 @@ export const weken = [
     "cat": "Vlees & vis"
    },
    {
-    "n": "quinoa",
-    "q": 262.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "rijstwafel (per 100 g)",
-    "q": 220.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -5973,27 +5686,6 @@ export const weken = [
     "cat": "Brood"
    },
    {
-    "n": "walnoten",
-    "q": 15.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "whey isolaat",
-    "q": 60.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "witte rijst",
-    "q": 340.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "wortel",
     "q": 682.0,
     "eh": "g",
@@ -6022,22 +5714,15 @@ export const weken = [
    },
    {
     "n": "Upfront Baked Oats banaan (droog)",
-    "q": 200.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "droog product",
     "cat": "Sport & supplementen"
    },
    {
     "n": "Upfront Eiwit Oats (droog)",
-    "q": 300.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 295.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "droog product",
     "cat": "Sport & supplementen"
    },
@@ -6050,15 +5735,8 @@ export const weken = [
    },
    {
     "n": "abrikozen (gedroogd)",
-    "q": 50.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "amandelen",
-    "q": 40.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -6089,20 +5767,6 @@ export const weken = [
     "eh": "g",
     "opm": "rauw inkoopgewicht",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "couscous",
-    "q": 176.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "dadels (medjool)",
-    "q": 40.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "eieren",
@@ -6161,13 +5825,6 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "honing",
-    "q": 355.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "huttenkase",
     "q": 110.0,
     "eh": "g",
@@ -6203,13 +5860,6 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "kruiden/specerijen mix",
-    "q": 4.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "Skyr (Arla, naturel)",
     "q": 2.0,
     "eh": "kg",
@@ -6225,22 +5875,15 @@ export const weken = [
    },
    {
     "n": "Upfront muesli",
-    "q": 260.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "olijfolie",
-    "q": 162.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "",
     "cat": "Voorraadkast"
    },
    {
     "n": "pannenkoekmix (droog)",
-    "q": 150.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "droog product",
     "cat": "Voorraadkast"
    },
@@ -6252,13 +5895,6 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "pindakaas (Calve)",
-    "q": 190.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "pitabrood",
     "q": 180.0,
     "eh": "g",
@@ -6267,8 +5903,8 @@ export const weken = [
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 260.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -6350,32 +5986,11 @@ export const weken = [
     "cat": "Brood"
    },
    {
-    "n": "walnoten",
-    "q": 15.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "whey isolaat",
-    "q": 60.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
     "n": "wit brood",
     "q": 110.0,
     "eh": "g",
     "opm": "",
     "cat": "Brood"
-   },
-   {
-    "n": "witte rijst",
-    "q": 887.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
    },
    {
     "n": "wortel",
@@ -6400,8 +6015,8 @@ export const weken = [
    },
    {
     "n": "zilvervliesrijst",
-    "q": 172.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast"
    },
@@ -6433,23 +6048,9 @@ export const weken = [
     "cat": "Sport & supplementen"
    },
    {
-    "n": "Upfront Baked Oats banaan (droog)",
-    "q": 200.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Eiwit Oats (droog)",
-    "q": 200.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
     "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 480.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "droog product",
     "cat": "Sport & supplementen"
    },
@@ -6473,13 +6074,6 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "amandelen",
-    "q": 60.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "avocado",
@@ -6515,20 +6109,6 @@ export const weken = [
     "eh": "g",
     "opm": "rauw inkoopgewicht",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "couscous",
-    "q": 176.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "dadels (medjool)",
-    "q": 80.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "doperwten",
@@ -6567,8 +6147,8 @@ export const weken = [
    },
    {
     "n": "honing",
-    "q": 300.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -6615,13 +6195,6 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "mayonaise",
-    "q": 25.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "meloen (cantaloupe)",
     "q": 250.0,
     "eh": "g",
@@ -6636,24 +6209,10 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "Upfront muesli",
-    "q": 260.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "noedels",
-    "q": 176.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "olijfolie",
-    "q": 105.0,
-    "eh": "g",
-    "opm": "",
     "cat": "Voorraadkast"
    },
    {
@@ -6665,23 +6224,9 @@ export const weken = [
    },
    {
     "n": "pasta",
-    "q": 311.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "pesto (groen)",
-    "q": 60.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "pindakaas (Calve)",
-    "q": 175.0,
-    "eh": "g",
-    "opm": "",
     "cat": "Voorraadkast"
    },
    {
@@ -6693,8 +6238,8 @@ export const weken = [
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 220.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -6755,13 +6300,6 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "tagliatelle",
-    "q": 176.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "tomaat (vers)",
     "q": 480.0,
     "eh": "g",
@@ -6788,27 +6326,6 @@ export const weken = [
     "eh": "kg",
     "opm": "",
     "cat": "Brood"
-   },
-   {
-    "n": "walnoten",
-    "q": 30.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "whey isolaat",
-    "q": 30.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "witte rijst",
-    "q": 313.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
    },
    {
     "n": "wortel",
@@ -6838,27 +6355,6 @@ export const weken = [
     "cat": "Sport & supplementen"
    },
    {
-    "n": "Upfront Baked Oats banaan (droog)",
-    "q": 300.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Eiwit Oats (droog)",
-    "q": 200.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 370.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
     "n": "aardappel",
     "q": 583.0,
     "eh": "g",
@@ -6873,13 +6369,6 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "amandelen",
-    "q": 40.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "avocado",
     "q": 50.0,
     "eh": "g",
@@ -6892,13 +6381,6 @@ export const weken = [
     "eh": "kg",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "basmatirijst",
-    "q": 154.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
    },
    {
     "n": "blauwe bessen",
@@ -6920,27 +6402,6 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "couscous",
-    "q": 140.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "currypasta/kruidenpasta",
-    "q": 25.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "dadels (medjool)",
-    "q": 40.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "doperwten",
@@ -6976,13 +6437,6 @@ export const weken = [
     "eh": "liter",
     "opm": "",
     "cat": "Zuivel & eieren"
-   },
-   {
-    "n": "honing",
-    "q": 340.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "kidneybonen (blik)",
@@ -7034,20 +6488,6 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "Upfront muesli",
-    "q": 130.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "olijfolie",
-    "q": 168.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "paprika rood",
     "q": 407.0,
     "eh": "g",
@@ -7056,8 +6496,8 @@ export const weken = [
    },
    {
     "n": "parelgort",
-    "q": 257.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast"
    },
@@ -7076,16 +6516,9 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "pasta",
-    "q": 315.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "pindakaas (Calve)",
-    "q": 210.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -7098,8 +6531,8 @@ export const weken = [
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 220.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pak",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -7167,27 +6600,6 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "walnoten",
-    "q": 15.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "whey isolaat",
-    "q": 60.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "witte rijst",
-    "q": 969.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "wortel",
     "q": 1.6,
     "eh": "kg",
@@ -7229,27 +6641,6 @@ export const weken = [
     "cat": "Sport & supplementen"
    },
    {
-    "n": "Upfront Baked Oats banaan (droog)",
-    "q": 200.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Eiwit Oats (droog)",
-    "q": 300.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 295.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
     "n": "aardappel",
     "q": 484.0,
     "eh": "g",
@@ -7269,13 +6660,6 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "amandelen",
-    "q": 65.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "appel",
@@ -7318,27 +6702,6 @@ export const weken = [
     "eh": "g",
     "opm": "rauw inkoopgewicht",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "couscous",
-    "q": 176.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "currypasta/kruidenpasta",
-    "q": 45.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "dadels (medjool)",
-    "q": 40.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "eieren",
@@ -7390,13 +6753,6 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "honing",
-    "q": 340.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "kabeljauw/witvis",
     "q": 188.0,
     "eh": "g",
@@ -7432,13 +6788,6 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "linzen",
-    "q": 112.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "Skyr (Arla, naturel)",
     "q": 2.02,
     "eh": "kg",
@@ -7453,16 +6802,9 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "Upfront muesli",
-    "q": 250.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "olijfolie",
-    "q": 129.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "fles",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -7488,20 +6830,6 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "pasta",
-    "q": 176.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "pindakaas (Calve)",
-    "q": 170.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "prosciutto/rauwe ham",
     "q": 55.0,
     "eh": "g",
@@ -7509,16 +6837,9 @@ export const weken = [
     "cat": "Vlees & vis"
    },
    {
-    "n": "quinoa",
-    "q": 238.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "rijstwafel (per 100 g)",
-    "q": 220.0,
-    "eh": "g",
+    "q": 2,
+    "eh": "pakken",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -7607,23 +6928,9 @@ export const weken = [
     "cat": "Brood"
    },
    {
-    "n": "walnoten",
-    "q": 15.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "whey isolaat",
-    "q": 60.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
     "n": "witte rijst",
-    "q": 490.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast"
    },
@@ -7662,23 +6969,9 @@ export const weken = [
     "cat": "Sport & supplementen"
    },
    {
-    "n": "Upfront Baked Oats banaan (droog)",
-    "q": 100.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "Upfront Eiwit Oats (droog)",
-    "q": 100.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
     "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 295.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "zak",
     "opm": "droog product",
     "cat": "Sport & supplementen"
    },
@@ -7688,13 +6981,6 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "amandelen",
-    "q": 40.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "asperges",
@@ -7718,13 +7004,6 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "basmatirijst",
-    "q": 154.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "biefstuk",
     "q": 169.0,
     "eh": "g",
@@ -7744,13 +7023,6 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "dadels (medjool)",
-    "q": 40.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
    },
    {
     "n": "eieren",
@@ -7789,8 +7061,8 @@ export const weken = [
    },
    {
     "n": "honing",
-    "q": 190.0,
-    "eh": "g",
+    "q": 1,
+    "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast"
    },
@@ -7823,13 +7095,6 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "kruiden/specerijen mix",
-    "q": 5.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "Skyr (Arla, naturel)",
     "q": 990.0,
     "eh": "g",
@@ -7844,34 +7109,6 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "Upfront muesli",
-    "q": 80.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "noedels",
-    "q": 176.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "olijfolie",
-    "q": 94.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "parelgort",
-    "q": 139.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
     "n": "parmezaan",
     "q": 20.0,
     "eh": "g",
@@ -7881,34 +7118,6 @@ export const weken = [
    {
     "n": "passata/tomatenpuree",
     "q": 120.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "pasta",
-    "q": 139.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "pindakaas (Calve)",
-    "q": 130.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "quinoa",
-    "q": 147.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "rijstwafel (per 100 g)",
-    "q": 148.0,
     "eh": "g",
     "opm": "",
     "cat": "Voorraadkast"
@@ -7961,27 +7170,6 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Brood"
-   },
-   {
-    "n": "walnoten",
-    "q": 15.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "whey isolaat",
-    "q": 30.0,
-    "eh": "g",
-    "opm": "droog product",
-    "cat": "Sport & supplementen"
-   },
-   {
-    "n": "witte rijst",
-    "q": 308.0,
-    "eh": "g",
-    "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
    },
    {
     "n": "wortel",

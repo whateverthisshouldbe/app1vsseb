@@ -1,5 +1,5 @@
 {
-  "_uitleg": "prijzen[naam] = [prijs per kg/liter/stuk, groep in het lijstje, bio (0|1), winkel]. De prijzen zijn SCHATTINGEN: het Excel-bestand bevat er geen. Pas ze hier aan.",
+  "_uitleg": "prijzen[naam] = [prijs per kg/liter/stuk, groep in het lijstje, bio (0|1), winkel]. De prijzen zijn SCHATTINGEN: het Excel-bestand bevat er geen. Pas ze hier aan. bulk[naam] = [verpakking, kg of liter, enkelvoud, meervoud]: die producten komen alleen op het lijstje in de week dat de voorraad opraakt.",
   "hernoem": {
     "rundergehakt 15%": "rundergehakt",
     "rundergehakt 5%": "rundergehakt",
@@ -782,6 +782,176 @@
       "Overig",
       0,
       "Albert Heijn"
+    ]
+  },
+  "bulk": {
+    "Upfront Baked Oats banaan (droog)": [
+      1,
+      "kg",
+      "zak",
+      "zakken"
+    ],
+    "Upfront Eiwit Oats (droog)": [
+      1,
+      "kg",
+      "zak",
+      "zakken"
+    ],
+    "Upfront Rijstpudding vanille (droog)": [
+      1,
+      "kg",
+      "zak",
+      "zakken"
+    ],
+    "Upfront muesli": [
+      1,
+      "kg",
+      "zak",
+      "zakken"
+    ],
+    "whey isolaat": [
+      1,
+      "kg",
+      "zak",
+      "zakken"
+    ],
+    "olijfolie": [
+      1,
+      "liter",
+      "fles",
+      "flessen"
+    ],
+    "honing": [
+      0.9,
+      "kg",
+      "pot",
+      "potten"
+    ],
+    "pindakaas (Calve)": [
+      0.6,
+      "kg",
+      "pot",
+      "potten"
+    ],
+    "basmatirijst": [
+      5,
+      "kg",
+      "zak",
+      "zakken"
+    ],
+    "witte rijst": [
+      5,
+      "kg",
+      "zak",
+      "zakken"
+    ],
+    "zilvervliesrijst": [
+      2.5,
+      "kg",
+      "zak",
+      "zakken"
+    ],
+    "pasta": [
+      1,
+      "kg",
+      "pak",
+      "pakken"
+    ],
+    "tagliatelle": [
+      0.5,
+      "kg",
+      "pak",
+      "pakken"
+    ],
+    "noedels": [
+      0.5,
+      "kg",
+      "pak",
+      "pakken"
+    ],
+    "couscous": [
+      1,
+      "kg",
+      "pak",
+      "pakken"
+    ],
+    "quinoa": [
+      1,
+      "kg",
+      "pak",
+      "pakken"
+    ],
+    "parelgort": [
+      0.5,
+      "kg",
+      "pak",
+      "pakken"
+    ],
+    "linzen": [
+      1,
+      "kg",
+      "pak",
+      "pakken"
+    ],
+    "amandelen": [
+      1,
+      "kg",
+      "zak",
+      "zakken"
+    ],
+    "walnoten": [
+      1,
+      "kg",
+      "zak",
+      "zakken"
+    ],
+    "dadels (medjool)": [
+      0.5,
+      "kg",
+      "doos",
+      "dozen"
+    ],
+    "abrikozen (gedroogd)": [
+      0.5,
+      "kg",
+      "zak",
+      "zakken"
+    ],
+    "rijstwafel (per 100 g)": [
+      0.2,
+      "kg",
+      "pak",
+      "pakken"
+    ],
+    "mayonaise": [
+      0.65,
+      "kg",
+      "pot",
+      "potten"
+    ],
+    "pesto (groen)": [
+      0.19,
+      "kg",
+      "pot",
+      "potten"
+    ],
+    "currypasta/kruidenpasta": [
+      0.2,
+      "kg",
+      "pot",
+      "potten"
+    ],
+    "kruiden/specerijen mix": [
+      0.1,
+      "kg",
+      "pot",
+      "potten"
+    ],
+    "pannenkoekmix (droog)": [
+      1,
+      "kg",
+      "pak",
+      "pakken"
     ]
   }
 }

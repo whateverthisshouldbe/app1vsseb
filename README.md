@@ -69,6 +69,12 @@ zijn gebaseerd op gangbare Nederlandse winkelprijzen en niet gecontroleerd.
 Pas ze aan in dit bestand en draai `build-data.py` opnieuw. Een product dat
 hier ontbreekt telt voor 0 euro mee.
 
+`bulk` bepaalt welke producten per verpakking gaan: `[verpakking, kg of
+liter, enkelvoud, meervoud]`. Die komen alleen op het lijstje in de week dat
+de voorraad opraakt — een zak rijst van 5 kg staat dus niet elke week op de
+lijst. De voorraad loopt door over alle negen weken heen. Blik staat er
+bewust niet bij, want een geopend blik gaat niet weken mee.
+
 `hernoem` in hetzelfde bestand vervangt namen uit het Excel-bestand (en telt
 regels op die daardoor samenvallen), bijvoorbeeld rundergehakt 5% en 15% naar
 gewoon rundergehakt.
