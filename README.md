@@ -15,6 +15,9 @@ Standalone HTML-app met het 60-daagse voedingsschema. Geen build-stap nodig.
 | `tools/app-shell.py` | haalt de prototype-chrome weg, maakt het schermvullend |
 | `tools/ui-tweaks.py` | aanpassingen aan de schermen zelf |
 | `tools/build-icons.py` | genereert de app-iconen |
+| `tools/bereiding.json` | de bereidingswijze per recept |
+| `tools/build-fotoprompts.py` | schrijft `fotos/PROMPTS.md` |
+| `fotos/` | foto's per receptcode, zie `fotos/LEESMIJ.md` |
 | `manifest.webmanifest`, `sw.js`, `icon-*.png` | installeerbaar en offline bruikbaar |
 | `tools/Seb60dagenvoedingsschema.xlsx` | het bronbestand |
 
@@ -44,6 +47,16 @@ de patch maakt er een absolute URL van via `document.baseURI`.
 `app-shell.py` haalt de kop met uitleg, de iPhone-mockup en de voettekst weg,
 laat de app `100dvh` vullen, en vervangt de vaste marges die de nep-statusbalk
 vrijhielden door `env(safe-area-inset-*)`.
+
+## Bereiding en foto's
+
+De bereidingswijze staat in `tools/bereiding.json`, met de receptcode als
+sleutel (`D14`, `L4`, `O1`). Die is er niet uit het Excel-bestand gekomen —
+dat bevat alleen ingredienten en grammen — maar geschreven op basis van die
+ingredienten. Pas hem gerust aan; `build-data.py` waarschuwt als een recept
+geen bereiding heeft of andersom.
+
+Foto's gaan per receptcode in `fotos/`, zie `fotos/LEESMIJ.md`.
 
 ## Op de telefoon zetten
 

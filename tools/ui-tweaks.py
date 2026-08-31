@@ -118,6 +118,46 @@ SUPPS_VINK_NIEUW = """      merk: st.supp[s.ix] ? '\u2713' : '', rand: st.supp[s
     }));"""
 
 
+# ── bereiding en foto's in het maaltijdscherm ────────────────────────────
+KNOP_ANKER = """
+          <div style="position:sticky;bottom:0;padding:14px 22px 34px;"""
+
+BEREIDING = """
+            <div style="display:flex;align-items:baseline;justify-content:space-between;margin:26px 0 12px">
+              <h3 style="font-family:Caprasimo,system-ui;font-size:18px;margin:0;color:#f9f4ed">Bereiding</h3>
+              <span style="font-size:12px;color:#a19786">{{ stapTeller }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ mealStappen }}" as="s" hint-placeholder-count="5">
+                <div style="display:flex;gap:12px;background:#3d3830;border-radius:20px;padding:13px 15px">
+                  <span style="width:24px;height:24px;border-radius:999px;background:#c67139;color:#f9f4ed;font-size:12px;font-weight:700;flex:none;display:flex;align-items:center;justify-content:center">{{ s.nr }}</span>
+                  <span style="flex:1;font-size:13.5px;line-height:1.5;color:#e1d6bf">{{ s.tekst }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+"""
+
+# image-slot toont src als er een foto klaarstaat, anders de placeholder
+FOTO_MEAL_OUD = """<image-slot id="{{ mealSlot }}" shape="rect" placeholder="Foto van dit gerecht"></image-slot>"""
+FOTO_MEAL_NIEUW = """<image-slot id="{{ mealSlot }}" shape="rect" src="{{ mealFoto }}" placeholder="Foto van dit gerecht"></image-slot>"""
+FOTO_KAART_OUD = """<image-slot id="{{ m.slot }}" shape="rect" placeholder="{{ m.foto }}"></image-slot>"""
+FOTO_KAART_NIEUW = """<image-slot id="{{ m.slot }}" shape="rect" src="{{ m.fotoSrc }}" placeholder="{{ m.foto }}"></image-slot>"""
+
+KAART_JS_OUD = """      slot: 'ml-' + this.slug(b.wat), foto: 'Foto ' + b.blok.toLowerCase(),"""
+KAART_JS_NIEUW = """      slot: 'ml-' + this.slug(b.wat), foto: 'Foto ' + b.blok.toLowerCase(),
+      fotoSrc: (rid(b) && d.recept[rid(b)].foto) || '',"""
+
+STAPPEN_JS_OUD = """    const mealAangevinkt = meal ? !!st.vink[dagNr + meal.blok] : false;"""
+STAPPEN_JS_NIEUW = """    const mealStappen = (rec && rec.stappen ? rec.stappen : []).map((tekst, i) => ({ nr: i + 1, tekst }));
+    const mealAangevinkt = meal ? !!st.vink[dagNr + meal.blok] : false;"""
+
+UITVOER_OUD = """      mealIng, ingTeller: mealIng.filter(i => i.merk).length + ' / ' + mealIng.length,"""
+UITVOER_NIEUW = """      mealIng, ingTeller: mealIng.filter(i => i.merk).length + ' / ' + mealIng.length,
+      mealStappen, stapTeller: mealStappen.length + ' stappen',
+      mealFoto: (rec && rec.foto) || '',"""
+
+
 def vervang(t, oud, nieuw, wat):
     if oud not in t:
         sys.exit("niet gevonden: %s" % wat)
@@ -149,6 +189,17 @@ def bouw(t):
 
     # en op de dag erbij, direct na de maaltijden
     t = t.replace(LIJST_NIEUW, LIJST_NIEUW + "\n" + SUPP_OP_DAG, 1)
+
+    # bereiding onder de ingredienten, boven de afvinkknop
+    if KNOP_ANKER not in t:
+        sys.exit("afvinkknop niet gevonden")
+    t = t.replace("          </div>\n" + KNOP_ANKER, BEREIDING + KNOP_ANKER, 1)
+
+    t = vervang(t, FOTO_MEAL_OUD, FOTO_MEAL_NIEUW, "foto in het maaltijdscherm")
+    t = vervang(t, FOTO_KAART_OUD, FOTO_KAART_NIEUW, "foto op de kaart")
+    t = vervang(t, KAART_JS_OUD, KAART_JS_NIEUW, "kaartlogica")
+    t = vervang(t, STAPPEN_JS_OUD, STAPPEN_JS_NIEUW, "stappenlogica")
+    t = vervang(t, UITVOER_OUD, UITVOER_NIEUW, "uitvoer van het maaltijdscherm")
     return MERK + t
 
 

@@ -16,6 +16,8 @@ import openpyxl
 
 ROOT = Path(__file__).resolve().parent.parent
 WINKELS = ROOT / "tools" / "winkels.json"
+BEREIDING = ROOT / "tools" / "bereiding.json"
+FOTOS = ROOT / "fotos"
 
 
 def tekst(v):
@@ -50,7 +52,8 @@ def lees_recepten(ws, prefix_strip=True):
             }
         else:
             rec["ing"].append({
-                "n": ing, "q": getal(r[3]), "eh": "g",
+                # 'g' is wat het maaltijdscherm uitleest, 'q' de rest
+                "n": ing, "q": getal(r[3]), "g": getal(r[3]), "eh": "g",
                 "kcal": getal(r[4]), "e": getal(r[5]),
                 "v": getal(r[6]), "k": getal(r[7]),
             })
@@ -292,6 +295,15 @@ def main():
     hernoem_items(weken, hernoem)
     hernoem_recepten(recept, hernoem)
 
+    # bereidingswijze en, als er een foto klaarstaat, het pad ernaartoe
+    bereiding = json.loads(BEREIDING.read_text(encoding="utf-8"))
+    for k, r in recept.items():
+        r["stappen"] = bereiding.get(k, [])
+        foto = "fotos/%s.jpg" % k
+        r["foto"] = foto if (ROOT / foto).exists() else ""
+    zonder = sorted(k for k, r in recept.items() if not r["stappen"])
+    onbekend_recept = sorted(set(bereiding) - set(recept))
+
     bulk_verdelen(weken, winkels["bulk"])
     bulk_prijzen(winkels["prijzen"], winkels["bulk"])
 
@@ -318,6 +330,12 @@ def main():
           % (len(dagen), len(recept), len(weken), len(supplementen)))
     if onbekend:
         print("LET OP, geen prijs/winkel voor: " + ", ".join(onbekend))
+    if zonder:
+        print("LET OP, geen bereiding voor: " + ", ".join(zonder))
+    if onbekend_recept:
+        print("LET OP, bereiding voor onbekend recept: " + ", ".join(onbekend_recept))
+    print("met foto: %d van de %d"
+          % (sum(1 for r in recept.values() if r["foto"]), len(recept)))
 
 
 if __name__ == "__main__":

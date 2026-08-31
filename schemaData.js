@@ -7202,6 +7202,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 239.0,
     "e": 45.0,
@@ -7211,6 +7212,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 572.0,
     "e": 11.9,
@@ -7220,6 +7222,7 @@ export const recept = {
    {
     "n": "broccoli (gaar)",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 70.0,
     "e": 4.8,
@@ -7229,6 +7232,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 61.0,
     "e": 0.1,
@@ -7238,6 +7242,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -7247,6 +7252,7 @@ export const recept = {
    {
     "n": "knoflook",
     "q": 5.0,
+    "g": 5.0,
     "eh": "g",
     "kcal": 7.0,
     "e": 0.3,
@@ -7256,6 +7262,7 @@ export const recept = {
    {
     "n": "kruiden/specerijen mix",
     "q": 3.0,
+    "g": 3.0,
     "eh": "g",
     "kcal": 8.0,
     "e": 0.3,
@@ -7265,6 +7272,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -7277,7 +7285,15 @@ export const recept = {
    "e": 63.2,
    "v": 17.6,
    "k": 166.3
-  }
+  },
+  "stappen": [
+   "Zet de rijst op volgens de verpakking.",
+   "Snijd de kipfilet in repen en bak ze in de olijfolie op hoog vuur goudbruin, 5-6 min.",
+   "Voeg de knoflook en de kruiden toe, bak 30 sec mee, blus af met de honing en een scheut water tot een stroperige saus.",
+   "Kook of stoom de broccoli en wortel 5-6 min beetgaar.",
+   "Schep de rijst op, leg de kip erop en lepel de teriyakisaus eroverheen."
+  ],
+  "foto": ""
  },
  "D2": {
   "naam": "Pasta bolognese met gehaktballen",
@@ -7285,6 +7301,7 @@ export const recept = {
    {
     "n": "pasta (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 664.0,
     "e": 24.4,
@@ -7294,6 +7311,7 @@ export const recept = {
    {
     "n": "rundergehakt 5% (gaar)",
     "q": 85.0,
+    "g": 85.0,
     "eh": "g",
     "kcal": 153.0,
     "e": 22.1,
@@ -7303,6 +7321,7 @@ export const recept = {
    {
     "n": "gehaktbal (rund, gaar)",
     "q": 65.0,
+    "g": 65.0,
     "eh": "g",
     "kcal": 166.0,
     "e": 14.3,
@@ -7312,6 +7331,7 @@ export const recept = {
    {
     "n": "passata/tomatenpuree",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 123.0,
     "e": 6.5,
@@ -7321,6 +7341,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 28.0,
     "e": 0.6,
@@ -7330,6 +7351,7 @@ export const recept = {
    {
     "n": "parmezaan",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 78.0,
     "e": 7.2,
@@ -7339,6 +7361,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 0.0,
@@ -7348,6 +7371,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -7360,7 +7384,15 @@ export const recept = {
    "e": 75.9,
    "v": 37.1,
    "k": 173.4
-  }
+  },
+  "stappen": [
+   "Kook de pasta beetgaar.",
+   "Fruit de ui glazig in de olijfolie, voeg het gehakt toe en rul het los.",
+   "Voeg de passata en de wortel toe en laat 15 min zachtjes pruttelen.",
+   "Warm de gehaktballen mee in de saus.",
+   "Meng de pasta door de saus en werk af met de parmezaan."
+  ],
+  "foto": ""
  },
  "D3": {
   "naam": "Runderbiefstuk met zoete aardappelpuree en sperziebonen",
@@ -7368,6 +7400,7 @@ export const recept = {
    {
     "n": "biefstuk (gaar)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 286.0,
     "e": 41.9,
@@ -7377,6 +7410,7 @@ export const recept = {
    {
     "n": "zoete aardappel",
     "q": 500.0,
+    "g": 500.0,
     "eh": "g",
     "kcal": 500.0,
     "e": 10.0,
@@ -7386,6 +7420,7 @@ export const recept = {
    {
     "n": "sperziebonen (gaar)",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 63.0,
     "e": 3.4,
@@ -7395,6 +7430,7 @@ export const recept = {
    {
     "n": "roomboter",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 57.0,
     "e": 0.1,
@@ -7404,6 +7440,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 5.0,
+    "g": 5.0,
     "eh": "g",
     "kcal": 44.0,
     "e": 0.0,
@@ -7416,7 +7453,15 @@ export const recept = {
    "e": 55.4,
    "v": 32.3,
    "k": 114.2
-  }
+  },
+  "stappen": [
+   "Kook de zoete aardappel in 15-20 min gaar, giet af en stamp met de roomboter tot puree.",
+   "Haal de biefstuk 20 min voor het bakken uit de koelkast en dep hem droog.",
+   "Bak de biefstuk in de olijfolie 2-3 min per kant, laat hem daarna 5 min rusten onder folie.",
+   "Kook de sperziebonen 6-8 min beetgaar.",
+   "Snijd de biefstuk tegen de draad in en serveer met de puree en de bonen."
+  ],
+  "foto": ""
  },
  "D4": {
   "naam": "Kip tikka masala met basmatirijst",
@@ -7424,6 +7469,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 223.0,
     "e": 41.9,
@@ -7433,6 +7479,7 @@ export const recept = {
    {
     "n": "basmatirijst (gekookt)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 572.0,
     "e": 11.9,
@@ -7442,6 +7489,7 @@ export const recept = {
    {
     "n": "tomatenblokjes (blik)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 48.0,
     "e": 2.4,
@@ -7451,6 +7499,7 @@ export const recept = {
    {
     "n": "kokosmelk (blik, vol)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 98.0,
     "e": 1.0,
@@ -7460,6 +7509,7 @@ export const recept = {
    {
     "n": "currypasta/kruidenpasta",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 38.0,
     "e": 0.8,
@@ -7469,6 +7519,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 28.0,
     "e": 0.6,
@@ -7478,6 +7529,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -7490,7 +7542,15 @@ export const recept = {
    "e": 59.4,
    "v": 20.6,
    "k": 150.9
-  }
+  },
+  "stappen": [
+   "Zet de basmatirijst op.",
+   "Fruit de ui zacht, voeg de currypasta toe en bak 1 min tot hij geurt.",
+   "Voeg de kip in blokjes toe en bak rondom dicht.",
+   "Voeg de tomatenblokjes, kokosmelk en wortel toe en laat 15 min zachtjes koken tot de saus indikt.",
+   "Serveer met de rijst."
+  ],
+  "foto": ""
  },
  "D5": {
   "naam": "Kipfilet met quinoa en geroosterde paprika",
@@ -7498,6 +7558,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 239.0,
     "e": 45.0,
@@ -7507,6 +7568,7 @@ export const recept = {
    {
     "n": "quinoa (gekookt)",
     "q": 400.0,
+    "g": 400.0,
     "eh": "g",
     "kcal": 480.0,
     "e": 17.6,
@@ -7516,6 +7578,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 56.0,
     "e": 1.8,
@@ -7525,6 +7588,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 12.0,
+    "g": 12.0,
     "eh": "g",
     "kcal": 106.0,
     "e": 0.0,
@@ -7534,6 +7598,7 @@ export const recept = {
    {
     "n": "citroensap",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 2.0,
     "e": 0.0,
@@ -7546,7 +7611,15 @@ export const recept = {
    "e": 64.4,
    "v": 25.3,
    "k": 96.7
-  }
+  },
+  "stappen": [
+   "Kook de quinoa 12-15 min en laat hem daarna 5 min afgedekt staan.",
+   "Rooster de paprika in de oven op 220 graden, 20 min, of gril hem in een pan tot de schil zwart blikkert.",
+   "Bak de kipfilet in de helft van de olijfolie 6-7 min per kant, laat rusten en snijd in plakken.",
+   "Meng de quinoa met de paprika, de rest van de olijfolie en het citroensap.",
+   "Leg de kip erop."
+  ],
+  "foto": ""
  },
  "D6": {
   "naam": "Runderschnitzel met aardappelpuree en champignons",
@@ -7554,6 +7627,7 @@ export const recept = {
    {
     "n": "runderschnitzel (gaar)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 263.0,
     "e": 40.5,
@@ -7563,6 +7637,7 @@ export const recept = {
    {
     "n": "aardappelpuree (m. melk)",
     "q": 500.0,
+    "g": 500.0,
     "eh": "g",
     "kcal": 525.0,
     "e": 11.5,
@@ -7572,6 +7647,7 @@ export const recept = {
    {
     "n": "champignons (gebakken)",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 50.0,
     "e": 5.6,
@@ -7581,6 +7657,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 22.0,
     "e": 0.4,
@@ -7590,6 +7667,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 0.0,
@@ -7599,6 +7677,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -7611,7 +7690,14 @@ export const recept = {
    "e": 58.8,
    "v": 33.2,
    "k": 105.9
-  }
+  },
+  "stappen": [
+   "Maak de aardappelpuree warm of kook en stamp verse aardappels met melk.",
+   "Bak de champignons met de ui in de helft van de olijfolie tot al het vocht verdampt is.",
+   "Bak de schnitzel in de rest van de olie 3-4 min per kant.",
+   "Serveer met de puree, de champignons en de wortel."
+  ],
+  "foto": ""
  },
  "D7": {
   "naam": "Kipdrumsticks met couscous en gegrilde groenten",
@@ -7619,6 +7705,7 @@ export const recept = {
    {
     "n": "kipdrumstick (gaar, m. vel)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 324.0,
     "e": 36.0,
@@ -7628,6 +7715,7 @@ export const recept = {
    {
     "n": "couscous (bereid)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 493.0,
     "e": 16.7,
@@ -7637,6 +7725,7 @@ export const recept = {
    {
     "n": "gegrilde groentemix",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 90.0,
     "e": 3.0,
@@ -7646,6 +7735,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 0.0,
@@ -7658,7 +7748,15 @@ export const recept = {
    "e": 55.7,
    "v": 31.4,
    "k": 115.1
-  }
+  },
+  "stappen": [
+   "Verwarm de oven voor op 200 graden.",
+   "Wrijf de drumsticks in met de helft van de olijfolie en zout, en rooster ze 35-40 min tot het vel knapperig is.",
+   "Giet kokend water op de couscous (gelijk volume), dek af en laat 5 min wellen; roer los met een vork.",
+   "Rooster de groentemix de laatste 15 min mee in de oven.",
+   "Schep alles samen en druppel de rest van de olie erover."
+  ],
+  "foto": ""
  },
  "D8": {
   "naam": "Runder roerbak met noedels en groenten",
@@ -7666,6 +7764,7 @@ export const recept = {
    {
     "n": "runderreepjes roerbak (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 266.0,
     "e": 39.0,
@@ -7675,6 +7774,7 @@ export const recept = {
    {
     "n": "noedels (gekookt)",
     "q": 400.0,
+    "g": 400.0,
     "eh": "g",
     "kcal": 552.0,
     "e": 18.0,
@@ -7684,6 +7784,7 @@ export const recept = {
    {
     "n": "roerbakgroenten mix",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 80.0,
     "e": 4.0,
@@ -7693,6 +7794,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -7702,6 +7804,7 @@ export const recept = {
    {
     "n": "knoflook",
     "q": 5.0,
+    "g": 5.0,
     "eh": "g",
     "kcal": 7.0,
     "e": 0.3,
@@ -7714,7 +7817,14 @@ export const recept = {
    "e": 61.3,
    "v": 31.1,
    "k": 114.7
-  }
+  },
+  "stappen": [
+   "Kook de noedels volgens de verpakking en spoel ze koud.",
+   "Verhit een wok zo heet mogelijk en bak de runderreepjes 1-2 min in delen, zodat ze niet gaan stoven. Haal ze eruit.",
+   "Roerbak de groenten 3-4 min knapperig met de knoflook.",
+   "Doe de noedels en het vlees terug, meng kort door en breng op smaak."
+  ],
+  "foto": ""
  },
  "D9": {
   "naam": "Fajitas met bonen en guacamole",
@@ -7722,6 +7832,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 214.0,
     "e": 40.3,
@@ -7731,6 +7842,7 @@ export const recept = {
    {
     "n": "tortillawrap (tarwe)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 458.0,
     "e": 12.8,
@@ -7740,6 +7852,7 @@ export const recept = {
    {
     "n": "zwarte bonen (blik, uitgelekt)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 136.0,
     "e": 9.0,
@@ -7749,6 +7862,7 @@ export const recept = {
    {
     "n": "guacamole",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 116.0,
     "e": 1.4,
@@ -7758,6 +7872,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 37.0,
     "e": 1.2,
@@ -7767,6 +7882,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 22.0,
     "e": 0.4,
@@ -7776,6 +7892,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -7788,7 +7905,14 @@ export const recept = {
    "e": 65.9,
    "v": 28.6,
    "k": 121.2
-  }
+  },
+  "stappen": [
+   "Verwarm de wraps kort in een droge pan.",
+   "Bak de kip in repen gaar, voeg de paprika en ui toe en bak 4-5 min mee.",
+   "Warm de zwarte bonen op en breng op smaak.",
+   "Vul de wraps met de kip, de bonen en de guacamole, en serveer de wortel ernaast."
+  ],
+  "foto": ""
  },
  "D10": {
   "naam": "Kip curry met rijst en groenten",
@@ -7796,6 +7920,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 223.0,
     "e": 41.9,
@@ -7805,6 +7930,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 572.0,
     "e": 11.9,
@@ -7814,6 +7940,7 @@ export const recept = {
    {
     "n": "roerbakgroenten mix",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 80.0,
     "e": 4.0,
@@ -7823,6 +7950,7 @@ export const recept = {
    {
     "n": "kokosmelk (blik, vol)",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 118.0,
     "e": 1.2,
@@ -7832,6 +7960,7 @@ export const recept = {
    {
     "n": "currypasta/kruidenpasta",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 38.0,
     "e": 0.8,
@@ -7844,7 +7973,15 @@ export const recept = {
    "e": 59.8,
    "v": 21.8,
    "k": 142.6
-  }
+  },
+  "stappen": [
+   "Zet de rijst op.",
+   "Bak de currypasta 1 min in een droge pan tot hij geurt.",
+   "Voeg de kip toe, bak rondom dicht, en giet de kokosmelk erbij.",
+   "Voeg de roerbakgroenten toe en laat 8-10 min zachtjes koken.",
+   "Serveer met de rijst."
+  ],
+  "foto": ""
  },
  "D11": {
   "naam": "Hamburgers met aardappelpartjes",
@@ -7852,6 +7989,7 @@ export const recept = {
    {
     "n": "rundergehakt 15% (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 325.0,
     "e": 31.2,
@@ -7861,6 +7999,7 @@ export const recept = {
    {
     "n": "wit brood",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 292.0,
     "e": 9.9,
@@ -7870,6 +8009,7 @@ export const recept = {
    {
     "n": "aardappelpartjes (oven)",
     "q": 380.0,
+    "g": 380.0,
     "eh": "g",
     "kcal": 570.0,
     "e": 9.9,
@@ -7879,6 +8019,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 6.0,
     "e": 0.4,
@@ -7888,6 +8029,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 11.0,
     "e": 0.5,
@@ -7897,6 +8039,7 @@ export const recept = {
    {
     "n": "mayonaise",
     "q": 12.0,
+    "g": 12.0,
     "eh": "g",
     "kcal": 82.0,
     "e": 0.1,
@@ -7906,6 +8049,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -7918,7 +8062,14 @@ export const recept = {
    "e": 52.8,
    "v": 52.1,
    "k": 158.5
-  }
+  },
+  "stappen": [
+   "Verwarm de oven voor op 220 graden en bak de aardappelpartjes 25-30 min, halverwege omscheppen.",
+   "Kneed het gehakt met zout en peper en vorm er burgers van.",
+   "Bak de burgers 4-5 min per kant, druk ze niet plat.",
+   "Rooster het brood, en bouw op met sla, tomaat, burger en mayonaise."
+  ],
+  "foto": ""
  },
  "D12": {
   "naam": "Lasagne met salade",
@@ -7926,6 +8077,7 @@ export const recept = {
    {
     "n": "pasta (gekookt)",
     "q": 320.0,
+    "g": 320.0,
     "eh": "g",
     "kcal": 506.0,
     "e": 18.6,
@@ -7935,6 +8087,7 @@ export const recept = {
    {
     "n": "rundergehakt 5% (gaar)",
     "q": 115.0,
+    "g": 115.0,
     "eh": "g",
     "kcal": 207.0,
     "e": 29.9,
@@ -7944,6 +8097,7 @@ export const recept = {
    {
     "n": "passata/tomatenpuree",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 123.0,
     "e": 6.5,
@@ -7953,6 +8107,7 @@ export const recept = {
    {
     "n": "geraspte kaas 30+",
     "q": 45.0,
+    "g": 45.0,
     "eh": "g",
     "kcal": 148.0,
     "e": 12.6,
@@ -7962,6 +8117,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 3.4,
@@ -7971,6 +8127,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 9.0,
     "e": 0.6,
@@ -7980,6 +8137,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 10.0,
     "e": 0.5,
@@ -7989,6 +8147,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 0.0,
@@ -7998,6 +8157,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -8010,7 +8170,16 @@ export const recept = {
    "e": 72.9,
    "v": 33.1,
    "k": 144.4
-  }
+  },
+  "stappen": [
+   "Verwarm de oven voor op 180 graden.",
+   "Rul het gehakt, voeg de passata toe en laat 10 min pruttelen.",
+   "Maak een snelle witte saus van de melk, of gebruik een deel van de kaas met de melk.",
+   "Laag in een ovenschaal: saus, pastavellen of gekookte pasta, gehaktsaus, en herhaal.",
+   "Strooi de kaas erover en bak 30-35 min tot hij goudbruin is.",
+   "Maak intussen de salade van sla en komkommer met de olijfolie."
+  ],
+  "foto": ""
  },
  "D13": {
   "naam": "Spiesjes (rund of kip) met tzatziki en naan",
@@ -8018,6 +8187,7 @@ export const recept = {
    {
     "n": "runderreepjes roerbak (gaar)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 277.0,
     "e": 40.5,
@@ -8027,6 +8197,7 @@ export const recept = {
    {
     "n": "naanbrood",
     "q": 160.0,
+    "g": 160.0,
     "eh": "g",
     "kcal": 496.0,
     "e": 14.4,
@@ -8036,6 +8207,7 @@ export const recept = {
    {
     "n": "tzatziki",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 99.0,
     "e": 3.1,
@@ -8045,6 +8217,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 37.0,
     "e": 1.2,
@@ -8054,6 +8227,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 22.0,
     "e": 0.4,
@@ -8063,6 +8237,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -8075,7 +8250,14 @@ export const recept = {
    "e": 60.4,
    "v": 32.7,
    "k": 105.2
-  }
+  },
+  "stappen": [
+   "Week houten spiesen 10 min in water.",
+   "Rijg het vlees met de paprika en ui aan de spiesen.",
+   "Gril ze 8-10 min, af en toe draaien, tot het vlees rondom bruin is.",
+   "Warm het naanbrood kort op en serveer met de tzatziki."
+  ],
+  "foto": ""
  },
  "D14": {
   "naam": "Shoarma met pita's",
@@ -8083,6 +8265,7 @@ export const recept = {
    {
     "n": "shoarmavlees (gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 341.0,
     "e": 36.2,
@@ -8092,6 +8275,7 @@ export const recept = {
    {
     "n": "pitabrood",
     "q": 190.0,
+    "g": 190.0,
     "eh": "g",
     "kcal": 522.0,
     "e": 17.3,
@@ -8101,6 +8285,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 9.0,
     "e": 0.6,
@@ -8110,6 +8295,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 13.0,
     "e": 0.6,
@@ -8119,6 +8305,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 9.0,
     "e": 0.4,
@@ -8128,6 +8315,7 @@ export const recept = {
    {
     "n": "yoghurtdressing (light)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 48.0,
     "e": 1.5,
@@ -8137,6 +8325,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -8149,7 +8338,14 @@ export const recept = {
    "e": 57.4,
    "v": 26.8,
    "k": 124.5
-  }
+  },
+  "stappen": [
+   "Bak het shoarmavlees op hoog vuur 5-6 min tot de randjes krokant worden.",
+   "Warm de pita's kort op in de oven of broodrooster.",
+   "Snijd de sla, tomaat en komkommer.",
+   "Vul de pita's en lepel de yoghurtdressing erover."
+  ],
+  "foto": ""
  },
  "D15": {
   "naam": "Gehaktballen met rijst en tzatziki",
@@ -8157,6 +8353,7 @@ export const recept = {
    {
     "n": "gehaktbal (rund, gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 370.0,
     "e": 31.9,
@@ -8166,6 +8363,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 572.0,
     "e": 11.9,
@@ -8175,6 +8373,7 @@ export const recept = {
    {
     "n": "tzatziki",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 99.0,
     "e": 3.1,
@@ -8184,6 +8383,7 @@ export const recept = {
    {
     "n": "sperziebonen (gaar)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 52.0,
     "e": 2.9,
@@ -8193,6 +8393,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -8205,7 +8406,14 @@ export const recept = {
    "e": 50.6,
    "v": 34.3,
    "k": 153.5
-  }
+  },
+  "stappen": [
+   "Zet de rijst op.",
+   "Bak de gehaktballen rondom bruin en gaar ze in 10-12 min op laag vuur door.",
+   "Kook de sperziebonen en wortel beetgaar.",
+   "Serveer met de tzatziki erbij."
+  ],
+  "foto": ""
  },
  "D16": {
   "naam": "Tonijnsalade met parelgort",
@@ -8213,6 +8421,7 @@ export const recept = {
    {
     "n": "tonijn in blik (olijfolie)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 151.0,
     "e": 33.8,
@@ -8222,6 +8431,7 @@ export const recept = {
    {
     "n": "parelgort (gekookt)",
     "q": 400.0,
+    "g": 400.0,
     "eh": "g",
     "kcal": 492.0,
     "e": 9.2,
@@ -8231,6 +8441,7 @@ export const recept = {
    {
     "n": "mais (blik)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 69.0,
     "e": 2.6,
@@ -8240,6 +8451,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 15.0,
     "e": 0.7,
@@ -8249,6 +8461,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 18.0,
     "e": 0.9,
@@ -8258,6 +8471,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 133.0,
     "e": 0.0,
@@ -8267,6 +8481,7 @@ export const recept = {
    {
     "n": "citroensap",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 2.0,
     "e": 0.0,
@@ -8276,6 +8491,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -8288,7 +8504,14 @@ export const recept = {
    "e": 48.0,
    "v": 19.4,
    "k": 144.4
-  }
+  },
+  "stappen": [
+   "Kook de parelgort 25-30 min gaar en spoel hem koud.",
+   "Laat de tonijn uitlekken, maar vang de olijfolie op voor de dressing.",
+   "Snijd de komkommer en tomaat in blokjes.",
+   "Meng alles met de mais, de olijfolie en het citroensap."
+  ],
+  "foto": ""
  },
  "D17": {
   "naam": "Garnalenpasta met spinazie",
@@ -8296,6 +8519,7 @@ export const recept = {
    {
     "n": "garnalen (gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 144.0,
     "e": 34.8,
@@ -8305,6 +8529,7 @@ export const recept = {
    {
     "n": "pasta (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 664.0,
     "e": 24.4,
@@ -8314,6 +8539,7 @@ export const recept = {
    {
     "n": "spinazie (gaar)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 34.0,
     "e": 4.5,
@@ -8323,6 +8549,7 @@ export const recept = {
    {
     "n": "knoflook",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 12.0,
     "e": 0.5,
@@ -8332,6 +8559,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 133.0,
     "e": 0.0,
@@ -8341,6 +8569,7 @@ export const recept = {
    {
     "n": "parmezaan",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 78.0,
     "e": 7.2,
@@ -8353,7 +8582,15 @@ export const recept = {
    "e": 71.4,
    "v": 24.9,
    "k": 139.0
-  }
+  },
+  "stappen": [
+   "Kook de pasta beetgaar en houd een kopje kookvocht apart.",
+   "Fruit de knoflook zacht in de olijfolie, laat hem niet bruin worden.",
+   "Voeg de garnalen toe en bak ze 2 min, niet langer, anders worden ze taai.",
+   "Roer de spinazie erdoor tot hij slinkt.",
+   "Meng de pasta erdoor met een scheut kookvocht en werk af met de parmezaan."
+  ],
+  "foto": ""
  },
  "D18": {
   "naam": "Tonijnpokebowl",
@@ -8361,6 +8598,7 @@ export const recept = {
    {
     "n": "verse tonijnsteak (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 239.0,
     "e": 37.7,
@@ -8370,6 +8608,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 546.0,
     "e": 11.3,
@@ -8379,6 +8618,7 @@ export const recept = {
    {
     "n": "edamame (gaar)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 85.0,
     "e": 8.3,
@@ -8388,6 +8628,7 @@ export const recept = {
    {
     "n": "avocado",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 112.0,
     "e": 1.4,
@@ -8397,6 +8638,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 12.0,
     "e": 0.6,
@@ -8406,6 +8648,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 21.0,
     "e": 0.5,
@@ -8415,6 +8658,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 30.0,
     "e": 0.0,
@@ -8427,7 +8671,15 @@ export const recept = {
    "e": 59.8,
    "v": 23.6,
    "k": 146.6
-  }
+  },
+  "stappen": [
+   "Kook de rijst en laat hem lauw worden.",
+   "Bak de tonijnsteak kort, 1-2 min per kant, zodat hij van binnen rosé blijft, en snijd hem in plakken.",
+   "Kook de edamame 4 min.",
+   "Snijd de avocado, komkommer en wortel in reepjes.",
+   "Bouw de bowl op en druppel de honing met een scheut sojasaus erover."
+  ],
+  "foto": ""
  },
  "D19": {
   "naam": "Vissticks met groenten en zoete aardappel",
@@ -8435,6 +8687,7 @@ export const recept = {
    {
     "n": "vissticks (oven)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 299.0,
     "e": 18.2,
@@ -8444,6 +8697,7 @@ export const recept = {
    {
     "n": "zoete aardappel (gaar)",
     "q": 480.0,
+    "g": 480.0,
     "eh": "g",
     "kcal": 432.0,
     "e": 9.6,
@@ -8453,6 +8707,7 @@ export const recept = {
    {
     "n": "broccoli (gaar)",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 63.0,
     "e": 4.3,
@@ -8462,6 +8717,7 @@ export const recept = {
    {
     "n": "mayonaise",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 102.0,
     "e": 0.1,
@@ -8474,7 +8730,14 @@ export const recept = {
    "e": 32.2,
    "v": 26.7,
    "k": 137.3
-  }
+  },
+  "stappen": [
+   "Verwarm de oven voor op 220 graden.",
+   "Snijd de zoete aardappel in partjes en rooster ze 25-30 min.",
+   "Bak de vissticks de laatste 15 min mee.",
+   "Kook de broccoli beetgaar en serveer met de mayonaise."
+  ],
+  "foto": ""
  },
  "D20": {
   "naam": "Gemengde viswok",
@@ -8482,6 +8745,7 @@ export const recept = {
    {
     "n": "kabeljauw/witvis (gaar)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 116.0,
     "e": 25.3,
@@ -8491,6 +8755,7 @@ export const recept = {
    {
     "n": "garnalen (gaar)",
     "q": 85.0,
+    "g": 85.0,
     "eh": "g",
     "kcal": 84.0,
     "e": 20.4,
@@ -8500,6 +8765,7 @@ export const recept = {
    {
     "n": "noedels (gekookt)",
     "q": 400.0,
+    "g": 400.0,
     "eh": "g",
     "kcal": 552.0,
     "e": 18.0,
@@ -8509,6 +8775,7 @@ export const recept = {
    {
     "n": "roerbakgroenten mix",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 80.0,
     "e": 4.0,
@@ -8518,6 +8785,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 12.0,
+    "g": 12.0,
     "eh": "g",
     "kcal": 106.0,
     "e": 0.0,
@@ -8527,6 +8795,7 @@ export const recept = {
    {
     "n": "knoflook",
     "q": 6.0,
+    "g": 6.0,
     "eh": "g",
     "kcal": 9.0,
     "e": 0.4,
@@ -8539,7 +8808,14 @@ export const recept = {
    "e": 68.1,
    "v": 22.7,
    "k": 115.2
-  }
+  },
+  "stappen": [
+   "Kook de noedels en spoel ze koud.",
+   "Roerbak de groenten met de knoflook 3-4 min in de olijfolie.",
+   "Voeg de vis in stukken toe en bak 2-3 min, schep voorzichtig zodat hij heel blijft.",
+   "Voeg de garnalen en de noedels toe en warm 1-2 min door."
+  ],
+  "foto": ""
  },
  "D21": {
   "naam": "Zalm tagliatelle met groenten",
@@ -8547,6 +8823,7 @@ export const recept = {
    {
     "n": "zalmfilet (gaar)",
     "q": 115.0,
+    "g": 115.0,
     "eh": "g",
     "kcal": 239.0,
     "e": 25.3,
@@ -8556,6 +8833,7 @@ export const recept = {
    {
     "n": "tagliatelle (gekookt)",
     "q": 400.0,
+    "g": 400.0,
     "eh": "g",
     "kcal": 632.0,
     "e": 23.2,
@@ -8565,6 +8843,7 @@ export const recept = {
    {
     "n": "courgette (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 20.0,
     "e": 1.4,
@@ -8574,6 +8853,7 @@ export const recept = {
    {
     "n": "spinazie (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 23.0,
     "e": 3.0,
@@ -8583,6 +8863,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 0.0,
@@ -8592,6 +8873,7 @@ export const recept = {
    {
     "n": "parmezaan",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 59.0,
     "e": 5.4,
@@ -8604,7 +8886,14 @@ export const recept = {
    "e": 58.3,
    "v": 32.3,
    "k": 130.0
-  }
+  },
+  "stappen": [
+   "Kook de tagliatelle beetgaar.",
+   "Bak de zalm 3-4 min op de velkant en 1 min op de andere kant, en breek hem daarna in grove stukken.",
+   "Bak de courgette in de olijfolie tot hij kleurt, roer de spinazie erdoor.",
+   "Meng de pasta met de groenten, leg de zalm erop en werk af met de parmezaan."
+  ],
+  "foto": ""
  },
  "D22": {
   "naam": "Shakshuka met ei",
@@ -8612,6 +8901,7 @@ export const recept = {
    {
     "n": "ei (heel, gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 186.0,
     "e": 16.4,
@@ -8621,6 +8911,7 @@ export const recept = {
    {
     "n": "tomatenblokjes (blik)",
     "q": 300.0,
+    "g": 300.0,
     "eh": "g",
     "kcal": 96.0,
     "e": 4.8,
@@ -8630,6 +8921,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 1.5,
@@ -8639,6 +8931,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 33.0,
     "e": 0.7,
@@ -8648,6 +8941,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 370.0,
     "e": 14.2,
@@ -8657,6 +8951,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 12.0,
+    "g": 12.0,
     "eh": "g",
     "kcal": 106.0,
     "e": 0.0,
@@ -8666,6 +8961,7 @@ export const recept = {
    {
     "n": "feta",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 106.0,
     "e": 5.7,
@@ -8678,7 +8974,15 @@ export const recept = {
    "e": 43.3,
    "v": 40.9,
    "k": 95.6
-  }
+  },
+  "stappen": [
+   "Fruit de ui en paprika zacht in de olijfolie, 8-10 min.",
+   "Voeg de tomatenblokjes toe en laat 10 min inkoken tot een dikke saus.",
+   "Maak kuiltjes in de saus en breek daar de eieren in.",
+   "Dek af en laat 6-8 min garen tot het eiwit gestold is en de dooier nog loopt.",
+   "Verkruimel de feta erover en serveer met het brood."
+  ],
+  "foto": ""
  },
  "D23": {
   "naam": "Groentesoep met gehaktballen",
@@ -8686,6 +8990,7 @@ export const recept = {
    {
     "n": "gehaktbal (rund, gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 332.0,
     "e": 28.6,
@@ -8695,6 +9000,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 42.0,
     "e": 1.0,
@@ -8704,6 +9010,7 @@ export const recept = {
    {
     "n": "doperwten (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 84.0,
     "e": 5.4,
@@ -8713,6 +9020,7 @@ export const recept = {
    {
     "n": "bloemkool (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 28.0,
     "e": 2.2,
@@ -8722,6 +9030,7 @@ export const recept = {
    {
     "n": "passata/tomatenpuree",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 66.0,
     "e": 3.4,
@@ -8731,6 +9040,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 370.0,
     "e": 14.2,
@@ -8740,6 +9050,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -8749,6 +9060,7 @@ export const recept = {
    {
     "n": "roomboter",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 57.0,
     "e": 0.1,
@@ -8761,7 +9073,14 @@ export const recept = {
    "e": 54.9,
    "v": 45.2,
    "k": 109.1
-  }
+  },
+  "stappen": [
+   "Fruit de wortel en bloemkool 5 min aan in de roomboter.",
+   "Voeg water of bouillon en de passata toe en laat 15 min koken.",
+   "Voeg de doperwten en de gehaktballen toe en warm 5 min door.",
+   "Serveer met het brood en een scheut olijfolie in de soep."
+  ],
+  "foto": ""
  },
  "D24": {
   "naam": "Tomatensoep met tosti kaas",
@@ -8769,6 +9088,7 @@ export const recept = {
    {
     "n": "passata/tomatenpuree",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 164.0,
     "e": 8.6,
@@ -8778,6 +9098,7 @@ export const recept = {
    {
     "n": "tomatenblokjes (blik)",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 64.0,
     "e": 3.2,
@@ -8787,6 +9108,7 @@ export const recept = {
    {
     "n": "gehaktbal (rund, gaar)",
     "q": 85.0,
+    "g": 85.0,
     "eh": "g",
     "kcal": 217.0,
     "e": 18.7,
@@ -8796,6 +9118,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 445.0,
     "e": 17.1,
@@ -8805,6 +9128,7 @@ export const recept = {
    {
     "n": "geraspte kaas 30+",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 198.0,
     "e": 16.8,
@@ -8814,6 +9138,7 @@ export const recept = {
    {
     "n": "roomboter",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 72.0,
     "e": 0.1,
@@ -8823,6 +9148,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 3.4,
@@ -8835,7 +9161,14 @@ export const recept = {
    "e": 67.9,
    "v": 45.7,
    "k": 130.7
-  }
+  },
+  "stappen": [
+   "Breng de passata en tomatenblokjes met water aan de kook en laat 15 min pruttelen.",
+   "Roer de melk erdoor voor een zachtere soep en voeg de gehaktballen toe.",
+   "Maak intussen een tosti van het brood met de kaas in de roomboter, goudbruin aan beide kanten.",
+   "Snijd de tosti in punten en serveer bij de soep."
+  ],
+  "foto": ""
  },
  "D25": {
   "naam": "Griekse feta omelet met spinazie",
@@ -8843,6 +9176,7 @@ export const recept = {
    {
     "n": "ei (heel, gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 207.0,
     "e": 18.3,
@@ -8852,6 +9186,7 @@ export const recept = {
    {
     "n": "eiwit (los)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 36.0,
     "e": 7.6,
@@ -8861,6 +9196,7 @@ export const recept = {
    {
     "n": "feta",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 132.0,
     "e": 7.1,
@@ -8870,6 +9206,7 @@ export const recept = {
    {
     "n": "spinazie (gaar)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 34.0,
     "e": 4.5,
@@ -8879,6 +9216,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 14.0,
     "e": 0.7,
@@ -8888,6 +9226,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 445.0,
     "e": 17.1,
@@ -8897,6 +9236,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -8909,7 +9249,14 @@ export const recept = {
    "e": 55.3,
    "v": 41.6,
    "k": 82.5
-  }
+  },
+  "stappen": [
+   "Klop de hele eieren met het losse eiwit los.",
+   "Bak de spinazie kort in de olijfolie tot hij slinkt en knijp het vocht eruit.",
+   "Giet het ei erbij en laat op laag vuur stollen, 4-5 min.",
+   "Verkruimel de feta erover, vouw dubbel en serveer met de tomaat en het brood."
+  ],
+  "foto": ""
  },
  "D26": {
   "naam": "Edamame quinoa salade met kaas",
@@ -8917,6 +9264,7 @@ export const recept = {
    {
     "n": "edamame (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 159.0,
     "e": 15.5,
@@ -8926,6 +9274,7 @@ export const recept = {
    {
     "n": "quinoa (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 504.0,
     "e": 18.5,
@@ -8935,6 +9284,7 @@ export const recept = {
    {
     "n": "feta",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 158.0,
     "e": 8.5,
@@ -8944,6 +9294,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 37.0,
     "e": 1.2,
@@ -8953,6 +9304,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 15.0,
     "e": 0.7,
@@ -8962,6 +9314,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 133.0,
     "e": 0.0,
@@ -8971,6 +9324,7 @@ export const recept = {
    {
     "n": "citroensap",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 2.0,
     "e": 0.0,
@@ -8980,6 +9334,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 116.0,
     "e": 21.7,
@@ -8992,7 +9347,14 @@ export const recept = {
    "e": 66.1,
    "v": 45.6,
    "k": 115.1
-  }
+  },
+  "stappen": [
+   "Kook de quinoa en laat hem afkoelen.",
+   "Kook de edamame 4 min en spoel koud.",
+   "Snijd de paprika en komkommer in blokjes en de kip in reepjes.",
+   "Meng alles met de olijfolie en het citroensap en verkruimel de feta erover."
+  ],
+  "foto": ""
  },
  "D27": {
   "naam": "Zalmfilet met aardappelpuree en asperges",
@@ -9000,6 +9362,7 @@ export const recept = {
    {
     "n": "zalmfilet (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 270.0,
     "e": 28.6,
@@ -9009,6 +9372,7 @@ export const recept = {
    {
     "n": "aardappelpuree (m. melk)",
     "q": 500.0,
+    "g": 500.0,
     "eh": "g",
     "kcal": 525.0,
     "e": 11.5,
@@ -9018,6 +9382,7 @@ export const recept = {
    {
     "n": "asperges (gaar)",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 44.0,
     "e": 4.8,
@@ -9027,6 +9392,7 @@ export const recept = {
    {
     "n": "roomboter",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 57.0,
     "e": 0.1,
@@ -9036,6 +9402,7 @@ export const recept = {
    {
     "n": "citroensap",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 2.0,
     "e": 0.0,
@@ -9048,7 +9415,14 @@ export const recept = {
    "e": 45.0,
    "v": 36.3,
    "k": 96.4
-  }
+  },
+  "stappen": [
+   "Maak de aardappelpuree warm.",
+   "Kook of stoom de asperges 5-8 min, afhankelijk van de dikte.",
+   "Bak de zalm 3-4 min op de velkant tot het vel knapperig is en keer hem 1 min om.",
+   "Smelt de roomboter met het citroensap en lepel dat over de zalm en de asperges."
+  ],
+  "foto": ""
  },
  "D28": {
   "naam": "Eendenborst met sinaasappel en roti",
@@ -9056,6 +9430,7 @@ export const recept = {
    {
     "n": "eendenborst m. vel (gaar)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 371.0,
     "e": 20.9,
@@ -9065,6 +9440,7 @@ export const recept = {
    {
     "n": "roti (plat)",
     "q": 190.0,
+    "g": 190.0,
     "eh": "g",
     "kcal": 551.0,
     "e": 14.2,
@@ -9074,6 +9450,7 @@ export const recept = {
    {
     "n": "sinaasappel",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 56.0,
     "e": 1.1,
@@ -9083,6 +9460,7 @@ export const recept = {
    {
     "n": "roerbakgroenten mix",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 72.0,
     "e": 3.6,
@@ -9092,6 +9470,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 0.0,
@@ -9104,7 +9483,15 @@ export const recept = {
    "e": 39.8,
    "v": 46.0,
    "k": 129.5
-  }
+  },
+  "stappen": [
+   "Kerf het vel van de eendenborst ruitvormig in, zonder in het vlees te snijden.",
+   "Leg hem met het vel naar beneden in een koude pan en zet die op middelhoog vuur; laat het vet 8-10 min uitbakken.",
+   "Keer hem om, bak 3-4 min, en laat 5-10 min rusten.",
+   "Pers de sinaasappel uit, kook het sap met de honing in tot een siroop.",
+   "Roerbak de groenten kort, warm de roti op en snijd de eend in plakken."
+  ],
+  "foto": ""
  },
  "D29": {
   "naam": "Ragout met couscous en abrikozen",
@@ -9112,6 +9499,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 223.0,
     "e": 41.9,
@@ -9121,6 +9509,7 @@ export const recept = {
    {
     "n": "couscous (bereid)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 493.0,
     "e": 16.7,
@@ -9130,6 +9519,7 @@ export const recept = {
    {
     "n": "abrikozen (gedroogd)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 120.0,
     "e": 1.7,
@@ -9139,6 +9529,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -9148,6 +9539,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 28.0,
     "e": 0.6,
@@ -9157,6 +9549,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 12.0,
+    "g": 12.0,
     "eh": "g",
     "kcal": 106.0,
     "e": 0.0,
@@ -9166,6 +9559,7 @@ export const recept = {
    {
     "n": "kruiden/specerijen mix",
     "q": 4.0,
+    "g": 4.0,
     "eh": "g",
     "kcal": 10.0,
     "e": 0.4,
@@ -9178,7 +9572,14 @@ export const recept = {
    "e": 62.1,
    "v": 19.6,
    "k": 147.2
-  }
+  },
+  "stappen": [
+   "Fruit de ui zacht in de olijfolie, voeg de kruiden toe en bak 1 min mee.",
+   "Voeg de kip in blokjes en de wortel toe, en giet er water of bouillon bij.",
+   "Voeg de gedroogde abrikozen toe en laat 20 min zachtjes stoven.",
+   "Wel intussen de couscous met kokend water, 5 min afgedekt."
+  ],
+  "foto": ""
  },
  "D30": {
   "naam": "Falafel met rijst en granaatappel",
@@ -9186,6 +9587,7 @@ export const recept = {
    {
     "n": "falafel (gebakken)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 366.0,
     "e": 14.6,
@@ -9195,6 +9597,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 400.0,
+    "g": 400.0,
     "eh": "g",
     "kcal": 520.0,
     "e": 10.8,
@@ -9204,6 +9607,7 @@ export const recept = {
    {
     "n": "granaatappelpitjes",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 66.0,
     "e": 1.4,
@@ -9213,6 +9617,7 @@ export const recept = {
    {
     "n": "tzatziki",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 2.8,
@@ -9222,6 +9627,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 9.0,
     "e": 0.6,
@@ -9231,6 +9637,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 14.0,
     "e": 0.7,
@@ -9240,6 +9647,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -9252,7 +9660,14 @@ export const recept = {
    "e": 31.7,
    "v": 29.1,
    "k": 178.5
-  }
+  },
+  "stappen": [
+   "Bak of oven de falafel volgens de verpakking, tot ze rondom krokant zijn.",
+   "Zet de rijst op.",
+   "Snijd de sla en tomaat.",
+   "Schep de rijst op, leg de falafel erop en werk af met de tzatziki en de granaatappelpitjes."
+  ],
+  "foto": ""
  },
  "D31": {
   "naam": "Pannenkoeken met spek",
@@ -9260,6 +9675,7 @@ export const recept = {
    {
     "n": "pannenkoekmix (droog)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 525.0,
     "e": 15.0,
@@ -9269,6 +9685,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 300.0,
+    "g": 300.0,
     "eh": "g",
     "kcal": 138.0,
     "e": 10.2,
@@ -9278,6 +9695,7 @@ export const recept = {
    {
     "n": "ei (heel, gaar)",
     "q": 45.0,
+    "g": 45.0,
     "eh": "g",
     "kcal": 64.0,
     "e": 5.7,
@@ -9287,6 +9705,7 @@ export const recept = {
    {
     "n": "gebakken spek",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 252.0,
     "e": 18.0,
@@ -9296,6 +9715,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 76.0,
     "e": 0.1,
@@ -9305,6 +9725,7 @@ export const recept = {
    {
     "n": "roomboter",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 72.0,
     "e": 0.1,
@@ -9314,6 +9735,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -9326,7 +9748,14 @@ export const recept = {
    "e": 49.9,
    "v": 40.7,
    "k": 151.8
-  }
+  },
+  "stappen": [
+   "Klop de pannenkoekmix met de melk en het ei tot een glad beslag en laat het 10 min staan.",
+   "Bak het spek uit in een droge pan tot het krokant is en haal het eruit.",
+   "Bak de pannenkoeken in de roomboter, goudbruin aan beide kanten.",
+   "Serveer met het spek en de honing, en de wortel ernaast."
+  ],
+  "foto": ""
  },
  "D32": {
   "naam": "Kalkoen-/kipfilet met zilvervliesrijst en broccoli",
@@ -9334,6 +9763,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 248.0,
     "e": 46.5,
@@ -9343,6 +9773,7 @@ export const recept = {
    {
     "n": "zilvervliesrijst (gekookt)",
     "q": 430.0,
+    "g": 430.0,
     "eh": "g",
     "kcal": 529.0,
     "e": 11.6,
@@ -9352,6 +9783,7 @@ export const recept = {
    {
     "n": "broccoli (gaar)",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 70.0,
     "e": 4.8,
@@ -9361,6 +9793,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 12.0,
+    "g": 12.0,
     "eh": "g",
     "kcal": 106.0,
     "e": 0.0,
@@ -9370,6 +9803,7 @@ export const recept = {
    {
     "n": "knoflook",
     "q": 6.0,
+    "g": 6.0,
     "eh": "g",
     "kcal": 9.0,
     "e": 0.4,
@@ -9379,6 +9813,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -9391,7 +9826,14 @@ export const recept = {
    "e": 64.1,
    "v": 22.7,
    "k": 134.7
-  }
+  },
+  "stappen": [
+   "Kook de zilvervliesrijst; die heeft 25-30 min nodig, dus begin daarmee.",
+   "Bak de kipfilet in de olijfolie 6-7 min per kant en laat hem 5 min rusten.",
+   "Bak de knoflook kort mee in het bakvet.",
+   "Kook of stoom de broccoli en wortel beetgaar en schep alles samen."
+  ],
+  "foto": ""
  },
  "D33": {
   "naam": "Chili con carne met rijst",
@@ -9399,6 +9841,7 @@ export const recept = {
    {
     "n": "rundergehakt 5% (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 216.0,
     "e": 31.2,
@@ -9408,6 +9851,7 @@ export const recept = {
    {
     "n": "kidneybonen (blik)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 142.0,
     "e": 9.8,
@@ -9417,6 +9861,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 546.0,
     "e": 11.3,
@@ -9426,6 +9871,7 @@ export const recept = {
    {
     "n": "tomatenblokjes (blik)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 48.0,
     "e": 2.4,
@@ -9435,6 +9881,7 @@ export const recept = {
    {
     "n": "mais (blik)",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 52.0,
     "e": 1.9,
@@ -9444,6 +9891,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 28.0,
     "e": 0.6,
@@ -9453,6 +9901,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 0.0,
@@ -9462,6 +9911,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -9474,7 +9924,14 @@ export const recept = {
    "e": 58.0,
    "v": 22.3,
    "k": 176.3
-  }
+  },
+  "stappen": [
+   "Fruit de ui glazig, voeg het gehakt toe en rul het los.",
+   "Voeg de tomatenblokjes, kidneybonen, mais en wortel toe.",
+   "Laat minstens 20 min zachtjes pruttelen; langer maakt hem beter.",
+   "Zet intussen de rijst op en serveer de chili erover."
+  ],
+  "foto": ""
  },
  "D34": {
   "naam": "Kip souvlaki met griekse salade en pita",
@@ -9482,6 +9939,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 223.0,
     "e": 41.9,
@@ -9491,6 +9949,7 @@ export const recept = {
    {
     "n": "pitabrood",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 495.0,
     "e": 16.4,
@@ -9500,6 +9959,7 @@ export const recept = {
    {
     "n": "feta",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 132.0,
     "e": 7.1,
@@ -9509,6 +9969,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 15.0,
     "e": 0.7,
@@ -9518,6 +9979,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 18.0,
     "e": 0.9,
@@ -9527,6 +9989,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 14.0,
+    "g": 14.0,
     "eh": "g",
     "kcal": 124.0,
     "e": 0.0,
@@ -9536,6 +9999,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 30.0,
+    "g": 30.0,
     "eh": "g",
     "kcal": 16.0,
     "e": 0.3,
@@ -9545,6 +10009,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -9557,7 +10022,14 @@ export const recept = {
    "e": 68.1,
    "v": 33.1,
    "k": 120.3
-  }
+  },
+  "stappen": [
+   "Snijd de kip in blokjes, meng met de helft van de olijfolie, oregano en citroen, en laat kort marineren.",
+   "Rijg aan spiesen en gril 8-10 min tot ze rondom bruin zijn.",
+   "Maak de salade van komkommer, tomaat en ui met de rest van de olijfolie.",
+   "Verkruimel de feta erover en warm de pita's op."
+  ],
+  "foto": ""
  },
  "D35": {
   "naam": "Zalmburger met zoete aardappel",
@@ -9565,6 +10037,7 @@ export const recept = {
    {
     "n": "zalmfilet (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 250.0,
     "e": 26.4,
@@ -9574,6 +10047,7 @@ export const recept = {
    {
     "n": "wit brood",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 292.0,
     "e": 9.9,
@@ -9583,6 +10057,7 @@ export const recept = {
    {
     "n": "zoete aardappel (gaar)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 396.0,
     "e": 8.8,
@@ -9592,6 +10067,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 6.0,
     "e": 0.4,
@@ -9601,6 +10077,7 @@ export const recept = {
    {
     "n": "yoghurtdressing (light)",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 38.0,
     "e": 1.2,
@@ -9613,7 +10090,14 @@ export const recept = {
    "e": 46.7,
    "v": 22.0,
    "k": 148.2
-  }
+  },
+  "stappen": [
+   "Verwarm de oven voor op 220 graden en rooster de zoete aardappel in partjes 25-30 min.",
+   "Hak de zalm grof en kneed hem met wat broodkruim tot burgers; druk ze niet te vast aan.",
+   "Bak de burgers 3-4 min per kant, voorzichtig keren.",
+   "Bouw op met het brood, de sla en de yoghurtdressing."
+  ],
+  "foto": ""
  },
  "D36": {
   "naam": "Biefstuk stroganoff met tagliatelle",
@@ -9621,6 +10105,7 @@ export const recept = {
    {
     "n": "biefstuk (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 276.0,
     "e": 40.3,
@@ -9630,6 +10115,7 @@ export const recept = {
    {
     "n": "tagliatelle (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 664.0,
     "e": 24.4,
@@ -9639,6 +10125,7 @@ export const recept = {
    {
     "n": "champignons (gebakken)",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 50.0,
     "e": 5.6,
@@ -9648,6 +10135,7 @@ export const recept = {
    {
     "n": "griekse yoghurt 2%",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 58.0,
     "e": 6.0,
@@ -9657,6 +10145,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 28.0,
     "e": 0.6,
@@ -9666,6 +10155,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -9675,6 +10165,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -9687,7 +10178,15 @@ export const recept = {
    "e": 77.7,
    "v": 31.0,
    "k": 151.3
-  }
+  },
+  "stappen": [
+   "Kook de tagliatelle beetgaar.",
+   "Bak de champignons met de ui tot het vocht verdampt is.",
+   "Bak de biefstuk in reepjes zeer kort, 1-2 min, en haal ze uit de pan.",
+   "Haal de pan van het vuur voor je de yoghurt erdoor roert, anders schift hij.",
+   "Doe het vlees terug en meng met de pasta."
+  ],
+  "foto": ""
  },
  "D37": {
   "naam": "Kip pesto pasta met cherrytomaat",
@@ -9695,6 +10194,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 239.0,
     "e": 45.0,
@@ -9704,6 +10204,7 @@ export const recept = {
    {
     "n": "pasta (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 664.0,
     "e": 24.4,
@@ -9713,6 +10214,7 @@ export const recept = {
    {
     "n": "pesto (groen)",
     "q": 35.0,
+    "g": 35.0,
     "eh": "g",
     "kcal": 158.0,
     "e": 1.8,
@@ -9722,6 +10224,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 27.0,
     "e": 1.4,
@@ -9731,6 +10234,7 @@ export const recept = {
    {
     "n": "spinazie (gaar)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 18.0,
     "e": 2.4,
@@ -9743,7 +10247,14 @@ export const recept = {
    "e": 75.0,
    "v": 25.3,
    "k": 140.0
-  }
+  },
+  "stappen": [
+   "Kook de pasta beetgaar en houd wat kookvocht apart.",
+   "Bak de kip in reepjes gaar.",
+   "Halveer de tomaten en laat ze kort meebakken tot ze zacht worden.",
+   "Haal de pan van het vuur, roer de pesto erdoor met een scheut kookvocht en meng de spinazie en pasta erdoor."
+  ],
+  "foto": ""
  },
  "D38": {
   "naam": "Rundersate met rijst en groenten",
@@ -9751,6 +10262,7 @@ export const recept = {
    {
     "n": "runderreepjes roerbak (gaar)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 277.0,
     "e": 40.5,
@@ -9760,6 +10272,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 430.0,
+    "g": 430.0,
     "eh": "g",
     "kcal": 559.0,
     "e": 11.6,
@@ -9769,6 +10282,7 @@ export const recept = {
    {
     "n": "pindakaas (Calve)",
     "q": 35.0,
+    "g": 35.0,
     "eh": "g",
     "kcal": 206.0,
     "e": 8.8,
@@ -9778,6 +10292,7 @@ export const recept = {
    {
     "n": "roerbakgroenten mix",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 72.0,
     "e": 3.6,
@@ -9787,6 +10302,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 30.0,
     "e": 0.0,
@@ -9799,7 +10315,14 @@ export const recept = {
    "e": 64.5,
    "v": 31.5,
    "k": 146.4
-  }
+  },
+  "stappen": [
+   "Zet de rijst op.",
+   "Roerbak de runderreepjes kort op hoog vuur en haal ze uit de pan.",
+   "Maak de satesaus: pindakaas met de honing, een scheut water en sojasaus tot een gladde saus.",
+   "Roerbak de groenten beetgaar en serveer met het vlees en de saus."
+  ],
+  "foto": ""
  },
  "D39": {
   "naam": "Kabeljauw met aardappel en spinazie",
@@ -9807,6 +10330,7 @@ export const recept = {
    {
     "n": "kabeljauw/witvis (gaar)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 158.0,
     "e": 34.5,
@@ -9816,6 +10340,7 @@ export const recept = {
    {
     "n": "aardappel (gekookt)",
     "q": 530.0,
+    "g": 530.0,
     "eh": "g",
     "kcal": 461.0,
     "e": 10.6,
@@ -9825,6 +10350,7 @@ export const recept = {
    {
     "n": "spinazie (gaar)",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 6.0,
@@ -9834,6 +10360,7 @@ export const recept = {
    {
     "n": "roomboter",
     "q": 12.0,
+    "g": 12.0,
     "eh": "g",
     "kcal": 86.0,
     "e": 0.1,
@@ -9843,6 +10370,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 0.0,
@@ -9852,6 +10380,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 23.0,
     "e": 1.7,
@@ -9864,7 +10393,14 @@ export const recept = {
    "e": 52.9,
    "v": 21.0,
    "k": 116.0
-  }
+  },
+  "stappen": [
+   "Kook de aardappels 18-20 min gaar.",
+   "Bak de kabeljauw in de helft van de roomboter 3-4 min per kant; keer hem maar een keer, dan valt hij niet uit elkaar.",
+   "Slink de spinazie in de olijfolie en knijp het vocht eruit.",
+   "Stamp de aardappels licht met de melk en de rest van de boter."
+  ],
+  "foto": ""
  },
  "D40": {
   "naam": "Kip shoarma bowl met couscous",
@@ -9872,6 +10408,7 @@ export const recept = {
    {
     "n": "shoarmavlees (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 306.0,
     "e": 32.5,
@@ -9881,6 +10418,7 @@ export const recept = {
    {
     "n": "couscous (bereid)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 493.0,
     "e": 16.7,
@@ -9890,6 +10428,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 9.0,
     "e": 0.6,
@@ -9899,6 +10438,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 16.0,
     "e": 0.8,
@@ -9908,6 +10448,7 @@ export const recept = {
    {
     "n": "tzatziki",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 2.8,
@@ -9917,6 +10458,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -9929,7 +10471,14 @@ export const recept = {
    "e": 54.2,
    "v": 27.1,
    "k": 119.5
-  }
+  },
+  "stappen": [
+   "Wel de couscous met kokend water, 5 min afgedekt, en roer los met een vork.",
+   "Bak het shoarmavlees op hoog vuur krokant.",
+   "Snijd de sla, tomaat en wortel.",
+   "Bouw de bowl op en lepel de tzatziki erover."
+  ],
+  "foto": ""
  },
  "D41": {
   "naam": "Gehaktbrood met aardappelpuree en doperwten",
@@ -9937,6 +10486,7 @@ export const recept = {
    {
     "n": "rundergehakt 5% (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 234.0,
     "e": 33.8,
@@ -9946,6 +10496,7 @@ export const recept = {
    {
     "n": "aardappelpuree (m. melk)",
     "q": 500.0,
+    "g": 500.0,
     "eh": "g",
     "kcal": 525.0,
     "e": 11.5,
@@ -9955,6 +10506,7 @@ export const recept = {
    {
     "n": "doperwten (gaar)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 126.0,
     "e": 8.1,
@@ -9964,6 +10516,7 @@ export const recept = {
    {
     "n": "passata/tomatenpuree",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 49.0,
     "e": 2.6,
@@ -9973,6 +10526,7 @@ export const recept = {
    {
     "n": "roomboter",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 57.0,
     "e": 0.1,
@@ -9985,7 +10539,15 @@ export const recept = {
    "e": 56.1,
    "v": 30.0,
    "k": 122.2
-  }
+  },
+  "stappen": [
+   "Verwarm de oven voor op 180 graden.",
+   "Meng het gehakt met zout, peper en wat paneermeel en vorm er een brood van.",
+   "Bestrijk met de passata en bak 35-40 min.",
+   "Maak intussen de puree warm en kook de doperwten kort.",
+   "Laat het gehaktbrood 5 min rusten voor je het snijdt."
+  ],
+  "foto": ""
  },
  "D42": {
   "naam": "Garnalen roerbak met noedels",
@@ -9993,6 +10555,7 @@ export const recept = {
    {
     "n": "garnalen (gaar)",
     "q": 160.0,
+    "g": 160.0,
     "eh": "g",
     "kcal": 158.0,
     "e": 38.4,
@@ -10002,6 +10565,7 @@ export const recept = {
    {
     "n": "noedels (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 580.0,
     "e": 18.9,
@@ -10011,6 +10575,7 @@ export const recept = {
    {
     "n": "roerbakgroenten mix",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 80.0,
     "e": 4.0,
@@ -10020,6 +10585,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 14.0,
+    "g": 14.0,
     "eh": "g",
     "kcal": 124.0,
     "e": 0.0,
@@ -10029,6 +10595,7 @@ export const recept = {
    {
     "n": "knoflook",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 12.0,
     "e": 0.5,
@@ -10038,6 +10605,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 30.0,
     "e": 0.0,
@@ -10050,7 +10618,15 @@ export const recept = {
    "e": 61.8,
    "v": 24.3,
    "k": 129.1
-  }
+  },
+  "stappen": [
+   "Kook de noedels en spoel ze koud.",
+   "Verhit de wok goed heet, roerbak de knoflook 20 sec in de olijfolie.",
+   "Voeg de garnalen toe en bak ze 2 min tot ze net roze zijn.",
+   "Voeg de groenten toe, roerbak 3 min, en blus af met de honing en sojasaus.",
+   "Schep de noedels erdoor."
+  ],
+  "foto": ""
  },
  "D43": {
   "naam": "Kipfilet met parelgort en champignonsaus",
@@ -10058,6 +10634,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 239.0,
     "e": 45.0,
@@ -10067,6 +10644,7 @@ export const recept = {
    {
     "n": "parelgort (gekookt)",
     "q": 430.0,
+    "g": 430.0,
     "eh": "g",
     "kcal": 529.0,
     "e": 9.9,
@@ -10076,6 +10654,7 @@ export const recept = {
    {
     "n": "champignons (gebakken)",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 50.0,
     "e": 5.6,
@@ -10085,6 +10664,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 3.4,
@@ -10094,6 +10674,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 12.0,
+    "g": 12.0,
     "eh": "g",
     "kcal": 106.0,
     "e": 0.0,
@@ -10103,6 +10684,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 22.0,
     "e": 0.4,
@@ -10112,6 +10694,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -10124,7 +10707,15 @@ export const recept = {
    "e": 65.1,
    "v": 22.3,
    "k": 144.4
-  }
+  },
+  "stappen": [
+   "Kook de parelgort 25-30 min gaar.",
+   "Bak de kipfilet in de helft van de olijfolie gaar en houd hem warm.",
+   "Bak de champignons en ui in dezelfde pan tot het vocht verdampt is.",
+   "Giet de melk erbij en laat kort inkoken tot een saus.",
+   "Serveer over de parelgort met de wortel."
+  ],
+  "foto": ""
  },
  "D44": {
   "naam": "Runderstoof met aardappel en wortel",
@@ -10132,6 +10723,7 @@ export const recept = {
    {
     "n": "runderreepjes roerbak (gaar)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 277.0,
     "e": 40.5,
@@ -10141,6 +10733,7 @@ export const recept = {
    {
     "n": "aardappel (gekookt)",
     "q": 530.0,
+    "g": 530.0,
     "eh": "g",
     "kcal": 461.0,
     "e": 10.6,
@@ -10150,6 +10743,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 52.0,
     "e": 1.2,
@@ -10159,6 +10753,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 33.0,
     "e": 0.7,
@@ -10168,6 +10763,7 @@ export const recept = {
    {
     "n": "passata/tomatenpuree",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 66.0,
     "e": 3.4,
@@ -10177,6 +10773,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -10189,7 +10786,14 @@ export const recept = {
    "e": 56.4,
    "v": 24.9,
    "k": 138.0
-  }
+  },
+  "stappen": [
+   "Bak de runderreepjes rondom bruin in de olijfolie en haal ze uit de pan.",
+   "Fruit de ui zacht, voeg de passata en water toe.",
+   "Doe het vlees terug met de wortel en laat minstens 45 min zachtjes stoven; hoe langer, hoe zachter.",
+   "Kook de aardappels apart gaar en serveer erbij."
+  ],
+  "foto": ""
  },
  "D45": {
   "naam": "Tonijnpasta met tomatensaus",
@@ -10197,6 +10801,7 @@ export const recept = {
    {
     "n": "tonijn in blik (olijfolie)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 151.0,
     "e": 33.8,
@@ -10206,6 +10811,7 @@ export const recept = {
    {
     "n": "pasta (gekookt)",
     "q": 430.0,
+    "g": 430.0,
     "eh": "g",
     "kcal": 679.0,
     "e": 24.9,
@@ -10215,6 +10821,7 @@ export const recept = {
    {
     "n": "passata/tomatenpuree",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 123.0,
     "e": 6.5,
@@ -10224,6 +10831,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 28.0,
     "e": 0.6,
@@ -10233,6 +10841,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 14.0,
+    "g": 14.0,
     "eh": "g",
     "kcal": 124.0,
     "e": 0.0,
@@ -10242,6 +10851,7 @@ export const recept = {
    {
     "n": "parmezaan",
     "q": 18.0,
+    "g": 18.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 6.4,
@@ -10251,6 +10861,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -10263,7 +10874,14 @@ export const recept = {
    "e": 73.0,
    "v": 26.0,
    "k": 173.9
-  }
+  },
+  "stappen": [
+   "Kook de pasta beetgaar.",
+   "Fruit de ui in de helft van de olijfolie, voeg de passata toe en laat 10 min pruttelen.",
+   "Laat de tonijn uitlekken en roer hem er op het laatst door, zodat hij niet uit elkaar valt.",
+   "Meng de pasta erdoor en werk af met de parmezaan en de rest van de olie."
+  ],
+  "foto": ""
  },
  "D46": {
   "naam": "Kip fajita bowl met rijst en bonen",
@@ -10271,6 +10889,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 223.0,
     "e": 41.9,
@@ -10280,6 +10899,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 400.0,
+    "g": 400.0,
     "eh": "g",
     "kcal": 520.0,
     "e": 10.8,
@@ -10289,6 +10909,7 @@ export const recept = {
    {
     "n": "zwarte bonen (blik, uitgelekt)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 136.0,
     "e": 9.0,
@@ -10298,6 +10919,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 140.0,
+    "g": 140.0,
     "eh": "g",
     "kcal": 43.0,
     "e": 1.4,
@@ -10307,6 +10929,7 @@ export const recept = {
    {
     "n": "guacamole",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 99.0,
     "e": 1.2,
@@ -10316,6 +10939,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 22.0,
     "e": 0.4,
@@ -10325,6 +10949,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -10337,7 +10962,14 @@ export const recept = {
    "e": 65.5,
    "v": 17.3,
    "k": 160.9
-  }
+  },
+  "stappen": [
+   "Zet de rijst op.",
+   "Bak de kip in reepjes met fajitakruiden gaar.",
+   "Bak de paprika en ui apart tot ze zwarte randjes krijgen.",
+   "Warm de bonen op en bouw de bowl op met de guacamole erbovenop."
+  ],
+  "foto": ""
  },
  "D47": {
   "naam": "Zalm poke bowl met edamame",
@@ -10345,6 +10977,7 @@ export const recept = {
    {
     "n": "zalmfilet (gaar)",
     "q": 115.0,
+    "g": 115.0,
     "eh": "g",
     "kcal": 239.0,
     "e": 25.3,
@@ -10354,6 +10987,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 546.0,
     "e": 11.3,
@@ -10363,6 +10997,7 @@ export const recept = {
    {
     "n": "edamame (gaar)",
     "q": 85.0,
+    "g": 85.0,
     "eh": "g",
     "kcal": 104.0,
     "e": 10.1,
@@ -10372,6 +11007,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 14.0,
     "e": 0.6,
@@ -10381,6 +11017,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 24.0,
     "e": 0.6,
@@ -10390,6 +11027,7 @@ export const recept = {
    {
     "n": "avocado",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 80.0,
     "e": 1.0,
@@ -10399,6 +11037,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 30.0,
     "e": 0.0,
@@ -10411,7 +11050,14 @@ export const recept = {
    "e": 48.9,
    "v": 28.1,
    "k": 147.3
-  }
+  },
+  "stappen": [
+   "Kook de rijst en laat hem lauw worden.",
+   "Bak de zalm 3-4 min op de velkant en breek hem in stukken, of gebruik hem koud.",
+   "Kook de edamame 4 min en spoel koud.",
+   "Snijd de komkommer, wortel en avocado en bouw de bowl op met de honing en sojasaus erover."
+  ],
+  "foto": ""
  },
  "D48": {
   "naam": "Biefstukreepjes wrap met groenten",
@@ -10419,6 +11065,7 @@ export const recept = {
    {
     "n": "runderreepjes roerbak (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 266.0,
     "e": 39.0,
@@ -10428,6 +11075,7 @@ export const recept = {
    {
     "n": "tortillawrap (tarwe)",
     "q": 160.0,
+    "g": 160.0,
     "eh": "g",
     "kcal": 488.0,
     "e": 13.6,
@@ -10437,6 +11085,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 40.0,
     "e": 1.3,
@@ -10446,6 +11095,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 8.0,
     "e": 0.5,
@@ -10455,6 +11105,7 @@ export const recept = {
    {
     "n": "yoghurtdressing (light)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 48.0,
     "e": 1.5,
@@ -10464,6 +11115,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 22.0,
     "e": 0.4,
@@ -10473,6 +11125,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -10485,7 +11138,14 @@ export const recept = {
    "e": 57.1,
    "v": 28.4,
    "k": 101.4
-  }
+  },
+  "stappen": [
+   "Roerbak de runderreepjes zeer kort op hoog vuur en haal ze eruit.",
+   "Bak de paprika en ui 4-5 min in dezelfde pan.",
+   "Warm de wraps op in een droge pan.",
+   "Vul met de sla, de groenten en het vlees, en lepel de yoghurtdressing erover."
+  ],
+  "foto": ""
  },
  "D49": {
   "naam": "Kip madras met basmatirijst",
@@ -10493,6 +11153,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 239.0,
     "e": 45.0,
@@ -10502,6 +11163,7 @@ export const recept = {
    {
     "n": "basmatirijst (gekookt)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 572.0,
     "e": 11.9,
@@ -10511,6 +11173,7 @@ export const recept = {
    {
     "n": "tomatenblokjes (blik)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 48.0,
     "e": 2.4,
@@ -10520,6 +11183,7 @@ export const recept = {
    {
     "n": "currypasta/kruidenpasta",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 38.0,
     "e": 0.8,
@@ -10529,6 +11193,7 @@ export const recept = {
    {
     "n": "kokosmelk (blik, vol)",
     "q": 45.0,
+    "g": 45.0,
     "eh": "g",
     "kcal": 89.0,
     "e": 0.9,
@@ -10538,6 +11203,7 @@ export const recept = {
    {
     "n": "doperwten (gaar)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 67.0,
     "e": 4.3,
@@ -10547,6 +11213,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -10559,7 +11226,14 @@ export const recept = {
    "e": 66.1,
    "v": 18.8,
    "k": 159.5
-  }
+  },
+  "stappen": [
+   "Zet de basmatirijst op.",
+   "Bak de currypasta 1 min tot hij geurt en voeg de kip toe.",
+   "Voeg de tomatenblokjes en kokosmelk toe en laat 15 min koken.",
+   "Voeg de doperwten en wortel de laatste 5 min toe."
+  ],
+  "foto": ""
  },
  "D50": {
   "naam": "Vissticks wrap met sla en yoghurtdressing",
@@ -10567,6 +11241,7 @@ export const recept = {
    {
     "n": "vissticks (oven)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 310.0,
     "e": 18.9,
@@ -10576,6 +11251,7 @@ export const recept = {
    {
     "n": "tortillawrap (tarwe)",
     "q": 160.0,
+    "g": 160.0,
     "eh": "g",
     "kcal": 488.0,
     "e": 13.6,
@@ -10585,6 +11261,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 9.0,
     "e": 0.6,
@@ -10594,6 +11271,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 14.0,
     "e": 0.7,
@@ -10603,6 +11281,7 @@ export const recept = {
    {
     "n": "yoghurtdressing (light)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 48.0,
     "e": 1.5,
@@ -10612,6 +11291,7 @@ export const recept = {
    {
     "n": "mais (blik)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 60.0,
     "e": 2.2,
@@ -10621,6 +11301,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -10633,7 +11314,14 @@ export const recept = {
    "e": 38.3,
    "v": 31.1,
    "k": 132.8
-  }
+  },
+  "stappen": [
+   "Bak de vissticks in de oven volgens de verpakking, tot ze krokant zijn.",
+   "Warm de wraps kort op.",
+   "Snijd de sla en tomaat en laat de mais uitlekken.",
+   "Leg de vissticks in de wrap, lepel de dressing erover en rol strak op."
+  ],
+  "foto": ""
  },
  "D51": {
   "naam": "Kipgehaktballetjes in tomatensaus met pasta",
@@ -10641,6 +11329,7 @@ export const recept = {
    {
     "n": "kipdij zonder vel (gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 268.0,
     "e": 36.2,
@@ -10650,6 +11339,7 @@ export const recept = {
    {
     "n": "pasta (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 664.0,
     "e": 24.4,
@@ -10659,6 +11349,7 @@ export const recept = {
    {
     "n": "passata/tomatenpuree",
     "q": 160.0,
+    "g": 160.0,
     "eh": "g",
     "kcal": 131.0,
     "e": 6.9,
@@ -10668,6 +11359,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 28.0,
     "e": 0.6,
@@ -10677,6 +11369,7 @@ export const recept = {
    {
     "n": "parmezaan",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 78.0,
     "e": 7.2,
@@ -10686,6 +11379,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -10695,6 +11389,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -10707,7 +11402,15 @@ export const recept = {
    "e": 76.1,
    "v": 34.3,
    "k": 172.6
-  }
+  },
+  "stappen": [
+   "Draai of hak de kipdij fijn en kneed er balletjes van met zout en peper.",
+   "Bak ze rondom bruin in de olijfolie en haal ze uit de pan.",
+   "Fruit de ui, voeg de passata toe en laat 10 min pruttelen.",
+   "Laat de balletjes 10 min meestoven in de saus.",
+   "Kook de pasta en meng alles met de parmezaan."
+  ],
+  "foto": ""
  },
  "D52": {
   "naam": "Runderburger bowl met zoete aardappel",
@@ -10715,6 +11418,7 @@ export const recept = {
    {
     "n": "rundergehakt 5% (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 234.0,
     "e": 33.8,
@@ -10724,6 +11428,7 @@ export const recept = {
    {
     "n": "zoete aardappel (gaar)",
     "q": 480.0,
+    "g": 480.0,
     "eh": "g",
     "kcal": 432.0,
     "e": 9.6,
@@ -10733,6 +11438,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 9.0,
     "e": 0.6,
@@ -10742,6 +11448,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 16.0,
     "e": 0.8,
@@ -10751,6 +11458,7 @@ export const recept = {
    {
     "n": "guacamole",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 99.0,
     "e": 1.2,
@@ -10760,6 +11468,7 @@ export const recept = {
    {
     "n": "mais (blik)",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 52.0,
     "e": 1.9,
@@ -10772,7 +11481,14 @@ export const recept = {
    "e": 47.9,
    "v": 20.9,
    "k": 120.3
-  }
+  },
+  "stappen": [
+   "Verwarm de oven voor op 220 graden en rooster de zoete aardappel in partjes 25-30 min.",
+   "Vorm burgers van het gehakt en bak ze 4-5 min per kant.",
+   "Snijd de sla en tomaat en laat de mais uitlekken.",
+   "Bouw de bowl op met de guacamole erbovenop."
+  ],
+  "foto": ""
  },
  "D53": {
   "naam": "Kabeljauw met couscous en gegrilde paprika",
@@ -10780,6 +11496,7 @@ export const recept = {
    {
     "n": "kabeljauw/witvis (gaar)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 158.0,
     "e": 34.5,
@@ -10789,6 +11506,7 @@ export const recept = {
    {
     "n": "couscous (bereid)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 493.0,
     "e": 16.7,
@@ -10798,6 +11516,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 56.0,
     "e": 1.8,
@@ -10807,6 +11526,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 133.0,
     "e": 0.0,
@@ -10816,6 +11536,7 @@ export const recept = {
    {
     "n": "citroensap",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 2.0,
     "e": 0.0,
@@ -10828,7 +11549,14 @@ export const recept = {
    "e": 53.0,
    "v": 17.8,
    "k": 113.6
-  }
+  },
+  "stappen": [
+   "Wel de couscous met kokend water, 5 min afgedekt.",
+   "Gril de paprika tot de schil blaren krijgt en snijd hem in repen.",
+   "Bak de kabeljauw in de helft van de olijfolie 3-4 min per kant en keer hem maar een keer.",
+   "Meng de couscous met de paprika, de rest van de olie en het citroensap."
+  ],
+  "foto": ""
  },
  "D54": {
   "naam": "Kip cordon bleu-stijl met aardappelpartjes",
@@ -10836,6 +11564,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 214.0,
     "e": 40.3,
@@ -10845,6 +11574,7 @@ export const recept = {
    {
     "n": "prosciutto/rauwe ham",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 39.0,
     "e": 5.6,
@@ -10854,6 +11584,7 @@ export const recept = {
    {
     "n": "geraspte kaas 30+",
     "q": 35.0,
+    "g": 35.0,
     "eh": "g",
     "kcal": 116.0,
     "e": 9.8,
@@ -10863,6 +11594,7 @@ export const recept = {
    {
     "n": "aardappelpartjes (oven)",
     "q": 400.0,
+    "g": 400.0,
     "eh": "g",
     "kcal": 600.0,
     "e": 10.4,
@@ -10872,6 +11604,7 @@ export const recept = {
    {
     "n": "sperziebonen (gaar)",
     "q": 170.0,
+    "g": 170.0,
     "eh": "g",
     "kcal": 60.0,
     "e": 3.2,
@@ -10881,6 +11614,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -10893,7 +11627,14 @@ export const recept = {
    "e": 70.1,
    "v": 33.3,
    "k": 120.0
-  }
+  },
+  "stappen": [
+   "Verwarm de oven voor op 220 graden en bak de aardappelpartjes 25-30 min.",
+   "Snijd de kipfilet horizontaal in tot een zakje, vul met de ham en de kaas en zet vast met een prikker.",
+   "Bak de kip 5-6 min per kant, of gaar hem 15 min in de oven bij de partjes.",
+   "Kook de sperziebonen en wortel beetgaar."
+  ],
+  "foto": ""
  },
  "D55": {
   "naam": "Garnalencurry met rijst",
@@ -10901,6 +11642,7 @@ export const recept = {
    {
     "n": "garnalen (gaar)",
     "q": 160.0,
+    "g": 160.0,
     "eh": "g",
     "kcal": 158.0,
     "e": 38.4,
@@ -10910,6 +11652,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 430.0,
+    "g": 430.0,
     "eh": "g",
     "kcal": 559.0,
     "e": 11.6,
@@ -10919,6 +11662,7 @@ export const recept = {
    {
     "n": "kokosmelk (blik, vol)",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 118.0,
     "e": 1.2,
@@ -10928,6 +11672,7 @@ export const recept = {
    {
     "n": "currypasta/kruidenpasta",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 38.0,
     "e": 0.8,
@@ -10937,6 +11682,7 @@ export const recept = {
    {
     "n": "roerbakgroenten mix",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 72.0,
     "e": 3.6,
@@ -10949,7 +11695,14 @@ export const recept = {
    "e": 55.6,
    "v": 17.3,
    "k": 138.8
-  }
+  },
+  "stappen": [
+   "Zet de rijst op.",
+   "Bak de currypasta 1 min in een droge pan en giet de kokosmelk erbij.",
+   "Voeg de groenten toe en laat 8 min zachtjes koken.",
+   "Voeg de garnalen pas op het laatst toe en warm ze 2 min mee, niet langer."
+  ],
+  "foto": ""
  },
  "D56": {
   "naam": "Moussaka met courgette en gehakt",
@@ -10957,6 +11710,7 @@ export const recept = {
    {
     "n": "rundergehakt 5% (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 216.0,
     "e": 31.2,
@@ -10966,6 +11720,7 @@ export const recept = {
    {
     "n": "courgette (gaar)",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 34.0,
     "e": 2.4,
@@ -10975,6 +11730,7 @@ export const recept = {
    {
     "n": "aardappel (gekookt)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 383.0,
     "e": 8.8,
@@ -10984,6 +11740,7 @@ export const recept = {
    {
     "n": "tomatenblokjes (blik)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 48.0,
     "e": 2.4,
@@ -10993,6 +11750,7 @@ export const recept = {
    {
     "n": "geraspte kaas 30+",
     "q": 45.0,
+    "g": 45.0,
     "eh": "g",
     "kcal": 148.0,
     "e": 12.6,
@@ -11002,6 +11760,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 3.4,
@@ -11011,6 +11770,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -11020,6 +11780,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -11032,7 +11793,15 @@ export const recept = {
    "e": 61.6,
    "v": 33.1,
    "k": 118.1
-  }
+  },
+  "stappen": [
+   "Verwarm de oven voor op 180 graden.",
+   "Bak de plakken courgette en aardappel kort aan in de olijfolie.",
+   "Rul het gehakt, voeg de tomatenblokjes toe en laat 10 min pruttelen.",
+   "Laag in een ovenschaal: aardappel, gehakt, courgette, en giet de melk erover.",
+   "Strooi de kaas erover en bak 35-40 min."
+  ],
+  "foto": ""
  },
  "D57": {
   "naam": "Kipfilet teriyaki noedels",
@@ -11040,6 +11809,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 239.0,
     "e": 45.0,
@@ -11049,6 +11819,7 @@ export const recept = {
    {
     "n": "noedels (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 580.0,
     "e": 18.9,
@@ -11058,6 +11829,7 @@ export const recept = {
    {
     "n": "roerbakgroenten mix",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 80.0,
     "e": 4.0,
@@ -11067,6 +11839,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 61.0,
     "e": 0.1,
@@ -11076,6 +11849,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -11085,6 +11859,7 @@ export const recept = {
    {
     "n": "knoflook",
     "q": 6.0,
+    "g": 6.0,
     "eh": "g",
     "kcal": 9.0,
     "e": 0.4,
@@ -11097,7 +11872,14 @@ export const recept = {
    "e": 68.4,
    "v": 25.0,
    "k": 136.5
-  }
+  },
+  "stappen": [
+   "Kook de noedels en spoel ze koud.",
+   "Bak de kip in repen gaar in de olijfolie met de knoflook.",
+   "Blus af met de honing en een scheut sojasaus tot een glanzende saus.",
+   "Roerbak de groenten kort mee en schep de noedels erdoor."
+  ],
+  "foto": ""
  },
  "D58": {
   "naam": "Zalm met quinoa en asperges",
@@ -11105,6 +11887,7 @@ export const recept = {
    {
     "n": "zalmfilet (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 250.0,
     "e": 26.4,
@@ -11114,6 +11897,7 @@ export const recept = {
    {
     "n": "quinoa (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 504.0,
     "e": 18.5,
@@ -11123,6 +11907,7 @@ export const recept = {
    {
     "n": "asperges (gaar)",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 44.0,
     "e": 4.8,
@@ -11132,6 +11917,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 0.0,
@@ -11141,6 +11927,7 @@ export const recept = {
    {
     "n": "citroensap",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 2.0,
     "e": 0.0,
@@ -11150,6 +11937,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -11162,7 +11950,14 @@ export const recept = {
    "e": 50.5,
    "v": 32.2,
    "k": 106.6
-  }
+  },
+  "stappen": [
+   "Kook de quinoa 12-15 min.",
+   "Kook of stoom de asperges 5-8 min.",
+   "Bak de zalm 3-4 min op de velkant en 1 min op de andere kant.",
+   "Meng de quinoa met de olijfolie, het citroensap en de wortel."
+  ],
+  "foto": ""
  },
  "D59": {
   "naam": "Rundersteak salade met parelgort",
@@ -11170,6 +11965,7 @@ export const recept = {
    {
     "n": "biefstuk (gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 276.0,
     "e": 40.3,
@@ -11179,6 +11975,7 @@ export const recept = {
    {
     "n": "parelgort (gekookt)",
     "q": 420.0,
+    "g": 420.0,
     "eh": "g",
     "kcal": 517.0,
     "e": 9.7,
@@ -11188,6 +11985,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 10.0,
     "e": 0.7,
@@ -11197,6 +11995,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 18.0,
     "e": 0.9,
@@ -11206,6 +12005,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 14.0,
     "e": 0.6,
@@ -11215,6 +12015,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 133.0,
     "e": 0.0,
@@ -11224,6 +12025,7 @@ export const recept = {
    {
     "n": "feta",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 106.0,
     "e": 5.7,
@@ -11233,6 +12035,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -11245,7 +12048,14 @@ export const recept = {
    "e": 58.7,
    "v": 38.1,
    "k": 136.7
-  }
+  },
+  "stappen": [
+   "Kook de parelgort 25-30 min en laat hem afkoelen.",
+   "Bak de biefstuk 2-3 min per kant, laat hem 5 min rusten en snijd hem tegen de draad in.",
+   "Meng de parelgort met de sla, tomaat, komkommer en olijfolie.",
+   "Leg de biefstuk erop en verkruimel de feta erover."
+  ],
+  "foto": ""
  },
  "D60": {
   "naam": "Kip biryani met yoghurt en granaatappel",
@@ -11253,6 +12063,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 135.0,
+    "g": 135.0,
     "eh": "g",
     "kcal": 223.0,
     "e": 41.9,
@@ -11262,6 +12073,7 @@ export const recept = {
    {
     "n": "basmatirijst (gekookt)",
     "q": 440.0,
+    "g": 440.0,
     "eh": "g",
     "kcal": 572.0,
     "e": 11.9,
@@ -11271,6 +12083,7 @@ export const recept = {
    {
     "n": "griekse yoghurt 2%",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 73.0,
     "e": 7.5,
@@ -11280,6 +12093,7 @@ export const recept = {
    {
     "n": "granaatappelpitjes",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 58.0,
     "e": 1.2,
@@ -11289,6 +12103,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 28.0,
     "e": 0.6,
@@ -11298,6 +12113,7 @@ export const recept = {
    {
     "n": "kruiden/specerijen mix",
     "q": 5.0,
+    "g": 5.0,
     "eh": "g",
     "kcal": 12.0,
     "e": 0.5,
@@ -11307,6 +12123,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -11316,6 +12133,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -11328,7 +12146,15 @@ export const recept = {
    "e": 64.4,
    "v": 20.6,
    "k": 155.5
-  }
+  },
+  "stappen": [
+   "Fruit de ui in de olijfolie tot hij goudbruin is; dat duurt langer dan je denkt, 10 min.",
+   "Voeg de kruiden en de kip toe en bak rondom dicht.",
+   "Voeg de rijst en water toe, dek af en laat 15 min op laag vuur garen zonder te roeren.",
+   "Laat 5 min afgedekt staan, roer los met een vork.",
+   "Serveer met de yoghurt en de granaatappelpitjes."
+  ],
+  "foto": ""
  },
  "L1": {
   "naam": "Kip wrap met kwark-kruidendip",
@@ -11336,6 +12162,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 182.0,
     "e": 34.1,
@@ -11345,6 +12172,7 @@ export const recept = {
    {
     "n": "tortillawrap (tarwe)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 458.0,
     "e": 12.8,
@@ -11354,6 +12182,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 85.0,
+    "g": 85.0,
     "eh": "g",
     "kcal": 48.0,
     "e": 8.5,
@@ -11363,6 +12192,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 8.0,
     "e": 0.5,
@@ -11372,6 +12202,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 13.0,
     "e": 0.6,
@@ -11381,6 +12212,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 22.0,
     "e": 0.7,
@@ -11390,6 +12222,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -11402,7 +12235,14 @@ export const recept = {
    "e": 58.0,
    "v": 16.0,
    "k": 92.6
-  }
+  },
+  "stappen": [
+   "Bak de kipfilet gaar en snijd hem in reepjes, of gebruik een restje van gisteren.",
+   "Roer de Skyr met wat zout, peper en verse kruiden tot een dip.",
+   "Warm de wrap kort op in een droge pan, zo scheurt hij niet.",
+   "Vul met de sla, tomaat, paprika en kip, lepel de dip erover en rol strak op."
+  ],
+  "foto": ""
  },
  "L2": {
   "naam": "Tonijnwrap met mais en yoghurtdressing",
@@ -11410,6 +12250,7 @@ export const recept = {
    {
     "n": "tonijn in blik (olijfolie)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 128.0,
     "e": 28.6,
@@ -11419,6 +12260,7 @@ export const recept = {
    {
     "n": "tortillawrap (tarwe)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 458.0,
     "e": 12.8,
@@ -11428,6 +12270,7 @@ export const recept = {
    {
     "n": "mais (blik)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 69.0,
     "e": 2.6,
@@ -11437,6 +12280,7 @@ export const recept = {
    {
     "n": "yoghurtdressing (light)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 48.0,
     "e": 1.5,
@@ -11446,6 +12290,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 8.0,
     "e": 0.5,
@@ -11455,6 +12300,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -11467,7 +12313,13 @@ export const recept = {
    "e": 46.8,
    "v": 16.6,
    "k": 100.9
-  }
+  },
+  "stappen": [
+   "Laat de tonijn uitlekken en meng hem met de mais en de yoghurtdressing.",
+   "Warm de wrap kort op.",
+   "Leg de sla op de wrap, schep het tonijnmengsel erop en rol strak op."
+  ],
+  "foto": ""
  },
  "L3": {
   "naam": "Quesadilla met kwarkdip",
@@ -11475,6 +12327,7 @@ export const recept = {
    {
     "n": "tortillawrap (tarwe)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 458.0,
     "e": 12.8,
@@ -11484,6 +12337,7 @@ export const recept = {
    {
     "n": "geraspte kaas 30+",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 165.0,
     "e": 14.0,
@@ -11493,6 +12347,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 95.0,
+    "g": 95.0,
     "eh": "g",
     "kcal": 157.0,
     "e": 29.4,
@@ -11502,6 +12357,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 85.0,
+    "g": 85.0,
     "eh": "g",
     "kcal": 48.0,
     "e": 8.5,
@@ -11511,6 +12367,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 25.0,
     "e": 0.8,
@@ -11520,6 +12377,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -11532,7 +12390,13 @@ export const recept = {
    "e": 66.3,
    "v": 26.7,
    "k": 90.0
-  }
+  },
+  "stappen": [
+   "Verdeel de kaas en de kip over de helft van de wrap, met de paprika erbij.",
+   "Vouw dubbel en bak in een droge pan 2-3 min per kant tot de kaas smelt.",
+   "Snijd in punten en serveer met de Skyr als dip."
+  ],
+  "foto": ""
  },
  "L4": {
   "naam": "Skyr met muesli en fruit",
@@ -11540,6 +12404,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 250.0,
+    "g": 250.0,
     "eh": "g",
     "kcal": 158.0,
     "e": 27.5,
@@ -11549,6 +12414,7 @@ export const recept = {
    {
     "n": "Upfront muesli",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 380.0,
     "e": 10.0,
@@ -11558,6 +12424,7 @@ export const recept = {
    {
     "n": "blauwe bessen",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 57.0,
     "e": 0.7,
@@ -11567,6 +12434,7 @@ export const recept = {
    {
     "n": "banaan",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 89.0,
     "e": 1.1,
@@ -11576,6 +12444,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 0.0,
@@ -11585,6 +12454,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -11597,7 +12467,14 @@ export const recept = {
    "e": 40.1,
    "v": 8.3,
    "k": 132.9
-  }
+  },
+  "stappen": [
+   "Schep de Skyr in een kom.",
+   "Strooi de muesli erover.",
+   "Snijd de banaan in plakken en voeg de blauwe bessen toe.",
+   "Werk af met de honing."
+  ],
+  "foto": ""
  },
  "L5": {
   "naam": "Omelet",
@@ -11605,6 +12482,7 @@ export const recept = {
    {
     "n": "ei (heel, gaar)",
     "q": 160.0,
+    "g": 160.0,
     "eh": "g",
     "kcal": 229.0,
     "e": 20.2,
@@ -11614,6 +12492,7 @@ export const recept = {
    {
     "n": "eiwit (los)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 36.0,
     "e": 7.6,
@@ -11623,6 +12502,7 @@ export const recept = {
    {
     "n": "geraspte kaas 30+",
     "q": 35.0,
+    "g": 35.0,
     "eh": "g",
     "kcal": 116.0,
     "e": 9.8,
@@ -11632,6 +12512,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 370.0,
     "e": 14.2,
@@ -11641,6 +12522,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 14.0,
     "e": 0.7,
@@ -11650,6 +12532,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -11662,7 +12545,14 @@ export const recept = {
    "e": 52.5,
    "v": 38.8,
    "k": 63.5
-  }
+  },
+  "stappen": [
+   "Klop de hele eieren met het losse eiwit los, met zout en peper.",
+   "Giet in een pan met de olijfolie en laat op laag vuur stollen, 4-5 min.",
+   "Strooi de kaas erover, vouw dubbel en laat nog 1 min staan.",
+   "Serveer met de tomaat en het brood."
+  ],
+  "foto": ""
  },
  "L6": {
   "naam": "Ei-avocadotoast",
@@ -11670,6 +12560,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 445.0,
     "e": 17.1,
@@ -11679,6 +12570,7 @@ export const recept = {
    {
     "n": "ei (heel, gaar)",
     "q": 115.0,
+    "g": 115.0,
     "eh": "g",
     "kcal": 164.0,
     "e": 14.5,
@@ -11688,6 +12580,7 @@ export const recept = {
    {
     "n": "avocado",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 160.0,
     "e": 2.0,
@@ -11697,6 +12590,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 13.0,
     "e": 0.6,
@@ -11706,6 +12600,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -11718,7 +12613,14 @@ export const recept = {
    "e": 35.0,
    "v": 32.2,
    "k": 90.4
-  }
+  },
+  "stappen": [
+   "Rooster het brood.",
+   "Kook de eieren 6-7 min voor een zachte dooier, of bak ze.",
+   "Prak de avocado met wat zout en citroen en smeer hem op het brood.",
+   "Leg het ei en de tomaat erop."
+  ],
+  "foto": ""
  },
  "L7": {
   "naam": "Eiersalade",
@@ -11726,6 +12628,7 @@ export const recept = {
    {
     "n": "ei (heel, gaar)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 207.0,
     "e": 18.3,
@@ -11735,6 +12638,7 @@ export const recept = {
    {
     "n": "mayonaise",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 170.0,
     "e": 0.2,
@@ -11744,6 +12648,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 180.0,
+    "g": 180.0,
     "eh": "g",
     "kcal": 445.0,
     "e": 17.1,
@@ -11753,6 +12658,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 8.0,
     "e": 0.5,
@@ -11762,6 +12668,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 10.0,
     "e": 0.5,
@@ -11774,7 +12681,13 @@ export const recept = {
    "e": 36.6,
    "v": 39.1,
    "k": 75.1
-  }
+  },
+  "stappen": [
+   "Kook de eieren 8-9 min hard, spoel ze koud en pel ze.",
+   "Prak ze grof met de mayonaise, zout en peper.",
+   "Beleg het brood met de sla en de eiersalade, met de komkommer erbij."
+  ],
+  "foto": ""
  },
  "L8": {
   "naam": "Zoete aardappel-gehaktbowl met spinazie",
@@ -11782,6 +12695,7 @@ export const recept = {
    {
     "n": "rundergehakt 5% (gaar)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 198.0,
     "e": 28.6,
@@ -11791,6 +12705,7 @@ export const recept = {
    {
     "n": "zoete aardappel (gaar)",
     "q": 380.0,
+    "g": 380.0,
     "eh": "g",
     "kcal": 342.0,
     "e": 7.6,
@@ -11800,6 +12715,7 @@ export const recept = {
    {
     "n": "spinazie (gaar)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 34.0,
     "e": 4.5,
@@ -11809,6 +12725,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -11821,7 +12738,14 @@ export const recept = {
    "e": 40.7,
    "v": 19.7,
    "k": 84.4
-  }
+  },
+  "stappen": [
+   "Rooster of kook de zoete aardappel in blokjes gaar.",
+   "Rul het gehakt in de olijfolie en breng op smaak.",
+   "Slink de spinazie erdoor tot hij net zacht is.",
+   "Schep alles samen in een kom."
+  ],
+  "foto": ""
  },
  "L9": {
   "naam": "Prosciutto-meloenbak met mozzarella",
@@ -11829,6 +12753,7 @@ export const recept = {
    {
     "n": "prosciutto/rauwe ham",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 98.0,
     "e": 14.0,
@@ -11838,6 +12763,7 @@ export const recept = {
    {
     "n": "meloen (cantaloupe)",
     "q": 250.0,
+    "g": 250.0,
     "eh": "g",
     "kcal": 85.0,
     "e": 2.0,
@@ -11847,6 +12773,7 @@ export const recept = {
    {
     "n": "mozzarella",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 252.0,
     "e": 19.8,
@@ -11856,6 +12783,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 321.0,
     "e": 12.3,
@@ -11865,6 +12793,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 0.0,
@@ -11877,7 +12806,14 @@ export const recept = {
    "e": 48.1,
    "v": 35.5,
    "k": 73.4
-  }
+  },
+  "stappen": [
+   "Snijd de meloen in partjes en verwijder de schil.",
+   "Wikkel de prosciutto losjes om de meloen.",
+   "Scheur de mozzarella erbij en druppel de olijfolie erover.",
+   "Serveer met het brood."
+  ],
+  "foto": ""
  },
  "L10": {
   "naam": "Pesto-kippastasalade",
@@ -11885,6 +12821,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 182.0,
     "e": 34.1,
@@ -11894,6 +12831,7 @@ export const recept = {
    {
     "n": "pasta (gekookt)",
     "q": 320.0,
+    "g": 320.0,
     "eh": "g",
     "kcal": 506.0,
     "e": 18.6,
@@ -11903,6 +12841,7 @@ export const recept = {
    {
     "n": "pesto (groen)",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 112.0,
     "e": 1.2,
@@ -11912,6 +12851,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 18.0,
     "e": 0.9,
@@ -11921,6 +12861,7 @@ export const recept = {
    {
     "n": "spinazie (gaar)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 16.0,
     "e": 2.1,
@@ -11933,7 +12874,14 @@ export const recept = {
    "e": 56.9,
    "v": 18.5,
    "k": 106.5
-  }
+  },
+  "stappen": [
+   "Kook de pasta beetgaar en spoel hem koud.",
+   "Bak de kip gaar en snijd hem in reepjes, of gebruik een restje.",
+   "Meng de pasta met de pesto, de tomaat en de spinazie.",
+   "Schep de kip erdoor."
+  ],
+  "foto": ""
  },
  "L11": {
   "naam": "Kwarkbowl met muesli en blauwe bessen",
@@ -11941,6 +12889,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 250.0,
+    "g": 250.0,
     "eh": "g",
     "kcal": 142.0,
     "e": 25.0,
@@ -11950,6 +12899,7 @@ export const recept = {
    {
     "n": "Upfront muesli",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 380.0,
     "e": 10.0,
@@ -11959,6 +12909,7 @@ export const recept = {
    {
     "n": "blauwe bessen",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 68.0,
     "e": 0.8,
@@ -11968,6 +12919,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 61.0,
     "e": 0.1,
@@ -11977,6 +12929,7 @@ export const recept = {
    {
     "n": "walnoten",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 98.0,
     "e": 2.3,
@@ -11986,6 +12939,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -11998,7 +12952,14 @@ export const recept = {
    "e": 39.0,
    "v": 17.9,
    "k": 118.0
-  }
+  },
+  "stappen": [
+   "Schep de Skyr in een kom.",
+   "Strooi de muesli en de blauwe bessen erover.",
+   "Hak de walnoten grof en voeg ze toe.",
+   "Werk af met de honing."
+  ],
+  "foto": ""
  },
  "L12": {
   "naam": "Volkorenboterhammen met kipfilet en huttenkase",
@@ -12006,6 +12967,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 494.0,
     "e": 19.0,
@@ -12015,6 +12977,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 95.0,
+    "g": 95.0,
     "eh": "g",
     "kcal": 157.0,
     "e": 29.4,
@@ -12024,6 +12987,7 @@ export const recept = {
    {
     "n": "huttenkase",
     "q": 85.0,
+    "g": 85.0,
     "eh": "g",
     "kcal": 83.0,
     "e": 9.3,
@@ -12033,6 +12997,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 12.0,
     "e": 0.6,
@@ -12042,6 +13007,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 13.0,
     "e": 0.6,
@@ -12051,6 +13017,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -12063,7 +13030,13 @@ export const recept = {
    "e": 59.7,
    "v": 14.5,
    "k": 94.7
-  }
+  },
+  "stappen": [
+   "Beleg twee sneden brood met de huttenkase.",
+   "Leg de kipfilet erop met de komkommer en tomaat.",
+   "Breng op smaak met peper en serveer de wortel ernaast."
+  ],
+  "foto": ""
  },
  "L13": {
   "naam": "Couscoussalade met kikkererwten en feta",
@@ -12071,6 +13044,7 @@ export const recept = {
    {
     "n": "couscous (bereid)",
     "q": 350.0,
+    "g": 350.0,
     "eh": "g",
     "kcal": 392.0,
     "e": 13.3,
@@ -12080,6 +13054,7 @@ export const recept = {
    {
     "n": "kikkererwten (blik)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 178.0,
     "e": 10.5,
@@ -12089,6 +13064,7 @@ export const recept = {
    {
     "n": "feta",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 158.0,
     "e": 8.5,
@@ -12098,6 +13074,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 31.0,
     "e": 1.0,
@@ -12107,6 +13084,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 12.0,
     "e": 0.6,
@@ -12116,6 +13094,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 12.0,
+    "g": 12.0,
     "eh": "g",
     "kcal": 106.0,
     "e": 0.0,
@@ -12125,6 +13104,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -12137,7 +13117,14 @@ export const recept = {
    "e": 34.7,
    "v": 30.0,
    "k": 127.5
-  }
+  },
+  "stappen": [
+   "Wel de couscous met kokend water, 5 min afgedekt, en roer los met een vork.",
+   "Laat de kikkererwten uitlekken en spoel ze af.",
+   "Snijd de paprika en komkommer in blokjes.",
+   "Meng alles met de olijfolie en verkruimel de feta erover."
+  ],
+  "foto": ""
  },
  "L14": {
   "naam": "Rundergehaktwrap met sla en tomaat",
@@ -12145,6 +13132,7 @@ export const recept = {
    {
     "n": "rundergehakt 5% (gaar)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 198.0,
     "e": 28.6,
@@ -12154,6 +13142,7 @@ export const recept = {
    {
     "n": "tortillawrap (tarwe)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 458.0,
     "e": 12.8,
@@ -12163,6 +13152,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 8.0,
     "e": 0.5,
@@ -12172,6 +13162,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 14.0,
     "e": 0.7,
@@ -12181,6 +13172,7 @@ export const recept = {
    {
     "n": "guacamole",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 82.0,
     "e": 1.0,
@@ -12190,6 +13182,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -12202,7 +13195,14 @@ export const recept = {
    "e": 44.4,
    "v": 28.0,
    "k": 89.8
-  }
+  },
+  "stappen": [
+   "Rul het gehakt gaar en breng het op smaak.",
+   "Warm de wrap kort op.",
+   "Leg de sla en tomaat erop, schep het gehakt erbij en werk af met de guacamole.",
+   "Rol strak op en snijd schuin doormidden."
+  ],
+  "foto": ""
  },
  "L15": {
   "naam": "Zalmsalade met parelgort",
@@ -12210,6 +13210,7 @@ export const recept = {
    {
     "n": "zalmfilet (gaar)",
     "q": 95.0,
+    "g": 95.0,
     "eh": "g",
     "kcal": 198.0,
     "e": 20.9,
@@ -12219,6 +13220,7 @@ export const recept = {
    {
     "n": "parelgort (gekookt)",
     "q": 350.0,
+    "g": 350.0,
     "eh": "g",
     "kcal": 430.0,
     "e": 8.0,
@@ -12228,6 +13230,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 14.0,
     "e": 0.6,
@@ -12237,6 +13240,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 16.0,
     "e": 0.8,
@@ -12246,6 +13250,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 88.0,
     "e": 0.0,
@@ -12255,6 +13260,7 @@ export const recept = {
    {
     "n": "citroensap",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 2.0,
     "e": 0.0,
@@ -12264,6 +13270,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -12276,7 +13283,14 @@ export const recept = {
    "e": 31.1,
    "v": 24.2,
    "k": 114.3
-  }
+  },
+  "stappen": [
+   "Kook de parelgort 25-30 min en laat hem afkoelen.",
+   "Bak de zalm 3-4 min op de velkant en breek hem in stukken, of gebruik hem koud.",
+   "Snijd de komkommer en tomaat in blokjes.",
+   "Meng alles met de olijfolie en het citroensap."
+  ],
+  "foto": ""
  },
  "L16": {
   "naam": "Skyr met banaan, pindakaas en honing",
@@ -12284,6 +13298,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 250.0,
+    "g": 250.0,
     "eh": "g",
     "kcal": 158.0,
     "e": 27.5,
@@ -12293,6 +13308,7 @@ export const recept = {
    {
     "n": "banaan",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 107.0,
     "e": 1.3,
@@ -12302,6 +13318,7 @@ export const recept = {
    {
     "n": "pindakaas (Calve)",
     "q": 30.0,
+    "g": 30.0,
     "eh": "g",
     "kcal": 176.0,
     "e": 7.5,
@@ -12311,6 +13328,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 61.0,
     "e": 0.1,
@@ -12320,6 +13338,7 @@ export const recept = {
    {
     "n": "Upfront muesli",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 190.0,
     "e": 5.0,
@@ -12329,6 +13348,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -12341,7 +13361,13 @@ export const recept = {
    "e": 42.2,
    "v": 19.3,
    "k": 99.1
-  }
+  },
+  "stappen": [
+   "Schep de Skyr in een kom en roer de pindakaas er losjes doorheen.",
+   "Snijd de banaan in plakken erover.",
+   "Strooi de muesli erover en werk af met de honing."
+  ],
+  "foto": ""
  },
  "L17": {
   "naam": "Griekse salade met feta en pita",
@@ -12349,6 +13375,7 @@ export const recept = {
    {
     "n": "feta",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 185.0,
     "e": 9.9,
@@ -12358,6 +13385,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 18.0,
     "e": 0.8,
@@ -12367,6 +13395,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 27.0,
     "e": 1.4,
@@ -12376,6 +13405,7 @@ export const recept = {
    {
     "n": "ui (gefruit)",
     "q": 30.0,
+    "g": 30.0,
     "eh": "g",
     "kcal": 16.0,
     "e": 0.3,
@@ -12385,6 +13415,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 133.0,
     "e": 0.0,
@@ -12394,6 +13425,7 @@ export const recept = {
    {
     "n": "pitabrood",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 412.0,
     "e": 13.7,
@@ -12403,6 +13435,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 116.0,
     "e": 21.7,
@@ -12412,6 +13445,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -12424,7 +13458,14 @@ export const recept = {
    "e": 48.6,
    "v": 35.6,
    "k": 107.0
-  }
+  },
+  "stappen": [
+   "Snijd de komkommer en tomaat in grove stukken en de ui in dunne ringen.",
+   "Meng met de olijfolie, oregano en peper; zout kan meestal weg omdat de feta al zout is.",
+   "Leg de feta in een blok bovenop in plaats van hem te verkruimelen.",
+   "Bak de kip erbij en warm de pita op."
+  ],
+  "foto": ""
  },
  "L18": {
   "naam": "Restje: chili con carne met rijst",
@@ -12432,6 +13473,7 @@ export const recept = {
    {
     "n": "rundergehakt 5% (gaar)",
     "q": 95.0,
+    "g": 95.0,
     "eh": "g",
     "kcal": 171.0,
     "e": 24.7,
@@ -12441,6 +13483,7 @@ export const recept = {
    {
     "n": "kidneybonen (blik)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 114.0,
     "e": 7.8,
@@ -12450,6 +13493,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 320.0,
+    "g": 320.0,
     "eh": "g",
     "kcal": 416.0,
     "e": 8.6,
@@ -12459,6 +13503,7 @@ export const recept = {
    {
     "n": "tomatenblokjes (blik)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 38.0,
     "e": 1.9,
@@ -12468,6 +13513,7 @@ export const recept = {
    {
     "n": "mais (blik)",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 43.0,
     "e": 1.6,
@@ -12477,6 +13523,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -12489,7 +13536,13 @@ export const recept = {
    "e": 45.4,
    "v": 10.4,
    "k": 135.5
-  }
+  },
+  "stappen": [
+   "Warm het restje chili langzaam op, met een scheut water als hij te dik is geworden.",
+   "Warm de rijst mee of maak verse.",
+   "Serveer met de mais erover."
+  ],
+  "foto": ""
  },
  "L19": {
   "naam": "Tonijn-pastasalade met mais",
@@ -12497,6 +13550,7 @@ export const recept = {
    {
     "n": "tonijn in blik (olijfolie)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 128.0,
     "e": 28.6,
@@ -12506,6 +13560,7 @@ export const recept = {
    {
     "n": "pasta (gekookt)",
     "q": 320.0,
+    "g": 320.0,
     "eh": "g",
     "kcal": 506.0,
     "e": 18.6,
@@ -12515,6 +13570,7 @@ export const recept = {
    {
     "n": "mais (blik)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 69.0,
     "e": 2.6,
@@ -12524,6 +13580,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 12.0,
     "e": 0.6,
@@ -12533,6 +13590,7 @@ export const recept = {
    {
     "n": "yoghurtdressing (light)",
     "q": 45.0,
+    "g": 45.0,
     "eh": "g",
     "kcal": 43.0,
     "e": 1.4,
@@ -12542,6 +13600,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -12554,7 +13613,14 @@ export const recept = {
    "e": 52.6,
    "v": 8.0,
    "k": 127.9
-  }
+  },
+  "stappen": [
+   "Kook de pasta beetgaar en spoel hem koud.",
+   "Laat de tonijn en de mais uitlekken.",
+   "Snijd de komkommer in blokjes.",
+   "Meng alles met de yoghurtdressing."
+  ],
+  "foto": ""
  },
  "L20": {
   "naam": "Omeletwrap met spinazie en kaas",
@@ -12562,6 +13628,7 @@ export const recept = {
    {
     "n": "ei (heel, gaar)",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 186.0,
     "e": 16.4,
@@ -12571,6 +13638,7 @@ export const recept = {
    {
     "n": "tortillawrap (tarwe)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 458.0,
     "e": 12.8,
@@ -12580,6 +13648,7 @@ export const recept = {
    {
     "n": "spinazie (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 28.0,
     "e": 3.6,
@@ -12589,6 +13658,7 @@ export const recept = {
    {
     "n": "geraspte kaas 30+",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 132.0,
     "e": 11.2,
@@ -12601,7 +13671,14 @@ export const recept = {
    "e": 44.0,
    "v": 33.1,
    "k": 79.4
-  }
+  },
+  "stappen": [
+   "Klop de eieren los met zout en peper.",
+   "Slink de spinazie kort in de pan en knijp het vocht eruit.",
+   "Giet het ei erbij en laat stollen tot een dunne omelet.",
+   "Strooi de kaas erover, leg de omelet op de wrap en rol op."
+  ],
+  "foto": ""
  },
  "L21": {
   "naam": "Kipfilet-quinoasalade met paprika",
@@ -12609,6 +13686,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 182.0,
     "e": 34.1,
@@ -12618,6 +13696,7 @@ export const recept = {
    {
     "n": "quinoa (gekookt)",
     "q": 350.0,
+    "g": 350.0,
     "eh": "g",
     "kcal": 420.0,
     "e": 15.4,
@@ -12627,6 +13706,7 @@ export const recept = {
    {
     "n": "paprika rood (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 37.0,
     "e": 1.2,
@@ -12636,6 +13716,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 12.0,
     "e": 0.6,
@@ -12645,6 +13726,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 12.0,
+    "g": 12.0,
     "eh": "g",
     "kcal": 106.0,
     "e": 0.0,
@@ -12654,6 +13736,7 @@ export const recept = {
    {
     "n": "citroensap",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 2.0,
     "e": 0.0,
@@ -12663,6 +13746,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -12675,7 +13759,14 @@ export const recept = {
    "e": 52.1,
    "v": 23.4,
    "k": 93.5
-  }
+  },
+  "stappen": [
+   "Kook de quinoa 12-15 min en laat hem afkoelen.",
+   "Bak de kip gaar en snijd hem in reepjes.",
+   "Snijd de paprika en komkommer in blokjes.",
+   "Meng alles met de olijfolie en het citroensap."
+  ],
+  "foto": ""
  },
  "L22": {
   "naam": "Broodje gezond met ei en ham",
@@ -12683,6 +13774,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 494.0,
     "e": 19.0,
@@ -12692,6 +13784,7 @@ export const recept = {
    {
     "n": "ei (heel, gaar)",
     "q": 85.0,
+    "g": 85.0,
     "eh": "g",
     "kcal": 122.0,
     "e": 10.7,
@@ -12701,6 +13794,7 @@ export const recept = {
    {
     "n": "prosciutto/rauwe ham",
     "q": 35.0,
+    "g": 35.0,
     "eh": "g",
     "kcal": 68.0,
     "e": 9.8,
@@ -12710,6 +13804,7 @@ export const recept = {
    {
     "n": "geraspte kaas 30+",
     "q": 30.0,
+    "g": 30.0,
     "eh": "g",
     "kcal": 99.0,
     "e": 8.4,
@@ -12719,6 +13814,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 6.0,
     "e": 0.4,
@@ -12728,6 +13824,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 13.0,
     "e": 0.6,
@@ -12737,6 +13834,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -12749,7 +13847,13 @@ export const recept = {
    "e": 49.7,
    "v": 25.5,
    "k": 90.8
-  }
+  },
+  "stappen": [
+   "Kook of bak het ei.",
+   "Beleg het brood met de sla, de ham, de kaas en de tomaat.",
+   "Leg het ei erop en breng op smaak met peper."
+  ],
+  "foto": ""
  },
  "L23": {
   "naam": "Linzensalade met feta en granaatappel",
@@ -12757,6 +13861,7 @@ export const recept = {
    {
     "n": "linzen (gekookt)",
     "q": 280.0,
+    "g": 280.0,
     "eh": "g",
     "kcal": 325.0,
     "e": 25.2,
@@ -12766,6 +13871,7 @@ export const recept = {
    {
     "n": "feta",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 158.0,
     "e": 8.5,
@@ -12775,6 +13881,7 @@ export const recept = {
    {
     "n": "granaatappelpitjes",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 58.0,
     "e": 1.2,
@@ -12784,6 +13891,7 @@ export const recept = {
    {
     "n": "spinazie (gaar)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 18.0,
     "e": 2.4,
@@ -12793,6 +13901,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 12.0,
+    "g": 12.0,
     "eh": "g",
     "kcal": 106.0,
     "e": 0.0,
@@ -12802,6 +13911,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 247.0,
     "e": 9.5,
@@ -12814,7 +13924,14 @@ export const recept = {
    "e": 46.8,
    "v": 30.4,
    "k": 113.9
-  }
+  },
+  "stappen": [
+   "Kook de linzen 20-25 min beetgaar en spoel ze koud; te lang koken maakt ze papperig.",
+   "Meng ze met de spinazie en de olijfolie.",
+   "Verkruimel de feta erover en strooi de granaatappelpitjes erbij.",
+   "Serveer met het brood."
+  ],
+  "foto": ""
  },
  "L24": {
   "naam": "Kwark met muesli, appel en amandelen",
@@ -12822,6 +13939,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 250.0,
+    "g": 250.0,
     "eh": "g",
     "kcal": 142.0,
     "e": 25.0,
@@ -12831,6 +13949,7 @@ export const recept = {
    {
     "n": "Upfront muesli",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 342.0,
     "e": 9.0,
@@ -12840,6 +13959,7 @@ export const recept = {
    {
     "n": "appel",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 78.0,
     "e": 0.5,
@@ -12849,6 +13969,7 @@ export const recept = {
    {
     "n": "amandelen",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 145.0,
     "e": 5.3,
@@ -12858,6 +13979,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 0.0,
@@ -12867,6 +13989,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -12879,7 +14002,14 @@ export const recept = {
    "e": 40.6,
    "v": 19.8,
    "k": 114.0
-  }
+  },
+  "stappen": [
+   "Schep de Skyr in een kom.",
+   "Snijd de appel in blokjes en hak de amandelen grof.",
+   "Strooi de muesli, appel en amandelen erover.",
+   "Werk af met de honing."
+  ],
+  "foto": ""
  },
  "L25": {
   "naam": "Restje: kip curry met rijst",
@@ -12887,6 +14017,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 165.0,
     "e": 31.0,
@@ -12896,6 +14027,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 330.0,
+    "g": 330.0,
     "eh": "g",
     "kcal": 429.0,
     "e": 8.9,
@@ -12905,6 +14037,7 @@ export const recept = {
    {
     "n": "roerbakgroenten mix",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 60.0,
     "e": 3.0,
@@ -12914,6 +14047,7 @@ export const recept = {
    {
     "n": "kokosmelk (blik, vol)",
     "q": 45.0,
+    "g": 45.0,
     "eh": "g",
     "kcal": 89.0,
     "e": 0.9,
@@ -12923,6 +14057,7 @@ export const recept = {
    {
     "n": "currypasta/kruidenpasta",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 30.0,
     "e": 0.6,
@@ -12935,7 +14070,13 @@ export const recept = {
    "e": 44.4,
    "v": 16.4,
    "k": 107.2
-  }
+  },
+  "stappen": [
+   "Warm het restje curry langzaam op, met een scheut water of kokosmelk als hij te dik is.",
+   "Warm de rijst mee of maak verse.",
+   "Roer de groenten er kort door zodat ze niet doorkoken."
+  ],
+  "foto": ""
  },
  "L26": {
   "naam": "Garnalensalade met avocado en quinoa",
@@ -12943,6 +14084,7 @@ export const recept = {
    {
     "n": "garnalen (gaar)",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 119.0,
     "e": 28.8,
@@ -12952,6 +14094,7 @@ export const recept = {
    {
     "n": "quinoa (gekookt)",
     "q": 330.0,
+    "g": 330.0,
     "eh": "g",
     "kcal": 396.0,
     "e": 14.5,
@@ -12961,6 +14104,7 @@ export const recept = {
    {
     "n": "avocado",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 128.0,
     "e": 1.6,
@@ -12970,6 +14114,7 @@ export const recept = {
    {
     "n": "komkommer",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 14.0,
     "e": 0.6,
@@ -12979,6 +14124,7 @@ export const recept = {
    {
     "n": "citroensap",
     "q": 10.0,
+    "g": 10.0,
     "eh": "g",
     "kcal": 2.0,
     "e": 0.0,
@@ -12988,6 +14134,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -13000,7 +14147,14 @@ export const recept = {
    "e": 46.3,
    "v": 18.8,
    "k": 89.4
-  }
+  },
+  "stappen": [
+   "Kook de quinoa en laat hem afkoelen.",
+   "Snijd de avocado en komkommer in blokjes.",
+   "Meng alles met het citroensap; dat houdt de avocado ook groen.",
+   "Schep de garnalen erbovenop."
+  ],
+  "foto": ""
  },
  "L27": {
   "naam": "Volkorenboterhammen met pindakaas en banaan",
@@ -13008,6 +14162,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 494.0,
     "e": 19.0,
@@ -13017,6 +14172,7 @@ export const recept = {
    {
     "n": "pindakaas (Calve)",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 235.0,
     "e": 10.0,
@@ -13026,6 +14182,7 @@ export const recept = {
    {
     "n": "banaan",
     "q": 130.0,
+    "g": 130.0,
     "eh": "g",
     "kcal": 116.0,
     "e": 1.4,
@@ -13035,6 +14192,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 145.0,
+    "g": 145.0,
     "eh": "g",
     "kcal": 83.0,
     "e": 14.5,
@@ -13044,6 +14202,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 0.0,
@@ -13053,6 +14212,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -13065,7 +14225,13 @@ export const recept = {
    "e": 45.7,
    "v": 27.5,
    "k": 139.3
-  }
+  },
+  "stappen": [
+   "Besmeer het brood met de pindakaas.",
+   "Leg de banaan in plakken erop en druppel de honing erover.",
+   "Serveer de Skyr ernaast."
+  ],
+  "foto": ""
  },
  "L28": {
   "naam": "Restje: pasta bolognese",
@@ -13073,6 +14239,7 @@ export const recept = {
    {
     "n": "pasta (gekookt)",
     "q": 330.0,
+    "g": 330.0,
     "eh": "g",
     "kcal": 521.0,
     "e": 19.1,
@@ -13082,6 +14249,7 @@ export const recept = {
    {
     "n": "rundergehakt 5% (gaar)",
     "q": 95.0,
+    "g": 95.0,
     "eh": "g",
     "kcal": 171.0,
     "e": 24.7,
@@ -13091,6 +14259,7 @@ export const recept = {
    {
     "n": "passata/tomatenpuree",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 98.0,
     "e": 5.2,
@@ -13100,6 +14269,7 @@ export const recept = {
    {
     "n": "parmezaan",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 78.0,
     "e": 7.2,
@@ -13109,6 +14279,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -13121,7 +14292,13 @@ export const recept = {
    "e": 57.0,
    "v": 16.6,
    "k": 133.5
-  }
+  },
+  "stappen": [
+   "Warm het restje bolognese langzaam op met een scheut water.",
+   "Warm de pasta mee of kook verse.",
+   "Werk af met de parmezaan."
+  ],
+  "foto": ""
  },
  "L29": {
   "naam": "Bonen-maissalade met kip en avocado",
@@ -13129,6 +14306,7 @@ export const recept = {
    {
     "n": "kipfilet (gaar)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 182.0,
     "e": 34.1,
@@ -13138,6 +14316,7 @@ export const recept = {
    {
     "n": "zwarte bonen (blik, uitgelekt)",
     "q": 150.0,
+    "g": 150.0,
     "eh": "g",
     "kcal": 136.0,
     "e": 9.0,
@@ -13147,6 +14326,7 @@ export const recept = {
    {
     "n": "mais (blik)",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 69.0,
     "e": 2.6,
@@ -13156,6 +14336,7 @@ export const recept = {
    {
     "n": "avocado",
     "q": 70.0,
+    "g": 70.0,
     "eh": "g",
     "kcal": 112.0,
     "e": 1.4,
@@ -13165,6 +14346,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 16.0,
     "e": 0.8,
@@ -13174,6 +14356,7 @@ export const recept = {
    {
     "n": "sla/ijsbergsla",
     "q": 50.0,
+    "g": 50.0,
     "eh": "g",
     "kcal": 8.0,
     "e": 0.5,
@@ -13183,6 +14366,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 0.0,
@@ -13192,6 +14376,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -13204,7 +14389,14 @@ export const recept = {
    "e": 49.2,
    "v": 24.4,
    "k": 57.6
-  }
+  },
+  "stappen": [
+   "Laat de bonen en de mais uitlekken en spoel de bonen af.",
+   "Snijd de tomaat, avocado en sla.",
+   "Bak de kip gaar en snijd hem in reepjes, of gebruik een restje.",
+   "Meng alles met de olijfolie."
+  ],
+  "foto": ""
  },
  "L30": {
   "naam": "Huttenkase-toast met ei en tomaat",
@@ -13212,6 +14404,7 @@ export const recept = {
    {
     "n": "volkorenbrood",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 494.0,
     "e": 19.0,
@@ -13221,6 +14414,7 @@ export const recept = {
    {
     "n": "huttenkase",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 108.0,
     "e": 12.1,
@@ -13230,6 +14424,7 @@ export const recept = {
    {
     "n": "ei (heel, gaar)",
     "q": 85.0,
+    "g": 85.0,
     "eh": "g",
     "kcal": 122.0,
     "e": 10.7,
@@ -13239,6 +14434,7 @@ export const recept = {
    {
     "n": "tomaat (vers)",
     "q": 90.0,
+    "g": 90.0,
     "eh": "g",
     "kcal": 16.0,
     "e": 0.8,
@@ -13248,6 +14444,7 @@ export const recept = {
    {
     "n": "olijfolie",
     "q": 8.0,
+    "g": 8.0,
     "eh": "g",
     "kcal": 71.0,
     "e": 0.0,
@@ -13257,6 +14454,7 @@ export const recept = {
    {
     "n": "wortel (gaar)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 35.0,
     "e": 0.8,
@@ -13269,7 +14467,14 @@ export const recept = {
    "e": 43.4,
    "v": 28.2,
    "k": 94.0
-  }
+  },
+  "stappen": [
+   "Rooster het brood.",
+   "Kook of bak het ei.",
+   "Verdeel de huttenkase over het brood en leg de tomaat erop.",
+   "Leg het ei erbovenop en druppel de olijfolie erover."
+  ],
+  "foto": ""
  },
  "O1": {
   "naam": "ONTBIJT - Upfront Baked Oats banaan-choco + melk, banaan, pindakaas",
@@ -13277,6 +14482,7 @@ export const recept = {
    {
     "n": "Upfront Baked Oats banaan (droog)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 398.0,
     "e": 30.0,
@@ -13286,6 +14492,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 250.0,
+    "g": 250.0,
     "eh": "g",
     "kcal": 115.0,
     "e": 8.5,
@@ -13295,6 +14502,7 @@ export const recept = {
    {
     "n": "banaan",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 107.0,
     "e": 1.3,
@@ -13304,6 +14512,7 @@ export const recept = {
    {
     "n": "pindakaas (Calve)",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 118.0,
     "e": 5.0,
@@ -13316,7 +14525,13 @@ export const recept = {
    "e": 44.8,
    "v": 24.0,
    "k": 86.2
-  }
+  },
+  "stappen": [
+   "Meng de Baked Oats met de melk tot een glad beslag.",
+   "Bak of magnetron volgens de verpakking, of laat een nacht in de koelkast wellen.",
+   "Snijd de banaan erover en lepel de pindakaas erbij."
+  ],
+  "foto": ""
  },
  "O2": {
   "naam": "ONTBIJT - Upfront Eiwit Oats chocolade + melk, blauwe bessen, honing",
@@ -13324,6 +14539,7 @@ export const recept = {
    {
     "n": "Upfront Eiwit Oats (droog)",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 412.0,
     "e": 25.0,
@@ -13333,6 +14549,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 250.0,
+    "g": 250.0,
     "eh": "g",
     "kcal": 115.0,
     "e": 8.5,
@@ -13342,6 +14559,7 @@ export const recept = {
    {
     "n": "blauwe bessen",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 57.0,
     "e": 0.7,
@@ -13351,6 +14569,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 0.0,
@@ -13363,7 +14582,13 @@ export const recept = {
    "e": 34.2,
    "v": 18.1,
    "k": 80.7
-  }
+  },
+  "stappen": [
+   "Meng de Eiwit Oats met de melk.",
+   "Laat 5 min staan of verwarm kort tot hij indikt.",
+   "Voeg de blauwe bessen toe en werk af met de honing."
+  ],
+  "foto": ""
  },
  "O3": {
   "naam": "ONTBIJT - Upfront Rijstpudding vanille + melk, aardbeien, amandelen",
@@ -13371,6 +14596,7 @@ export const recept = {
    {
     "n": "Upfront Rijstpudding vanille (droog)",
     "q": 110.0,
+    "g": 110.0,
     "eh": "g",
     "kcal": 418.0,
     "e": 29.4,
@@ -13380,6 +14606,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 250.0,
+    "g": 250.0,
     "eh": "g",
     "kcal": 115.0,
     "e": 8.5,
@@ -13389,6 +14616,7 @@ export const recept = {
    {
     "n": "aardbeien",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 38.0,
     "e": 0.8,
@@ -13398,6 +14626,7 @@ export const recept = {
    {
     "n": "amandelen",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 116.0,
     "e": 4.2,
@@ -13410,7 +14639,13 @@ export const recept = {
    "e": 42.9,
    "v": 17.4,
    "k": 92.7
-  }
+  },
+  "stappen": [
+   "Meng de rijstpudding met de melk volgens de verpakking.",
+   "Snijd de aardbeien erover.",
+   "Hak de amandelen grof en strooi ze erbij."
+  ],
+  "foto": ""
  },
  "PW": {
   "naam": "PRE-WORKOUT - Red Bull + 4 rijstwafels met banaan en honing",
@@ -13418,6 +14653,7 @@ export const recept = {
    {
     "n": "Red Bull (blikje 250 ml)",
     "q": 250.0,
+    "g": 250.0,
     "eh": "g",
     "kcal": 112.0,
     "e": 1.0,
@@ -13427,6 +14663,7 @@ export const recept = {
    {
     "n": "rijstwafel (per 100 g)",
     "q": 36.0,
+    "g": 36.0,
     "eh": "g",
     "kcal": 139.0,
     "e": 2.9,
@@ -13436,6 +14673,7 @@ export const recept = {
    {
     "n": "banaan",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 107.0,
     "e": 1.3,
@@ -13445,6 +14683,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 20.0,
+    "g": 20.0,
     "eh": "g",
     "kcal": 61.0,
     "e": 0.1,
@@ -13457,7 +14696,13 @@ export const recept = {
    "e": 5.3,
    "v": 1.5,
    "k": 100.7
-  }
+  },
+  "stappen": [
+   "Smeer de rijstwafels met de honing.",
+   "Leg de banaan in plakken erop.",
+   "Drink de Red Bull erbij, ongeveer 30 minuten voor de training."
+  ],
+  "foto": ""
  },
  "PW-alt": {
   "naam": "PRE-WORKOUT ALTERNATIEF - Rijstwafels + honing + espresso/koffie + snufje zout (zonder Red Bull)",
@@ -13465,6 +14710,7 @@ export const recept = {
    {
     "n": "rijstwafel (per 100 g)",
     "q": 60.0,
+    "g": 60.0,
     "eh": "g",
     "kcal": 232.0,
     "e": 4.8,
@@ -13474,6 +14720,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 76.0,
     "e": 0.1,
@@ -13483,6 +14730,7 @@ export const recept = {
    {
     "n": "banaan",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 107.0,
     "e": 1.3,
@@ -13492,6 +14740,7 @@ export const recept = {
    {
     "n": "gejodeerd keukenzout",
     "q": 1.0,
+    "g": 1.0,
     "eh": "g",
     "kcal": 0.0,
     "e": 0.0,
@@ -13504,7 +14753,14 @@ export const recept = {
    "e": 6.2,
    "v": 2.2,
    "k": 96.9
-  }
+  },
+  "stappen": [
+   "Zet de espresso of koffie.",
+   "Smeer de rijstwafels met de honing en leg de banaan erop.",
+   "Strooi een snufje gejodeerd zout over de rijstwafels.",
+   "Neem het geheel ongeveer 30 minuten voor de training."
+  ],
+  "foto": ""
  },
  "H1": {
   "naam": "POST-WORKOUT - Whey + witte rijst met honing",
@@ -13512,6 +14768,7 @@ export const recept = {
    {
     "n": "whey isolaat",
     "q": 30.0,
+    "g": 30.0,
     "eh": "g",
     "kcal": 111.0,
     "e": 25.5,
@@ -13521,6 +14778,7 @@ export const recept = {
    {
     "n": "witte rijst (gekookt)",
     "q": 320.0,
+    "g": 320.0,
     "eh": "g",
     "kcal": 416.0,
     "e": 8.6,
@@ -13530,6 +14788,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 76.0,
     "e": 0.1,
@@ -13542,7 +14801,13 @@ export const recept = {
    "e": 34.2,
    "v": 1.5,
    "k": 112.3
-  }
+  },
+  "stappen": [
+   "Kook de rijst, of gebruik een restje van gisteren.",
+   "Roer de honing door de warme rijst.",
+   "Los de whey op in water of melk en drink hem erbij, binnen een uur na de training."
+  ],
+  "foto": ""
  },
  "H2": {
   "naam": "POST-WORKOUT - Skyr met muesli en banaan",
@@ -13550,6 +14815,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 215.0,
+    "g": 215.0,
     "eh": "g",
     "kcal": 135.0,
     "e": 23.6,
@@ -13559,6 +14825,7 @@ export const recept = {
    {
     "n": "Upfront muesli",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 304.0,
     "e": 8.0,
@@ -13568,6 +14835,7 @@ export const recept = {
    {
     "n": "banaan",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 107.0,
     "e": 1.3,
@@ -13580,7 +14848,13 @@ export const recept = {
    "e": 32.9,
    "v": 6.4,
    "k": 88.0
-  }
+  },
+  "stappen": [
+   "Schep de Skyr in een kom.",
+   "Strooi de muesli erover.",
+   "Snijd de banaan in plakken erbij."
+  ],
+  "foto": ""
  },
  "H3": {
   "naam": "POST-WORKOUT - Upfront rijstpudding met melk en banaan",
@@ -13588,6 +14862,7 @@ export const recept = {
    {
     "n": "Upfront Rijstpudding vanille (droog)",
     "q": 75.0,
+    "g": 75.0,
     "eh": "g",
     "kcal": 285.0,
     "e": 20.0,
@@ -13597,6 +14872,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 92.0,
     "e": 6.8,
@@ -13606,6 +14882,7 @@ export const recept = {
    {
     "n": "banaan",
     "q": 120.0,
+    "g": 120.0,
     "eh": "g",
     "kcal": 107.0,
     "e": 1.3,
@@ -13618,7 +14895,12 @@ export const recept = {
    "e": 28.1,
    "v": 5.6,
    "k": 82.8
-  }
+  },
+  "stappen": [
+   "Meng de rijstpudding met de melk volgens de verpakking.",
+   "Snijd de banaan erover."
+  ],
+  "foto": ""
  },
  "S1": {
   "naam": "SNACK VOOR BED - Ninja Creami: kwark-honing-banaan",
@@ -13626,6 +14908,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 215.0,
+    "g": 215.0,
     "eh": "g",
     "kcal": 123.0,
     "e": 21.5,
@@ -13635,6 +14918,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 3.4,
@@ -13644,6 +14928,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 76.0,
     "e": 0.1,
@@ -13653,6 +14938,7 @@ export const recept = {
    {
     "n": "banaan",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 89.0,
     "e": 1.1,
@@ -13665,7 +14951,14 @@ export const recept = {
    "e": 26.1,
    "v": 2.2,
    "k": 55.6
-  }
+  },
+  "stappen": [
+   "Meng de Skyr, melk en honing glad.",
+   "Snijd de banaan erbij en pureer kort mee.",
+   "Vries in de Creami-beker minstens 12 uur in, tot hij helemaal hard is.",
+   "Draai op stand Lite Ice Cream; spin nog een keer met een scheut melk als hij kruimelig blijft."
+  ],
+  "foto": ""
  },
  "S2": {
   "naam": "SNACK VOOR BED - Ninja Creami: skyr-blauwe bes-honing",
@@ -13673,6 +14966,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 215.0,
+    "g": 215.0,
     "eh": "g",
     "kcal": 135.0,
     "e": 23.6,
@@ -13682,6 +14976,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 80.0,
+    "g": 80.0,
     "eh": "g",
     "kcal": 37.0,
     "e": 2.7,
@@ -13691,6 +14986,7 @@ export const recept = {
    {
     "n": "blauwe bessen",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 57.0,
     "e": 0.7,
@@ -13700,6 +14996,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 76.0,
     "e": 0.1,
@@ -13712,7 +15009,14 @@ export const recept = {
    "e": 27.1,
    "v": 1.9,
    "k": 47.5
-  }
+  },
+  "stappen": [
+   "Meng de Skyr, melk en honing glad.",
+   "Voeg de blauwe bessen toe en pureer kort mee.",
+   "Vries minstens 12 uur in.",
+   "Draai op stand Lite Ice Cream en respin met een scheut melk als het nodig is."
+  ],
+  "foto": ""
  },
  "S3": {
   "naam": "SNACK VOOR BED - Kwark met honing en walnoten",
@@ -13720,6 +15024,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 215.0,
+    "g": 215.0,
     "eh": "g",
     "kcal": 123.0,
     "e": 21.5,
@@ -13729,6 +15034,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 76.0,
     "e": 0.1,
@@ -13738,6 +15044,7 @@ export const recept = {
    {
     "n": "walnoten",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 98.0,
     "e": 2.3,
@@ -13750,7 +15057,13 @@ export const recept = {
    "e": 23.9,
    "v": 10.2,
    "k": 30.2
-  }
+  },
+  "stappen": [
+   "Schep de Skyr in een kom.",
+   "Roer de honing erdoor.",
+   "Hak de walnoten grof en strooi ze erover."
+  ],
+  "foto": ""
  },
  "S4": {
   "naam": "SNACK VOOR BED - Kwark met sinaasappelsap en honing",
@@ -13758,6 +15071,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 114.0,
     "e": 20.0,
@@ -13767,6 +15081,7 @@ export const recept = {
    {
     "n": "sinaasappelsap (vers)",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 90.0,
     "e": 1.4,
@@ -13776,6 +15091,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 0.0,
@@ -13788,7 +15104,13 @@ export const recept = {
    "e": 21.4,
    "v": 0.8,
    "k": 40.2
-  }
+  },
+  "stappen": [
+   "Schep de Skyr in een kom.",
+   "Roer het sinaasappelsap er beetje bij beetje door, dan blijft hij glad.",
+   "Werk af met de honing."
+  ],
+  "foto": ""
  },
  "S5": {
   "naam": "SNACK VOOR BED - Rijstwafels met pindakaas en honing + glas melk",
@@ -13796,6 +15118,7 @@ export const recept = {
    {
     "n": "rijstwafel (per 100 g)",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 155.0,
     "e": 3.2,
@@ -13805,6 +15128,7 @@ export const recept = {
    {
     "n": "pindakaas (Calve)",
     "q": 25.0,
+    "g": 25.0,
     "eh": "g",
     "kcal": 147.0,
     "e": 6.2,
@@ -13814,6 +15138,7 @@ export const recept = {
    {
     "n": "honing",
     "q": 15.0,
+    "g": 15.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 0.0,
@@ -13823,6 +15148,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 200.0,
+    "g": 200.0,
     "eh": "g",
     "kcal": 92.0,
     "e": 6.8,
@@ -13835,7 +15161,13 @@ export const recept = {
    "e": 16.2,
    "v": 16.4,
    "k": 58.2
-  }
+  },
+  "stappen": [
+   "Besmeer de rijstwafels met de pindakaas.",
+   "Druppel de honing erover.",
+   "Drink het glas melk erbij."
+  ],
+  "foto": ""
  },
  "S6": {
   "naam": "SNACK VOOR BED - Ninja Creami: kwark-dadel-melk",
@@ -13843,6 +15175,7 @@ export const recept = {
    {
     "n": "Skyr (Arla, naturel)",
     "q": 215.0,
+    "g": 215.0,
     "eh": "g",
     "kcal": 123.0,
     "e": 21.5,
@@ -13852,6 +15185,7 @@ export const recept = {
    {
     "n": "halfvolle melk",
     "q": 100.0,
+    "g": 100.0,
     "eh": "g",
     "kcal": 46.0,
     "e": 3.4,
@@ -13861,6 +15195,7 @@ export const recept = {
    {
     "n": "dadels (medjool)",
     "q": 40.0,
+    "g": 40.0,
     "eh": "g",
     "kcal": 111.0,
     "e": 0.7,
@@ -13873,7 +15208,14 @@ export const recept = {
    "e": 25.6,
    "v": 2.0,
    "k": 42.2
-  }
+  },
+  "stappen": [
+   "Ontpit de dadels en week ze 10 min in warm water als ze droog zijn.",
+   "Meng de Skyr, melk en dadels en pureer glad.",
+   "Vries minstens 12 uur in.",
+   "Draai op stand Lite Ice Cream en respin met een scheut melk als het nodig is."
+  ],
+  "foto": ""
  }
 };
 export const supplementen = [
