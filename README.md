@@ -13,6 +13,7 @@ Standalone HTML-app met het 60-daagse voedingsschema. Geen build-stap nodig.
 | `tools/winkels.json` | categorieen, winkels en prijzen (met de hand bij te houden) |
 | `tools/patch-index.py` | maakt de data-imports in een nieuwe bundle werkend |
 | `tools/app-shell.py` | haalt de prototype-chrome weg, maakt het schermvullend |
+| `tools/ui-tweaks.py` | aanpassingen aan de schermen zelf |
 | `tools/build-icons.py` | genereert de app-iconen |
 | `manifest.webmanifest`, `sw.js`, `icon-*.png` | installeerbaar en offline bruikbaar |
 | `tools/Seb60dagenvoedingsschema.xlsx` | het bronbestand |
@@ -33,6 +34,7 @@ app van; beide zijn idempotent, dus dubbel draaien kan geen kwaad:
 cp ~/Downloads/Voedingsschema_App_standalone.html index.html
 python3 tools/patch-index.py   # data-imports werkend maken
 python3 tools/app-shell.py     # chrome eruit, schermvullend, PWA-meta's
+python3 tools/ui-tweaks.py     # aanpassingen aan de schermen
 ```
 
 `patch-index.py` is nodig omdat de bundler de component vanuit een `blob:`-URL
@@ -50,17 +52,26 @@ beginscherm". Je krijgt dan een echte app zonder browserbalk, met eigen icoon,
 die dankzij `sw.js` ook offline werkt. Bij een nieuwe versie: verhoog `CACHE`
 in `sw.js`, anders blijft de oude versie in de cache staan.
 
-## Prijzen
+## Boodschappen: groepen, winkels en prijzen
 
-De boodschappenlijst rekent met `tools/winkels.json` → `prijzen`:
+Alles staat in `tools/winkels.json` → `prijzen`:
 
 ```json
-"kipfilet": [11.50, "Slager", 0, "vers"]
+"kipfilet": [11.00, "Vlees", 0, "Hanos, bulk"]
 ```
 
-Dat is `[prijs per kg/liter/stuk, winkel, bio (0 of 1), opmerking]`. Het
-Excel-bestand bevat geen prijzen; zolang een ingredient hier ontbreekt telt
-het voor 0 euro mee en valt het onder "Supermarkt".
+Dat is `[prijs per kg/liter/stuk, groep, bio (0 of 1), winkel]`. De groep is
+de kop in het lijstje: `Upfront`, `Vlees`, `Groentes` of `Overig`; de tekst
+onder elke kop staat in `groepen`.
+
+**De prijzen zijn schattingen.** Het Excel-bestand bevat geen prijzen, dus ze
+zijn gebaseerd op gangbare Nederlandse winkelprijzen en niet gecontroleerd.
+Pas ze aan in dit bestand en draai `build-data.py` opnieuw. Een product dat
+hier ontbreekt telt voor 0 euro mee.
+
+`hernoem` in hetzelfde bestand vervangt namen uit het Excel-bestand (en telt
+regels op die daardoor samenvallen), bijvoorbeeld rundergehakt 5% en 15% naar
+gewoon rundergehakt.
 
 ## Netlify
 

@@ -4303,7 +4303,7 @@ export const weken = [
   "dagen": "1-7",
   "items": [
    {
-    "n": "Red Bull",
+    "n": "Red Bull Peach",
     "q": 5.0,
     "eh": "blikjes",
     "opm": "",
@@ -4520,8 +4520,8 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "magere kwark 0%",
-    "q": 1.3,
+    "n": "Skyr (Arla, naturel)",
+    "q": 1.98,
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren"
@@ -4541,7 +4541,7 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 180.0,
     "eh": "g",
     "opm": "",
@@ -4611,7 +4611,7 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "rundergehakt 5%",
+    "n": "rundergehakt",
     "q": 110.0,
     "eh": "g",
     "opm": "rauw inkoopgewicht",
@@ -4630,13 +4630,6 @@ export const weken = [
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "skyr (Arla, naturel)",
-    "q": 680.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren"
    },
    {
     "n": "sla/ijsbergsla",
@@ -4667,7 +4660,7 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "tonijn in blik (water)",
+    "n": "tonijn in blik (olijfolie)",
     "q": 110.0,
     "eh": "g",
     "opm": "",
@@ -4730,7 +4723,7 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "zoete aardappelpuree",
+    "n": "zoete aardappel",
     "q": 500.0,
     "eh": "g",
     "opm": "",
@@ -4743,7 +4736,7 @@ export const weken = [
   "dagen": "8-14",
   "items": [
    {
-    "n": "Red Bull",
+    "n": "Red Bull Peach",
     "q": 5.0,
     "eh": "blikjes",
     "opm": "",
@@ -4904,8 +4897,8 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "magere kwark 0%",
-    "q": 1.1,
+    "n": "Skyr (Arla, naturel)",
+    "q": 1.96,
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren"
@@ -4932,7 +4925,7 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 260.0,
     "eh": "g",
     "opm": "",
@@ -5023,15 +5016,8 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "rundergehakt 15%",
-    "q": 176.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
-   },
-   {
-    "n": "rundergehakt 5%",
-    "q": 436.0,
+    "n": "rundergehakt",
+    "q": 612.0,
     "eh": "g",
     "opm": "rauw inkoopgewicht",
     "cat": "Vlees & vis"
@@ -5056,13 +5042,6 @@ export const weken = [
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "skyr (Arla, naturel)",
-    "q": 860.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren"
    },
    {
     "n": "sla/ijsbergsla",
@@ -5176,7 +5155,7 @@ export const weken = [
   "dagen": "15-21",
   "items": [
    {
-    "n": "Red Bull",
+    "n": "Red Bull Peach",
     "q": 5.0,
     "eh": "blikjes",
     "opm": "",
@@ -5358,8 +5337,8 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "magere kwark 0%",
-    "q": 1.3,
+    "n": "Skyr (Arla, naturel)",
+    "q": 2.19,
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren"
@@ -5379,7 +5358,7 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 210.0,
     "eh": "g",
     "opm": "",
@@ -5463,7 +5442,7 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "rundergehakt 5%",
+    "n": "rundergehakt",
     "q": 124.0,
     "eh": "g",
     "opm": "rauw inkoopgewicht",
@@ -5475,13 +5454,6 @@ export const weken = [
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "skyr (Arla, naturel)",
-    "q": 895.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren"
    },
    {
     "n": "sperziebonen",
@@ -5519,7 +5491,7 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "tonijn in blik (water)",
+    "n": "tonijn in blik (olijfolie)",
     "q": 240.0,
     "eh": "g",
     "opm": "",
@@ -5616,7 +5588,7 @@ export const weken = [
   "dagen": "22-28",
   "items": [
    {
-    "n": "Red Bull",
+    "n": "Red Bull Peach",
     "q": 5.0,
     "eh": "blikjes",
     "opm": "",
@@ -5840,14 +5812,14 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "magere kwark 0%",
-    "q": 1.4,
+    "n": "Skyr (Arla, naturel)",
+    "q": 1.83,
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 170.0,
     "eh": "g",
     "opm": "",
@@ -5938,7 +5910,7 @@ export const weken = [
     "cat": "Brood"
    },
    {
-    "n": "rundergehakt 5%",
+    "n": "rundergehakt",
     "q": 124.0,
     "eh": "g",
     "opm": "rauw inkoopgewicht",
@@ -5957,13 +5929,6 @@ export const weken = [
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "skyr (Arla, naturel)",
-    "q": 430.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren"
    },
    {
     "n": "sla/ijsbergsla",
@@ -6049,7 +6014,7 @@ export const weken = [
   "dagen": "29-35",
   "items": [
    {
-    "n": "Red Bull",
+    "n": "Red Bull Peach",
     "q": 5.0,
     "eh": "blikjes",
     "opm": "",
@@ -6245,8 +6210,8 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "magere kwark 0%",
-    "q": 1.1,
+    "n": "Skyr (Arla, naturel)",
+    "q": 2.0,
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren"
@@ -6259,7 +6224,7 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 260.0,
     "eh": "g",
     "opm": "",
@@ -6315,7 +6280,7 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "rundergehakt 5%",
+    "n": "rundergehakt",
     "q": 156.0,
     "eh": "g",
     "opm": "rauw inkoopgewicht",
@@ -6327,13 +6292,6 @@ export const weken = [
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "skyr (Arla, naturel)",
-    "q": 895.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren"
    },
    {
     "n": "sla/ijsbergsla",
@@ -6357,7 +6315,7 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "tonijn in blik (water)",
+    "n": "tonijn in blik (olijfolie)",
     "q": 110.0,
     "eh": "g",
     "opm": "",
@@ -6468,7 +6426,7 @@ export const weken = [
   "dagen": "36-42",
   "items": [
    {
-    "n": "Red Bull",
+    "n": "Red Bull Peach",
     "q": 5.0,
     "eh": "blikjes",
     "opm": "",
@@ -6650,8 +6608,8 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "magere kwark 0%",
-    "q": 1.3,
+    "n": "Skyr (Arla, naturel)",
+    "q": 1.95,
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren"
@@ -6678,7 +6636,7 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 260.0,
     "eh": "g",
     "opm": "",
@@ -6755,7 +6713,7 @@ export const weken = [
     "cat": "Zuivel & eieren"
    },
    {
-    "n": "rundergehakt 5%",
+    "n": "rundergehakt",
     "q": 312.0,
     "eh": "g",
     "opm": "rauw inkoopgewicht",
@@ -6781,13 +6739,6 @@ export const weken = [
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "skyr (Arla, naturel)",
-    "q": 645.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren"
    },
    {
     "n": "sla/ijsbergsla",
@@ -6880,7 +6831,7 @@ export const weken = [
   "dagen": "43-49",
   "items": [
    {
-    "n": "Red Bull",
+    "n": "Red Bull Peach",
     "q": 5.0,
     "eh": "blikjes",
     "opm": "",
@@ -7069,8 +7020,8 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "magere kwark 0%",
-    "q": 1.2,
+    "n": "Skyr (Arla, naturel)",
+    "q": 1.88,
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren"
@@ -7083,7 +7034,7 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 130.0,
     "eh": "g",
     "opm": "",
@@ -7153,7 +7104,7 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "rundergehakt 5%",
+    "n": "rundergehakt",
     "q": 266.0,
     "eh": "g",
     "opm": "rauw inkoopgewicht",
@@ -7172,13 +7123,6 @@ export const weken = [
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "skyr (Arla, naturel)",
-    "q": 680.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren"
    },
    {
     "n": "sla/ijsbergsla",
@@ -7202,7 +7146,7 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "tonijn in blik (water)",
+    "n": "tonijn in blik (olijfolie)",
     "q": 240.0,
     "eh": "g",
     "opm": "",
@@ -7278,7 +7222,7 @@ export const weken = [
   "dagen": "50-56",
   "items": [
    {
-    "n": "Red Bull",
+    "n": "Red Bull Peach",
     "q": 5.0,
     "eh": "blikjes",
     "opm": "",
@@ -7495,8 +7439,8 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "magere kwark 0%",
-    "q": 1.1,
+    "n": "Skyr (Arla, naturel)",
+    "q": 2.02,
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren"
@@ -7509,7 +7453,7 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 250.0,
     "eh": "g",
     "opm": "",
@@ -7586,7 +7530,7 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "rundergehakt 5%",
+    "n": "rundergehakt",
     "q": 325.0,
     "eh": "g",
     "opm": "rauw inkoopgewicht",
@@ -7598,13 +7542,6 @@ export const weken = [
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "skyr (Arla, naturel)",
-    "q": 915.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren"
    },
    {
     "n": "sla/ijsbergsla",
@@ -7718,7 +7655,7 @@ export const weken = [
   "dagen": "57-60",
   "items": [
    {
-    "n": "Red Bull",
+    "n": "Red Bull Peach",
     "q": 3.0,
     "eh": "blikjes",
     "opm": "",
@@ -7893,8 +7830,8 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "magere kwark 0%",
-    "q": 775.0,
+    "n": "Skyr (Arla, naturel)",
+    "q": 990.0,
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren"
@@ -7907,7 +7844,7 @@ export const weken = [
     "cat": "Voorraadkast"
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 80.0,
     "eh": "g",
     "opm": "",
@@ -7984,7 +7921,7 @@ export const weken = [
     "cat": "Groente & fruit"
    },
    {
-    "n": "rundergehakt 5%",
+    "n": "rundergehakt",
     "q": 124.0,
     "eh": "g",
     "opm": "rauw inkoopgewicht",
@@ -7996,13 +7933,6 @@ export const weken = [
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit"
-   },
-   {
-    "n": "skyr (Arla, naturel)",
-    "q": 215.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren"
    },
    {
     "n": "sla/ijsbergsla",
@@ -8257,7 +8187,7 @@ export const recept = {
     "k": 0.0
    },
    {
-    "n": "zoete aardappelpuree",
+    "n": "zoete aardappel",
     "q": 500.0,
     "eh": "g",
     "kcal": 500.0,
@@ -9093,7 +9023,7 @@ export const recept = {
   "naam": "Tonijnsalade met parelgort",
   "ing": [
    {
-    "n": "tonijn in blik (water)",
+    "n": "tonijn in blik (olijfolie)",
     "q": 130.0,
     "eh": "g",
     "kcal": 151.0,
@@ -11077,7 +11007,7 @@ export const recept = {
   "naam": "Tonijnpasta met tomatensaus",
   "ing": [
    {
-    "n": "tonijn in blik (water)",
+    "n": "tonijn in blik (olijfolie)",
     "q": 130.0,
     "eh": "g",
     "kcal": 151.0,
@@ -12234,7 +12164,7 @@ export const recept = {
     "k": 73.5
    },
    {
-    "n": "magere kwark 0%",
+    "n": "Skyr (Arla, naturel)",
     "q": 85.0,
     "eh": "g",
     "kcal": 48.0,
@@ -12290,7 +12220,7 @@ export const recept = {
   "naam": "Tonijnwrap met mais en yoghurtdressing",
   "ing": [
    {
-    "n": "tonijn in blik (water)",
+    "n": "tonijn in blik (olijfolie)",
     "q": 110.0,
     "eh": "g",
     "kcal": 128.0,
@@ -12382,7 +12312,7 @@ export const recept = {
     "k": 0.0
    },
    {
-    "n": "magere kwark 0%",
+    "n": "Skyr (Arla, naturel)",
     "q": 85.0,
     "eh": "g",
     "kcal": 48.0,
@@ -12420,7 +12350,7 @@ export const recept = {
   "naam": "Skyr met muesli en fruit",
   "ing": [
    {
-    "n": "skyr (Arla, naturel)",
+    "n": "Skyr (Arla, naturel)",
     "q": 250.0,
     "eh": "g",
     "kcal": 158.0,
@@ -12429,7 +12359,7 @@ export const recept = {
     "k": 10.0
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 100.0,
     "eh": "g",
     "kcal": 380.0,
@@ -12821,7 +12751,7 @@ export const recept = {
   "naam": "Kwarkbowl met muesli en blauwe bessen",
   "ing": [
    {
-    "n": "magere kwark 0%",
+    "n": "Skyr (Arla, naturel)",
     "q": 250.0,
     "eh": "g",
     "kcal": 142.0,
@@ -12830,7 +12760,7 @@ export const recept = {
     "k": 8.8
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 100.0,
     "eh": "g",
     "kcal": 380.0,
@@ -13164,7 +13094,7 @@ export const recept = {
   "naam": "Skyr met banaan, pindakaas en honing",
   "ing": [
    {
-    "n": "skyr (Arla, naturel)",
+    "n": "Skyr (Arla, naturel)",
     "q": 250.0,
     "eh": "g",
     "kcal": 158.0,
@@ -13200,7 +13130,7 @@ export const recept = {
     "k": 16.5
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 50.0,
     "eh": "g",
     "kcal": 190.0,
@@ -13377,7 +13307,7 @@ export const recept = {
   "naam": "Tonijn-pastasalade met mais",
   "ing": [
    {
-    "n": "tonijn in blik (water)",
+    "n": "tonijn in blik (olijfolie)",
     "q": 110.0,
     "eh": "g",
     "kcal": 128.0,
@@ -13702,7 +13632,7 @@ export const recept = {
   "naam": "Kwark met muesli, appel en amandelen",
   "ing": [
    {
-    "n": "magere kwark 0%",
+    "n": "Skyr (Arla, naturel)",
     "q": 250.0,
     "eh": "g",
     "kcal": 142.0,
@@ -13711,7 +13641,7 @@ export const recept = {
     "k": 8.8
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 90.0,
     "eh": "g",
     "kcal": 342.0,
@@ -13915,7 +13845,7 @@ export const recept = {
     "k": 29.6
    },
    {
-    "n": "magere kwark 0%",
+    "n": "Skyr (Arla, naturel)",
     "q": 145.0,
     "eh": "g",
     "kcal": 83.0,
@@ -14430,7 +14360,7 @@ export const recept = {
   "naam": "POST-WORKOUT - Skyr met muesli en banaan",
   "ing": [
    {
-    "n": "skyr (Arla, naturel)",
+    "n": "Skyr (Arla, naturel)",
     "q": 215.0,
     "eh": "g",
     "kcal": 135.0,
@@ -14439,7 +14369,7 @@ export const recept = {
     "k": 8.6
    },
    {
-    "n": "muesli (ongezoet)",
+    "n": "Upfront muesli",
     "q": 80.0,
     "eh": "g",
     "kcal": 304.0,
@@ -14506,7 +14436,7 @@ export const recept = {
   "naam": "SNACK VOOR BED - Ninja Creami: kwark-honing-banaan",
   "ing": [
    {
-    "n": "magere kwark 0%",
+    "n": "Skyr (Arla, naturel)",
     "q": 215.0,
     "eh": "g",
     "kcal": 123.0,
@@ -14553,7 +14483,7 @@ export const recept = {
   "naam": "SNACK VOOR BED - Ninja Creami: skyr-blauwe bes-honing",
   "ing": [
    {
-    "n": "skyr (Arla, naturel)",
+    "n": "Skyr (Arla, naturel)",
     "q": 215.0,
     "eh": "g",
     "kcal": 135.0,
@@ -14600,7 +14530,7 @@ export const recept = {
   "naam": "SNACK VOOR BED - Kwark met honing en walnoten",
   "ing": [
    {
-    "n": "magere kwark 0%",
+    "n": "Skyr (Arla, naturel)",
     "q": 215.0,
     "eh": "g",
     "kcal": 123.0,
@@ -14638,7 +14568,7 @@ export const recept = {
   "naam": "SNACK VOOR BED - Kwark met sinaasappelsap en honing",
   "ing": [
    {
-    "n": "magere kwark 0%",
+    "n": "Skyr (Arla, naturel)",
     "q": 200.0,
     "eh": "g",
     "kcal": 114.0,
@@ -14723,7 +14653,7 @@ export const recept = {
   "naam": "SNACK VOOR BED - Ninja Creami: kwark-dadel-melk",
   "ing": [
    {
-    "n": "magere kwark 0%",
+    "n": "Skyr (Arla, naturel)",
     "q": 215.0,
     "eh": "g",
     "kcal": 123.0,
@@ -14763,37 +14693,43 @@ export const supplementen = [
   "naam": "Vitamine D3",
   "dosis": "10-25 mcg (400-1000 IE)",
   "wanneer": "Bij het ontbijt",
-  "waarom": "HOUDT HET GAT DICHT. 53 van de 60 dagen levert je voeding minder dan de referentie-inname; gemiddeld haal je ~34%. Je multi bevat geen vitamines. Neem het bij een maaltijd met vet, D is vetoplosbaar - het ontbijt met pindakaas of amandelen is een goed moment."
+  "waarom": "HOUDT HET GAT DICHT. 53 van de 60 dagen levert je voeding minder dan de referentie-inname; gemiddeld haal je ~34%. Je multi bevat geen vitamines. Neem het bij een maaltijd met vet, D is vetoplosbaar - het ontbijt met pindakaas of amandelen is een goed moment.",
+  "moment": "Ontbijt"
  },
  {
   "naam": "Omega 3 (vis)",
   "dosis": "Volgens etiket, mik op 500-1000 mg EPA+DHA",
   "wanneer": "Bij een maaltijd",
-  "waarom": "Blijf nemen. Je schema heeft 6 visdagen op 60 dagen buiten de vaste modules om, dus je haalt EPA en DHA niet uit voeding alleen."
+  "waarom": "Blijf nemen. Je schema heeft 6 visdagen op 60 dagen buiten de vaste modules om, dus je haalt EPA en DHA niet uit voeding alleen.",
+  "moment": "Lunch"
  },
  {
   "naam": "Creatine monohydraat",
   "dosis": "5 g",
   "wanneer": "Wanneer je wilt, timing maakt niet uit",
-  "waarom": "Blijf nemen. Werkt op verzadiging van de spier, niet op het moment van innemen."
+  "waarom": "Blijf nemen. Werkt op verzadiging van de spier, niet op het moment van innemen.",
+  "moment": "Wanneer je wilt"
  },
  {
   "naam": "Bonusan Multi Mineral Forte",
   "dosis": "2 tabletten (niet 3)",
   "wanneer": "Bij het eten",
-  "waarom": "TERUG NAAR LABELDOSERING. Bij 3 tabletten kom je met dit eetschema op ~32 mg zink; de Europese bovengrens voor langdurig gebruik is 25 mg. Alle mineralen zitten in dit schema al ruim boven de referentie zonder pil, dus je kunt hem ook gewoon weglaten."
+  "waarom": "TERUG NAAR LABELDOSERING. Bij 3 tabletten kom je met dit eetschema op ~32 mg zink; de Europese bovengrens voor langdurig gebruik is 25 mg. Alle mineralen zitten in dit schema al ruim boven de referentie zonder pil, dus je kunt hem ook gewoon weglaten.",
+  "moment": "Diner"
  },
  {
   "naam": "D-Bloat (ATRAKT)",
   "dosis": "Niet dagelijks",
   "wanneer": "Losse dagen",
-  "waarom": "Milde plaspil naast creatine, die het omgekeerde doet. Bewaar voor dagen waarop je er strak uit wilt zien. Levert wel kalium, magnesium en vitamine C, die zijn in dit schema toch al ruim gedekt."
+  "waarom": "Milde plaspil naast creatine, die het omgekeerde doet. Bewaar voor dagen waarop je er strak uit wilt zien. Levert wel kalium, magnesium en vitamine C, die zijn in dit schema toch al ruim gedekt.",
+  "moment": ""
  },
  {
   "naam": "Gejodeerd keukenzout",
   "dosis": "Gebruik het gewoon",
   "wanneer": "Bij het koken",
-  "waarom": "Jodium zit in dit schema goed dankzij zuivel, vis en de multi. Kook je met zeezout of Himalayazout in plaats van gejodeerd zout, dan valt jodium wel ~40% terug."
+  "waarom": "Jodium zit in dit schema goed dankzij zuivel, vis en de multi. Kook je met zeezout of Himalayazout in plaats van gejodeerd zout, dan valt jodium wel ~40% terug.",
+  "moment": "Diner"
  }
 ];
 export const aandacht = [

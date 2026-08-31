@@ -118,6 +118,7 @@ def lees_supplementen(ws):
             supp.append({
                 "naam": rij[0], "dosis": rij[1],
                 "wanneer": rij[2], "waarom": rij[3],
+                "moment": moment_van(rij[2]),
             })
         elif sectie == "aandacht" and len(rij) >= 3 and rij[0].isdigit():
             aandacht.append({
@@ -142,6 +143,25 @@ def lees_micros(ws):
     return {"namen": namen, "ref": ref, "perDag": per_dag}
 
 
+# Waar een supplement in de dag valt; 'Losse dagen' hoort niet bij een
+# vast moment en telt dus niet mee in het dagelijkse rijtje.
+MOMENTEN = [
+    ("bij het ontbijt", "Ontbijt"),
+    ("bij een maaltijd", "Lunch"),
+    ("bij het eten", "Diner"),
+    ("bij het koken", "Diner"),
+    ("timing maakt niet uit", "Wanneer je wilt"),
+]
+
+
+def moment_van(wanneer):
+    w = wanneer.lower()
+    for sleutel, moment in MOMENTEN:
+        if sleutel in w:
+            return moment
+    return ""
+
+
 def lees_boodschappen(ws):
     weken, week, dagen = [], None, ""
     for r in ws.iter_rows(min_row=2, values_only=True):
@@ -157,6 +177,41 @@ def lees_boodschappen(ws):
             "eh": tekst(r[4]), "opm": tekst(r[5]),
         })
     return weken
+
+
+def hernoem_items(weken, hernoem):
+    """Past de naamwijzigingen toe en telt dubbelen binnen een week op.
+
+    Na het hernoemen kan hetzelfde product twee keer in een week staan
+    (rundergehakt 5% en 15% worden allebei 'rundergehakt'), dus die regels
+    moeten samengevoegd worden.
+    """
+    # gram en kilo (en liter) van hetzelfde product zijn dezelfde regel
+    naar_basis = {"kg": ("g", 1000), "l": ("liter", 1)}
+    for w in weken:
+        samen = {}
+        for i in w["items"]:
+            i["n"] = hernoem.get(i["n"], i["n"])
+            eh, factor = naar_basis.get(i["eh"], (i["eh"], 1))
+            i["eh"], i["q"] = eh, i["q"] * factor
+            sleutel = (i["n"], eh)
+            if sleutel in samen:
+                samen[sleutel]["q"] = round(samen[sleutel]["q"] + i["q"], 1)
+                # de opmerking van de eerste regel blijft staan
+            else:
+                samen[sleutel] = i
+        for i in samen.values():
+            if i["eh"] == "g" and i["q"] >= 1000:
+                i["eh"], i["q"] = "kg", round(i["q"] / 1000, 2)
+            else:
+                i["q"] = round(i["q"], 1)
+        w["items"] = list(samen.values())
+
+
+def hernoem_recepten(recept, hernoem):
+    for r in recept.values():
+        for i in r["ing"]:
+            i["n"] = hernoem.get(i["n"], i["n"])
 
 
 def js(naam, data):
@@ -178,7 +233,11 @@ def main():
     micros = lees_micros(wb["Micronutrienten"])
 
     winkels = json.loads(WINKELS.read_text(encoding="utf-8"))
-    cats = winkels["categorieen"]
+    hernoem = winkels["hernoem"]
+    hernoem_items(weken, hernoem)
+    hernoem_recepten(recept, hernoem)
+
+    cats = {hernoem.get(k, k): v for k, v in winkels["categorieen"].items()}
     for w in weken:
         for i in w["items"]:
             i["cat"] = cats.get(i["n"], "Overig")
@@ -192,15 +251,15 @@ def main():
 
     (ROOT / "winkelData.js").write_text(
         "// GEGENEREERD door tools/build-data.py uit tools/winkels.json.\n"
-        + js("prijzen", winkels["prijzen"]) + js("winkels", winkels["winkels"]),
+        + js("prijzen", winkels["prijzen"]) + js("winkels", winkels["groepen"]),
         encoding="utf-8")
 
     onbekend = sorted({i["n"] for w in weken for i in w["items"]
-                       if i["n"] not in cats})
+                       if i["n"] not in winkels["prijzen"]})
     print("dagen: %d | recepten: %d | weken: %d | supplementen: %d"
           % (len(dagen), len(recept), len(weken), len(supplementen)))
     if onbekend:
-        print("LET OP, geen categorie voor: " + ", ".join(onbekend))
+        print("LET OP, geen prijs/winkel voor: " + ", ".join(onbekend))
 
 
 if __name__ == "__main__":
