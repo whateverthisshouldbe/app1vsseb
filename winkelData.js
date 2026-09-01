@@ -92,21 +92,21 @@ export const prijzen = {
  ],
  "eendenborst m. vel": [
   25.0,
-  "Sanderkoe.nl",
+  "Albert Heijn",
   0,
-  "lokale boer"
+  ""
  ],
  "gebakken spek": [
   14.0,
-  "Sanderkoe.nl",
+  "Albert Heijn",
   0,
-  "lokale boer"
+  ""
  ],
  "prosciutto/rauwe ham": [
   30.0,
-  "Sanderkoe.nl",
+  "Albert Heijn",
   0,
-  "lokale boer"
+  ""
  ],
  "zalmfilet": [
   28.0,

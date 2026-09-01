@@ -4815,14 +4815,6 @@ export const weken = [
     "ronde": "zo"
    },
    {
-    "n": "prosciutto/rauwe ham",
-    "q": "50",
-    "eh": "g",
-    "opm": "voor volgende week, vriezer",
-    "cat": "Vlees & vis",
-    "ronde": "zo"
-   },
-   {
     "n": "runderreepjes roerbak",
     "q": "344",
     "eh": "g",
@@ -5058,6 +5050,14 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Brood",
+    "ronde": "zo"
+   },
+   {
+    "n": "prosciutto/rauwe ham",
+    "q": "50",
+    "eh": "g",
+    "opm": "",
+    "cat": "Vlees & vis",
     "ronde": "zo"
    },
    {
@@ -5585,22 +5585,6 @@ export const weken = [
     "opm": "rauw inkoopgewicht",
     "cat": "Groente & fruit",
     "ronde": "zo"
-   },
-   {
-    "n": "eendenborst m. vel",
-    "q": "148",
-    "eh": "g",
-    "opm": "voor volgende week, vriezer",
-    "cat": "Vlees & vis",
-    "ronde": "zo"
-   },
-   {
-    "n": "prosciutto/rauwe ham",
-    "q": "35",
-    "eh": "g",
-    "opm": "voor volgende week, vriezer",
-    "cat": "Vlees & vis",
-    "ronde": "zo"
    }
   ]
  },
@@ -5702,6 +5686,14 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Diepvries",
+    "ronde": "zo"
+   },
+   {
+    "n": "eendenborst m. vel",
+    "q": "148",
+    "eh": "g",
+    "opm": "rauw inkoopgewicht",
+    "cat": "Vlees & vis",
     "ronde": "zo"
    },
    {
@@ -5854,6 +5846,14 @@ export const weken = [
     "eh": "pot",
     "opm": "",
     "cat": "Voorraadkast",
+    "ronde": "zo"
+   },
+   {
+    "n": "prosciutto/rauwe ham",
+    "q": "35",
+    "eh": "g",
+    "opm": "",
+    "cat": "Vlees & vis",
     "ronde": "zo"
    },
    {
@@ -6391,14 +6391,6 @@ export const weken = [
     "ronde": "zo"
    },
    {
-    "n": "prosciutto/rauwe ham",
-    "q": "50",
-    "eh": "g",
-    "opm": "voor volgende week, vriezer",
-    "cat": "Vlees & vis",
-    "ronde": "zo"
-   },
-   {
     "n": "runderreepjes roerbak",
     "q": "176",
     "eh": "g",
@@ -6643,6 +6635,14 @@ export const weken = [
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast",
     "ronde": "zo"
+   },
+   {
+    "n": "prosciutto/rauwe ham",
+    "q": "50",
+    "eh": "g",
+    "opm": "",
+    "cat": "Vlees & vis",
+    "ronde": "wo"
    },
    {
     "n": "rijstwafel (per 100 g)",
@@ -7113,14 +7113,6 @@ export const weken = [
     "opm": "",
     "cat": "Voorraadkast",
     "ronde": "zo"
-   },
-   {
-    "n": "prosciutto/rauwe ham",
-    "q": "55",
-    "eh": "g",
-    "opm": "voor volgende week, vriezer",
-    "cat": "Vlees & vis",
-    "ronde": "zo"
    }
   ]
  },
@@ -7367,6 +7359,22 @@ export const weken = [
     "opm": "",
     "cat": "Voorraadkast",
     "ronde": "zo"
+   },
+   {
+    "n": "prosciutto/rauwe ham",
+    "q": "35",
+    "eh": "g",
+    "opm": "",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
+   },
+   {
+    "n": "prosciutto/rauwe ham",
+    "q": "20",
+    "eh": "g",
+    "opm": "",
+    "cat": "Vlees & vis",
+    "ronde": "wo"
    },
    {
     "n": "rijstwafel (per 100 g)",
