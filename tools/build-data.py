@@ -121,7 +121,7 @@ def lees_supplementen(ws):
             supp.append({
                 "naam": rij[0], "dosis": rij[1],
                 "wanneer": rij[2], "waarom": rij[3],
-                "moment": moment_van(rij[2]),
+                "moment": moment_van(rij[0], rij[2]),
             })
         elif sectie == "aandacht" and len(rij) >= 3 and rij[0].isdigit():
             aandacht.append({
@@ -152,12 +152,17 @@ MOMENTEN = [
     ("bij het ontbijt", "Ontbijt"),
     ("bij een maaltijd", "Lunch"),
     ("bij het eten", "Diner"),
-    ("bij het koken", "Diner"),
-    ("timing maakt niet uit", "Wanneer je wilt"),
+    ("timing maakt niet uit", "Ontbijt"),
 ]
 
+# Deze horen niet in het dagelijkse afvinkrijtje: keukenzout is een
+# kookinstructie, D-Bloat is uitdrukkelijk niet dagelijks.
+GEEN_MOMENT = ("keukenzout", "d-bloat")
 
-def moment_van(wanneer):
+
+def moment_van(naam, wanneer):
+    if any(x in naam.lower() for x in GEEN_MOMENT):
+        return ""
     w = wanneer.lower()
     for sleutel, moment in MOMENTEN:
         if sleutel in w:
@@ -261,15 +266,55 @@ def bulk_verdelen(weken, bulk):
         w["items"] = houden
 
 
+def maat_tekst(hoeveelheid, eenheid):
+    """500 g leest prettiger dan 0,5 kg; en Nederlands schrijft een komma."""
+    if eenheid == "kg" and hoeveelheid < 1:
+        return "%g g" % round(hoeveelheid * 1000)
+    return ("%s %s" % (("%g" % round(hoeveelheid, 2)).replace(".", ","), eenheid))
+
+
+def voorraadkast(weken, bulk, prijzen):
+    """Wat je van elk bulkproduct nodig hebt over de hele 60 dagen.
+
+    Draait VOOR bulk_verdelen, zolang de weekregels nog in gram en kilo staan.
+    """
+    nodig = {}
+    for w in weken:
+        for i in w["items"]:
+            if i["n"] in bulk:
+                hoev = naar_basis(i["q"], i["eh"])
+                if hoev is not None:
+                    nodig[i["n"]] = nodig.get(i["n"], 0.0) + hoev
+
+    rijen = []
+    for naam, totaal in sorted(nodig.items()):
+        verpakking, eenheid, enkel, meervoud = bulk[naam]
+        prijs, winkel, _bio, _opm = prijzen.get(naam, [0, "Albert Heijn", 0, ""])
+        aantal = int(-(-totaal // verpakking))  # naar boven af
+        rijen.append({
+            "n": naam,
+            "winkel": winkel,
+            "maat": maat_tekst(verpakking, eenheid),
+            "aantal": aantal,
+            "eh": enkel if aantal == 1 else meervoud,
+            "nodig": maat_tekst(round(totaal, 2), eenheid),
+            "stuk": round(prijs * verpakking, 2),
+            "totaal": round(prijs * verpakking * aantal, 2),
+        })
+    rijen.sort(key=lambda r: -r["totaal"])
+    return rijen
+
+
 def bulk_prijzen(prijzen, bulk):
     """Bij bulk rekent de app per verpakking, dus de prijs mee omrekenen."""
     for naam, (verpakking, eenheid, enkel, _) in bulk.items():
         if naam not in prijzen:
             continue
         prijs, groep, bio, winkel = prijzen[naam]
-        maat = ("%g kg" if eenheid == "kg" else "%g liter") % verpakking
+        maat = "%s per %s" % (maat_tekst(verpakking, eenheid), enkel)
+        # zonder winkelnotitie geen losse scheidingspunt
         prijzen[naam] = [round(prijs * verpakking, 2), groep, bio,
-                         "%s · %s per %s" % (winkel, maat, enkel)]
+                         "%s · %s" % (winkel, maat) if winkel else maat]
 
 
 def js(naam, data):
@@ -304,6 +349,7 @@ def main():
     zonder = sorted(k for k, r in recept.items() if not r["stappen"])
     onbekend_recept = sorted(set(bereiding) - set(recept))
 
+    kast = voorraadkast(weken, winkels["bulk"], winkels["prijzen"])
     bulk_verdelen(weken, winkels["bulk"])
     bulk_prijzen(winkels["prijzen"], winkels["bulk"])
 
@@ -316,6 +362,7 @@ def main():
         "// GEGENEREERD door tools/build-data.py — niet met de hand aanpassen.\n"
         + js("dagen", dagen) + js("weken", weken) + js("recept", recept)
         + js("supplementen", supplementen) + js("aandacht", aandacht)
+        + js("voorraadkast", kast)
         + js("micros", micros),
         encoding="utf-8")
 
@@ -334,6 +381,8 @@ def main():
         print("LET OP, geen bereiding voor: " + ", ".join(zonder))
     if onbekend_recept:
         print("LET OP, bereiding voor onbekend recept: " + ", ".join(onbekend_recept))
+    print("voorraadkast: %d producten, samen EUR %.2f"
+          % (len(kast), sum(r["totaal"] for r in kast)))
     print("met foto: %d van de %d"
           % (sum(1 for r in recept.values() if r["foto"]), len(recept)))
 

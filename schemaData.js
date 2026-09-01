@@ -15238,7 +15238,7 @@ export const supplementen = [
   "dosis": "5 g",
   "wanneer": "Wanneer je wilt, timing maakt niet uit",
   "waarom": "Blijf nemen. Werkt op verzadiging van de spier, niet op het moment van innemen.",
-  "moment": "Wanneer je wilt"
+  "moment": "Ontbijt"
  },
  {
   "naam": "Bonusan Multi Mineral Forte",
@@ -15259,7 +15259,7 @@ export const supplementen = [
   "dosis": "Gebruik het gewoon",
   "wanneer": "Bij het koken",
   "waarom": "Jodium zit in dit schema goed dankzij zuivel, vis en de multi. Kook je met zeezout of Himalayazout in plaats van gejodeerd zout, dan valt jodium wel ~40% terug.",
-  "moment": "Diner"
+  "moment": ""
  }
 ];
 export const aandacht = [
@@ -15346,6 +15346,288 @@ export const aandacht = [
   "wd": "za",
   "tekort": "B1 (mg) 83%, Vezel (g) 92%",
   "fix": "Vervang de witte rijst in het aanvulblok door zilvervliesrijst, of neem 40 g havermout extra."
+ }
+];
+export const voorraadkast = [
+ {
+  "n": "Upfront Rijstpudding vanille (droog)",
+  "winkel": "Upfront webshop",
+  "maat": "1 kg",
+  "aantal": 4,
+  "eh": "zakken",
+  "nodig": "3,25 kg",
+  "stuk": 30.0,
+  "totaal": 120.0
+ },
+ {
+  "n": "Upfront Baked Oats banaan (droog)",
+  "winkel": "Upfront webshop",
+  "maat": "1 kg",
+  "aantal": 2,
+  "eh": "zakken",
+  "nodig": "2 kg",
+  "stuk": 30.0,
+  "totaal": 60.0
+ },
+ {
+  "n": "Upfront Eiwit Oats (droog)",
+  "winkel": "Upfront webshop",
+  "maat": "1 kg",
+  "aantal": 2,
+  "eh": "zakken",
+  "nodig": "2 kg",
+  "stuk": 30.0,
+  "totaal": 60.0
+ },
+ {
+  "n": "honing",
+  "winkel": "Ekoplaza",
+  "maat": "900 g",
+  "aantal": 4,
+  "eh": "potten",
+  "nodig": "2,87 kg",
+  "stuk": 10.8,
+  "totaal": 43.2
+ },
+ {
+  "n": "Upfront muesli",
+  "winkel": "Upfront webshop",
+  "maat": "1 kg",
+  "aantal": 2,
+  "eh": "zakken",
+  "nodig": "1,8 kg",
+  "stuk": 15.0,
+  "totaal": 30.0
+ },
+ {
+  "n": "whey isolaat",
+  "winkel": "Upfront webshop",
+  "maat": "1 kg",
+  "aantal": 1,
+  "eh": "zak",
+  "nodig": "450 g",
+  "stuk": 30.0,
+  "totaal": 30.0
+ },
+ {
+  "n": "olijfolie",
+  "winkel": "Albert Heijn",
+  "maat": "1 liter",
+  "aantal": 2,
+  "eh": "flessen",
+  "nodig": "1,11 liter",
+  "stuk": 10.0,
+  "totaal": 20.0
+ },
+ {
+  "n": "witte rijst",
+  "winkel": "Albert Heijn",
+  "maat": "5 kg",
+  "aantal": 2,
+  "eh": "zakken",
+  "nodig": "5,38 kg",
+  "stuk": 10.0,
+  "totaal": 20.0
+ },
+ {
+  "n": "amandelen",
+  "winkel": "Albert Heijn",
+  "maat": "1 kg",
+  "aantal": 1,
+  "eh": "zak",
+  "nodig": "450 g",
+  "stuk": 16.0,
+  "totaal": 16.0
+ },
+ {
+  "n": "rijstwafel (per 100 g)",
+  "winkel": "Albert Heijn",
+  "maat": "200 g",
+  "aantal": 10,
+  "eh": "pakken",
+  "nodig": "1,95 kg",
+  "stuk": 1.6,
+  "totaal": 16.0
+ },
+ {
+  "n": "walnoten",
+  "winkel": "Albert Heijn",
+  "maat": "1 kg",
+  "aantal": 1,
+  "eh": "zak",
+  "nodig": "180 g",
+  "stuk": 16.0,
+  "totaal": 16.0
+ },
+ {
+  "n": "basmatirijst",
+  "winkel": "Albert Heijn",
+  "maat": "5 kg",
+  "aantal": 1,
+  "eh": "zak",
+  "nodig": "460 g",
+  "stuk": 12.5,
+  "totaal": 12.5
+ },
+ {
+  "n": "pindakaas (Calve)",
+  "winkel": "Albert Heijn",
+  "maat": "600 g",
+  "aantal": 3,
+  "eh": "potten",
+  "nodig": "1,54 kg",
+  "stuk": 3.6,
+  "totaal": 10.8
+ },
+ {
+  "n": "zilvervliesrijst",
+  "winkel": "Albert Heijn",
+  "maat": "2,5 kg",
+  "aantal": 1,
+  "eh": "zak",
+  "nodig": "170 g",
+  "stuk": 7.5,
+  "totaal": 7.5
+ },
+ {
+  "n": "dadels (medjool)",
+  "winkel": "Albert Heijn",
+  "maat": "500 g",
+  "aantal": 1,
+  "eh": "doos",
+  "nodig": "400 g",
+  "stuk": 7.0,
+  "totaal": 7.0
+ },
+ {
+  "n": "quinoa",
+  "winkel": "Albert Heijn",
+  "maat": "1 kg",
+  "aantal": 1,
+  "eh": "pak",
+  "nodig": "910 g",
+  "stuk": 6.0,
+  "totaal": 6.0
+ },
+ {
+  "n": "abrikozen (gedroogd)",
+  "winkel": "Albert Heijn",
+  "maat": "500 g",
+  "aantal": 1,
+  "eh": "zak",
+  "nodig": "50 g",
+  "stuk": 5.0,
+  "totaal": 5.0
+ },
+ {
+  "n": "noedels",
+  "winkel": "Albert Heijn",
+  "maat": "500 g",
+  "aantal": 2,
+  "eh": "pakken",
+  "nodig": "690 g",
+  "stuk": 2.0,
+  "totaal": 4.0
+ },
+ {
+  "n": "pasta",
+  "winkel": "Albert Heijn",
+  "maat": "1 kg",
+  "aantal": 2,
+  "eh": "pakken",
+  "nodig": "1,84 kg",
+  "stuk": 1.8,
+  "totaal": 3.6
+ },
+ {
+  "n": "couscous",
+  "winkel": "Albert Heijn",
+  "maat": "1 kg",
+  "aantal": 1,
+  "eh": "pak",
+  "nodig": "980 g",
+  "stuk": 3.0,
+  "totaal": 3.0
+ },
+ {
+  "n": "linzen",
+  "winkel": "Albert Heijn",
+  "maat": "1 kg",
+  "aantal": 1,
+  "eh": "pak",
+  "nodig": "220 g",
+  "stuk": 3.0,
+  "totaal": 3.0
+ },
+ {
+  "n": "pannenkoekmix (droog)",
+  "winkel": "Albert Heijn",
+  "maat": "1 kg",
+  "aantal": 1,
+  "eh": "pak",
+  "nodig": "150 g",
+  "stuk": 3.0,
+  "totaal": 3.0
+ },
+ {
+  "n": "mayonaise",
+  "winkel": "Albert Heijn",
+  "maat": "650 g",
+  "aantal": 1,
+  "eh": "pot",
+  "nodig": "80 g",
+  "stuk": 2.6,
+  "totaal": 2.6
+ },
+ {
+  "n": "parelgort",
+  "winkel": "Albert Heijn",
+  "maat": "500 g",
+  "aantal": 2,
+  "eh": "pakken",
+  "nodig": "640 g",
+  "stuk": 1.25,
+  "totaal": 2.5
+ },
+ {
+  "n": "currypasta/kruidenpasta",
+  "winkel": "Albert Heijn",
+  "maat": "200 g",
+  "aantal": 1,
+  "eh": "pot",
+  "nodig": "140 g",
+  "stuk": 2.4,
+  "totaal": 2.4
+ },
+ {
+  "n": "pesto (groen)",
+  "winkel": "Albert Heijn",
+  "maat": "190 g",
+  "aantal": 1,
+  "eh": "pot",
+  "nodig": "80 g",
+  "stuk": 2.28,
+  "totaal": 2.28
+ },
+ {
+  "n": "kruiden/specerijen mix",
+  "winkel": "Albert Heijn",
+  "maat": "100 g",
+  "aantal": 1,
+  "eh": "pot",
+  "nodig": "10 g",
+  "stuk": 2.0,
+  "totaal": 2.0
+ },
+ {
+  "n": "tagliatelle",
+  "winkel": "Albert Heijn",
+  "maat": "500 g",
+  "aantal": 1,
+  "eh": "pak",
+  "nodig": "340 g",
+  "stuk": 1.5,
+  "totaal": 1.5
  }
 ];
 export const micros = {

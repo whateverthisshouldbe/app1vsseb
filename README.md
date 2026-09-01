@@ -14,6 +14,7 @@ Standalone HTML-app met het 60-daagse voedingsschema. Geen build-stap nodig.
 | `tools/patch-index.py` | maakt de data-imports in een nieuwe bundle werkend |
 | `tools/app-shell.py` | haalt de prototype-chrome weg, maakt het schermvullend |
 | `tools/ui-tweaks.py` | aanpassingen aan de schermen zelf |
+| `tools/ui-loop.py` | de 60-daagse lus, weektabs en de inslaanpagina |
 | `tools/build-icons.py` | genereert de app-iconen |
 | `tools/bereiding.json` | de bereidingswijze per recept |
 | `tools/build-fotoprompts.py` | schrijft `fotos/PROMPTS.md` |
@@ -38,6 +39,7 @@ cp ~/Downloads/Voedingsschema_App_standalone.html index.html
 python3 tools/patch-index.py   # data-imports werkend maken
 python3 tools/app-shell.py     # chrome eruit, schermvullend, PWA-meta's
 python3 tools/ui-tweaks.py     # aanpassingen aan de schermen
+python3 tools/ui-loop.py       # lus, weektabs, inslaanpagina
 ```
 
 `patch-index.py` is nodig omdat de bundler de component vanuit een `blob:`-URL
@@ -47,6 +49,17 @@ de patch maakt er een absolute URL van via `document.baseURI`.
 `app-shell.py` haalt de kop met uitleg, de iPhone-mockup en de voettekst weg,
 laat de app `100dvh` vullen, en vervangt de vaste marges die de nep-statusbalk
 vrijhielden door `env(safe-area-inset-*)`.
+
+## De 60-daagse lus
+
+Het schema herhaalt zich: 60 verschillende dagen, daarna weer dag 1. Welke
+dag het vandaag is volgt uit een startdatum in `localStorage`
+(`voedingsschema.start`), die bij de eerste keer openen op vandaag wordt
+gezet. Wil je opnieuw beginnen of op een andere dag instappen, pas die sleutel
+dan aan in de browser.
+
+Het boodschappenlijstje toont daarom deze week en een week vooruit, in plaats
+van alle negen weken.
 
 ## Bereiding en foto's
 

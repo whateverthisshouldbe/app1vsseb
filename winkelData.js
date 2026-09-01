@@ -2,662 +2,666 @@
 export const prijzen = {
  "Upfront Baked Oats banaan (droog)": [
   30.0,
-  "Upfront",
+  "Upfront webshop",
   0,
-  "bulk bestellen bij Upfront · 1 kg per zak"
+  "bulk bestellen · 1 kg per zak"
  ],
  "Upfront Eiwit Oats (droog)": [
   30.0,
-  "Upfront",
+  "Upfront webshop",
   0,
-  "bulk bestellen bij Upfront · 1 kg per zak"
+  "bulk bestellen · 1 kg per zak"
  ],
  "Upfront Rijstpudding vanille (droog)": [
   30.0,
-  "Upfront",
+  "Upfront webshop",
   0,
-  "bulk bestellen bij Upfront · 1 kg per zak"
+  "bulk bestellen · 1 kg per zak"
  ],
  "Upfront muesli": [
   15.0,
-  "Upfront",
+  "Upfront webshop",
   0,
-  "bulk bestellen bij Upfront · 1 kg per zak"
+  "bulk bestellen · 1 kg per zak"
  ],
  "whey isolaat": [
   30.0,
-  "Upfront",
+  "Upfront webshop",
   0,
-  "bulk bestellen bij Upfront · 1 kg per zak"
+  "bulk bestellen · 1 kg per zak"
  ],
  "kipfilet": [
   11.0,
-  "Vlees",
+  "Albert Heijn",
   0,
   "Hanos, bulk"
  ],
  "kipdij zonder vel": [
   9.0,
-  "Vlees",
+  "Albert Heijn",
   0,
   "Hanos, bulk"
  ],
  "kipdrumstick": [
   6.0,
-  "Vlees",
+  "Albert Heijn",
   0,
   "Hanos, bulk"
  ],
  "tonijn in blik (olijfolie)": [
   14.0,
-  "Vlees",
+  "Albert Heijn",
   0,
   "Hanos, bulk"
  ],
  "biefstuk": [
   28.0,
-  "Vlees",
+  "Sanderkoe.nl",
   0,
-  "sanderkoe.nl"
+  "lokale boer"
  ],
  "runderschnitzel": [
   18.0,
-  "Vlees",
+  "Sanderkoe.nl",
   0,
-  "sanderkoe.nl"
+  "lokale boer"
  ],
  "runderreepjes roerbak": [
   16.0,
-  "Vlees",
+  "Sanderkoe.nl",
   0,
-  "sanderkoe.nl"
+  "lokale boer"
  ],
  "rundergehakt": [
   12.0,
-  "Vlees",
+  "Sanderkoe.nl",
   0,
-  "sanderkoe.nl"
+  "lokale boer"
  ],
  "gehaktbal (rund, gaar)": [
   14.0,
-  "Vlees",
+  "Sanderkoe.nl",
   0,
-  "sanderkoe.nl"
+  "lokale boer"
  ],
  "shoarmavlees": [
   12.0,
-  "Vlees",
+  "Sanderkoe.nl",
   0,
-  "sanderkoe.nl"
+  "lokale boer"
  ],
  "eendenborst m. vel": [
   25.0,
-  "Vlees",
+  "Sanderkoe.nl",
   0,
-  "sanderkoe.nl"
+  "lokale boer"
  ],
  "gebakken spek": [
   14.0,
-  "Vlees",
+  "Sanderkoe.nl",
   0,
-  "sanderkoe.nl"
+  "lokale boer"
  ],
  "prosciutto/rauwe ham": [
   30.0,
-  "Vlees",
+  "Sanderkoe.nl",
   0,
-  "sanderkoe.nl"
+  "lokale boer"
  ],
  "zalmfilet": [
   28.0,
-  "Vlees",
+  "Albert Heijn",
   0,
   "Albert Heijn"
  ],
  "kabeljauw/witvis": [
   22.0,
-  "Vlees",
+  "Albert Heijn",
   0,
   "Albert Heijn"
  ],
  "garnalen": [
   25.0,
-  "Vlees",
+  "Albert Heijn",
   0,
   "Albert Heijn"
  ],
  "verse tonijnsteak": [
   30.0,
-  "Vlees",
+  "Albert Heijn",
   0,
   "Albert Heijn"
  ],
  "aardappel": [
   1.5,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "zoete aardappel": [
   2.5,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "aardbeien": [
   8.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "appel": [
   2.5,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "asperges": [
   8.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "avocado": [
   6.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "banaan": [
   1.8,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "blauwe bessen": [
   12.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "bloemkool": [
   2.5,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "broccoli": [
   3.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "champignons": [
   5.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "courgette": [
   2.5,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "granaatappelpitjes": [
   12.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "knoflook": [
   8.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "komkommer": [
   2.5,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "meloen (cantaloupe)": [
   2.5,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "paprika rood": [
   4.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "sla/ijsbergsla": [
   3.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "sperziebonen": [
   4.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "spinazie": [
   5.0,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "tomaat (vers)": [
   3.5,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "ui": [
   1.5,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "wortel": [
   1.5,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "sinaasappel": [
   2.5,
-  "Groentes",
+  "Markt Zeist",
   0,
-  "markt Zeist, zondag"
+  "zondag"
  ],
  "citroensap": [
   4.0,
-  "Groentes",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "sinaasappelsap (vers)": [
   2.5,
-  "Groentes",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "guacamole": [
   12.0,
-  "Groentes",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "roerbakgroenten mix": [
   4.5,
-  "Groentes",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "aardappelpuree (m. melk)": [
   3.0,
-  "Groentes",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "honing": [
   10.8,
-  "Overig",
+  "Ekoplaza",
   1,
-  "Ekoplaza · 0.9 kg per pot"
+  "900 g per pot"
  ],
  "kokosmelk (blik, vol)": [
   4.0,
-  "Overig",
+  "Ekoplaza",
   1,
-  "Ekoplaza"
+  ""
  ],
  "passata/tomatenpuree": [
   2.5,
-  "Overig",
+  "Ekoplaza",
   1,
-  "Ekoplaza"
+  ""
  ],
  "olijfolie": [
   10.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn, per liter · 1 liter per fles"
+  "1 liter per fles"
  ],
  "Red Bull Peach": [
   1.6,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "eieren": [
   5.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "halfvolle melk": [
   1.1,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "Skyr (Arla, naturel)": [
   4.5,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "griekse yoghurt 2%": [
   3.5,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "huttenkase": [
   6.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "feta": [
   9.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "mozzarella": [
   8.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "parmezaan": [
   20.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "geraspte kaas 30+": [
   9.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "roomboter": [
   10.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "tzatziki": [
   7.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "yoghurtdressing (light)": [
   4.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "eiwit (los)": [
   5.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "volkorenbrood": [
   3.5,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "wit brood": [
   3.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "pitabrood": [
   5.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "naanbrood": [
   8.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "roti (plat)": [
   6.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "tortillawrap (tarwe)": [
   7.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "basmatirijst": [
   12.5,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 5 kg per zak"
+  "5 kg per zak"
  ],
  "witte rijst": [
   10.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 5 kg per zak"
+  "5 kg per zak"
  ],
  "zilvervliesrijst": [
   7.5,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 2.5 kg per zak"
+  "2,5 kg per zak"
  ],
  "pasta": [
   1.8,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 1 kg per pak"
+  "1 kg per pak"
  ],
  "tagliatelle": [
   1.5,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 0.5 kg per pak"
+  "500 g per pak"
  ],
  "noedels": [
   2.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 0.5 kg per pak"
+  "500 g per pak"
  ],
  "couscous": [
   3.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 1 kg per pak"
+  "1 kg per pak"
  ],
  "quinoa": [
   6.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 1 kg per pak"
+  "1 kg per pak"
  ],
  "parelgort": [
   1.25,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 0.5 kg per pak"
+  "500 g per pak"
  ],
  "linzen": [
   3.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 1 kg per pak"
+  "1 kg per pak"
  ],
  "kidneybonen (blik)": [
   2.2,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "kikkererwten (blik)": [
   2.2,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "zwarte bonen (blik)": [
   2.2,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "mais (blik)": [
   3.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "tomatenblokjes (blik)": [
   1.6,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "amandelen": [
   16.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 1 kg per zak"
+  "1 kg per zak"
  ],
  "walnoten": [
   16.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 1 kg per zak"
+  "1 kg per zak"
  ],
  "dadels (medjool)": [
   7.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 0.5 kg per doos"
+  "500 g per doos"
  ],
  "abrikozen (gedroogd)": [
   5.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 0.5 kg per zak"
+  "500 g per zak"
  ],
  "pindakaas (Calve)": [
   3.6,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 0.6 kg per pot"
+  "600 g per pot"
  ],
  "rijstwafel (per 100 g)": [
   1.6,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 0.2 kg per pak"
+  "200 g per pak"
  ],
  "mayonaise": [
   2.6,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 0.65 kg per pot"
+  "650 g per pot"
  ],
  "pesto (groen)": [
   2.28,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 0.19 kg per pot"
+  "190 g per pot"
  ],
  "currypasta/kruidenpasta": [
   2.4,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 0.2 kg per pot"
+  "200 g per pot"
  ],
  "kruiden/specerijen mix": [
   2.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 0.1 kg per pot"
+  "100 g per pot"
  ],
  "pannenkoekmix (droog)": [
   3.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn · 1 kg per pak"
+  "1 kg per pak"
  ],
  "aardappelpartjes (oven)": [
   2.5,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "doperwten": [
   2.5,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "edamame": [
   6.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "falafel (gebakken)": [
   8.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "gegrilde groentemix": [
   5.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ],
  "vissticks": [
   8.0,
-  "Overig",
+  "Albert Heijn",
   0,
-  "Albert Heijn"
+  ""
  ]
 };
 export const winkels = {
- "Upfront": {
-  "kleur": "#c67139",
-  "uitleg": "Online in bulk bestellen bij Upfront"
- },
- "Vlees": {
-  "kleur": "#b2622d",
-  "uitleg": "Lokale boer via sanderkoe.nl · kip en tonijn in blik in bulk bij de Hanos"
- },
- "Groentes": {
+ "Albert Heijn": {
   "kleur": "#7a8a5e",
-  "uitleg": "Zondag op de markt in Zeist · overige verse groente bij de Albert Heijn"
+  "uitleg": "De gewone boodschappen"
  },
- "Overig": {
-  "kleur": "#645c50",
-  "uitleg": "Albert Heijn, tenzij er een andere winkel bij staat"
+ "Ekoplaza": {
+  "kleur": "#4b5a34",
+  "uitleg": "Honing, kokosmelk en passata"
+ },
+ "Sanderkoe.nl": {
+  "kleur": "#b2622d",
+  "uitleg": "Rundvlees van de lokale boer"
+ },
+ "Markt Zeist": {
+  "kleur": "#c67139",
+  "uitleg": "Groente en fruit, elke zondag"
+ },
+ "Upfront webshop": {
+  "kleur": "#8c491a",
+  "uitleg": "Online in bulk bestellen"
  }
 };

@@ -101,9 +101,9 @@ BUDGET_OUD = """<div style="font-size:10px;letter-spacing:.09em;text-transform:u
 BUDGET_NIEUW = """<div style="font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#a19786">Wat deze week kost · schatting</div>"""
 
 # ── logica ───────────────────────────────────────────────────────────────
-# De koppen in het lijstje zijn nu Upfront / Vlees / Groentes / Overig.
+# De koppen in het lijstje zijn de winkels waar je echt langsgaat.
 VOLGORDE_OUD = """const volgorde = ['Hanos', 'Ekoplaza', 'Slager', 'Markt', 'Bakker', 'Bakkerij', 'Supermarkt', 'Online'];"""
-VOLGORDE_NIEUW = """const volgorde = ['Upfront', 'Vlees', 'Groentes', 'Overig'];"""
+VOLGORDE_NIEUW = """const volgorde = ['Albert Heijn', 'Markt Zeist', 'Sanderkoe.nl', 'Ekoplaza', 'Upfront webshop'];"""
 
 # Alleen wat elke dag moet: D-Bloat is 'niet dagelijks' en heeft geen moment.
 SUPPS_OUD = """const supps = d.supplementen.slice(0, 6).map((s, ix) => ({
