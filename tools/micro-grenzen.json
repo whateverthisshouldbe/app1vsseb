@@ -1,0 +1,33 @@
+{
+  "_uitleg": [
+    "Bovengrenzen voor volwassenen, aanvaardbare bovengrens van inname (UL).",
+    "Aangehouden zijn de EFSA-waarden, die de Gezondheidsraad en het",
+    "Voedingscentrum ook volgen. Ze zijn NIET online geverifieerd: deze",
+    "omgeving heeft geen internettoegang. Loop ze na voor je erop vaart.",
+    "null = geen bovengrens die op inname uit voeding slaat. Voor magnesium,",
+    "niacine en foliumzuur bestaat wel een grens, maar die geldt alleen voor",
+    "supplementen en verrijkte producten, niet voor wat uit eten komt.",
+    "Onder de referentie kleurt rood, daarboven groen, boven de grens weer rood."
+  ],
+  "grenzen": {
+    "Vit A (mcg)":     { "max": 3000, "waarom": "retinol; bij langdurig hogere inname leverschade, en risico bij zwangerschap" },
+    "Vit C (mg)":      { "max": 2000, "waarom": "geen EFSA-grens; 2000 mg is de Amerikaanse grens, daarboven maagklachten en diarree" },
+    "Vit D (mcg)":     { "max": 100,  "waarom": "daarboven kans op te veel calcium in het bloed" },
+    "Vit E (mg)":      { "max": 300,  "waarom": "alfa-tocoferol; daarboven remt het de bloedstolling" },
+    "Vit K (mcg)":     { "max": null, "waarom": "geen bovengrens vastgesteld voor vitamine K uit voeding" },
+    "B1 (mg)":         { "max": null, "waarom": "geen bovengrens; overschot verlaat het lichaam via de urine" },
+    "B2 (mg)":         { "max": null, "waarom": "geen bovengrens; overschot verlaat het lichaam via de urine" },
+    "B3 (mg)":         { "max": null, "waarom": "de grens van 900 mg geldt voor nicotinamide uit supplementen, niet voor niacine uit voeding" },
+    "B6 (mg)":         { "max": 12,   "waarom": "EFSA verlaagde de grens in 2023; langdurig te veel B6 geeft zenuwklachten" },
+    "B12 (mcg)":       { "max": null, "waarom": "geen bovengrens; opname is zelfbegrenzend" },
+    "Folaat (mcg)":    { "max": null, "waarom": "de grens van 1000 mcg geldt voor foliumzuur uit supplementen, niet voor folaat uit voeding" },
+    "Calcium (mg)":    { "max": 2500, "waarom": "daarboven kans op nierstenen en slechtere opname van ijzer en zink" },
+    "IJzer (mg)":      { "max": 45,   "waarom": "geen EFSA-grens; 45 mg is de Amerikaanse grens, daarboven maagdarmklachten" },
+    "Magnesium (mg)":  { "max": null, "waarom": "de grens van 250 mg geldt voor supplementen; magnesium uit voeding heeft geen grens" },
+    "Zink (mg)":       { "max": 25,   "waarom": "langdurig meer remt de koperopname" },
+    "Kalium (mg)":     { "max": null, "waarom": "geen grens voor kalium uit voeding; alleen supplementen zijn begrensd" },
+    "Selenium (mcg)":  { "max": 255,  "waarom": "EFSA 2023; langdurig te veel geeft broze nagels en haaruitval" },
+    "Jodium (mcg)":    { "max": 600,  "waarom": "daarboven kans op ontregeling van de schildklier" },
+    "Vezel (g)":       { "max": null, "waarom": "geen bovengrens; veel vezel vraagt wel om genoeg drinken" }
+  }
+}

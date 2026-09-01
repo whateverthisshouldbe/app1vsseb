@@ -17540,5 +17540,26 @@ export const micros = {
    2.9,
    1.16
   ]
- }
+ },
+ "max": [
+  3000,
+  2000,
+  100,
+  300,
+  null,
+  null,
+  null,
+  null,
+  12,
+  null,
+  null,
+  2500,
+  45,
+  null,
+  25,
+  null,
+  255,
+  600,
+  null
+ ]
 };

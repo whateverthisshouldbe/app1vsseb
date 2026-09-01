@@ -19,6 +19,7 @@ Standalone HTML-app met het 60-daagse voedingsschema. Geen build-stap nodig.
 | `tools/ui-micros.py` | micronutrienten met gehaltes in plaats van vaste percentages |
 | `tools/build-icons.py` | genereert de app-iconen |
 | `tools/bereiding.json` | de bereidingswijze per recept |
+| `tools/micro-grenzen.json` | bovengrenzen per micronutrient |
 | `tools/build-fotoprompts.py` | schrijft `fotos/PROMPTS.md` |
 | `fotos/` | foto's per receptcode, zie `fotos/LEESMIJ.md` |
 | `manifest.webmanifest`, `sw.js`, `icon-*.png` | installeerbaar en offline bruikbaar |
@@ -92,6 +93,13 @@ de lus.
 
 Die verhoudingen worden op vier decimalen ingelezen. Op een decimaal
 afronden ging bij vitamine D (0,09) ruim tien procent mis.
+
+De balk is rood onder de referentie, vol groen daarboven, en weer rood boven
+de bovengrens uit `tools/micro-grenzen.json`. Die grenzen zijn de
+EFSA-waarden, ingevuld uit kennis en **niet online geverifieerd** — deze
+omgeving heeft geen internettoegang. Waar een grens alleen voor supplementen
+geldt en niet voor inname uit voeding (magnesium, niacine, foliumzuur) staat
+er `null`, zodat een normale voedingsinname niet ten onrechte rood kleurt.
 
 ## Bereiding en foto's
 

@@ -17,6 +17,7 @@ import openpyxl
 ROOT = Path(__file__).resolve().parent.parent
 WINKELS = ROOT / "tools" / "winkels.json"
 BEREIDING = ROOT / "tools" / "bereiding.json"
+GRENZEN = ROOT / "tools" / "micro-grenzen.json"
 FOTOS = ROOT / "fotos"
 
 
@@ -151,7 +152,14 @@ def lees_micros(ws):
         if not isinstance(r[0], (int, float)):
             continue
         per_dag[int(r[0])] = [ratio(c) for c in r[2:2 + len(namen)]]
-    return {"namen": namen, "ref": ref, "perDag": per_dag}
+    grenzen = json.loads(GRENZEN.read_text(encoding="utf-8"))["grenzen"]
+    ontbreekt = [n for n in namen if n not in grenzen]
+    if ontbreekt:
+        print("LET OP, geen bovengrens ingesteld voor: " + ", ".join(ontbreekt))
+    return {
+        "namen": namen, "ref": ref, "perDag": per_dag,
+        "max": [(grenzen.get(n) or {}).get("max") for n in namen],
+    }
 
 
 # Waar een supplement in de dag valt; 'Losse dagen' hoort niet bij een

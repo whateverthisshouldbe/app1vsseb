@@ -7,7 +7,9 @@ referentie-inname. Vermenigvuldigd met die referentie geeft dat het gehalte
 zelf, en dat is wat hier getoond wordt: het gehalte, het percentage, en
 waar de referentie ligt.
 
-Gemiddeld over dezelfde zeven dagen als de macro's erboven.
+Gemiddeld over dezelfde zeven dagen als de macro's erboven. De balk is vol
+zodra je boven de referentie zit, en kleurt rood als je eronder blijft of
+juist boven de bovengrens uitkomt (zie tools/micro-grenzen.json).
 
 Draai dit na tools/ui-rondes.py.
 """
@@ -33,16 +35,24 @@ LOGICA_NIEUW = """// De tab Micronutrienten geeft per dag de verhouding tot de
         ? microRijen.reduce((a, r) => a + (r[i] || 0), 0) / microRijen.length
         : 0;
       const ref = mi.ref[i] || 0;
-      const eenheid = (kop.match(/\\(([^)]+)\\)/) || ['', ''])[1];
+      const gehalte = deel * ref;
+      const grens = (mi.max || [])[i];
+      const teLaag = gehalte < ref;
+      const teHoog = grens != null && gehalte > grens;
+      const eh = (kop.match(/\\(([^)]+)\\)/) || ['', ''])[1];
+      const eenheid = eh ? ' ' + eh : '';
       const pct = Math.round(deel * 100);
       return {
         naam: kop.replace(/\\s*\\([^)]*\\)/, ''),
-        waarde: this.hoeveel(deel * ref) + (eenheid ? ' ' + eenheid : ''),
-        doel: 'referentie ' + this.hoeveel(ref) + (eenheid ? ' ' + eenheid : ''),
+        waarde: this.hoeveel(gehalte) + eenheid,
+        // boven de referentie is de balk vol: dan is het simpelweg genoeg
+        pct: teLaag ? Math.max(2, pct) : 100,
+        kleur: (teLaag || teHoog) ? rood : sage,
         label: pct + '%',
-        // 300% vult de balk; daarboven zegt het getal het wel
-        pct: Math.min(100, pct / 3),
-        kleur: pct < 100 ? rood : sage
+        doel: 'referentie ' + this.hoeveel(ref) + eenheid
+          + (grens != null ? ' · grens ' + this.hoeveel(grens) + eenheid : '')
+          + (teLaag ? ' · te laag' : teHoog ? ' · boven de grens' : ''),
+        doelKleur: (teLaag || teHoog) ? rood : '#a19786'
       };
     });"""
 
@@ -76,7 +86,7 @@ MARKUP_OUD = """<p style="font-size:12px;color:#82796a;margin:0 0 12px">% van de
             </sc-for>
           </div>"""
 
-MARKUP_NIEUW = """<p style="font-size:12px;color:#82796a;margin:0 0 12px">Gemiddeld over de laatste 7 dagen van je schema, met de referentie-inname erbij.</p>
+MARKUP_NIEUW = """<p style="font-size:12px;color:#82796a;margin:0 0 12px">Gemiddeld over de laatste 7 dagen van je schema, met de referentie-inname en de bovengrens erbij. Groen is genoeg; rood is te weinig of juist te veel.</p>
           <div style="display:flex;flex-direction:column;gap:13px">
             <sc-for list="{{ micros }}" as="m" hint-placeholder-count="6">
               <div>
@@ -88,7 +98,7 @@ MARKUP_NIEUW = """<p style="font-size:12px;color:#82796a;margin:0 0 12px">Gemidd
                 <div style="height:9px;border-radius:999px;background:#e1d6bf;overflow:hidden">
                   <div style="height:100%;border-radius:999px;background:{{ m.kleur }};width:{{ m.pct }}%"></div>
                 </div>
-                <div style="font-size:11px;color:#a19786;margin-top:3px">{{ m.doel }}</div>
+                <div style="font-size:11px;color:{{ m.doelKleur }};margin-top:3px">{{ m.doel }}</div>
               </div>
             </sc-for>
           </div>"""

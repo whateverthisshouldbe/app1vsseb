@@ -1,6 +1,6 @@
 // Service worker: de app moet ook zonder verbinding werken.
 // Bump CACHE bij elke nieuwe versie, dan haalt de app zichzelf op.
-const CACHE = 'voedingsschema-v8';
+const CACHE = 'voedingsschema-v9';
 const BESTANDEN = [
   './',
   './index.html',
