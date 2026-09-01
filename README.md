@@ -16,6 +16,7 @@ Standalone HTML-app met het 60-daagse voedingsschema. Geen build-stap nodig.
 | `tools/ui-tweaks.py` | aanpassingen aan de schermen zelf |
 | `tools/ui-loop.py` | de 60-daagse lus, weektabs en de inslaanpagina |
 | `tools/ui-rondes.py` | de zondag- en woensdagronde in het lijstje |
+| `tools/ui-micros.py` | micronutrienten met gehaltes in plaats van vaste percentages |
 | `tools/build-icons.py` | genereert de app-iconen |
 | `tools/bereiding.json` | de bereidingswijze per recept |
 | `tools/build-fotoprompts.py` | schrijft `fotos/PROMPTS.md` |
@@ -42,6 +43,7 @@ python3 tools/app-shell.py     # chrome eruit, schermvullend, PWA-meta's
 python3 tools/ui-tweaks.py     # aanpassingen aan de schermen
 python3 tools/ui-loop.py       # lus, weektabs, inslaanpagina
 python3 tools/ui-rondes.py     # zondag- en woensdagronde
+python3 tools/ui-micros.py     # micronutrienten met gehaltes
 ```
 
 `patch-index.py` is nodig omdat de bundler de component vanuit een `blob:`-URL
@@ -79,6 +81,17 @@ regel een `ronde`:
 `tweewekelijks_winkel` (Sanderkoe.nl) wordt in oneven weken voor twee weken
 tegelijk ingekocht; in even weken staat dat vlees er niet op. De totalen over
 60 dagen blijven daarbij gelijk.
+
+## Micronutrienten
+
+Het tabblad Micronutrienten geeft per dag de verhouding tot de
+referentie-inname, niet het gehalte zelf: 2,39 betekent 239% van de
+referentie. Maal de referentierij bovenaan geeft dat het gehalte, en zo staat
+het in de app. Negentien stoffen, gemiddeld over de laatste zeven dagen van
+de lus.
+
+Die verhoudingen worden op vier decimalen ingelezen. Op een decimaal
+afronden ging bij vitamine D (0,09) ruim tien procent mis.
 
 ## Bereiding en foto's
 

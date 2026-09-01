@@ -131,18 +131,26 @@ def lees_supplementen(ws):
     return supp, aandacht
 
 
+def ratio(v):
+    """Verhoudingen hebben meer decimalen nodig dan getal() geeft."""
+    try:
+        return round(float(v), 4)
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def lees_micros(ws):
     """Rij met 'Referentie' geeft de norm; daarna per dag de absolute waarden."""
     rijen = list(ws.iter_rows(values_only=True))
     ref_rij = next(r for r in rijen if tekst(r[0]) == "Referentie")
     kop = next(r for r in rijen if tekst(r[0]) == "Dag")
     namen = [tekst(c) for c in kop[2:] if tekst(c)]
-    ref = [getal(c) for c in ref_rij[2:2 + len(namen)]]
+    ref = [ratio(c) for c in ref_rij[2:2 + len(namen)]]
     per_dag = {}
     for r in rijen:
         if not isinstance(r[0], (int, float)):
             continue
-        per_dag[int(r[0])] = [getal(c) for c in r[2:2 + len(namen)]]
+        per_dag[int(r[0])] = [ratio(c) for c in r[2:2 + len(namen)]]
     return {"namen": namen, "ref": ref, "perDag": per_dag}
 
 
