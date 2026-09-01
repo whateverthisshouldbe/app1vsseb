@@ -266,6 +266,50 @@ def bulk_verdelen(weken, bulk):
         w["items"] = houden
 
 
+def strip_code(naam):
+    """'D14 - Shoarma met pita's' -> 'shoarma met pita's'; zelfde regel als de app."""
+    return re.sub(r"^[^-]{1,16}\s-\s", "", str(naam or "")).strip().lower()
+
+
+def gebruik_per_dag(dagen, recept, hernoem):
+    """Per week en ingredient: hoeveel gram er op elke weekdag gebruikt wordt.
+
+    Nodig om te bepalen wat je zondag al in huis moet hebben en wat pas na
+    woensdag nodig is. De aanvulblokken hangen niet aan een recept maar zijn
+    vrije tekst ('banaan 295g + pindakaas (Calve) 10g'), die parsen we.
+    """
+    idx = {strip_code(r["naam"]): k for k, r in recept.items()}
+    gebruik = {}
+    for dag in dagen:
+        week = (dag["d"] - 1) // 7
+        weekdag = (dag["d"] - 1) % 7  # 0 = maandag
+        for blok in dag["blokken"]:
+            rid = idx.get(strip_code(blok["wat"]))
+            if rid:
+                paren = [(i["n"], i.get("g", 0)) for i in recept[rid]["ing"]]
+            else:
+                paren = []
+                for deel in str(blok["wat"]).split(" + "):
+                    m = re.match(r"^(.*?)\s+([\d.,]+)\s*g$", deel.strip())
+                    if m:
+                        paren.append((hernoem.get(m.group(1), m.group(1)),
+                                      float(m.group(2).replace(",", "."))))
+            for naam, gram in paren:
+                naam = hernoem.get(naam, naam)
+                rij = gebruik.setdefault(week, {}).setdefault(naam, [0.0] * 7)
+                rij[weekdag] += gram
+    return gebruik
+
+
+def deel_laat(gebruik, week, naam):
+    """Welk deel van een ingredient pas vanaf donderdag nodig is."""
+    rij = (gebruik.get(week) or {}).get(naam)
+    if not rij:
+        return None  # niet te bepalen; dan gaat het gewoon mee op zondag
+    totaal = sum(rij)
+    return (sum(rij[3:]) / totaal) if totaal else 0.0
+
+
 def maat_tekst(hoeveelheid, eenheid):
     """500 g leest prettiger dan 0,5 kg; en Nederlands schrijft een komma."""
     if eenheid == "kg" and hoeveelheid < 1:
@@ -317,6 +361,71 @@ def bulk_prijzen(prijzen, bulk):
                          "%s · %s" % (winkel, maat) if winkel else maat]
 
 
+def rondes_indelen(weken, gebruik, kort, tweewekelijks):
+    """Verdeelt elke week over de zondagronde en de woensdagronde.
+
+    Zondag haal je alles wat de week uitzingt, plus alle verse groente. Wat
+    kort houdbaar is en pas na woensdag op tafel komt, koop je woensdag. Vlees
+    van de lokale boer gaat de vriezer in en kan per twee weken.
+    """
+    for nr, w in enumerate(weken):
+        nieuw = []
+        oneven = w["week"] % 2 == 1
+        volgende = weken[nr + 1] if nr + 1 < len(weken) else None
+        # wat de volgende week aan vlees nodig heeft, koop je nu mee
+        mee = {}
+        if oneven and volgende:
+            for x in volgende["items"]:
+                if x["n"] in tweewekelijks:
+                    mee[(x["n"], x["eh"])] = x
+
+        for i in w["items"]:
+            i["ronde"] = "zo"
+
+            if i["n"] in tweewekelijks:
+                if not oneven:
+                    continue  # is de week ervoor al ingeslagen
+                extra = mee.pop((i["n"], i["eh"]), None)
+                if extra:
+                    i["q"] = round(i["q"] + extra["q"], 1)
+                    i["opm"] = "voor 2 weken, vriezer"
+                nieuw.append(i)
+                continue
+
+            fractie = deel_laat(gebruik, nr, i["n"]) if i["n"] in kort else None
+            if fractie is None or fractie <= 0.01:
+                nieuw.append(i)
+                continue
+            if fractie >= 0.99:
+                i["ronde"] = "wo"
+                nieuw.append(i)
+                continue
+
+            # deels vroeg, deels laat: splitsen over de twee rondes
+            laat = dict(i, q=round(i["q"] * fractie, 1), ronde="wo")
+            vroeg = dict(i, q=round(i["q"] * (1 - fractie), 1), ronde="zo")
+            nieuw.extend([vroeg, laat])
+
+        # vlees dat alleen de volgende week voorkomt, hoort er nu ook bij
+        for x in mee.values():
+            nieuw.append(dict(x, ronde="zo", opm="voor volgende week, vriezer"))
+
+        w["items"] = nieuw
+
+
+def komma_getallen(weken):
+    """Hoeveelheden als Nederlandse tekst: 1,6 liter in plaats van 1.6 liter.
+
+    Mag als laatste stap: de app leest ze met parseFloat na een replace van de
+    komma, dus rekenen blijft werken.
+    """
+    for w in weken:
+        for i in w["items"]:
+            getal = float(i["q"])
+            i["q"] = (str(int(getal)) if getal == int(getal)
+                      else ("%g" % getal).replace(".", ","))
+
+
 def js(naam, data):
     return "export const %s = %s;\n" % (naam, json.dumps(data, ensure_ascii=False, indent=1))
 
@@ -349,6 +458,7 @@ def main():
     zonder = sorted(k for k, r in recept.items() if not r["stappen"])
     onbekend_recept = sorted(set(bereiding) - set(recept))
 
+    gebruik = gebruik_per_dag(dagen, recept, hernoem)
     kast = voorraadkast(weken, winkels["bulk"], winkels["prijzen"])
     bulk_verdelen(weken, winkels["bulk"])
     bulk_prijzen(winkels["prijzen"], winkels["bulk"])
@@ -357,6 +467,13 @@ def main():
     for w in weken:
         for i in w["items"]:
             i["cat"] = cats.get(i["n"], "Overig")
+
+    kort = set(winkels["kort_houdbaar"])
+    tweewekelijks = {n for n, p in winkels["prijzen"].items()
+                     if p[1] == winkels["tweewekelijks_winkel"]}
+    rondes_indelen(weken, gebruik, kort, tweewekelijks)
+
+    komma_getallen(weken)
 
     (ROOT / "schemaData.js").write_text(
         "// GEGENEREERD door tools/build-data.py — niet met de hand aanpassen.\n"

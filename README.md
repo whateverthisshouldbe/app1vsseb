@@ -15,6 +15,7 @@ Standalone HTML-app met het 60-daagse voedingsschema. Geen build-stap nodig.
 | `tools/app-shell.py` | haalt de prototype-chrome weg, maakt het schermvullend |
 | `tools/ui-tweaks.py` | aanpassingen aan de schermen zelf |
 | `tools/ui-loop.py` | de 60-daagse lus, weektabs en de inslaanpagina |
+| `tools/ui-rondes.py` | de zondag- en woensdagronde in het lijstje |
 | `tools/build-icons.py` | genereert de app-iconen |
 | `tools/bereiding.json` | de bereidingswijze per recept |
 | `tools/build-fotoprompts.py` | schrijft `fotos/PROMPTS.md` |
@@ -40,6 +41,7 @@ python3 tools/patch-index.py   # data-imports werkend maken
 python3 tools/app-shell.py     # chrome eruit, schermvullend, PWA-meta's
 python3 tools/ui-tweaks.py     # aanpassingen aan de schermen
 python3 tools/ui-loop.py       # lus, weektabs, inslaanpagina
+python3 tools/ui-rondes.py     # zondag- en woensdagronde
 ```
 
 `patch-index.py` is nodig omdat de bundler de component vanuit een `blob:`-URL
@@ -60,6 +62,23 @@ dan aan in de browser.
 
 Het boodschappenlijstje toont daarom deze week en een week vooruit, in plaats
 van alle negen weken.
+
+## De twee boodschapronden
+
+De indeling volgt wanneer je iets nodig hebt, niet wat voor product het is.
+`build-data.py` leidt uit de recepten af op welke weekdagen elk ingredient
+gebruikt wordt (ook uit de aanvulblokken, die vrije tekst zijn) en zet per
+regel een `ronde`:
+
+- **zondag** — alles wat de week uitzingt, plus alle verse groente van de
+  markt, plus het vlees van Sanderkoe.nl dat de vriezer in gaat
+- **woensdag** — alleen wat in `kort_houdbaar` staat en pas vanaf donderdag
+  nodig is. Wordt iets zowel voor als na woensdag gebruikt, dan wordt de
+  hoeveelheid over beide rondes verdeeld.
+
+`tweewekelijks_winkel` (Sanderkoe.nl) wordt in oneven weken voor twee weken
+tegelijk ingekocht; in even weken staat dat vlees er niet op. De totalen over
+60 dagen blijven daarbij gelijk.
 
 ## Bereiding en foto's
 

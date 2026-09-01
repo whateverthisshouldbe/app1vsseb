@@ -1,5 +1,5 @@
 {
-  "_uitleg": "prijzen[naam] = [prijs per kg/liter/stuk, groep in het lijstje, bio (0|1), winkel]. De prijzen zijn SCHATTINGEN: het Excel-bestand bevat er geen. Pas ze hier aan. bulk[naam] = [verpakking, kg of liter, enkelvoud, meervoud]: die producten komen alleen op het lijstje in de week dat de voorraad opraakt.",
+  "_uitleg": "prijzen[naam] = [prijs per kg/liter/stuk, groep in het lijstje, bio (0|1), winkel]. De prijzen zijn SCHATTINGEN: het Excel-bestand bevat er geen. Pas ze hier aan. bulk[naam] = [verpakking, kg of liter, enkelvoud, meervoud]: die producten komen alleen op het lijstje in de week dat de voorraad opraakt. kort_houdbaar bepaalt wat naar de woensdagronde gaat als het pas vanaf donderdag nodig is; tweewekelijks_winkel gaat per twee weken de vriezer in.",
   "hernoem": {
     "rundergehakt 15%": "rundergehakt",
     "rundergehakt 5%": "rundergehakt",
@@ -957,5 +957,26 @@
       "pak",
       "pakken"
     ]
-  }
+  },
+  "kort_houdbaar": [
+    "Skyr (Arla, naturel)",
+    "halfvolle melk",
+    "griekse yoghurt 2%",
+    "huttenkase",
+    "eieren",
+    "eiwit (los)",
+    "mozzarella",
+    "feta",
+    "tzatziki",
+    "guacamole",
+    "yoghurtdressing (light)",
+    "sinaasappelsap (vers)",
+    "zalmfilet",
+    "kabeljauw/witvis",
+    "garnalen",
+    "verse tonijnsteak",
+    "prosciutto/rauwe ham",
+    "gebakken spek"
+  ],
+  "tweewekelijks_winkel": "Sanderkoe.nl"
 }

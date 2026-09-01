@@ -4304,430 +4304,539 @@ export const weken = [
   "items": [
    {
     "n": "Red Bull Peach",
-    "q": 5.0,
+    "q": "5",
     "eh": "blikjes",
     "opm": "",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "Upfront Baked Oats banaan (droog)",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "droog product",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "Upfront Eiwit Oats (droog)",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "droog product",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "droog product",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "aardappelpuree (m. melk)",
-    "q": 500.0,
+    "q": "500",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "aardbeien",
-    "q": 240.0,
+    "q": "240",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "amandelen",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "avocado",
-    "q": 100.0,
+    "q": "100",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "banaan",
-    "q": 1.9,
+    "q": "1,9",
     "eh": "kg",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "basmatirijst",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "biefstuk",
-    "q": 176.0,
+    "q": "176",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "blauwe bessen",
-    "q": 400.0,
+    "q": "400",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "broccoli",
-    "q": 220.0,
+    "q": "220",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "champignons",
-    "q": 234.0,
+    "q": "234",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "citroensap",
-    "q": 10.0,
+    "q": "10",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "couscous",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "currypasta/kruidenpasta",
-    "q": 1,
+    "q": "1",
     "eh": "pot",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "dadels (medjool)",
-    "q": 1,
+    "q": "1",
     "eh": "doos",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "eieren",
-    "q": 8.0,
+    "q": "8",
     "eh": "stuks",
     "opm": "gerekend op 55 g per ei zonder schaal",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "eiwit (los)",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "gegrilde groentemix",
-    "q": 200.0,
+    "q": "200",
     "eh": "g",
     "opm": "",
-    "cat": "Diepvries"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "gehaktbal (rund, gaar)",
-    "q": 84.0,
+    "q": "84",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "geraspte kaas 30+",
-    "q": 85.0,
+    "q": "85",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "halfvolle melk",
-    "q": 2.7,
+    "q": "1,1",
     "eh": "liter",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "halfvolle melk",
+    "q": "1,6",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "honing",
-    "q": 1,
+    "q": "1",
     "eh": "pot",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "kipdrumstick",
-    "q": 210.0,
+    "q": "210",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "kipfilet",
-    "q": 838.0,
+    "q": "838",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "knoflook",
-    "q": 5.0,
+    "q": "5",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "kokosmelk (blik, vol)",
-    "q": 50.0,
+    "q": "50",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "komkommer",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "kruiden/specerijen mix",
-    "q": 1,
+    "q": "1",
     "eh": "pot",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": 1.98,
+    "q": "0,9",
     "eh": "kg",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "Skyr (Arla, naturel)",
+    "q": "1,1",
+    "eh": "kg",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
-    "q": 80.0,
+    "q": "80",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "mayonaise",
-    "q": 1,
+    "q": "1",
     "eh": "pot",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "Upfront muesli",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "olijfolie",
-    "q": 1,
+    "q": "1",
     "eh": "fles",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "paprika rood",
-    "q": 363.0,
+    "q": "363",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "parmezaan",
-    "q": 20.0,
+    "q": "20",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "passata/tomatenpuree",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "pasta",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "pindakaas (Calve)",
-    "q": 1,
+    "q": "1",
     "eh": "pot",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "quinoa",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 2,
+    "q": "2",
     "eh": "pakken",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "roomboter",
-    "q": 8.0,
+    "q": "8",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "rundergehakt",
-    "q": 110.0,
+    "q": "722",
     "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "opm": "voor 2 weken, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "runderschnitzel",
-    "q": 176.0,
+    "q": "176",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": 1.8,
+    "q": "0,8",
     "eh": "liter",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
+   },
+   {
+    "n": "sinaasappelsap (vers)",
+    "q": "1",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Groente & fruit",
+    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "sperziebonen",
-    "q": 198.0,
+    "q": "198",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomaat (vers)",
-    "q": 220.0,
+    "q": "220",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomatenblokjes (blik)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "tonijn in blik (olijfolie)",
-    "q": 110.0,
+    "q": "110",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "tortillawrap (tarwe)",
-    "q": 450.0,
+    "q": "450",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "ui",
-    "q": 182.0,
+    "q": "182",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "volkorenbrood",
-    "q": 510.0,
+    "q": "510",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "walnoten",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "whey isolaat",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "droog product",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "witte rijst",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "wortel",
-    "q": 990.0,
+    "q": "990",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "yoghurtdressing (light)",
-    "q": 50.0,
+    "q": "50",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "zoete aardappel",
-    "q": 500.0,
+    "q": "500",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
+   },
+   {
+    "n": "prosciutto/rauwe ham",
+    "q": "50",
+    "eh": "g",
+    "opm": "voor volgende week, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
+   },
+   {
+    "n": "runderreepjes roerbak",
+    "q": "344",
+    "eh": "g",
+    "opm": "voor volgende week, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
+   },
+   {
+    "n": "shoarmavlees",
+    "q": "188",
+    "eh": "g",
+    "opm": "voor volgende week, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    }
   ]
  },
@@ -4737,304 +4846,339 @@ export const weken = [
   "items": [
    {
     "n": "Red Bull Peach",
-    "q": 5.0,
+    "q": "5",
     "eh": "blikjes",
     "opm": "",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "aardappelpartjes (oven)",
-    "q": 437.0,
+    "q": "437",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Diepvries"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "aardbeien",
-    "q": 240.0,
+    "q": "240",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "banaan",
-    "q": 2.2,
+    "q": "2,2",
     "eh": "kg",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "blauwe bessen",
-    "q": 620.0,
+    "q": "620",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "feta",
-    "q": 60.0,
+    "q": "60",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "geraspte kaas 30+",
-    "q": 45.0,
+    "q": "45",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "guacamole",
-    "q": 120.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
+   },
+   {
+    "n": "guacamole",
+    "q": "50",
+    "eh": "g",
+    "opm": "",
+    "cat": "Groente & fruit",
+    "ronde": "wo"
    },
    {
     "n": "halfvolle melk",
-    "q": 2.6,
+    "q": "0,9",
     "eh": "liter",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "halfvolle melk",
+    "q": "1,7",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "huttenkase",
-    "q": 85.0,
+    "q": "85",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "kikkererwten (blik)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "kipfilet",
-    "q": 625.0,
+    "q": "625",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "knoflook",
-    "q": 5.0,
+    "q": "5",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "kokosmelk (blik, vol)",
-    "q": 60.0,
+    "q": "60",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "komkommer",
-    "q": 290.0,
+    "q": "290",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": 1.96,
+    "q": "0,8",
     "eh": "kg",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "Skyr (Arla, naturel)",
+    "q": "1,2",
+    "eh": "kg",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "meloen (cantaloupe)",
-    "q": 250.0,
+    "q": "250",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "mozzarella",
-    "q": 90.0,
+    "q": "90",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "naanbrood",
-    "q": 160.0,
+    "q": "160",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "noedels",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "paprika rood",
-    "q": 374.0,
+    "q": "374",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "passata/tomatenpuree",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "pesto (groen)",
-    "q": 1,
+    "q": "1",
     "eh": "pot",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "pitabrood",
-    "q": 190.0,
+    "q": "190",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
-   },
-   {
-    "n": "prosciutto/rauwe ham",
-    "q": 50.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Vlees & vis"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "roerbakgroenten mix",
-    "q": 400.0,
+    "q": "400",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
-   },
-   {
-    "n": "rundergehakt",
-    "q": 612.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
-   },
-   {
-    "n": "runderreepjes roerbak",
-    "q": 344.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
-   },
-   {
-    "n": "shoarmavlees",
-    "q": 188.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": 0.6,
+    "q": "0,6",
     "eh": "liter",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "sla/ijsbergsla",
-    "q": 210.0,
+    "q": "210",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "spinazie",
-    "q": 770.0,
+    "q": "770",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomaat (vers)",
-    "q": 380.0,
+    "q": "380",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tortillawrap (tarwe)",
-    "q": 300.0,
+    "q": "300",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "tzatziki",
-    "q": 90.0,
+    "q": "90",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "ui",
-    "q": 104.0,
+    "q": "104",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "volkorenbrood",
-    "q": 850.0,
+    "q": "850",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "wit brood",
-    "q": 110.0,
+    "q": "110",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "wortel",
-    "q": 990.0,
+    "q": "990",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "yoghurtdressing (light)",
-    "q": 50.0,
+    "q": "50",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "zoete aardappel",
-    "q": 418.0,
+    "q": "418",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "zwarte bonen (blik)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    }
   ]
  },
@@ -5044,332 +5188,419 @@ export const weken = [
   "items": [
    {
     "n": "Red Bull Peach",
-    "q": 5.0,
+    "q": "5",
     "eh": "blikjes",
     "opm": "",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "droog product",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "aardbeien",
-    "q": 360.0,
+    "q": "360",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "avocado",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "banaan",
-    "q": 1.8,
+    "q": "1,8",
     "eh": "kg",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "blauwe bessen",
-    "q": 300.0,
+    "q": "300",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "broccoli",
-    "q": 198.0,
+    "q": "198",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "citroensap",
-    "q": 30.0,
+    "q": "30",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "courgette",
-    "q": 132.0,
+    "q": "132",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "edamame",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Diepvries"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "eieren",
-    "q": 2.0,
+    "q": "2",
     "eh": "stuks",
     "opm": "gerekend op 55 g per ei zonder schaal",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "feta",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "garnalen",
-    "q": 276.0,
+    "q": "276",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "gehaktbal (rund, gaar)",
-    "q": 188.0,
+    "q": "468",
     "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "opm": "voor 2 weken, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "geraspte kaas 30+",
-    "q": 40.0,
+    "q": "40",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "halfvolle melk",
-    "q": 2.6,
+    "q": "1,1",
     "eh": "liter",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "halfvolle melk",
+    "q": "1,5",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "honing",
-    "q": 1,
+    "q": "1",
     "eh": "pot",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "kabeljauw/witvis",
-    "q": 138.0,
+    "q": "138",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "kidneybonen (blik)",
-    "q": 120.0,
+    "q": "120",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "kipfilet",
-    "q": 239.0,
+    "q": "239",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "knoflook",
-    "q": 14.0,
+    "q": "14",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "komkommer",
-    "q": 550.0,
+    "q": "550",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": 2.19,
+    "q": "1",
     "eh": "kg",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "Skyr (Arla, naturel)",
+    "q": "1,2",
+    "eh": "kg",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
-    "q": 210.0,
+    "q": "210",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "paprika rood",
-    "q": 132.0,
+    "q": "132",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "parelgort",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "parmezaan",
-    "q": 35.0,
+    "q": "35",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "pitabrood",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "roerbakgroenten mix",
-    "q": 200.0,
+    "q": "200",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "rundergehakt",
-    "q": 124.0,
+    "q": "248",
     "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "opm": "voor 2 weken, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": 1.4,
+    "q": "0,6",
     "eh": "liter",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
+   },
+   {
+    "n": "sinaasappelsap (vers)",
+    "q": "0,8",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Groente & fruit",
+    "ronde": "wo"
    },
    {
     "n": "sperziebonen",
-    "q": 165.0,
+    "q": "165",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "spinazie",
-    "q": 1.3,
+    "q": "1,3",
     "eh": "kg",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tagliatelle",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "tomaat (vers)",
-    "q": 340.0,
+    "q": "340",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomatenblokjes (blik)",
-    "q": 120.0,
+    "q": "120",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "tonijn in blik (olijfolie)",
-    "q": 240.0,
+    "q": "240",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "tortillawrap (tarwe)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "tzatziki",
-    "q": 90.0,
+    "q": "90",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "ui",
-    "q": 39.0,
+    "q": "39",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "verse tonijnsteak",
-    "q": 162.0,
+    "q": "162",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "vissticks",
-    "q": 130.0,
+    "q": "130",
     "eh": "g",
     "opm": "",
-    "cat": "Diepvries"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "wortel",
-    "q": 946.0,
+    "q": "946",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "yoghurtdressing (light)",
-    "q": 45.0,
+    "q": "45",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "zalmfilet",
-    "q": 262.0,
+    "q": "262",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "zoete aardappel",
-    "q": 528.0,
+    "q": "528",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
+   },
+   {
+    "n": "eendenborst m. vel",
+    "q": "148",
+    "eh": "g",
+    "opm": "voor volgende week, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
+   },
+   {
+    "n": "prosciutto/rauwe ham",
+    "q": "35",
+    "eh": "g",
+    "opm": "voor volgende week, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    }
   ]
  },
@@ -5379,325 +5610,371 @@ export const weken = [
   "items": [
    {
     "n": "Red Bull Peach",
-    "q": 5.0,
+    "q": "5",
     "eh": "blikjes",
     "opm": "",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "aardappelpuree (m. melk)",
-    "q": 500.0,
+    "q": "500",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "aardbeien",
-    "q": 240.0,
+    "q": "240",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "appel",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "asperges",
-    "q": 230.0,
+    "q": "230",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "avocado",
-    "q": 80.0,
+    "q": "80",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "banaan",
-    "q": 2.3,
+    "q": "2,3",
     "eh": "kg",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "blauwe bessen",
-    "q": 300.0,
+    "q": "300",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "bloemkool",
-    "q": 132.0,
+    "q": "132",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "citroensap",
-    "q": 30.0,
+    "q": "30",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "doperwten",
-    "q": 100.0,
+    "q": "100",
     "eh": "g",
     "opm": "",
-    "cat": "Diepvries"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "edamame",
-    "q": 130.0,
+    "q": "130",
     "eh": "g",
     "opm": "",
-    "cat": "Diepvries"
-   },
-   {
-    "n": "eendenborst m. vel",
-    "q": 148.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "eieren",
-    "q": 7.0,
+    "q": "7",
     "eh": "stuks",
     "opm": "gerekend op 55 g per ei zonder schaal",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "eiwit (los)",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "feta",
-    "q": 210.0,
+    "q": "100",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "feta",
+    "q": "110",
+    "eh": "g",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "garnalen",
-    "q": 144.0,
+    "q": "144",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
-   },
-   {
-    "n": "gehaktbal (rund, gaar)",
-    "q": 280.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "geraspte kaas 30+",
-    "q": 90.0,
+    "q": "90",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "granaatappelpitjes",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "halfvolle melk",
-    "q": 2.7,
+    "q": "1,3",
     "eh": "liter",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "halfvolle melk",
+    "q": "1,4",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "kipfilet",
-    "q": 226.0,
+    "q": "226",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "kokosmelk (blik, vol)",
-    "q": 45.0,
+    "q": "45",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "komkommer",
-    "q": 190.0,
+    "q": "190",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "linzen",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "rauw inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": 1.83,
+    "q": "0,7",
     "eh": "kg",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "Skyr (Arla, naturel)",
+    "q": "1,1",
+    "eh": "kg",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "paprika rood",
-    "q": 297.0,
+    "q": "297",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "parmezaan",
-    "q": 20.0,
+    "q": "20",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "passata/tomatenpuree",
-    "q": 400.0,
+    "q": "400",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "pindakaas (Calve)",
-    "q": 1,
+    "q": "1",
     "eh": "pot",
     "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "prosciutto/rauwe ham",
-    "q": 35.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Vlees & vis"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "roerbakgroenten mix",
-    "q": 330.0,
+    "q": "330",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "roomboter",
-    "q": 26.0,
+    "q": "26",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "roti (plat)",
-    "q": 190.0,
+    "q": "190",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
-   },
-   {
-    "n": "rundergehakt",
-    "q": 124.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "sinaasappel",
-    "q": 120.0,
+    "q": "120",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": 1.4,
+    "q": "0,5",
     "eh": "liter",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
+   },
+   {
+    "n": "sinaasappelsap (vers)",
+    "q": "0,9",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Groente & fruit",
+    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
-    "q": 40.0,
+    "q": "40",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "spinazie",
-    "q": 805.0,
+    "q": "805",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomaat (vers)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomatenblokjes (blik)",
-    "q": 500.0,
+    "q": "500",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "ui",
-    "q": 78.0,
+    "q": "78",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "volkorenbrood",
-    "q": 1.7,
+    "q": "1,7",
     "eh": "kg",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "wortel",
-    "q": 682.0,
+    "q": "682",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "zalmfilet",
-    "q": 162.0,
+    "q": "162",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    }
   ]
  },
@@ -5707,332 +5984,435 @@ export const weken = [
   "items": [
    {
     "n": "Red Bull Peach",
-    "q": 5.0,
+    "q": "5",
     "eh": "blikjes",
     "opm": "",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "Upfront Baked Oats banaan (droog)",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "droog product",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "Upfront Eiwit Oats (droog)",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "droog product",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "aardbeien",
-    "q": 240.0,
+    "q": "240",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "abrikozen (gedroogd)",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "avocado",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "banaan",
-    "q": 1.5,
+    "q": "1,5",
     "eh": "kg",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "blauwe bessen",
-    "q": 500.0,
+    "q": "500",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "broccoli",
-    "q": 220.0,
+    "q": "220",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "eieren",
-    "q": 5.0,
+    "q": "5",
     "eh": "stuks",
     "opm": "gerekend op 55 g per ei zonder schaal",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "eiwit (los)",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "falafel (gebakken)",
-    "q": 110.0,
+    "q": "110",
     "eh": "g",
     "opm": "",
-    "cat": "Diepvries"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "feta",
-    "q": 50.0,
+    "q": "50",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "gebakken spek",
-    "q": 96.0,
+    "q": "96",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "geraspte kaas 30+",
-    "q": 85.0,
+    "q": "85",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "granaatappelpitjes",
-    "q": 80.0,
+    "q": "80",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "halfvolle melk",
-    "q": 2.9,
+    "q": "1,5",
     "eh": "liter",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "halfvolle melk",
+    "q": "1,4",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "huttenkase",
-    "q": 110.0,
+    "q": "110",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "kidneybonen (blik)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "kipfilet",
-    "q": 978.0,
+    "q": "978",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "knoflook",
-    "q": 6.0,
+    "q": "6",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "komkommer",
-    "q": 100.0,
+    "q": "100",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": 2.0,
+    "q": "0,8",
     "eh": "kg",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "Skyr (Arla, naturel)",
+    "q": "1,2",
+    "eh": "kg",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
-    "q": 220.0,
+    "q": "220",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "Upfront muesli",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "pannenkoekmix (droog)",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "droog product",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "paprika rood",
-    "q": 165.0,
+    "q": "165",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "pitabrood",
-    "q": 180.0,
+    "q": "180",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "roomboter",
-    "q": 10.0,
+    "q": "10",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "rundergehakt",
-    "q": 156.0,
+    "q": "468",
     "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "opm": "voor 2 weken, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": 1.4,
+    "q": "0,4",
     "eh": "liter",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
+   },
+   {
+    "n": "sinaasappelsap (vers)",
+    "q": "1",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Groente & fruit",
+    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
-    "q": 250.0,
+    "q": "250",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomaat (vers)",
-    "q": 510.0,
+    "q": "510",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomatenblokjes (blik)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "tonijn in blik (olijfolie)",
-    "q": 110.0,
+    "q": "110",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "tortillawrap (tarwe)",
-    "q": 450.0,
+    "q": "450",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "tzatziki",
-    "q": 80.0,
+    "q": "80",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "ui",
-    "q": 169.0,
+    "q": "169",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "volkorenbrood",
-    "q": 350.0,
+    "q": "350",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "wit brood",
-    "q": 110.0,
+    "q": "110",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "wortel",
-    "q": 1.3,
+    "q": "1,3",
     "eh": "kg",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "yoghurtdressing (light)",
-    "q": 90.0,
+    "q": "90",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "zalmfilet",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "zilvervliesrijst",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "zoete aardappel",
-    "q": 484.0,
+    "q": "484",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "zwarte bonen (blik)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
+   },
+   {
+    "n": "biefstuk",
+    "q": "169",
+    "eh": "g",
+    "opm": "voor volgende week, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
+   },
+   {
+    "n": "prosciutto/rauwe ham",
+    "q": "50",
+    "eh": "g",
+    "opm": "voor volgende week, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
+   },
+   {
+    "n": "runderreepjes roerbak",
+    "q": "176",
+    "eh": "g",
+    "opm": "voor volgende week, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
+   },
+   {
+    "n": "shoarmavlees",
+    "q": "169",
+    "eh": "g",
+    "opm": "voor volgende week, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    }
   ]
  },
@@ -6042,304 +6422,331 @@ export const weken = [
   "items": [
    {
     "n": "Red Bull Peach",
-    "q": 5.0,
+    "q": "5",
     "eh": "blikjes",
     "opm": "",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "droog product",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "aardappel",
-    "q": 583.0,
+    "q": "583",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "aardappelpuree (m. melk)",
-    "q": 500.0,
+    "q": "500",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "aardbeien",
-    "q": 360.0,
+    "q": "360",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "avocado",
-    "q": 100.0,
+    "q": "100",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "banaan",
-    "q": 2.4,
+    "q": "2,4",
     "eh": "kg",
     "opm": "",
-    "cat": "Groente & fruit"
-   },
-   {
-    "n": "biefstuk",
-    "q": 169.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "blauwe bessen",
-    "q": 420.0,
+    "q": "420",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "champignons",
-    "q": 234.0,
+    "q": "234",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "doperwten",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Diepvries"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "eieren",
-    "q": 5.0,
+    "q": "5",
     "eh": "stuks",
     "opm": "gerekend op 55 g per ei zonder schaal",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "garnalen",
-    "q": 192.0,
+    "q": "192",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "griekse yoghurt 2%",
-    "q": 80.0,
+    "q": "80",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "halfvolle melk",
-    "q": 2.8,
+    "q": "1,2",
     "eh": "liter",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "halfvolle melk",
+    "q": "1,6",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "honing",
-    "q": 1,
+    "q": "1",
     "eh": "pot",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "huttenkase",
-    "q": 85.0,
+    "q": "85",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "kabeljauw/witvis",
-    "q": 188.0,
+    "q": "188",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "kipfilet",
-    "q": 466.0,
+    "q": "466",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "knoflook",
-    "q": 8.0,
+    "q": "8",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "komkommer",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": 1.95,
+    "q": "0,8",
     "eh": "kg",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "Skyr (Arla, naturel)",
+    "q": "1,1",
+    "eh": "kg",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "meloen (cantaloupe)",
-    "q": 250.0,
+    "q": "250",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "mozzarella",
-    "q": 90.0,
+    "q": "90",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "noedels",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "passata/tomatenpuree",
-    "q": 60.0,
+    "q": "60",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "pasta",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "prosciutto/rauwe ham",
-    "q": 50.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Vlees & vis"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "roerbakgroenten mix",
-    "q": 380.0,
+    "q": "380",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "roomboter",
-    "q": 20.0,
+    "q": "20",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
-   },
-   {
-    "n": "rundergehakt",
-    "q": 312.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
-   },
-   {
-    "n": "runderreepjes roerbak",
-    "q": 176.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
-   },
-   {
-    "n": "shoarmavlees",
-    "q": 169.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": 0.8,
+    "q": "0,1",
     "eh": "liter",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
+   },
+   {
+    "n": "sinaasappelsap (vers)",
+    "q": "0,7",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Groente & fruit",
+    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
-    "q": 110.0,
+    "q": "110",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "spinazie",
-    "q": 1.8,
+    "q": "1,8",
     "eh": "kg",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomaat (vers)",
-    "q": 480.0,
+    "q": "480",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tzatziki",
-    "q": 80.0,
+    "q": "80",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "ui",
-    "q": 65.0,
+    "q": "65",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "volkorenbrood",
-    "q": 1.2,
+    "q": "1,2",
     "eh": "kg",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "wortel",
-    "q": 550.0,
+    "q": "550",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "zoete aardappel",
-    "q": 418.0,
+    "q": "418",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    }
   ]
  },
@@ -6349,283 +6756,371 @@ export const weken = [
   "items": [
    {
     "n": "Red Bull Peach",
-    "q": 5.0,
+    "q": "5",
     "eh": "blikjes",
     "opm": "",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "aardappel",
-    "q": 583.0,
+    "q": "583",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "aardbeien",
-    "q": 240.0,
+    "q": "240",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "avocado",
-    "q": 50.0,
+    "q": "50",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "banaan",
-    "q": 1.9,
+    "q": "1,9",
     "eh": "kg",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "blauwe bessen",
-    "q": 300.0,
+    "q": "300",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "champignons",
-    "q": 234.0,
+    "q": "234",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "citroensap",
-    "q": 10.0,
+    "q": "10",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "doperwten",
-    "q": 80.0,
+    "q": "80",
     "eh": "g",
     "opm": "",
-    "cat": "Diepvries"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "edamame",
-    "q": 85.0,
+    "q": "85",
     "eh": "g",
     "opm": "",
-    "cat": "Diepvries"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "feta",
-    "q": 130.0,
+    "q": "60",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "feta",
+    "q": "70",
+    "eh": "g",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "guacamole",
-    "q": 110.0,
+    "q": "50",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
+   },
+   {
+    "n": "guacamole",
+    "q": "60",
+    "eh": "g",
+    "opm": "",
+    "cat": "Groente & fruit",
+    "ronde": "wo"
    },
    {
     "n": "halfvolle melk",
-    "q": 2.8,
+    "q": "1,2",
     "eh": "liter",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "halfvolle melk",
+    "q": "1,6",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "kidneybonen (blik)",
-    "q": 120.0,
+    "q": "120",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "kikkererwten (blik)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "kipfilet",
-    "q": 658.0,
+    "q": "658",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "kokosmelk (blik, vol)",
-    "q": 45.0,
+    "q": "45",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "komkommer",
-    "q": 460.0,
+    "q": "460",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": 1.88,
+    "q": "0,7",
     "eh": "kg",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "Skyr (Arla, naturel)",
+    "q": "1,2",
+    "eh": "kg",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
-    "q": 130.0,
+    "q": "130",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "paprika rood",
-    "q": 407.0,
+    "q": "407",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "parelgort",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "parmezaan",
-    "q": 18.0,
+    "q": "18",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "passata/tomatenpuree",
-    "q": 230.0,
+    "q": "230",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "pindakaas (Calve)",
-    "q": 1,
+    "q": "1",
     "eh": "pot",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "pitabrood",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 1,
+    "q": "1",
     "eh": "pak",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "rundergehakt",
-    "q": 266.0,
+    "q": "591",
     "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "opm": "voor 2 weken, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "runderreepjes roerbak",
-    "q": 344.0,
+    "q": "344",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": 0.9,
+    "q": "0,4",
     "eh": "liter",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
+   },
+   {
+    "n": "sinaasappelsap (vers)",
+    "q": "0,5",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Groente & fruit",
+    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
-    "q": 100.0,
+    "q": "100",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomaat (vers)",
-    "q": 320.0,
+    "q": "320",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomatenblokjes (blik)",
-    "q": 270.0,
+    "q": "270",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "tonijn in blik (olijfolie)",
-    "q": 240.0,
+    "q": "240",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "tortillawrap (tarwe)",
-    "q": 310.0,
+    "q": "310",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "ui",
-    "q": 338.0,
+    "q": "338",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "wortel",
-    "q": 1.6,
+    "q": "1,6",
     "eh": "kg",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "yoghurtdressing (light)",
-    "q": 95.0,
+    "q": "95",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "zalmfilet",
-    "q": 262.0,
+    "q": "262",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "zwarte bonen (blik)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
+   },
+   {
+    "n": "prosciutto/rauwe ham",
+    "q": "55",
+    "eh": "g",
+    "opm": "voor volgende week, vriezer",
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    }
   ]
  },
@@ -6635,325 +7130,379 @@ export const weken = [
   "items": [
    {
     "n": "Red Bull Peach",
-    "q": 5.0,
+    "q": "5",
     "eh": "blikjes",
     "opm": "",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "aardappel",
-    "q": 484.0,
+    "q": "484",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "aardappelpartjes (oven)",
-    "q": 460.0,
+    "q": "460",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Diepvries"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "aardbeien",
-    "q": 240.0,
+    "q": "240",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "appel",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "avocado",
-    "q": 80.0,
+    "q": "80",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "banaan",
-    "q": 2.4,
+    "q": "2,4",
     "eh": "kg",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "blauwe bessen",
-    "q": 500.0,
+    "q": "500",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "citroensap",
-    "q": 30.0,
+    "q": "30",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "courgette",
-    "q": 220.0,
+    "q": "220",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "eieren",
-    "q": 4.0,
+    "q": "4",
     "eh": "stuks",
     "opm": "gerekend op 55 g per ei zonder schaal",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "feta",
-    "q": 60.0,
+    "q": "60",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "garnalen",
-    "q": 336.0,
+    "q": "336",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "geraspte kaas 30+",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "granaatappelpitjes",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "guacamole",
-    "q": 60.0,
+    "q": "60",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "halfvolle melk",
-    "q": 2.6,
+    "q": "0,9",
     "eh": "liter",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "halfvolle melk",
+    "q": "1,7",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "kabeljauw/witvis",
-    "q": 188.0,
+    "q": "188",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "kipdij zonder vel",
-    "q": 193.0,
+    "q": "193",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "kipfilet",
-    "q": 452.0,
+    "q": "452",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "kokosmelk (blik, vol)",
-    "q": 105.0,
+    "q": "105",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "komkommer",
-    "q": 170.0,
+    "q": "170",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": 2.02,
+    "q": "0,9",
     "eh": "kg",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "Skyr (Arla, naturel)",
+    "q": "1,1",
+    "eh": "kg",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
-    "q": 130.0,
+    "q": "130",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "olijfolie",
-    "q": 1,
+    "q": "1",
     "eh": "fles",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "paprika rood",
-    "q": 330.0,
+    "q": "330",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "parmezaan",
-    "q": 20.0,
+    "q": "20",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "passata/tomatenpuree",
-    "q": 160.0,
+    "q": "160",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
-   },
-   {
-    "n": "prosciutto/rauwe ham",
-    "q": 55.0,
-    "eh": "g",
-    "opm": "",
-    "cat": "Vlees & vis"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "rijstwafel (per 100 g)",
-    "q": 2,
+    "q": "2",
     "eh": "pakken",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "roerbakgroenten mix",
-    "q": 330.0,
+    "q": "330",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
-   },
-   {
-    "n": "rundergehakt",
-    "q": 325.0,
-    "eh": "g",
-    "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": 0.5,
+    "q": "0,2",
     "eh": "liter",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
+   },
+   {
+    "n": "sinaasappelsap (vers)",
+    "q": "0,3",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Groente & fruit",
+    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
-    "q": 160.0,
+    "q": "160",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "sperziebonen",
-    "q": 187.0,
+    "q": "187",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "spinazie",
-    "q": 700.0,
+    "q": "700",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomaat (vers)",
-    "q": 240.0,
+    "q": "240",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomatenblokjes (blik)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "tortillawrap (tarwe)",
-    "q": 310.0,
+    "q": "310",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "ui",
-    "q": 65.0,
+    "q": "65",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "vissticks",
-    "q": 135.0,
+    "q": "135",
     "eh": "g",
     "opm": "",
-    "cat": "Diepvries"
+    "cat": "Diepvries",
+    "ronde": "zo"
    },
    {
     "n": "volkorenbrood",
-    "q": 820.0,
+    "q": "820",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "witte rijst",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "ongekookt inkoopgewicht",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "wortel",
-    "q": 880.0,
+    "q": "880",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "yoghurtdressing (light)",
-    "q": 50.0,
+    "q": "50",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "zoete aardappel",
-    "q": 528.0,
+    "q": "528",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    }
   ]
  },
@@ -6963,234 +7512,283 @@ export const weken = [
   "items": [
    {
     "n": "Red Bull Peach",
-    "q": 3.0,
+    "q": "3",
     "eh": "blikjes",
     "opm": "",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "Upfront Rijstpudding vanille (droog)",
-    "q": 1,
+    "q": "1",
     "eh": "zak",
     "opm": "droog product",
-    "cat": "Sport & supplementen"
+    "cat": "Sport & supplementen",
+    "ronde": "zo"
    },
    {
     "n": "aardbeien",
-    "q": 240.0,
+    "q": "240",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "asperges",
-    "q": 230.0,
+    "q": "230",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "avocado",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "banaan",
-    "q": 895.0,
+    "q": "895",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "biefstuk",
-    "q": 169.0,
+    "q": "169",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "blauwe bessen",
-    "q": 100.0,
+    "q": "100",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "citroensap",
-    "q": 10.0,
+    "q": "10",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "eieren",
-    "q": 2.0,
+    "q": "2",
     "eh": "stuks",
     "opm": "gerekend op 55 g per ei zonder schaal",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "feta",
-    "q": 40.0,
+    "q": "40",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "granaatappelpitjes",
-    "q": 70.0,
+    "q": "70",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "griekse yoghurt 2%",
-    "q": 100.0,
+    "q": "100",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "halfvolle melk",
-    "q": 1.5,
+    "q": "1,1",
     "eh": "liter",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "halfvolle melk",
+    "q": "0,4",
+    "eh": "liter",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "honing",
-    "q": 1,
+    "q": "1",
     "eh": "pot",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "huttenkase",
-    "q": 110.0,
+    "q": "110",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "kipfilet",
-    "q": 519.0,
+    "q": "519",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "knoflook",
-    "q": 6.0,
+    "q": "6",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "komkommer",
-    "q": 90.0,
+    "q": "90",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": 990.0,
+    "q": "715,4",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
+   },
+   {
+    "n": "Skyr (Arla, naturel)",
+    "q": "274,6",
+    "eh": "g",
+    "opm": "",
+    "cat": "Zuivel & eieren",
+    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
-    "q": 80.0,
+    "q": "80",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "parmezaan",
-    "q": 20.0,
+    "q": "20",
     "eh": "g",
     "opm": "",
-    "cat": "Zuivel & eieren"
+    "cat": "Zuivel & eieren",
+    "ronde": "zo"
    },
    {
     "n": "passata/tomatenpuree",
-    "q": 120.0,
+    "q": "120",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    },
    {
     "n": "roerbakgroenten mix",
-    "q": 200.0,
+    "q": "200",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "rundergehakt",
-    "q": 124.0,
+    "q": "124",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": 1.0,
+    "q": "1",
     "eh": "liter",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "sla/ijsbergsla",
-    "q": 120.0,
+    "q": "120",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "tomaat (vers)",
-    "q": 280.0,
+    "q": "280",
     "eh": "g",
     "opm": "",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "ui",
-    "q": 65.0,
+    "q": "65",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "volkorenbrood",
-    "q": 400.0,
+    "q": "400",
     "eh": "g",
     "opm": "",
-    "cat": "Brood"
+    "cat": "Brood",
+    "ronde": "zo"
    },
    {
     "n": "wortel",
-    "q": 770.0,
+    "q": "770",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Groente & fruit"
+    "cat": "Groente & fruit",
+    "ronde": "zo"
    },
    {
     "n": "zalmfilet",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "rauw inkoopgewicht",
-    "cat": "Vlees & vis"
+    "cat": "Vlees & vis",
+    "ronde": "zo"
    },
    {
     "n": "zwarte bonen (blik)",
-    "q": 150.0,
+    "q": "150",
     "eh": "g",
     "opm": "",
-    "cat": "Voorraadkast"
+    "cat": "Voorraadkast",
+    "ronde": "zo"
    }
   ]
  }
