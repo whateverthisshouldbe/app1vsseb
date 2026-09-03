@@ -66,22 +66,26 @@ dan aan in de browser.
 Het boodschappenlijstje toont daarom deze week en een week vooruit, in plaats
 van alle negen weken.
 
-## De twee boodschapronden
+## De boodschapronde
 
-De indeling volgt wanneer je iets nodig hebt, niet wat voor product het is.
-`build-data.py` leidt uit de recepten af op welke weekdagen elk ingredient
-gebruikt wordt (ook uit de aanvulblokken, die vrije tekst zijn) en zet per
-regel een `ronde`:
-
-- **zondag** — alles wat de week uitzingt, plus alle verse groente van de
-  markt, plus het vlees van Sanderkoe.nl dat de vriezer in gaat
-- **woensdag** — alleen wat in `kort_houdbaar` staat en pas vanaf donderdag
-  nodig is. Wordt iets zowel voor als na woensdag gebruikt, dan wordt de
-  hoeveelheid over beide rondes verdeeld.
+Alles gaat in een ronde op zondag. `kort_houdbaar` in `tools/winkels.json` is
+daarom leeg; zet je er producten in, dan komt er een tweede ronde op woensdag
+voor wat pas vanaf donderdag nodig is (build-data.py leidt uit de recepten af
+op welke weekdagen elk ingredient gebruikt wordt).
 
 `tweewekelijks_winkel` (Sanderkoe.nl) wordt in oneven weken voor twee weken
 tegelijk ingekocht; in even weken staat dat vlees er niet op. De totalen over
 60 dagen blijven daarbij gelijk.
+
+Het bedrag bovenaan is wat je nog moet halen: afgevinkte regels tellen niet
+meer mee, en verschijnen weer zodra je het vinkje weghaalt.
+
+### Eenheden
+
+Staat een product per stuk in de boodschappenlijst (eieren, blikjes), dan is
+de prijs in `prijzen` de prijs per stuk. Bij gram en kilo is het de kiloprijs,
+bij liters de literprijs. Dat door elkaar halen is duur: eieren met een
+kiloprijs rekenden 8 eieren als 8 kilo.
 
 ## Micronutrienten
 

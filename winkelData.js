@@ -337,10 +337,10 @@ export const prijzen = {
   ""
  ],
  "eieren": [
-  5.0,
+  0.35,
   "Albert Heijn",
   0,
-  ""
+  "per stuk"
  ],
  "halfvolle melk": [
   1.1,
@@ -457,10 +457,10 @@ export const prijzen = {
   "5 kg per zak"
  ],
  "witte rijst": [
-  10.0,
+  2.0,
   "Albert Heijn",
   0,
-  "5 kg per zak"
+  ""
  ],
  "zilvervliesrijst": [
   7.5,

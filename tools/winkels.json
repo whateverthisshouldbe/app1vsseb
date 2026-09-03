@@ -482,10 +482,10 @@
       ""
     ],
     "eieren": [
-      5.0,
+      0.35,
       "Albert Heijn",
       0,
-      ""
+      "per stuk"
     ],
     "halfvolle melk": [
       1.1,
@@ -843,12 +843,6 @@
       "zak",
       "zakken"
     ],
-    "witte rijst": [
-      5,
-      "kg",
-      "zak",
-      "zakken"
-    ],
     "zilvervliesrijst": [
       2.5,
       "kg",
@@ -958,25 +952,6 @@
       "pakken"
     ]
   },
-  "kort_houdbaar": [
-    "Skyr (Arla, naturel)",
-    "halfvolle melk",
-    "griekse yoghurt 2%",
-    "huttenkase",
-    "eieren",
-    "eiwit (los)",
-    "mozzarella",
-    "feta",
-    "tzatziki",
-    "guacamole",
-    "yoghurtdressing (light)",
-    "sinaasappelsap (vers)",
-    "zalmfilet",
-    "kabeljauw/witvis",
-    "garnalen",
-    "verse tonijnsteak",
-    "prosciutto/rauwe ham",
-    "gebakken spek"
-  ],
+  "kort_houdbaar": [],
   "tweewekelijks_winkel": "Sanderkoe.nl"
 }

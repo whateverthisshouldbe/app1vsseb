@@ -29,17 +29,19 @@ RONDES_OUD = """const houdbaar = wk.items.filter(i => !versCats.has(i.cat));
       { nr: '1', titel: 'Hele week in één keer', sub: this.wdVol(dagVan.wd) + ' · dag ' + van + ' t/m ' + wk.dagen.split('-')[1], teller: telOp(wk.items), groepen: groepeer(wk.items), kopBg: '#ebddc5', puntBg: '#82796a', kopKleur: '#201e1d', subKleur: '#645c50' }
     ];"""
 
-RONDES_NIEUW = """// Zondag alles wat de week uitzingt, plus de verse groente van de markt.
-    // Woensdag alleen wat kort houdbaar is en pas vanaf donderdag nodig is.
-    const zondag = wk.items.filter(i => (i.ronde || 'zo') === 'zo');
-    const woensdag = wk.items.filter(i => i.ronde === 'wo');
+RONDES_NIEUW = """// Alles gaat op zondag mee. Afgevinkte regels tellen niet meer mee in wat
+    // er nog te halen is, zodat het bedrag meeloopt terwijl je door de winkel
+    // loopt; de teller laat zien hoe ver je bent.
+    const nogOpen = items => items.filter(i => !st.bood[bkey(i)]);
     const telOp = items => items.filter(i => st.bood[bkey(i)]).length + '/' + items.length;
-    const bedrag = items => this.euro(items.reduce((a, i) => a + this.kosten(i), 0));
-    const vlees = zondag.some(i => /vriezer/.test(i.opm || ''));
-    const rondes = [
-      { nr: '1', titel: 'Zondag', sub: 'de hele week aan houdbaar en verse groente' + (vlees ? ', plus het vlees voor de vriezer' : ''), teller: telOp(zondag), bedrag: bedrag(zondag), groepen: groepeer(zondag), kopBg: '#ebddc5', puntBg: '#82796a', kopKleur: '#201e1d', subKleur: '#645c50' },
-      { nr: '2', titel: 'Woensdag', sub: 'kort houdbaar, voor donderdag tot en met zondag', teller: telOp(woensdag), bedrag: bedrag(woensdag), groepen: groepeer(woensdag), kopBg: '#e1eecc', puntBg: '#728157', kopKleur: '#272e1b', subKleur: '#56633f' }
-    ].filter(r => r.groepen.length);"""
+    const bedrag = items => this.euro(nogOpen(items).reduce((a, i) => a + this.kosten(i), 0));
+    const vlees = wk.items.some(i => /vriezer/.test(i.opm || ''));
+    const rondes = [{
+      nr: '1', titel: 'Zondag',
+      sub: 'de hele week' + (vlees ? ', plus het vlees voor de vriezer' : ''),
+      teller: telOp(wk.items), bedrag: bedrag(wk.items), groepen: groepeer(wk.items),
+      kopBg: '#ebddc5', puntBg: '#82796a', kopKleur: '#201e1d', subKleur: '#645c50'
+    }].filter(r => r.groepen.length);"""
 
 # de opmerking bij een regel komt nu ook uit de regel zelf ('voor 2 weken')
 OPM_OUD = """      opm: (pr[i.n] && pr[i.n][3]) ? ' · ' + pr[i.n][3] : '',"""
@@ -51,9 +53,9 @@ ADVIES_OUD = """      versAdvies: tweeRondes
         : 'Alles in één ronde op ' + this.wdVol(dagVan.wd) + '. Vries vlees en vis dezelfde dag in.',
       versKop: tweeRondes ? 'Verse ronde ' + this.wdVol(dagVers.wd) : 'Weeklijst week ' + weekNr,
       versSub: vers.length + ' verse producten · ' + houdbaar.length + ' houdbaar · ' + this.euro(totaal),"""
-ADVIES_NIEUW = """      versAdvies: 'Zondag haal je de hele week aan houdbare boodschappen en de verse groente op de markt. Woensdag alleen nog wat niet tot zondag goed blijft en pas vanaf donderdag nodig is.',
-      versKop: woensdag.length ? 'Woensdag bijhalen' : 'Alles staat op zondag',
-      versSub: zondag.length + ' op zondag · ' + woensdag.length + ' op woensdag · ' + this.euro(totaal),"""
+ADVIES_NIEUW = """      versAdvies: 'Alles in een ronde op zondag: de hele week aan boodschappen, de verse groente op de markt in Zeist, en het vlees van de boer de vriezer in.',
+      versKop: 'Boodschappen zondag',
+      versSub: nogOpen(wk.items).length + ' van de ' + wk.items.length + ' nog te halen · ' + this.euro(nogTeHalen),"""
 
 # Het weektotaal delen door 7 gaf een misleidend dagbedrag: in de week dat
 # je de voorraadkast vult en twee weken vlees haalt, schiet dat omhoog. Het
@@ -69,6 +71,25 @@ KOP_NIEUW = """                  <div style="text-align:right">
                     <div style="font-size:12px;font-weight:700;color:{{ r.kopKleur }}">{{ r.bedrag }}</div>
                     <div style="font-size:11px;color:{{ r.subKleur }};margin-top:1px">{{ r.teller }}</div>
                   </div>"""
+
+
+# Het subtotaal per winkel telt ook alleen nog wat je nog moet halen.
+SUBTOTAAL_OUD = """        subtotaal: this.euro(g[c].reduce((a, i) => a + this.kosten(i), 0)),"""
+SUBTOTAAL_NIEUW = """        subtotaal: this.euro(g[c].filter(i => !st.bood[bkey(i)]).reduce((a, i) => a + this.kosten(i), 0)),"""
+
+TOTAAL_OUD = """    const totaal = wk.items.reduce((a, i) => a + this.kosten(i), 0);"""
+TOTAAL_NIEUW = """    const totaal = wk.items.reduce((a, i) => a + this.kosten(i), 0);
+    const nogTeHalen = wk.items.filter(i => !st.bood[bkey(i)])
+      .reduce((a, i) => a + this.kosten(i), 0);"""
+
+WEEKTOTAAL_OUD = """      weekTotaal: this.euro(totaal),"""
+WEEKTOTAAL_NIEUW = """      weekTotaal: this.euro(nogTeHalen), weekVolledig: this.euro(totaal),"""
+
+LABEL_OUD = """<div style="font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#a19786">Wat deze week kost · schatting</div>"""
+LABEL_NIEUW = """<div style="font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#a19786">Nog te halen · schatting</div>"""
+
+BIO_OUD = """<div style="font-size:12px;color:#e1d6bf">{{ bioAandeel }} biologisch</div>"""
+BIO_NIEUW = """<div style="font-size:12px;color:#e1d6bf">van {{ weekVolledig }}</div>"""
 
 
 def vervang(t, oud, nieuw, wat):
@@ -92,6 +113,11 @@ def main():
     t = vervang(t, KOP_OUD, KOP_NIEUW, "kop van een ronde")
     t = vervang(t, PERDAG_OUD, PERDAG_NIEUW, "dagbedrag")
     t = vervang(t, PERDAG_LABEL_OUD, PERDAG_LABEL_NIEUW, "label bij het dagbedrag")
+    t = vervang(t, SUBTOTAAL_OUD, SUBTOTAAL_NIEUW, "subtotaal per winkel")
+    t = vervang(t, TOTAAL_OUD, TOTAAL_NIEUW, "weektotaal")
+    t = vervang(t, WEEKTOTAAL_OUD, WEEKTOTAAL_NIEUW, "uitvoer van het weektotaal")
+    t = vervang(t, LABEL_OUD, LABEL_NIEUW, "label boven het bedrag")
+    t = vervang(t, BIO_OUD, BIO_NIEUW, "bio-aandeel")
     INDEX.write_text(
         html[:m.start(2)] + json.dumps(MERK + t).replace("</", "<\\/") + html[m.end(2):],
         encoding="utf-8")

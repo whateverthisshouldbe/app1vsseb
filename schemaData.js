@@ -4460,7 +4460,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "gegrilde groentemix",
@@ -4488,19 +4488,11 @@ export const weken = [
    },
    {
     "n": "halfvolle melk",
-    "q": "1,1",
+    "q": "2,7",
     "eh": "liter",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "halfvolle melk",
-    "q": "1,6",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "honing",
@@ -4560,19 +4552,11 @@ export const weken = [
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": "0,9",
+    "q": "1,98",
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "Skyr (Arla, naturel)",
-    "q": "1,1",
-    "eh": "kg",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
@@ -4688,19 +4672,11 @@ export const weken = [
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": "0,8",
+    "q": "1,8",
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit",
     "ronde": "zo"
-   },
-   {
-    "n": "sinaasappelsap (vers)",
-    "q": "1",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Groente & fruit",
-    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
@@ -4784,8 +4760,8 @@ export const weken = [
    },
    {
     "n": "witte rijst",
-    "q": "1",
-    "eh": "zak",
+    "q": "766",
+    "eh": "g",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast",
     "ronde": "zo"
@@ -4882,7 +4858,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "geraspte kaas 30+",
@@ -4894,35 +4870,19 @@ export const weken = [
    },
    {
     "n": "guacamole",
-    "q": "70",
+    "q": "120",
     "eh": "g",
     "opm": "",
     "cat": "Groente & fruit",
     "ronde": "zo"
    },
    {
-    "n": "guacamole",
-    "q": "50",
-    "eh": "g",
-    "opm": "",
-    "cat": "Groente & fruit",
-    "ronde": "wo"
-   },
-   {
     "n": "halfvolle melk",
-    "q": "0,9",
+    "q": "2,6",
     "eh": "liter",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "halfvolle melk",
-    "q": "1,7",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "huttenkase",
@@ -4930,7 +4890,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "kikkererwten (blik)",
@@ -4974,19 +4934,11 @@ export const weken = [
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": "0,8",
+    "q": "1,96",
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "Skyr (Arla, naturel)",
-    "q": "1,2",
-    "eh": "kg",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "meloen (cantaloupe)",
@@ -5122,7 +5074,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "ui",
@@ -5149,6 +5101,14 @@ export const weken = [
     "ronde": "zo"
    },
    {
+    "n": "witte rijst",
+    "q": "418",
+    "eh": "g",
+    "opm": "ongekookt inkoopgewicht",
+    "cat": "Voorraadkast",
+    "ronde": "zo"
+   },
+   {
     "n": "wortel",
     "q": "990",
     "eh": "g",
@@ -5162,7 +5122,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "zoete aardappel",
@@ -5308,19 +5268,11 @@ export const weken = [
    },
    {
     "n": "halfvolle melk",
-    "q": "1,1",
+    "q": "2,6",
     "eh": "liter",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "halfvolle melk",
-    "q": "1,5",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "honing",
@@ -5372,19 +5324,11 @@ export const weken = [
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": "1",
+    "q": "2,19",
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "Skyr (Arla, naturel)",
-    "q": "1,2",
-    "eh": "kg",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
@@ -5452,19 +5396,11 @@ export const weken = [
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": "0,6",
+    "q": "1,4",
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit",
     "ronde": "zo"
-   },
-   {
-    "n": "sinaasappelsap (vers)",
-    "q": "0,8",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Groente & fruit",
-    "ronde": "wo"
    },
    {
     "n": "sperziebonen",
@@ -5555,6 +5491,14 @@ export const weken = [
     "ronde": "zo"
    },
    {
+    "n": "witte rijst",
+    "q": "887",
+    "eh": "g",
+    "opm": "ongekookt inkoopgewicht",
+    "cat": "Voorraadkast",
+    "ronde": "zo"
+   },
+   {
     "n": "wortel",
     "q": "946",
     "eh": "g",
@@ -5568,7 +5512,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "zalmfilet",
@@ -5710,23 +5654,15 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
-   },
-   {
-    "n": "feta",
-    "q": "100",
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren",
     "ronde": "zo"
    },
    {
     "n": "feta",
-    "q": "110",
+    "q": "210",
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "garnalen",
@@ -5754,19 +5690,11 @@ export const weken = [
    },
    {
     "n": "halfvolle melk",
-    "q": "1,3",
+    "q": "2,7",
     "eh": "liter",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "halfvolle melk",
-    "q": "1,4",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "kipfilet",
@@ -5802,19 +5730,11 @@ export const weken = [
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": "0,7",
+    "q": "1,83",
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "Skyr (Arla, naturel)",
-    "q": "1,1",
-    "eh": "kg",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "paprika rood",
@@ -5898,19 +5818,11 @@ export const weken = [
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": "0,5",
+    "q": "1,4",
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit",
     "ronde": "zo"
-   },
-   {
-    "n": "sinaasappelsap (vers)",
-    "q": "0,9",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Groente & fruit",
-    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
@@ -5958,6 +5870,14 @@ export const weken = [
     "eh": "kg",
     "opm": "",
     "cat": "Brood",
+    "ronde": "zo"
+   },
+   {
+    "n": "witte rijst",
+    "q": "340",
+    "eh": "g",
+    "opm": "ongekookt inkoopgewicht",
+    "cat": "Voorraadkast",
     "ronde": "zo"
    },
    {
@@ -6068,7 +5988,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "falafel (gebakken)",
@@ -6084,7 +6004,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "gebakken spek",
@@ -6112,19 +6032,11 @@ export const weken = [
    },
    {
     "n": "halfvolle melk",
-    "q": "1,5",
+    "q": "2,9",
     "eh": "liter",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "halfvolle melk",
-    "q": "1,4",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "huttenkase",
@@ -6168,19 +6080,11 @@ export const weken = [
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": "0,8",
+    "q": "2",
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "Skyr (Arla, naturel)",
-    "q": "1,2",
-    "eh": "kg",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
@@ -6248,19 +6152,11 @@ export const weken = [
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": "0,4",
+    "q": "1,4",
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit",
     "ronde": "zo"
-   },
-   {
-    "n": "sinaasappelsap (vers)",
-    "q": "1",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Groente & fruit",
-    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
@@ -6335,6 +6231,14 @@ export const weken = [
     "ronde": "zo"
    },
    {
+    "n": "witte rijst",
+    "q": "887",
+    "eh": "g",
+    "opm": "ongekookt inkoopgewicht",
+    "cat": "Voorraadkast",
+    "ronde": "zo"
+   },
+   {
     "n": "wortel",
     "q": "1,3",
     "eh": "kg",
@@ -6348,7 +6252,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "zalmfilet",
@@ -6518,19 +6422,11 @@ export const weken = [
    },
    {
     "n": "halfvolle melk",
-    "q": "1,2",
+    "q": "2,8",
     "eh": "liter",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "halfvolle melk",
-    "q": "1,6",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "honing",
@@ -6546,7 +6442,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "kabeljauw/witvis",
@@ -6582,19 +6478,11 @@ export const weken = [
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": "0,8",
+    "q": "1,95",
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "Skyr (Arla, naturel)",
-    "q": "1,1",
-    "eh": "kg",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "meloen (cantaloupe)",
@@ -6610,7 +6498,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "noedels",
@@ -6642,7 +6530,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Vlees & vis",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "rijstwafel (per 100 g)",
@@ -6670,19 +6558,11 @@ export const weken = [
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": "0,1",
+    "q": "0,8",
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit",
     "ronde": "zo"
-   },
-   {
-    "n": "sinaasappelsap (vers)",
-    "q": "0,7",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Groente & fruit",
-    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
@@ -6714,7 +6594,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "ui",
@@ -6730,6 +6610,14 @@ export const weken = [
     "eh": "kg",
     "opm": "",
     "cat": "Brood",
+    "ronde": "zo"
+   },
+   {
+    "n": "witte rijst",
+    "q": "313",
+    "eh": "g",
+    "opm": "ongekookt inkoopgewicht",
+    "cat": "Voorraadkast",
     "ronde": "zo"
    },
    {
@@ -6836,51 +6724,27 @@ export const weken = [
    },
    {
     "n": "feta",
-    "q": "60",
+    "q": "130",
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
    },
    {
-    "n": "feta",
-    "q": "70",
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
-   },
-   {
     "n": "guacamole",
-    "q": "50",
+    "q": "110",
     "eh": "g",
     "opm": "",
     "cat": "Groente & fruit",
     "ronde": "zo"
    },
    {
-    "n": "guacamole",
-    "q": "60",
-    "eh": "g",
-    "opm": "",
-    "cat": "Groente & fruit",
-    "ronde": "wo"
-   },
-   {
     "n": "halfvolle melk",
-    "q": "1,2",
+    "q": "2,8",
     "eh": "liter",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "halfvolle melk",
-    "q": "1,6",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "kidneybonen (blik)",
@@ -6924,19 +6788,11 @@ export const weken = [
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": "0,7",
+    "q": "1,88",
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "Skyr (Arla, naturel)",
-    "q": "1,2",
-    "eh": "kg",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
@@ -7020,19 +6876,11 @@ export const weken = [
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": "0,4",
+    "q": "0,9",
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit",
     "ronde": "zo"
-   },
-   {
-    "n": "sinaasappelsap (vers)",
-    "q": "0,5",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Groente & fruit",
-    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
@@ -7083,6 +6931,14 @@ export const weken = [
     "ronde": "zo"
    },
    {
+    "n": "witte rijst",
+    "q": "969",
+    "eh": "g",
+    "opm": "ongekookt inkoopgewicht",
+    "cat": "Voorraadkast",
+    "ronde": "zo"
+   },
+   {
     "n": "wortel",
     "q": "1,6",
     "eh": "kg",
@@ -7096,7 +6952,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "zalmfilet",
@@ -7214,7 +7070,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "garnalen",
@@ -7250,19 +7106,11 @@ export const weken = [
    },
    {
     "n": "halfvolle melk",
-    "q": "0,9",
+    "q": "2,6",
     "eh": "liter",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "halfvolle melk",
-    "q": "1,7",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "kabeljauw/witvis",
@@ -7306,19 +7154,11 @@ export const weken = [
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": "0,9",
+    "q": "2,02",
     "eh": "kg",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "Skyr (Arla, naturel)",
-    "q": "1,1",
-    "eh": "kg",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
@@ -7362,19 +7202,11 @@ export const weken = [
    },
    {
     "n": "prosciutto/rauwe ham",
-    "q": "35",
+    "q": "55",
     "eh": "g",
     "opm": "",
     "cat": "Vlees & vis",
     "ronde": "zo"
-   },
-   {
-    "n": "prosciutto/rauwe ham",
-    "q": "20",
-    "eh": "g",
-    "opm": "",
-    "cat": "Vlees & vis",
-    "ronde": "wo"
    },
    {
     "n": "rijstwafel (per 100 g)",
@@ -7394,19 +7226,11 @@ export const weken = [
    },
    {
     "n": "sinaasappelsap (vers)",
-    "q": "0,2",
+    "q": "0,5",
     "eh": "liter",
     "opm": "",
     "cat": "Groente & fruit",
     "ronde": "zo"
-   },
-   {
-    "n": "sinaasappelsap (vers)",
-    "q": "0,3",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Groente & fruit",
-    "ronde": "wo"
    },
    {
     "n": "sla/ijsbergsla",
@@ -7482,8 +7306,8 @@ export const weken = [
    },
    {
     "n": "witte rijst",
-    "q": "1",
-    "eh": "zak",
+    "q": "490",
+    "eh": "g",
     "opm": "ongekookt inkoopgewicht",
     "cat": "Voorraadkast",
     "ronde": "zo"
@@ -7620,23 +7444,15 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
-   },
-   {
-    "n": "halfvolle melk",
-    "q": "1,1",
-    "eh": "liter",
-    "opm": "",
-    "cat": "Zuivel & eieren",
     "ronde": "zo"
    },
    {
     "n": "halfvolle melk",
-    "q": "0,4",
+    "q": "1,5",
     "eh": "liter",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "honing",
@@ -7652,7 +7468,7 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
-    "ronde": "wo"
+    "ronde": "zo"
    },
    {
     "n": "kipfilet",
@@ -7680,19 +7496,11 @@ export const weken = [
    },
    {
     "n": "Skyr (Arla, naturel)",
-    "q": "715,4",
+    "q": "990",
     "eh": "g",
     "opm": "",
     "cat": "Zuivel & eieren",
     "ronde": "zo"
-   },
-   {
-    "n": "Skyr (Arla, naturel)",
-    "q": "274,6",
-    "eh": "g",
-    "opm": "",
-    "cat": "Zuivel & eieren",
-    "ronde": "wo"
    },
    {
     "n": "mais (blik)",
@@ -7772,6 +7580,14 @@ export const weken = [
     "eh": "g",
     "opm": "",
     "cat": "Brood",
+    "ronde": "zo"
+   },
+   {
+    "n": "witte rijst",
+    "q": "308",
+    "eh": "g",
+    "opm": "ongekookt inkoopgewicht",
+    "cat": "Voorraadkast",
     "ronde": "zo"
    },
    {
@@ -16022,16 +15838,6 @@ export const voorraadkast = [
   "aantal": 2,
   "eh": "flessen",
   "nodig": "1,11 liter",
-  "stuk": 10.0,
-  "totaal": 20.0
- },
- {
-  "n": "witte rijst",
-  "winkel": "Albert Heijn",
-  "maat": "5 kg",
-  "aantal": 2,
-  "eh": "zakken",
-  "nodig": "5,38 kg",
   "stuk": 10.0,
   "totaal": 20.0
  },
