@@ -437,10 +437,11 @@ def tabs_wisselen(t):
     """Week en Lijstje wisselen van plek; Week heet voortaan Precision.
 
     De vormgeving blijft staan waar hij staat: de middelste knop is de ronde
-    met de schaduw. Alleen de inhoud verhuist, zodat Precision het midden
-    krijgt en het lijstje de plek ernaast.
+    met de schaduw. Alleen de inhoud verhuist. De streekkleur van een icoon
+    hoort ook bij de plek: de vlakke knoppen volgen hun tekstkleur, de ronde
+    knop staat op oranje en heeft een zandkleurig icoon nodig.
     """
-    balk = t.find("<!-- ══════ TABBALK ══════ -->")
+    balk = t.find("<!-- \u2550\u2550\u2550\u2550\u2550\u2550 TABBALK \u2550\u2550\u2550\u2550\u2550\u2550 -->")
     if balk < 0:
         sys.exit("tabbalk niet gevonden")
     a0, a1 = knop(t, "goWeek", balk)   # de vlakke knop op plek twee
@@ -448,14 +449,14 @@ def tabs_wisselen(t):
     assert a0 < b0, "de tabknoppen staan in een andere volgorde dan verwacht"
     vlak, rond = t[a0:a1], t[b0:b1]
 
-    svg = lambda s: re.search(r"<svg.*?</svg>", s, re.S).group(0)
-    kalender, tas = svg(vlak), svg(rond)
+    haal = lambda s: re.search(r"<svg.*?</svg>", s, re.S).group(0)
+    kalender, tas = haal(vlak), haal(rond)
 
-    vlak = (vlak.replace(kalender, tas)
+    vlak = (vlak.replace(kalender, tas.replace('stroke="#f5ead8"', 'stroke="currentColor"'))
                 .replace("{{ goWeek }}", "{{ goBood }}")
                 .replace("{{ kleurWeek }}", "{{ kleurBood }}")
                 .replace(">Week<", ">Lijstje<"))
-    rond = (rond.replace(tas, kalender)
+    rond = (rond.replace(tas, kalender.replace('stroke="currentColor"', 'stroke="#f5ead8"'))
                 .replace("{{ goBood }}", "{{ goPrecision }}")
                 .replace("{{ boodBg }}", "{{ precisionBg }}")
                 .replace("{{ kleurBood }}", "{{ kleurPrecision }}")
