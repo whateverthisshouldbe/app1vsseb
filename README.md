@@ -17,6 +17,7 @@ Standalone HTML-app met het 60-daagse voedingsschema. Geen build-stap nodig.
 | `tools/ui-loop.py` | de 60-daagse lus, weektabs en de inslaanpagina |
 | `tools/ui-rondes.py` | de zondag- en woensdagronde in het lijstje |
 | `tools/ui-micros.py` | micronutrienten met gehaltes in plaats van vaste percentages |
+| `tools/ui-precision.py` | dagelijks afvinken en wegen, Precision, en het profiel |
 | `tools/build-icons.py` | genereert de app-iconen |
 | `tools/bereiding.json` | de bereidingswijze per recept |
 | `tools/micro-grenzen.json` | bovengrenzen per micronutrient |
@@ -45,6 +46,7 @@ python3 tools/ui-tweaks.py     # aanpassingen aan de schermen
 python3 tools/ui-loop.py       # lus, weektabs, inslaanpagina
 python3 tools/ui-rondes.py     # zondag- en woensdagronde
 python3 tools/ui-micros.py     # micronutrienten met gehaltes
+python3 tools/ui-precision.py  # afvinken, wegen, Precision, profiel
 ```
 
 `patch-index.py` is nodig omdat de bundler de component vanuit een `blob:`-URL
@@ -86,6 +88,30 @@ Staat een product per stuk in de boodschappenlijst (eieren, blikjes), dan is
 de prijs in `prijzen` de prijs per stuk. Bij gram en kilo is het de kiloprijs,
 bij liters de literprijs. Dat door elkaar halen is duur: eieren met een
 kiloprijs rekenden 8 eieren als 8 kilo.
+
+## Dagelijks bijhouden
+
+Wat je afvinkt, wat je weegt en je gewichtshistorie staan in `localStorage`:
+
+| sleutel | wat |
+|---|---|
+| `voedingsschema.start` | de datum van dag 1, waar de lus op draait |
+| `voedingsschema.vink` | afgevinkte maaltijden, per `cyclus-dag\|blok` |
+| `voedingsschema.gram` | gewogen grammen, per `cyclus-dag\|blok#ingredient` |
+| `voedingsschema.profiel` | lengte en de lijst wegingen |
+
+Het cyclusnummer zit in de sleutel, dus een nieuwe ronde van 60 dagen begint
+met een schone lei.
+
+De dagrail begint bij de eerste dag die nog niet helemaal is afgevinkt en
+schuift een dag door zodra alles op is. Heb je maandag afgerond, dan staat
+dinsdag links en de maandag erna rechts.
+
+Macro's tellen op wat je die dag hebt afgevinkt, geschaald naar de grammen
+die je in Precision invult. Micronutrienten kunnen dat niet: het
+Excel-bestand geeft ze per hele dag, niet per ingredient. Die schalen daarom
+mee met het deel van de dag dat je op hebt — een schatting, en de app zegt
+dat er ook bij.
 
 ## Micronutrienten
 
