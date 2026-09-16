@@ -1,0 +1,33 @@
+{
+  "name": "SellMeThisPen",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "PenShared": {
+        "$path": "src/shared"
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "PenServer": {
+        "$path": "src/server"
+      }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "PenClient": {
+          "$path": "src/client"
+        }
+      }
+    },
+    "Workspace": {
+      "$className": "Workspace",
+      "$properties": {
+        "FilteringEnabled": true
+      }
+    }
+  }
+}
