@@ -7,11 +7,23 @@ local RunService = game:GetService("RunService")
 local Net = {}
 
 local EVENT_NAMES = {
-	"StateChanged", -- server -> client: hele spelerstatus
-	"Notify",       -- server -> client: toastje (tekst, kleur)
-	"BuyUpgrade",   -- client -> server: upgrade-key
-	"Rebirth",      -- client -> server
-	"CustomerChanged", -- server -> alle clients: huidige klant
+	-- server -> client
+	"StateChanged",    -- hele spelerstatus
+	"Notify",          -- toastje (tekst, kleur)
+	"CustomerChanged", -- klant bij een station
+	"PitchStart",      -- start van de sell-me-this-pen minigame
+	"PitchEnd",        -- uitslag van de pitch
+	"OfflineEarnings", -- wat je zaken verdienden terwijl je weg was
+	"Leaderboard",     -- top 10
+	-- client -> server
+	"BuyUpgrade",
+	"Rebirth",
+	"PitchAnswer",
+	"BuyPet",
+	"EquipPet",
+	"ClaimDaily",
+	"RedeemCode",
+	"PromptPass",
 }
 
 local folder: Folder

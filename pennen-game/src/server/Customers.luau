@@ -1,6 +1,6 @@
 --!strict
--- De klant achter de balie. Elke klant heeft een eigen vraagprijs-multiplier,
--- dus timing is belangrijk: wachten op een goede klant loont.
+-- De klanten aan de toonbank. Elke klant heeft een type ("heeft haast",
+-- "houdt van luxe", ...) waar je pitch bij moet passen.
 
 local Config = require(game:GetService("ReplicatedStorage"):WaitForChild("PenShared"):WaitForChild("Config"))
 local Net = require(game:GetService("ReplicatedStorage"):WaitForChild("PenShared"):WaitForChild("Net"))
@@ -8,15 +8,17 @@ local Net = require(game:GetService("ReplicatedStorage"):WaitForChild("PenShared
 local Customers = {}
 
 export type Customer = {
+	station: string,
 	name: string,
 	line: string,
+	typeKey: string,
+	typeLabel: string,
 	multiplier: number,
-	expiresAt: number,
 }
 
-local current: Customer? = nil
-local model: Model? = nil
-local bubbleText: TextLabel? = nil
+local current: { [string]: Customer } = {}
+local models: { [string]: Model } = {}
+local bubbles: { [string]: TextLabel } = {}
 
 local function bodyPart(name: string, size: Vector3, cf: CFrame, color: Color3, parent: Instance): Part
 	local p = Instance.new("Part")
@@ -33,31 +35,32 @@ local function bodyPart(name: string, size: Vector3, cf: CFrame, color: Color3, 
 	return p
 end
 
-local function buildModel(spot: BasePart): Model
+local function buildModel(stationKey: string, spot: BasePart): Model
 	local m = Instance.new("Model")
-	m.Name = "Customer"
+	m.Name = "Customer_" .. stationKey
 
 	local skin = Color3.fromRGB(235, 200, 160)
-	local shirt = Color3.fromHSV(math.random(), 0.55, 0.85)
-	local pants = Color3.fromRGB(45, 50, 70)
-	local base = spot.CFrame * CFrame.new(0, 0, 0)
-	local facing = CFrame.new(base.Position, base.Position + Vector3.new(0, 0, 14))
+	local suit = Color3.fromRGB(40, 44, 60)
+	local base = spot.Position
+	-- kijkt naar de toonbank toe (richting +Z)
+	local facing = CFrame.new(base, base + Vector3.new(0, 0, 10))
 
-	local torso = bodyPart("Torso", Vector3.new(2, 2, 1), facing * CFrame.new(0, 3, 0), shirt, m)
+	local torso = bodyPart("Torso", Vector3.new(2, 2, 1), facing * CFrame.new(0, 3, 0), suit, m)
 	bodyPart("Head", Vector3.new(1.4, 1.4, 1.4), facing * CFrame.new(0, 4.6, 0), skin, m)
-	bodyPart("ArmL", Vector3.new(0.8, 2, 0.8), facing * CFrame.new(-1.4, 3, 0), skin, m)
-	bodyPart("ArmR", Vector3.new(0.8, 2, 0.8), facing * CFrame.new(1.4, 3, 0), skin, m)
-	bodyPart("LegL", Vector3.new(0.9, 2, 0.9), facing * CFrame.new(-0.55, 1, 0), pants, m)
-	bodyPart("LegR", Vector3.new(0.9, 2, 0.9), facing * CFrame.new(0.55, 1, 0), pants, m)
+	bodyPart("Tie", Vector3.new(0.35, 1.4, 0.2), facing * CFrame.new(0, 3.1, -0.55), Color3.fromRGB(200, 60, 70), m)
+	bodyPart("ArmL", Vector3.new(0.8, 2, 0.8), facing * CFrame.new(-1.4, 3, 0), suit, m)
+	bodyPart("ArmR", Vector3.new(0.8, 2, 0.8), facing * CFrame.new(1.4, 3, 0), suit, m)
+	bodyPart("LegL", Vector3.new(0.9, 2, 0.9), facing * CFrame.new(-0.55, 1, 0), Color3.fromRGB(30, 32, 44), m)
+	bodyPart("LegR", Vector3.new(0.9, 2, 0.9), facing * CFrame.new(0.55, 1, 0), Color3.fromRGB(30, 32, 44), m)
 
 	m.PrimaryPart = torso
 
 	local gui = Instance.new("BillboardGui")
 	gui.Name = "Bubble"
-	gui.Size = UDim2.fromScale(12, 3.4)
-	gui.StudsOffsetWorldSpace = Vector3.new(0, 3.4, 0)
+	gui.Size = UDim2.fromScale(13, 3.8)
+	gui.StudsOffsetWorldSpace = Vector3.new(0, 3.6, 0)
 	gui.AlwaysOnTop = true
-	gui.MaxDistance = 160
+	gui.MaxDistance = 180
 	gui.Adornee = torso
 	gui.Parent = torso
 
@@ -83,62 +86,70 @@ local function buildModel(spot: BasePart): Model
 	tl.Text = ""
 	tl.Parent = frame
 
-	bubbleText = tl
+	bubbles[stationKey] = tl
 	return m
 end
 
-local function refreshBubble()
-	local c = current
-	if not c or not bubbleText then
+local function refreshBubble(stationKey: string)
+	local c = current[stationKey]
+	local tl = bubbles[stationKey]
+	if not c or not tl then
 		return
 	end
-	local color = c.multiplier >= 1.6 and "rgb(120,255,150)"
-		or (c.multiplier >= 1.1 and "rgb(255,220,120)" or "rgb(255,150,150)")
-	bubbleText.Text = string.format(
-		'<b>%s</b>: "%s"\n<font color="%s">betaalt x%.2f</font>',
-		c.name, c.line, color, c.multiplier
+	local t = Config.getCustomerType(c.typeKey)
+	local col = t.color
+	tl.Text = string.format(
+		'<b>%s</b>: "%s"\n<font color="rgb(%d,%d,%d)">%s</font>  ·  x%.2f',
+		c.name, c.line,
+		math.floor(col.R * 255), math.floor(col.G * 255), math.floor(col.B * 255),
+		t.label, c.multiplier
 	)
 end
 
-function Customers.current(): Customer?
+local function roll(stationKey: string)
+	local cfg = Config.Customer
+	local t = Config.CustomerTypes[math.random(#Config.CustomerTypes)]
+	local mult = 0.85 + math.random() * 0.75
+	current[stationKey] = {
+		station = stationKey,
+		name = cfg.names[math.random(#cfg.names)],
+		line = cfg.lines[math.random(#cfg.lines)],
+		typeKey = t.key,
+		typeLabel = t.label,
+		multiplier = math.floor(mult * 100 + 0.5) / 100,
+	}
+	refreshBubble(stationKey)
+	Net.event("CustomerChanged"):FireAllClients(current[stationKey])
+end
+
+function Customers.get(stationKey: string): Customer?
+	return current[stationKey]
+end
+
+function Customers.all(): { [string]: Customer }
 	return current
 end
 
-local function newCustomer()
-	local cfg = Config.Customer
-	local mult = cfg.minMultiplier + math.random() * (cfg.maxMultiplier - cfg.minMultiplier)
-	current = {
-		name = cfg.names[math.random(#cfg.names)],
-		line = cfg.lines[math.random(#cfg.lines)],
-		multiplier = math.floor(mult * 100 + 0.5) / 100,
-		expiresAt = os.clock() + cfg.rotateSeconds,
-	}
-	if model then
-		local torso = model.PrimaryPart
-		if torso then
-			torso.Color = Color3.fromHSV(math.random(), 0.55, 0.85)
-		end
-	end
-	refreshBubble()
-	Net.event("CustomerChanged"):FireAllClients(current)
+function Customers.serve(stationKey: string)
+	roll(stationKey)
 end
 
-function Customers.start(spot: BasePart)
-	model = buildModel(spot)
-	model.Parent = spot.Parent
-	newCustomer()
+function Customers.start(spots: { [string]: BasePart })
+	for stationKey, spot in spots do
+		local m = buildModel(stationKey, spot)
+		m.Parent = spot.Parent
+		models[stationKey] = m
+		roll(stationKey)
+	end
 
 	task.spawn(function()
 		while true do
 			task.wait(Config.Customer.rotateSeconds)
-			newCustomer()
+			for stationKey in current do
+				roll(stationKey)
+			end
 		end
 	end)
-end
-
--- Na een verkoop gaat de klant tevreden weg en komt er een nieuwe.
-function Customers.serve()
-	newCustomer()
 end
 
 return Customers
