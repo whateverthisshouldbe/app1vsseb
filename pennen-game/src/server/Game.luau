@@ -835,6 +835,34 @@ function Game.start()
 			redeemCode(player, code)
 		end
 	end)
+	Net.event("Travel").OnServerEvent:Connect(function(player, key)
+		if typeof(key) ~= "string" then
+			return
+		end
+		local profile = Data.get(player)
+		local character = player.Character
+		local root = character and character:FindFirstChild("HumanoidRootPart")
+		if not profile or not root or not root:IsA("BasePart") then
+			return
+		end
+		for _, station in Config.Stations do
+			if station.key == key then
+				if not stationUnlocked(profile, station) then
+					notify(player, string.format("%s opent na rebirth %d", station.name, station.unlockRebirth),
+						Color3.fromRGB(255, 150, 150))
+					return
+				end
+				local pad = pads["Press_" .. key]
+				if pad then
+					pitches[player] = nil
+					root.CFrame = pad.CFrame * CFrame.new(0, 6, 0)
+					notify(player, "Onderweg naar " .. station.name, Color3.fromRGB(150, 210, 255))
+				end
+				return
+			end
+		end
+	end)
+
 	Net.event("PromptPass").OnServerEvent:Connect(function(player, key)
 		if typeof(key) == "string" then
 			Passes.prompt(player, key)

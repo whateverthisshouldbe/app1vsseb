@@ -24,6 +24,7 @@ local EVENT_NAMES = {
 	"ClaimDaily",
 	"RedeemCode",
 	"PromptPass",
+	"Travel",
 }
 
 local folder: Folder

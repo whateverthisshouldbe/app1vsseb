@@ -388,6 +388,7 @@ PEN.Net = (function()
 		"ClaimDaily",
 		"RedeemCode",
 		"PromptPass",
+		"Travel",
 	}
 
 	local folder: Folder
@@ -580,8 +581,8 @@ end
 
 local sideBar = Instance.new("Frame")
 sideBar.Name = "SideBar"
-sideBar.Size = UDim2.new(0, 190, 0, 260)
-sideBar.Position = UDim2.new(1, -206, 1, -320)
+sideBar.Size = UDim2.new(0, 190, 0, 310)
+sideBar.Position = UDim2.new(1, -206, 1, -370)
 sideBar.BackgroundTransparency = 1
 sideBar.Parent = screen
 
@@ -603,6 +604,8 @@ local codeBtn = button(sideBar, "Codes", UDim2.new(1, 0, 0, 40), UDim2.new(), "C
 codeBtn.LayoutOrder = 4
 local passBtn = button(sideBar, "Passes", UDim2.new(1, 0, 0, 40), UDim2.new(), "Extra's", ACCENT)
 passBtn.LayoutOrder = 5
+local travelBtn = button(sideBar, "Travel", UDim2.new(1, 0, 0, 40), UDim2.new(), "Reizen", Color3.fromRGB(160, 200, 255))
+travelBtn.LayoutOrder = 6
 
 rebirthBtn.Activated:Connect(function()
 	Net.event("Rebirth"):FireServer()
@@ -656,6 +659,7 @@ local function makePanel(title: string, height: number): (Frame, Frame)
 end
 
 local petPanel, petBody = makePanel("Mascottes", 420)
+local travelPanel, travelBody = makePanel("Reizen", 420)
 local codePanel, codeBody = makePanel("Codes", 260)
 local passPanel, passBody = makePanel("Extra's", 340)
 
@@ -664,6 +668,7 @@ local function toggle(panel: Frame)
 	petPanel.Visible = false
 	codePanel.Visible = false
 	passPanel.Visible = false
+	travelPanel.Visible = false
 	panel.Visible = not wasVisible
 end
 
@@ -675,6 +680,9 @@ codeBtn.Activated:Connect(function()
 end)
 passBtn.Activated:Connect(function()
 	toggle(passPanel)
+end)
+travelBtn.Activated:Connect(function()
+	toggle(travelPanel)
 end)
 
 -- codes-paneel
@@ -936,6 +944,47 @@ local function renderPets()
 	end
 end
 
+local function renderTravel()
+	if not state then
+		return
+	end
+	for _, child in travelBody:GetChildren() do
+		if child:IsA("GuiObject") then
+			child:Destroy()
+		end
+	end
+	for index, station in state.stations do
+		local row = Instance.new("Frame")
+		row.Size = UDim2.new(1, -12, 0, 58)
+		row.LayoutOrder = index
+		row.BackgroundColor3 = PANEL
+		row.ZIndex = 6
+		row.Parent = travelBody
+		corner(row, 12)
+		stroke(row, station.unlocked and GREEN or Color3.fromRGB(110, 115, 130), 1.5)
+
+		local title = text(row, "Title", UDim2.new(1, -130, 0, 22), UDim2.new(0, 12, 0, 8),
+			string.format("%d. %s", station.index, station.name), 17,
+			station.unlocked and WHITE or Color3.fromRGB(150, 155, 170))
+		title.ZIndex = 7
+		local sub = text(row, "Sub", UDim2.new(1, -130, 0, 20), UDim2.new(0, 12, 0, 30),
+			station.unlocked and string.format("%s - $%s per pen", station.penName, Config.short(station.penValue))
+				or string.format("opent na rebirth %d", station.unlockRebirth),
+			14, Color3.fromRGB(180, 185, 200))
+		sub.Font = Enum.Font.Gotham
+		sub.ZIndex = 7
+
+		if station.unlocked then
+			local go = button(row, "Go", UDim2.new(0, 106, 0, 38), UDim2.new(1, -118, 0, 10), "Ga erheen", GREEN)
+			go.ZIndex = 7
+			go.Activated:Connect(function()
+				Net.event("Travel"):FireServer(station.key)
+				travelPanel.Visible = false
+			end)
+		end
+	end
+end
+
 local function renderPasses()
 	if not state then
 		return
@@ -1032,10 +1081,14 @@ local function render()
 	if passPanel.Visible then
 		renderPasses()
 	end
+	if travelPanel.Visible then
+		renderTravel()
+	end
 end
 
 petBtn.Activated:Connect(renderPets)
 passBtn.Activated:Connect(renderPasses)
+travelBtn.Activated:Connect(renderTravel)
 
 Net.event("StateChanged").OnClientEvent:Connect(function(newState)
 	state = newState

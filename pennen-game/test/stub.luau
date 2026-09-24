@@ -20,41 +20,67 @@ function Vector3mt.__div(a, b)
 	if type(b) == "number" then return vec(a.X / b, a.Y / b, a.Z / b) end
 	return vec(a.X / b.X, a.Y / b.Y, a.Z / b.Z)
 end
+Vector3mt.__index = function(self, key)
+	if key == "Magnitude" then
+		return math.sqrt(self.X ^ 2 + self.Y ^ 2 + self.Z ^ 2)
+	end
+	if key == "Unit" then
+		local m = math.sqrt(self.X ^ 2 + self.Y ^ 2 + self.Z ^ 2)
+		return vec(self.X / m, self.Y / m, self.Z / m)
+	end
+	return rawget(Vector3mt, key)
+end
+
 function Vector3mt.__tostring(a) return string.format("(%.1f, %.1f, %.1f)", a.X, a.Y, a.Z) end
 Vector3 = { new = function(x, y, z) return vec(x, y, z) end, zero = vec(0, 0, 0) }
 
 -- ----------------------------------------------------------------- CFrame --
--- Alleen positie; rotatie negeren we, de test kijkt naar afstanden.
+-- Positie plus draaiing. Alleen de draaiing om de Y-as wordt echt doorgerekend
+-- (dat is wat de game gebruikt); pitch en roll worden bewaard voor de preview.
 local CFramemt = {}
+local function cframe(pos, yaw, pitch, roll)
+	return setmetatable({ _pos = pos, _yaw = yaw or 0, _pitch = pitch or 0, _roll = roll or 0 }, CFramemt)
+end
 CFramemt.__index = function(self, key)
 	if key == "Position" or key == "p" then
 		return rawget(self, "_pos")
 	end
+	if key == "Yaw" then
+		return rawget(self, "_yaw")
+	end
 	return rawget(CFramemt, key)
 end
-local function cframe(pos)
-	return setmetatable({ _pos = pos }, CFramemt)
+local function rotY(yaw, v)
+	local c, s = math.cos(yaw), math.sin(yaw)
+	return vec(v.X * c + v.Z * s, v.Y, -v.X * s + v.Z * c)
 end
 function CFramemt.__mul(a, b)
 	if getmetatable(b) == CFramemt then
-		return cframe(a._pos + b._pos)
+		return cframe(a._pos + rotY(a._yaw, b._pos), a._yaw + b._yaw, a._pitch + b._pitch, a._roll + b._roll)
 	end
-	return cframe(a._pos + b)
+	return cframe(a._pos + rotY(a._yaw, b), a._yaw, a._pitch, a._roll)
 end
 function CFramemt:PointToObjectSpace(p)
-	return p - self._pos
+	return rotY(-self._yaw, p - self._pos)
 end
 CFrame = {
 	new = function(a, b, c)
 		if type(a) == "number" then
-			return cframe(vec(a, b, c))
+			return cframe(vec(a, b, c), 0)
 		elseif a == nil then
-			return cframe(vec(0, 0, 0))
+			return cframe(vec(0, 0, 0), 0)
+		elseif b ~= nil then
+			local dir = b - a
+			return cframe(a, math.atan2(dir.X, dir.Z))
 		end
-		return cframe(a) -- CFrame.new(pos) of CFrame.new(pos, lookAt)
+		return cframe(a, 0)
 	end,
-	Angles = function() return cframe(vec(0, 0, 0)) end,
-	fromEulerAnglesXYZ = function() return cframe(vec(0, 0, 0)) end,
+	Angles = function(rx, ry, rz)
+		return cframe(vec(0, 0, 0), ry or 0, rx or 0, rz or 0)
+	end,
+	fromEulerAnglesXYZ = function(rx, ry, rz)
+		return cframe(vec(0, 0, 0), ry or 0, rx or 0, rz or 0)
+	end,
 }
 
 -- ----------------------------------------------------------------- Color3 --
@@ -80,6 +106,10 @@ UDim2 = {
 	fromOffset = function(x, y) return { X = { Scale = 0, Offset = x }, Y = { Scale = 0, Offset = y } } end,
 }
 Vector2 = { new = function(x, y) return { X = x, Y = y } end }
+NumberRange = { new = function(a, b) return { Min = a, Max = b or a } end }
+NumberSequenceKeypoint = { new = function(t, v) return { Time = t, Value = v } end }
+NumberSequence = { new = function(v) return { Keypoints = v } end }
+ColorSequence = { new = function(v) return { Keypoints = v } end }
 
 -- ------------------------------------------------------------------- Enum --
 local enumItem = {}

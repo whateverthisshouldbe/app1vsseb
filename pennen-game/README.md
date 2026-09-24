@@ -55,6 +55,36 @@ Gesimuleerd met normaal spel (zie `test/balance.py`):
 
 Te snel of te traag? `Config.Rebirth.growth` omhoog of omlaag, en opnieuw simuleren.
 
+## De map
+
+Pen Street is een stadsstraat die zichzelf bouwt: een plein met een fontein (een reuzenpen
+in het water), een klokzuil, marktkraampjes voor de upgrades, een rebirth-portaal en twee
+scoreborden. Vanaf het plein loopt de straat met stoepen, lantaarns, bomen, bankjes en
+winkelpuien langs je zaken, met stadsblokken eromheen zodat je nooit op een leeg veld
+uitkijkt. Elke zaak heeft een eigen terrein met bestrating, hek, poortje en aankleding:
+de kraam heeft een gestreepte luifel en kratten, de fabriek schoorstenen met rook, silo's
+en een lopende band, de toren een glazen gevel van 150 studs met verlichte ramen, het
+penthouse een zwembad op kolommen, het jacht een haven met steiger, en Pen Orbit een
+zwevend platform met ringen en sterren.
+
+Licht en sfeer worden ook door de code gezet: Atmosphere, Bloom, kleurcorrectie, zonnestralen
+en een middagstand van de zon. Eén ding kan een script niet: zet in Studio bij **Lighting**
+de eigenschap **Technology** op **Future** (of ShadowMap) voor echte schaduwen.
+
+Onderweg lopen kost tijd, dus er is een **Reizen**-knop: die brengt je direct naar elke
+zaak die je al geopend hebt.
+
+De hele map is ongeveer 6.600 onderdelen. Te zwaar voor oudere telefoons? Zet in
+`World.build()` de aantallen bij `Scenery.skyline(...)` lager.
+
+## Vormgeving bekijken zonder Studio
+
+`python3 tools/preview.py` draait de wereldcode met een nagemaakte Roblox-API en tekent de
+map als isometrische plaatjes en plattegronden in `preview/`. Handig om de indeling te
+beoordelen (en om te zien of er niets doorheen staat) voordat je Studio opent. De plaatjes
+zijn een benadering: bollen en cilinders worden als blokken getekend, en materialen,
+schaduwen en neon-gloed ontbreken. In Roblox ziet het er zachter uit.
+
 ## Bestanden
 
 | bestand | wat |
@@ -63,6 +93,7 @@ Te snel of te traag? `Config.Rebirth.growth` omhoog of omlaag, en opnieuw simule
 | `src/shared/Net.luau` | de RemoteEvents tussen server en client |
 | `src/server/Game.luau` | de spelregels |
 | `src/server/World.luau` | bouwt de hele map met code |
+| `src/server/Scenery.luau` | bouwstenen voor de aankleding: gevels, luifels, lantaarns, bomen, fontein |
 | `src/server/Customers.luau` | de klanten en hun types |
 | `src/server/Data.luau` | opslaan/laden met autosave |
 | `src/server/Passes.luau` | gamepasses |
@@ -71,8 +102,9 @@ Te snel of te traag? `Config.Rebirth.growth` omhoog of omlaag, en opnieuw simule
 | `src/client/init.client.luau` | de hele interface |
 | `dist/*.lua` | de gebundelde versie om in Studio te plakken (gegenereerd) |
 | `tools/bundle.py` | maakt `dist/` opnieuw na een wijziging in `src/` |
-| `test/run.py` | speelt de game na met een nagemaakte Roblox-API (37 controles) |
+| `test/run.py` | speelt de game na met een nagemaakte Roblox-API (39 controles) |
 | `test/balance.py` | simuleert hoe lang rebirths duren |
+| `tools/preview.py` | tekent de map als plaatjes in `preview/` |
 | `default.project.json` | Rojo-project |
 
 De map wordt met code gebouwd, dus in Studio hoef je niets te bouwen: leeg
@@ -90,8 +122,9 @@ Iets veranderd in `src/`? Draai dan:
    **Script**. Plak de hele inhoud van `dist/ServerBundle.server.lua`.
 3. Rechtermuisknop op **StarterPlayer → StarterPlayerScripts** → *Insert Object* →
    **LocalScript**. Plak de hele inhoud van `dist/ClientBundle.client.lua`.
-4. **File → Game Settings → Security**: zet **Enable Studio Access to API Services**
-   aan (anders slaat je voortgang in Studio niet op).
+4. **Experience Settings** (heette vroeger Game Settings; tandwiel bovenin of via het
+   menu linksboven) → **Security** → **Enable Studio Access to API Services** aan.
+   Zonder dit werkt de game wel, maar wordt je voortgang niet bewaard.
 5. **Play**. De map bouwt zichzelf.
 6. **File → Publish to Roblox** → nieuwe ervaring aanmaken.
 7. Op [create.roblox.com](https://create.roblox.com) → je ervaring → **Configure** →

@@ -41,9 +41,8 @@ local function buildModel(stationKey: string, spot: BasePart): Model
 
 	local skin = Color3.fromRGB(235, 200, 160)
 	local suit = Color3.fromRGB(40, 44, 60)
-	local base = spot.Position
-	-- kijkt naar de toonbank toe (richting +Z)
-	local facing = CFrame.new(base, base + Vector3.new(0, 0, 10))
+	-- de plek zelf wijst al de goede kant op (naar de speler toe)
+	local facing = spot.CFrame
 
 	local torso = bodyPart("Torso", Vector3.new(2, 2, 1), facing * CFrame.new(0, 3, 0), suit, m)
 	bodyPart("Head", Vector3.new(1.4, 1.4, 1.4), facing * CFrame.new(0, 4.6, 0), skin, m)

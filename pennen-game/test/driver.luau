@@ -179,6 +179,17 @@ advance(3, 30)
 check("rebirth via de plaat", profile.rebirths == 2, profile.rebirths)
 standAway()
 
+-- -------------------------------------------------------------- reizen ----
+standAway()
+remote("Travel").OnServerEvent:Fire(player, "winkel")
+local winkelPad = world:FindFirstChild("Press_winkel", true)
+local afstand = (root.Position - winkelPad.CFrame.Position).Magnitude
+check("reizen brengt je bij de geopende zaak", afstand < 12, afstand)
+
+remote("Travel").OnServerEvent:Fire(player, "jacht")
+local naLocked = (root.Position - winkelPad.CFrame.Position).Magnitude
+check("reizen naar een gesloten zaak doet niets", naLocked == afstand, naLocked)
+
 -- --------------------------------------------------- codes, pets, daily ---
 remote("RedeemCode").OnServerEvent:Fire(player, " penstart ")
 check("code ingewisseld (ook met spaties en kleine letters)", profile.redeemed.PENSTART == true)
