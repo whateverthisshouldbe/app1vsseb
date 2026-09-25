@@ -1,0 +1,91 @@
+# Bouwt de game en publiceert hem naar Roblox zodra er naar GitHub gepusht wordt.
+#
+# Eenmalig instellen (zie pennen-game/README.md):
+#   Settings -> Secrets and variables -> Actions
+#     Secret   ROBLOX_API_KEY        je Open Cloud API-sleutel
+#     Variable ROBLOX_UNIVERSE_ID    het universe-ID van je ervaring
+#     Variable ROBLOX_PLACE_ID       het place-ID van de hoofdplaats
+#
+# Zonder die drie draait alleen de test en de bouw; publiceren wordt dan
+# netjes overgeslagen.
+
+name: Publiceer naar Roblox
+
+on:
+  push:
+    branches:
+      - main
+      - claude/dreamy-einstein-eddpjb
+    paths:
+      - 'pennen-game/**'
+      - '.github/workflows/roblox-publish.yml'
+  workflow_dispatch:
+
+jobs:
+  publiceren:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Luau ophalen (voor de tests)
+        run: |
+          curl -sSL -o luau.zip https://github.com/luau-lang/luau/releases/latest/download/luau-ubuntu.zip
+          unzip -o -q luau.zip -d /tmp/luaubin
+          chmod +x /tmp/luaubin/luau /tmp/luaubin/luau-compile
+          /tmp/luaubin/luau-compile --binary pennen-game/src/shared/Config.luau > /dev/null
+
+      - name: Bundels opnieuw maken en testen
+        working-directory: pennen-game
+        run: |
+          python3 tools/bundle.py
+          python3 test/run.py
+
+      - name: Controleren of dist/ bijgewerkt is
+        working-directory: pennen-game
+        run: |
+          if ! git diff --quiet dist/; then
+            echo "::warning::dist/ liep achter op src/ en is opnieuw gegenereerd tijdens de build."
+            git diff --stat dist/
+          fi
+
+      - name: Rojo installeren
+        run: |
+          if [ ! -x "$HOME/.cargo/bin/rojo" ]; then
+            cargo install rojo --locked --version 7.7.0
+          fi
+          rojo --version
+
+      - name: Plaatsbestand bouwen
+        working-directory: pennen-game
+        run: rojo build default.project.json --output "$GITHUB_WORKSPACE/penstreet.rbxl"
+
+      - name: Plaatsbestand bewaren als download
+        uses: actions/upload-artifact@v4
+        with:
+          name: penstreet-place
+          path: penstreet.rbxl
+
+      - name: Publiceren naar Roblox
+        env:
+          ROBLOX_API_KEY: ${{ secrets.ROBLOX_API_KEY }}
+          UNIVERSE_ID: ${{ vars.ROBLOX_UNIVERSE_ID }}
+          PLACE_ID: ${{ vars.ROBLOX_PLACE_ID }}
+        run: |
+          if [ -z "$ROBLOX_API_KEY" ] || [ -z "$UNIVERSE_ID" ] || [ -z "$PLACE_ID" ]; then
+            echo "Nog geen Roblox-gegevens ingesteld - publiceren overgeslagen."
+            echo "Het plaatsbestand staat wel klaar onder Artifacts."
+            exit 0
+          fi
+          code=$(curl -sS -o response.json -w "%{http_code}" -X POST \
+            "https://apis.roblox.com/universes/v1/${UNIVERSE_ID}/places/${PLACE_ID}/versions?versionType=Published" \
+            -H "x-api-key: ${ROBLOX_API_KEY}" \
+            -H "Content-Type: application/octet-stream" \
+            --data-binary @penstreet.rbxl)
+          echo "HTTP $code"
+          cat response.json
+          echo
+          if [ "$code" != "200" ]; then
+            echo "::error::Publiceren mislukt (HTTP $code)."
+            exit 1
+          fi
+          echo "Gepubliceerd. Nieuwe servers draaien deze versie."

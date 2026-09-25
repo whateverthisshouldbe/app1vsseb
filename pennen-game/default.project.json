@@ -26,7 +26,30 @@
     "Workspace": {
       "$className": "Workspace",
       "$properties": {
-        "FilteringEnabled": true
+        "FilteringEnabled": true,
+        "StreamingEnabled": true
+      }
+    },
+    "Lighting": {
+      "$className": "Lighting",
+      "$properties": {
+        "Technology": "Future",
+        "Ambient": [
+          0.345,
+          0.353,
+          0.392
+        ],
+        "OutdoorAmbient": [
+          0.518,
+          0.525,
+          0.565
+        ],
+        "Brightness": 2.4,
+        "ClockTime": 16.2,
+        "GeographicLatitude": 24,
+        "EnvironmentDiffuseScale": 0.55,
+        "EnvironmentSpecularScale": 0.45,
+        "GlobalShadows": true
       }
     }
   }

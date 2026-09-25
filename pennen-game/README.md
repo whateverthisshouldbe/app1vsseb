@@ -136,6 +136,43 @@ Iets veranderd in `src/`? Draai dan:
 2. In deze map: `rojo serve`, in Studio: plugin → **Connect**.
 3. Publiceren zoals stap 4–7 hierboven.
 
+## Automatisch publiceren bij elke push
+
+In `.github/workflows/roblox-publish.yml` staat een GitHub Action die bij elke push naar
+deze branch:
+
+1. de bundels opnieuw maakt en de 39 controles draait (mislukt de test, dan stopt het hier),
+2. met **Rojo** een compleet plaatsbestand `penstreet.rbxl` bouwt,
+3. dat als download bewaart onder *Actions -> de run -> Artifacts*,
+4. en het publiceert naar je ervaring via de Roblox Open Cloud API.
+
+Stap 4 wordt overgeslagen zolang je de gegevens hieronder niet hebt ingevuld; stap 1 t/m 3
+werken meteen. Je kunt dat plaatsbestand dus ook gewoon downloaden en in Studio openen.
+
+### Eenmalig instellen
+
+1. Publiceer de game één keer vanuit Studio (**File -> Publish to Roblox**).
+2. Zoek je ID's op [create.roblox.com](https://create.roblox.com): klik je ervaring aan.
+   In de URL staat het **universe-ID**; onder *Places* vind je het **place-ID** van de
+   hoofdplaats (of via de drie puntjes -> *Copy Place ID*).
+3. Maak een sleutel: **Creator Dashboard -> Open Cloud -> API Keys -> Create API Key**.
+   - Voeg het systeem **Place Management** (of *universe-places*) toe.
+   - Kies je ervaring en geef de rechten **Write**.
+   - Zet bij *Accepted IP Addresses* `0.0.0.0/0` - GitHub-servers hebben geen vast IP-adres.
+   - Kopieer de sleutel meteen; hij wordt maar één keer getoond.
+4. In GitHub: **Settings -> Secrets and variables -> Actions**
+   - Tabblad *Secrets*: `ROBLOX_API_KEY` = de sleutel.
+   - Tabblad *Variables*: `ROBLOX_UNIVERSE_ID` en `ROBLOX_PLACE_ID`.
+
+Vanaf dan is elke push genoeg. Let op drie dingen:
+
+- **Publiceren overschrijft de hele plaats.** Wat je met de hand in Studio bouwt en niet in
+  deze repo staat, is na de volgende push weg. De repo is de baas.
+- **Spelers die al in een server zitten, houden de oude versie.** Nieuwe servers draaien de
+  nieuwe. Wil je het meteen overal: Creator Dashboard -> je ervaring -> *Migrate to latest
+  update*.
+- De API-sleutel hoort alleen in GitHub Secrets. Niet in de code, niet in een chatbericht.
+
 ## Wat ik van jou nodig heb
 
 Ik kan hier geen Roblox Studio draaien en niet publiceren; dat laatste stukje is aan jou.
@@ -157,9 +194,8 @@ Ik kan hier geen Roblox Studio draaien en niet publiceren; dat laatste stukje is
 - **Roblox-groep** (gratis) als de game op naam van een groep moet staan.
 - **Eigen modellen of geluiden** uit de Toolbox: geef me de asset-ID's, anders
   houd ik het bij vormen die de code zelf bouwt.
-- **Open Cloud API-key** (Creator Dashboard → Open Cloud → API Keys) als ik vanaf
-  hier zou moeten publiceren zonder dat jij Studio opent. Deel zo'n sleutel via de
-  omgevingsinstellingen, nooit in een chatbericht of in de repo.
+- **Open Cloud API-key** voor automatisch publiceren bij elke push - zie het hoofdstuk
+  hierboven. Die sleutel zet je zelf in GitHub Secrets; ik hoef hem niet te zien.
 - **Robux** alleen voor advertenties; publiceren en spelen is gratis.
 
 **Wat ik nooit nodig heb:** je wachtwoord of je `.ROBLOSECURITY`-cookie. Geef die

@@ -3860,6 +3860,11 @@ PEN.Game = (function()
 					local pad = pads["Press_" .. key]
 					if pad then
 						pitches[player] = nil
+						-- met StreamingEnabled moet de omgeving er eerst zijn,
+						-- anders val je door de grond bij aankomst
+						pcall(function()
+							player:RequestStreamAroundAsync(pad.Position, 10)
+						end)
 						root.CFrame = pad.CFrame * CFrame.new(0, 6, 0)
 						notify(player, "Onderweg naar " .. station.name, Color3.fromRGB(150, 210, 255))
 					end
