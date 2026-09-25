@@ -749,6 +749,7 @@ PEN.Scenery = (function()
 		surface.Face = Enum.NormalId.Front
 		surface.CanvasSize = Vector2.new(math.floor(width * 20), math.floor(height * 20))
 		surface.LightInfluence = 0
+		surface.MaxDistance = 200
 		surface.Parent = plate
 
 		local tl = Instance.new("TextLabel")
@@ -776,10 +777,11 @@ PEN.Scenery = (function()
 	function Scenery.floatingText(adornee: BasePart, message: string, offsetY: number, size: number, distance: number?)
 		local gui = Instance.new("BillboardGui")
 		gui.Name = "Label"
-		gui.Size = UDim2.fromScale(16, 4)
+		gui.Size = UDim2.fromScale(11, 2.8)
 		gui.StudsOffsetWorldSpace = Vector3.new(0, offsetY, 0)
-		gui.AlwaysOnTop = true
-		gui.MaxDistance = distance or 260
+		-- niet meer door muren heen, en pas leesbaar als je in de buurt staat
+		gui.AlwaysOnTop = false
+		gui.MaxDistance = distance or 55
 		gui.Parent = adornee
 
 		local tl = Instance.new("TextLabel")
@@ -1586,7 +1588,7 @@ PEN.World = (function()
 				Transparency = 0.3,
 				CanCollide = false,
 			}, plaza)
-			Scenery.floatingText(pad, string.format("<b>%s</b>\n%s", up.name, up.info), 5, 20, 120)
+			Scenery.floatingText(pad, string.format("<b>%s</b>\n%s", up.name, up.info), 4.5, 14, 50)
 		end
 	end
 
@@ -1629,7 +1631,7 @@ PEN.World = (function()
 			Transparency = 0.3,
 			CanCollide = false,
 		}, plaza)
-		Scenery.floatingText(pad, "<b>REBIRTH</b>\n2 seconden blijven staan", 5, 22, 140)
+		Scenery.floatingText(pad, "<b>REBIRTH</b>\n2 seconden blijven staan", 4.5, 15, 55)
 	end
 
 	local function buildPetStand(plaza: Folder)
@@ -1673,7 +1675,7 @@ PEN.World = (function()
 			Transparency = 0.3,
 			CanCollide = false,
 		}, plaza)
-		Scenery.floatingText(pad, "<b>MASCOTTES</b>", 5, 20, 120)
+		Scenery.floatingText(pad, "<b>MASCOTTES</b>", 4.5, 14, 50)
 	end
 
 	local function buildBoard(plaza: Folder, name: string, cf: CFrame, title: string)
@@ -1706,6 +1708,7 @@ PEN.World = (function()
 		surface.Face = Enum.NormalId.Front
 		surface.CanvasSize = Vector2.new(520, 400)
 		surface.LightInfluence = 0
+		surface.MaxDistance = 160
 		surface.Parent = stand
 
 		local header = Instance.new("TextLabel")
@@ -1834,7 +1837,7 @@ PEN.World = (function()
 			Color = station.color,
 			Material = Enum.Material.Metal,
 		}, folder)
-		Scenery.floatingText(bench, "<b>PENNEN MAKEN</b>", 6, 22, 150)
+		Scenery.floatingText(bench, "<b>PENNEN MAKEN</b>", 6, 15, 60)
 
 		local pressPad = part({
 			Name = "Press_" .. station.key,
@@ -1845,7 +1848,7 @@ PEN.World = (function()
 			Transparency = 0.3,
 			CanCollide = false,
 		}, folder)
-		Scenery.floatingText(pressPad, "ga hierop staan", 4, 18, 110)
+		Scenery.floatingText(pressPad, "ga hierop staan", 3.5, 13, 42)
 
 		Scenery.crate(CFrame.new(64, 1.4, zc + 32), 5, folder)
 		Scenery.crate(CFrame.new(64, 1.4, zc + 38), 4, folder)
@@ -1867,7 +1870,7 @@ PEN.World = (function()
 			Color = P.woodDark,
 			Material = Enum.Material.Wood,
 		}, folder)
-		Scenery.floatingText(counter, "<b>TOONBANK</b>", 6, 22, 150)
+		Scenery.floatingText(counter, "<b>TOONBANK</b>", 6, 15, 60)
 
 		local sellPad = part({
 			Name = "Sell_" .. station.key,
@@ -1878,7 +1881,7 @@ PEN.World = (function()
 			Transparency = 0.3,
 			CanCollide = false,
 		}, folder)
-		Scenery.floatingText(sellPad, "verkopen", 4, 18, 110)
+		Scenery.floatingText(sellPad, "verkopen", 3.5, 13, 42)
 
 		-- uitstalrek met pennen naast de toonbank
 		decor({
@@ -2609,10 +2612,10 @@ PEN.Customers = (function()
 
 		local gui = Instance.new("BillboardGui")
 		gui.Name = "Bubble"
-		gui.Size = UDim2.fromScale(13, 3.8)
-		gui.StudsOffsetWorldSpace = Vector3.new(0, 3.6, 0)
+		gui.Size = UDim2.fromScale(9, 2.7)
+		gui.StudsOffsetWorldSpace = Vector3.new(0, 3.2, 0)
 		gui.AlwaysOnTop = true
-		gui.MaxDistance = 180
+		gui.MaxDistance = 60
 		gui.Adornee = torso
 		gui.Parent = torso
 
@@ -2631,7 +2634,7 @@ PEN.Customers = (function()
 		tl.Position = UDim2.new(0, 6, 0, 4)
 		tl.BackgroundTransparency = 1
 		tl.Font = Enum.Font.GothamMedium
-		tl.TextSize = 20
+		tl.TextSize = 15
 		tl.TextColor3 = Color3.new(1, 1, 1)
 		tl.TextWrapped = true
 		tl.RichText = true
@@ -2819,10 +2822,10 @@ PEN.Pets = (function()
 		m.PrimaryPart = body
 
 		local gui = Instance.new("BillboardGui")
-		gui.Size = UDim2.fromScale(6, 1.4)
+		gui.Size = UDim2.fromScale(4.5, 1.1)
 		gui.StudsOffsetWorldSpace = Vector3.new(0, 2.2, 0)
 		gui.AlwaysOnTop = true
-		gui.MaxDistance = 90
+		gui.MaxDistance = 35
 		gui.Adornee = body
 		gui.Parent = body
 
@@ -2830,7 +2833,7 @@ PEN.Pets = (function()
 		tl.Size = UDim2.fromScale(1, 1)
 		tl.BackgroundTransparency = 1
 		tl.Font = Enum.Font.GothamBold
-		tl.TextSize = 16
+		tl.TextSize = 12
 		tl.TextColor3 = pet.color
 		tl.TextStrokeTransparency = 0.4
 		tl.Text = pet.name

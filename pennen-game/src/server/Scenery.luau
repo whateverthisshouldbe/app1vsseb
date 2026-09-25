@@ -93,6 +93,7 @@ function Scenery.wallText(cf: CFrame, width: number, height: number, message: st
 	surface.Face = Enum.NormalId.Front
 	surface.CanvasSize = Vector2.new(math.floor(width * 20), math.floor(height * 20))
 	surface.LightInfluence = 0
+	surface.MaxDistance = 200
 	surface.Parent = plate
 
 	local tl = Instance.new("TextLabel")
@@ -120,10 +121,11 @@ end
 function Scenery.floatingText(adornee: BasePart, message: string, offsetY: number, size: number, distance: number?)
 	local gui = Instance.new("BillboardGui")
 	gui.Name = "Label"
-	gui.Size = UDim2.fromScale(16, 4)
+	gui.Size = UDim2.fromScale(11, 2.8)
 	gui.StudsOffsetWorldSpace = Vector3.new(0, offsetY, 0)
-	gui.AlwaysOnTop = true
-	gui.MaxDistance = distance or 260
+	-- niet meer door muren heen, en pas leesbaar als je in de buurt staat
+	gui.AlwaysOnTop = false
+	gui.MaxDistance = distance or 55
 	gui.Parent = adornee
 
 	local tl = Instance.new("TextLabel")

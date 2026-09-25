@@ -501,7 +501,7 @@ local function button(parent: Instance, name: string, size: UDim2, pos: UDim2, t
 	b.BackgroundColor3 = PANEL
 	b.AutoButtonColor = true
 	b.Font = Enum.Font.GothamBold
-	b.TextSize = 16
+	b.TextSize = 13
 	b.TextColor3 = color
 	b.Text = txt
 	b.Parent = parent
@@ -521,32 +521,32 @@ screen.Parent = playerGui
 
 local status = Instance.new("Frame")
 status.Name = "Status"
-status.Size = UDim2.new(0, 300, 0, 150)
-status.Position = UDim2.new(0, 16, 0, 16)
+status.Size = UDim2.new(0, 232, 0, 118)
+status.Position = UDim2.new(0, 12, 0, 12)
 status.BackgroundColor3 = DARK
 status.BackgroundTransparency = 0.12
 status.Parent = screen
 corner(status, 14)
 stroke(status, ACCENT, 1.5)
 
-local cashLabel = text(status, "Cash", UDim2.new(1, -24, 0, 34), UDim2.new(0, 14, 0, 8), "$0", 28, GOLD)
-local bagLabel = text(status, "Bag", UDim2.new(1, -24, 0, 22), UDim2.new(0, 14, 0, 44), "", 17)
-local penLabel = text(status, "Pen", UDim2.new(1, -24, 0, 20), UDim2.new(0, 14, 0, 68), "", 15, ACCENT)
-local passiveLabel = text(status, "Passive", UDim2.new(1, -24, 0, 20), UDim2.new(0, 14, 0, 90), "", 15, TEAL)
-local metaLabel = text(status, "Meta", UDim2.new(1, -24, 0, 20), UDim2.new(0, 14, 0, 112), "", 15, PURPLE)
+local cashLabel = text(status, "Cash", UDim2.new(1, -20, 0, 28), UDim2.new(0, 11, 0, 6), "$0", 22, GOLD)
+local bagLabel = text(status, "Bag", UDim2.new(1, -20, 0, 18), UDim2.new(0, 11, 0, 34), "", 13)
+local penLabel = text(status, "Pen", UDim2.new(1, -20, 0, 16), UDim2.new(0, 11, 0, 54), "", 12, ACCENT)
+local passiveLabel = text(status, "Passive", UDim2.new(1, -20, 0, 16), UDim2.new(0, 11, 0, 72), "", 12, TEAL)
+local metaLabel = text(status, "Meta", UDim2.new(1, -20, 0, 16), UDim2.new(0, 11, 0, 90), "", 12, PURPLE)
 
 -- ------------------------------------------------------------ upgraderij ---
 
 local shop = Instance.new("Frame")
 shop.Name = "Shop"
-shop.Size = UDim2.new(0, 780, 0, 112)
-shop.Position = UDim2.new(0.5, -390, 1, -126)
+shop.Size = UDim2.new(0, 600, 0, 88)
+shop.Position = UDim2.new(0.5, -300, 1, -98)
 shop.BackgroundTransparency = 1
 shop.Parent = screen
 
 local shopLayout = Instance.new("UIListLayout")
 shopLayout.FillDirection = Enum.FillDirection.Horizontal
-shopLayout.Padding = UDim.new(0, 8)
+shopLayout.Padding = UDim.new(0, 6)
 shopLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 shopLayout.SortOrder = Enum.SortOrder.LayoutOrder
 shopLayout.Parent = shop
@@ -557,7 +557,7 @@ for i, up in Config.Upgrades do
 	local btn = Instance.new("TextButton")
 	btn.Name = up.key
 	btn.LayoutOrder = i
-	btn.Size = UDim2.new(0, 148, 1, 0)
+	btn.Size = UDim2.new(0, 116, 1, 0)
 	btn.BackgroundColor3 = DARK
 	btn.BackgroundTransparency = 0.12
 	btn.Text = ""
@@ -565,11 +565,11 @@ for i, up in Config.Upgrades do
 	corner(btn, 14)
 	stroke(btn, GOLD, 1.5)
 
-	local title = text(btn, "Title", UDim2.new(1, -16, 0, 20), UDim2.new(0, 8, 0, 8), up.name, 15, GOLD)
-	local sub = text(btn, "Sub", UDim2.new(1, -16, 0, 44), UDim2.new(0, 8, 0, 30), up.info, 13)
+	local title = text(btn, "Title", UDim2.new(1, -12, 0, 16), UDim2.new(0, 6, 0, 6), up.name, 12, GOLD)
+	local sub = text(btn, "Sub", UDim2.new(1, -12, 0, 36), UDim2.new(0, 6, 0, 24), up.info, 11)
 	sub.Font = Enum.Font.Gotham
 	sub.TextWrapped = true
-	local price = text(btn, "Price", UDim2.new(1, -16, 0, 22), UDim2.new(0, 8, 1, -30), "", 16, GREEN)
+	local price = text(btn, "Price", UDim2.new(1, -12, 0, 18), UDim2.new(0, 6, 1, -22), "", 13, GREEN)
 
 	btn.Activated:Connect(function()
 		Net.event("BuyUpgrade"):FireServer(up.key)
@@ -581,30 +581,30 @@ end
 
 local sideBar = Instance.new("Frame")
 sideBar.Name = "SideBar"
-sideBar.Size = UDim2.new(0, 190, 0, 310)
-sideBar.Position = UDim2.new(1, -206, 1, -370)
+sideBar.Size = UDim2.new(0, 148, 0, 244)
+sideBar.Position = UDim2.new(1, -160, 1, -298)
 sideBar.BackgroundTransparency = 1
 sideBar.Parent = screen
 
 local sideLayout = Instance.new("UIListLayout")
-sideLayout.Padding = UDim.new(0, 8)
+sideLayout.Padding = UDim.new(0, 6)
 sideLayout.SortOrder = Enum.SortOrder.LayoutOrder
 sideLayout.Parent = sideBar
 
-local rebirthBtn = button(sideBar, "Rebirth", UDim2.new(1, 0, 0, 62), UDim2.new(), "Rebirth", PURPLE)
+local rebirthBtn = button(sideBar, "Rebirth", UDim2.new(1, 0, 0, 50), UDim2.new(), "Rebirth", PURPLE)
 rebirthBtn.LayoutOrder = 1
 rebirthBtn.TextWrapped = true
 rebirthBtn.RichText = true
-rebirthBtn.TextSize = 14
-local petBtn = button(sideBar, "Pets", UDim2.new(1, 0, 0, 40), UDim2.new(), "Mascottes", TEAL)
+rebirthBtn.TextSize = 11
+local petBtn = button(sideBar, "Pets", UDim2.new(1, 0, 0, 32), UDim2.new(), "Mascottes", TEAL)
 petBtn.LayoutOrder = 2
-local dailyBtn = button(sideBar, "Daily", UDim2.new(1, 0, 0, 40), UDim2.new(), "Dagbeloning", GREEN)
+local dailyBtn = button(sideBar, "Daily", UDim2.new(1, 0, 0, 32), UDim2.new(), "Dagbeloning", GREEN)
 dailyBtn.LayoutOrder = 3
-local codeBtn = button(sideBar, "Codes", UDim2.new(1, 0, 0, 40), UDim2.new(), "Codes", GOLD)
+local codeBtn = button(sideBar, "Codes", UDim2.new(1, 0, 0, 32), UDim2.new(), "Codes", GOLD)
 codeBtn.LayoutOrder = 4
-local passBtn = button(sideBar, "Passes", UDim2.new(1, 0, 0, 40), UDim2.new(), "Extra's", ACCENT)
+local passBtn = button(sideBar, "Passes", UDim2.new(1, 0, 0, 32), UDim2.new(), "Extra's", ACCENT)
 passBtn.LayoutOrder = 5
-local travelBtn = button(sideBar, "Travel", UDim2.new(1, 0, 0, 40), UDim2.new(), "Reizen", Color3.fromRGB(160, 200, 255))
+local travelBtn = button(sideBar, "Travel", UDim2.new(1, 0, 0, 32), UDim2.new(), "Reizen", Color3.fromRGB(160, 200, 255))
 travelBtn.LayoutOrder = 6
 
 rebirthBtn.Activated:Connect(function()
@@ -619,8 +619,8 @@ end)
 local function makePanel(title: string, height: number): (Frame, Frame)
 	local holder = Instance.new("Frame")
 	holder.Name = title
-	holder.Size = UDim2.new(0, 460, 0, height)
-	holder.Position = UDim2.new(0.5, -230, 0.5, -height / 2)
+	holder.Size = UDim2.new(0, 372, 0, height)
+	holder.Position = UDim2.new(0.5, -186, 0.5, -height / 2)
 	holder.BackgroundColor3 = DARK
 	holder.BackgroundTransparency = 0.05
 	holder.Visible = false
@@ -629,10 +629,10 @@ local function makePanel(title: string, height: number): (Frame, Frame)
 	corner(holder, 16)
 	stroke(holder, ACCENT, 1.5)
 
-	local header = text(holder, "Header", UDim2.new(1, -60, 0, 34), UDim2.new(0, 16, 0, 10), title, 22, WHITE)
+	local header = text(holder, "Header", UDim2.new(1, -52, 0, 28), UDim2.new(0, 13, 0, 8), title, 18, WHITE)
 	header.ZIndex = 6
 
-	local close = button(holder, "Close", UDim2.new(0, 34, 0, 34), UDim2.new(1, -46, 0, 10), "X", RED)
+	local close = button(holder, "Close", UDim2.new(0, 28, 0, 28), UDim2.new(1, -38, 0, 8), "X", RED)
 	close.ZIndex = 6
 	close.Activated:Connect(function()
 		holder.Visible = false
@@ -640,8 +640,8 @@ local function makePanel(title: string, height: number): (Frame, Frame)
 
 	local body = Instance.new("ScrollingFrame")
 	body.Name = "Body"
-	body.Size = UDim2.new(1, -24, 1, -60)
-	body.Position = UDim2.new(0, 12, 0, 50)
+	body.Size = UDim2.new(1, -20, 1, -48)
+	body.Position = UDim2.new(0, 10, 0, 42)
 	body.BackgroundTransparency = 1
 	body.BorderSizePixel = 0
 	body.ScrollBarThickness = 6
@@ -658,10 +658,10 @@ local function makePanel(title: string, height: number): (Frame, Frame)
 	return holder, body
 end
 
-local petPanel, petBody = makePanel("Mascottes", 420)
-local travelPanel, travelBody = makePanel("Reizen", 420)
-local codePanel, codeBody = makePanel("Codes", 260)
-local passPanel, passBody = makePanel("Extra's", 340)
+local petPanel, petBody = makePanel("Mascottes", 340)
+local travelPanel, travelBody = makePanel("Reizen", 340)
+local codePanel, codeBody = makePanel("Codes", 208)
+local passPanel, passBody = makePanel("Extra's", 280)
 
 local function toggle(panel: Frame)
 	local wasVisible = panel.Visible
@@ -688,10 +688,10 @@ end)
 -- codes-paneel
 local codeBox = Instance.new("TextBox")
 codeBox.Name = "Input"
-codeBox.Size = UDim2.new(1, -12, 0, 44)
+codeBox.Size = UDim2.new(1, -10, 0, 36)
 codeBox.BackgroundColor3 = PANEL
 codeBox.Font = Enum.Font.GothamBold
-codeBox.TextSize = 18
+codeBox.TextSize = 14
 codeBox.TextColor3 = WHITE
 codeBox.PlaceholderText = "typ hier je code"
 codeBox.Text = ""
@@ -702,11 +702,11 @@ codeBox.Parent = codeBody
 corner(codeBox, 12)
 stroke(codeBox, GOLD, 1.5)
 
-local codeSubmit = button(codeBody, "Submit", UDim2.new(1, -12, 0, 40), UDim2.new(), "Inwisselen", GREEN)
+local codeSubmit = button(codeBody, "Submit", UDim2.new(1, -10, 0, 34), UDim2.new(), "Inwisselen", GREEN)
 codeSubmit.LayoutOrder = 2
 codeSubmit.ZIndex = 6
-local codeHint = text(codeBody, "Hint", UDim2.new(1, -12, 0, 60), UDim2.new(),
-	"Codes deel je zelf uit, bijvoorbeeld in de beschrijving van de game of op je socials.", 14, Color3.fromRGB(170, 175, 190))
+local codeHint = text(codeBody, "Hint", UDim2.new(1, -10, 0, 52), UDim2.new(),
+	"Codes deel je zelf uit, bijvoorbeeld in de beschrijving van de game of op je socials.", 12, Color3.fromRGB(170, 175, 190))
 codeHint.LayoutOrder = 3
 codeHint.TextWrapped = true
 codeHint.ZIndex = 6
@@ -729,13 +729,13 @@ end)
 
 local toasts = Instance.new("Frame")
 toasts.Name = "Toasts"
-toasts.Size = UDim2.new(0, 330, 0, 300)
-toasts.Position = UDim2.new(1, -346, 0, 16)
+toasts.Size = UDim2.new(0, 252, 0, 240)
+toasts.Position = UDim2.new(1, -264, 0, 12)
 toasts.BackgroundTransparency = 1
 toasts.Parent = screen
 
 local toastLayout = Instance.new("UIListLayout")
-toastLayout.Padding = UDim.new(0, 8)
+toastLayout.Padding = UDim.new(0, 6)
 toastLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
 toastLayout.SortOrder = Enum.SortOrder.LayoutOrder
 toastLayout.Parent = toasts
@@ -745,7 +745,7 @@ local toastOrder = 0
 local function showToast(message: string, color: Color3)
 	toastOrder += 1
 	local frame = Instance.new("Frame")
-	frame.Size = UDim2.new(1, 0, 0, 46)
+	frame.Size = UDim2.new(1, 0, 0, 38)
 	frame.LayoutOrder = toastOrder
 	frame.BackgroundColor3 = DARK
 	frame.BackgroundTransparency = 0.1
@@ -753,7 +753,7 @@ local function showToast(message: string, color: Color3)
 	corner(frame, 12)
 	stroke(frame, color, 1.5)
 
-	local tl = text(frame, "Text", UDim2.new(1, -20, 1, -8), UDim2.new(0, 10, 0, 4), message, 15, color)
+	local tl = text(frame, "Text", UDim2.new(1, -16, 1, -6), UDim2.new(0, 8, 0, 3), message, 12, color)
 	tl.Font = Enum.Font.GothamMedium
 	tl.TextWrapped = true
 	tl.TextYAlignment = Enum.TextYAlignment.Center
@@ -771,8 +771,8 @@ end
 
 local pitchFrame = Instance.new("Frame")
 pitchFrame.Name = "Pitch"
-pitchFrame.Size = UDim2.new(0, 620, 0, 300)
-pitchFrame.Position = UDim2.new(0.5, -310, 0.5, -170)
+pitchFrame.Size = UDim2.new(0, 496, 0, 244)
+pitchFrame.Position = UDim2.new(0.5, -248, 0.5, -140)
 pitchFrame.BackgroundColor3 = DARK
 pitchFrame.BackgroundTransparency = 0.05
 pitchFrame.Visible = false
@@ -781,16 +781,16 @@ pitchFrame.Parent = screen
 corner(pitchFrame, 16)
 local pitchStroke = stroke(pitchFrame, GREEN, 2)
 
-local pitchWho = text(pitchFrame, "Who", UDim2.new(1, -32, 0, 26), UDim2.new(0, 16, 0, 12), "", 20, GOLD)
+local pitchWho = text(pitchFrame, "Who", UDim2.new(1, -26, 0, 22), UDim2.new(0, 13, 0, 10), "", 16, GOLD)
 pitchWho.ZIndex = 9
-local pitchLine = text(pitchFrame, "Line", UDim2.new(1, -32, 0, 30), UDim2.new(0, 16, 0, 40), "", 22, WHITE)
+local pitchLine = text(pitchFrame, "Line", UDim2.new(1, -26, 0, 26), UDim2.new(0, 13, 0, 32), "", 18, WHITE)
 pitchLine.ZIndex = 9
-local pitchInfo = text(pitchFrame, "Info", UDim2.new(1, -32, 0, 22), UDim2.new(0, 16, 0, 72), "", 15, TEAL)
+local pitchInfo = text(pitchFrame, "Info", UDim2.new(1, -26, 0, 18), UDim2.new(0, 13, 0, 60), "", 12, TEAL)
 pitchInfo.ZIndex = 9
 
 local timerBack = Instance.new("Frame")
-timerBack.Size = UDim2.new(1, -32, 0, 8)
-timerBack.Position = UDim2.new(0, 16, 0, 98)
+timerBack.Size = UDim2.new(1, -26, 0, 6)
+timerBack.Position = UDim2.new(0, 13, 0, 82)
 timerBack.BackgroundColor3 = Color3.fromRGB(45, 50, 64)
 timerBack.BorderSizePixel = 0
 timerBack.ZIndex = 9
@@ -806,14 +806,14 @@ timerFill.Parent = timerBack
 corner(timerFill, 4)
 
 local optionHolder = Instance.new("Frame")
-optionHolder.Size = UDim2.new(1, -32, 0, 160)
-optionHolder.Position = UDim2.new(0, 16, 0, 118)
+optionHolder.Size = UDim2.new(1, -26, 0, 136)
+optionHolder.Position = UDim2.new(0, 13, 0, 96)
 optionHolder.BackgroundTransparency = 1
 optionHolder.ZIndex = 9
 optionHolder.Parent = pitchFrame
 
 local optionLayout = Instance.new("UIListLayout")
-optionLayout.Padding = UDim.new(0, 8)
+optionLayout.Padding = UDim.new(0, 6)
 optionLayout.SortOrder = Enum.SortOrder.LayoutOrder
 optionLayout.Parent = optionHolder
 
@@ -849,7 +849,7 @@ Net.event("PitchStart").OnClientEvent:Connect(function(info)
 
 	clearOptions()
 	for index, option in info.options do
-		local btn = button(optionHolder, "Option" .. index, UDim2.new(1, 0, 0, 44), UDim2.new(), option, WHITE)
+		local btn = button(optionHolder, "Option" .. index, UDim2.new(1, 0, 0, 38), UDim2.new(), option, WHITE)
 		btn.LayoutOrder = index
 		btn.TextWrapped = true
 		btn.ZIndex = 10
@@ -880,18 +880,18 @@ end)
 -- ------------------------------------------------------- offline-opbrengst -
 
 Net.event("OfflineEarnings").OnClientEvent:Connect(function(info)
-	local panel, body = makePanel("Terwijl je weg was", 240)
+	local panel, body = makePanel("Terwijl je weg was", 200)
 	local hours = math.floor(info.seconds / 3600)
 	local minutes = math.floor((info.seconds % 3600) / 60)
-	local line = text(body, "Line", UDim2.new(1, -12, 0, 90), UDim2.new(),
+	local line = text(body, "Line", UDim2.new(1, -10, 0, 76), UDim2.new(),
 		string.format("Je zaken draaiden %du %dm door.\n\n<font color=\"rgb(120,255,150)\">+$%s</font>",
-			hours, minutes, Config.short(info.earned)), 20, WHITE)
+			hours, minutes, Config.short(info.earned)), 16, WHITE)
 	line.TextWrapped = true
 	line.LayoutOrder = 1
 	line.ZIndex = 6
 	if info.capped then
-		local capLine = text(body, "Cap", UDim2.new(1, -12, 0, 60), UDim2.new(),
-			string.format("Offline verdienen telt tot %d uur.", info.capHours), 15, GOLD)
+		local capLine = text(body, "Cap", UDim2.new(1, -10, 0, 50), UDim2.new(),
+			string.format("Offline verdienen telt tot %d uur.", info.capHours), 12, GOLD)
 		capLine.TextWrapped = true
 		capLine.LayoutOrder = 2
 		capLine.ZIndex = 6
@@ -912,7 +912,7 @@ local function renderPets()
 	end
 	for index, pet in state.pets do
 		local row = Instance.new("Frame")
-		row.Size = UDim2.new(1, -12, 0, 62)
+		row.Size = UDim2.new(1, -10, 0, 50)
 		row.LayoutOrder = index
 		row.BackgroundColor3 = PANEL
 		row.ZIndex = 6
@@ -920,17 +920,17 @@ local function renderPets()
 		corner(row, 12)
 		stroke(row, pet.equipped and GREEN or TEAL, 1.5)
 
-		local title = text(row, "Title", UDim2.new(1, -140, 0, 22), UDim2.new(0, 12, 0, 8), pet.name, 17, TEAL)
+		local title = text(row, "Title", UDim2.new(1, -112, 0, 18), UDim2.new(0, 10, 0, 6), pet.name, 14, TEAL)
 		title.ZIndex = 7
-		local sub = text(row, "Sub", UDim2.new(1, -140, 0, 20), UDim2.new(0, 12, 0, 32),
+		local sub = text(row, "Sub", UDim2.new(1, -112, 0, 16), UDim2.new(0, 10, 0, 26),
 			string.format("+%d%% maken  ·  +%d%% waarde", math.floor(pet.produce * 100), math.floor(pet.value * 100)),
-			14, Color3.fromRGB(180, 185, 200))
+			12, Color3.fromRGB(180, 185, 200))
 		sub.Font = Enum.Font.Gotham
 		sub.ZIndex = 7
 
 		local label = pet.equipped and "Gedragen" or (pet.owned and "Dragen" or ("$" .. Config.short(pet.price)))
 		local color = pet.equipped and GREEN or (pet.owned and GOLD or (state.cash >= pet.price and GREEN or RED))
-		local act = button(row, "Act", UDim2.new(0, 116, 0, 38), UDim2.new(1, -128, 0, 12), label, color)
+		local act = button(row, "Act", UDim2.new(0, 94, 0, 32), UDim2.new(1, -104, 0, 9), label, color)
 		act.ZIndex = 7
 		act.Activated:Connect(function()
 			if pet.equipped then
@@ -955,7 +955,7 @@ local function renderTravel()
 	end
 	for index, station in state.stations do
 		local row = Instance.new("Frame")
-		row.Size = UDim2.new(1, -12, 0, 58)
+		row.Size = UDim2.new(1, -10, 0, 46)
 		row.LayoutOrder = index
 		row.BackgroundColor3 = PANEL
 		row.ZIndex = 6
@@ -963,19 +963,19 @@ local function renderTravel()
 		corner(row, 12)
 		stroke(row, station.unlocked and GREEN or Color3.fromRGB(110, 115, 130), 1.5)
 
-		local title = text(row, "Title", UDim2.new(1, -130, 0, 22), UDim2.new(0, 12, 0, 8),
-			string.format("%d. %s", station.index, station.name), 17,
+		local title = text(row, "Title", UDim2.new(1, -106, 0, 18), UDim2.new(0, 10, 0, 6),
+			string.format("%d. %s", station.index, station.name), 14,
 			station.unlocked and WHITE or Color3.fromRGB(150, 155, 170))
 		title.ZIndex = 7
-		local sub = text(row, "Sub", UDim2.new(1, -130, 0, 20), UDim2.new(0, 12, 0, 30),
+		local sub = text(row, "Sub", UDim2.new(1, -106, 0, 16), UDim2.new(0, 10, 0, 25),
 			station.unlocked and string.format("%s - $%s per pen", station.penName, Config.short(station.penValue))
 				or string.format("opent na rebirth %d", station.unlockRebirth),
-			14, Color3.fromRGB(180, 185, 200))
+			12, Color3.fromRGB(180, 185, 200))
 		sub.Font = Enum.Font.Gotham
 		sub.ZIndex = 7
 
 		if station.unlocked then
-			local go = button(row, "Go", UDim2.new(0, 106, 0, 38), UDim2.new(1, -118, 0, 10), "Ga erheen", GREEN)
+			local go = button(row, "Go", UDim2.new(0, 88, 0, 32), UDim2.new(1, -98, 0, 7), "Ga erheen", GREEN)
 			go.ZIndex = 7
 			go.Activated:Connect(function()
 				Net.event("Travel"):FireServer(station.key)
@@ -996,7 +996,7 @@ local function renderPasses()
 	end
 	for index, pass in state.passes do
 		local row = Instance.new("Frame")
-		row.Size = UDim2.new(1, -12, 0, 68)
+		row.Size = UDim2.new(1, -10, 0, 56)
 		row.LayoutOrder = index
 		row.BackgroundColor3 = PANEL
 		row.ZIndex = 6
@@ -1004,9 +1004,9 @@ local function renderPasses()
 		corner(row, 12)
 		stroke(row, ACCENT, 1.5)
 
-		local title = text(row, "Title", UDim2.new(1, -140, 0, 22), UDim2.new(0, 12, 0, 10), pass.name, 17, ACCENT)
+		local title = text(row, "Title", UDim2.new(1, -112, 0, 18), UDim2.new(0, 10, 0, 8), pass.name, 14, ACCENT)
 		title.ZIndex = 7
-		local sub = text(row, "Sub", UDim2.new(1, -140, 0, 28), UDim2.new(0, 12, 0, 32), pass.info, 14,
+		local sub = text(row, "Sub", UDim2.new(1, -112, 0, 24), UDim2.new(0, 10, 0, 26), pass.info, 12,
 			Color3.fromRGB(180, 185, 200))
 		sub.Font = Enum.Font.Gotham
 		sub.TextWrapped = true
@@ -1014,7 +1014,7 @@ local function renderPasses()
 
 		local label = pass.owned and "In bezit" or (pass.configured and "Kopen" or "Nog niet ingesteld")
 		local color = pass.owned and GREEN or (pass.configured and GOLD or Color3.fromRGB(150, 155, 170))
-		local act = button(row, "Act", UDim2.new(0, 116, 0, 40), UDim2.new(1, -128, 0, 14), label, color)
+		local act = button(row, "Act", UDim2.new(0, 94, 0, 34), UDim2.new(1, -104, 0, 11), label, color)
 		act.ZIndex = 7
 		act.TextWrapped = true
 		act.Activated:Connect(function()

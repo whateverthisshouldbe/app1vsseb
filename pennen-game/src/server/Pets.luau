@@ -36,10 +36,10 @@ local function build(pet): Model
 	m.PrimaryPart = body
 
 	local gui = Instance.new("BillboardGui")
-	gui.Size = UDim2.fromScale(6, 1.4)
+	gui.Size = UDim2.fromScale(4.5, 1.1)
 	gui.StudsOffsetWorldSpace = Vector3.new(0, 2.2, 0)
 	gui.AlwaysOnTop = true
-	gui.MaxDistance = 90
+	gui.MaxDistance = 35
 	gui.Adornee = body
 	gui.Parent = body
 
@@ -47,7 +47,7 @@ local function build(pet): Model
 	tl.Size = UDim2.fromScale(1, 1)
 	tl.BackgroundTransparency = 1
 	tl.Font = Enum.Font.GothamBold
-	tl.TextSize = 16
+	tl.TextSize = 12
 	tl.TextColor3 = pet.color
 	tl.TextStrokeTransparency = 0.4
 	tl.Text = pet.name

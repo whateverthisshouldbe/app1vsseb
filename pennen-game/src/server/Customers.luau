@@ -56,10 +56,10 @@ local function buildModel(stationKey: string, spot: BasePart): Model
 
 	local gui = Instance.new("BillboardGui")
 	gui.Name = "Bubble"
-	gui.Size = UDim2.fromScale(13, 3.8)
-	gui.StudsOffsetWorldSpace = Vector3.new(0, 3.6, 0)
+	gui.Size = UDim2.fromScale(9, 2.7)
+	gui.StudsOffsetWorldSpace = Vector3.new(0, 3.2, 0)
 	gui.AlwaysOnTop = true
-	gui.MaxDistance = 180
+	gui.MaxDistance = 60
 	gui.Adornee = torso
 	gui.Parent = torso
 
@@ -78,7 +78,7 @@ local function buildModel(stationKey: string, spot: BasePart): Model
 	tl.Position = UDim2.new(0, 6, 0, 4)
 	tl.BackgroundTransparency = 1
 	tl.Font = Enum.Font.GothamMedium
-	tl.TextSize = 20
+	tl.TextSize = 15
 	tl.TextColor3 = Color3.new(1, 1, 1)
 	tl.TextWrapped = true
 	tl.RichText = true

@@ -392,7 +392,7 @@ local function buildKiosks(plaza: Folder)
 			Transparency = 0.3,
 			CanCollide = false,
 		}, plaza)
-		Scenery.floatingText(pad, string.format("<b>%s</b>\n%s", up.name, up.info), 5, 20, 120)
+		Scenery.floatingText(pad, string.format("<b>%s</b>\n%s", up.name, up.info), 4.5, 14, 50)
 	end
 end
 
@@ -435,7 +435,7 @@ local function buildRebirthPortal(plaza: Folder)
 		Transparency = 0.3,
 		CanCollide = false,
 	}, plaza)
-	Scenery.floatingText(pad, "<b>REBIRTH</b>\n2 seconden blijven staan", 5, 22, 140)
+	Scenery.floatingText(pad, "<b>REBIRTH</b>\n2 seconden blijven staan", 4.5, 15, 55)
 end
 
 local function buildPetStand(plaza: Folder)
@@ -479,7 +479,7 @@ local function buildPetStand(plaza: Folder)
 		Transparency = 0.3,
 		CanCollide = false,
 	}, plaza)
-	Scenery.floatingText(pad, "<b>MASCOTTES</b>", 5, 20, 120)
+	Scenery.floatingText(pad, "<b>MASCOTTES</b>", 4.5, 14, 50)
 end
 
 local function buildBoard(plaza: Folder, name: string, cf: CFrame, title: string)
@@ -512,6 +512,7 @@ local function buildBoard(plaza: Folder, name: string, cf: CFrame, title: string
 	surface.Face = Enum.NormalId.Front
 	surface.CanvasSize = Vector2.new(520, 400)
 	surface.LightInfluence = 0
+	surface.MaxDistance = 160
 	surface.Parent = stand
 
 	local header = Instance.new("TextLabel")
@@ -640,7 +641,7 @@ local function stationProps(folder: Folder, station, zc: number, unlockColor: Co
 		Color = station.color,
 		Material = Enum.Material.Metal,
 	}, folder)
-	Scenery.floatingText(bench, "<b>PENNEN MAKEN</b>", 6, 22, 150)
+	Scenery.floatingText(bench, "<b>PENNEN MAKEN</b>", 6, 15, 60)
 
 	local pressPad = part({
 		Name = "Press_" .. station.key,
@@ -651,7 +652,7 @@ local function stationProps(folder: Folder, station, zc: number, unlockColor: Co
 		Transparency = 0.3,
 		CanCollide = false,
 	}, folder)
-	Scenery.floatingText(pressPad, "ga hierop staan", 4, 18, 110)
+	Scenery.floatingText(pressPad, "ga hierop staan", 3.5, 13, 42)
 
 	Scenery.crate(CFrame.new(64, 1.4, zc + 32), 5, folder)
 	Scenery.crate(CFrame.new(64, 1.4, zc + 38), 4, folder)
@@ -673,7 +674,7 @@ local function stationProps(folder: Folder, station, zc: number, unlockColor: Co
 		Color = P.woodDark,
 		Material = Enum.Material.Wood,
 	}, folder)
-	Scenery.floatingText(counter, "<b>TOONBANK</b>", 6, 22, 150)
+	Scenery.floatingText(counter, "<b>TOONBANK</b>", 6, 15, 60)
 
 	local sellPad = part({
 		Name = "Sell_" .. station.key,
@@ -684,7 +685,7 @@ local function stationProps(folder: Folder, station, zc: number, unlockColor: Co
 		Transparency = 0.3,
 		CanCollide = false,
 	}, folder)
-	Scenery.floatingText(sellPad, "verkopen", 4, 18, 110)
+	Scenery.floatingText(sellPad, "verkopen", 3.5, 13, 42)
 
 	-- uitstalrek met pennen naast de toonbank
 	decor({
