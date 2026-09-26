@@ -1,0 +1,96 @@
+{
+  "name": "SellMeThisPen",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Shared": {
+        "$path": "src/shared"
+      },
+      "Remotes": {
+        "$className": "Folder",
+        "DataSync": { "$className": "RemoteEvent" },
+        "Notify": { "$className": "RemoteEvent" },
+        "PitchStart": { "$className": "RemoteEvent" },
+        "PitchUpdate": { "$className": "RemoteEvent" },
+        "PitchEnd": { "$className": "RemoteEvent" },
+        "PitchAction": { "$className": "RemoteEvent" },
+        "Hum": { "$className": "RemoteEvent" },
+        "Purchase": { "$className": "RemoteFunction" },
+        "IPO": { "$className": "RemoteFunction" }
+      }
+    },
+
+    "ServerScriptService": {
+      "Server": {
+        "$path": "src/server"
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "$path": "src/client"
+        }
+      }
+    },
+
+    "Workspace": {
+      "$properties": {
+        "StreamingEnabled": false
+      },
+      "Map": {
+        "$path": "map/Map.model.json"
+      }
+    },
+
+    "Lighting": {
+      "$properties": {
+        "ClockTime": 18.1,
+        "GeographicLatitude": 40.7,
+        "Brightness": 2.2,
+        "Ambient": [0.27, 0.22, 0.2],
+        "OutdoorAmbient": [0.55, 0.47, 0.42],
+        "EnvironmentDiffuseScale": 0.6,
+        "EnvironmentSpecularScale": 1,
+        "GlobalShadows": true,
+        "ShadowSoftness": 0.25,
+        "Technology": "Future"
+      },
+      "Atmosphere": {
+        "$className": "Atmosphere",
+        "$properties": {
+          "Density": 0.32,
+          "Offset": 0.12,
+          "Color": [0.98, 0.78, 0.6],
+          "Decay": [0.55, 0.35, 0.45],
+          "Glare": 0.35,
+          "Haze": 1.4
+        }
+      },
+      "Bloom": {
+        "$className": "BloomEffect",
+        "$properties": { "Intensity": 0.9, "Size": 28, "Threshold": 1.4 }
+      },
+      "SunRays": {
+        "$className": "SunRaysEffect",
+        "$properties": { "Intensity": 0.08, "Spread": 0.7 }
+      },
+      "MoneyGrade": {
+        "$className": "ColorCorrectionEffect",
+        "$properties": {
+          "Brightness": 0.02,
+          "Contrast": 0.12,
+          "Saturation": 0.18,
+          "TintColor": [1, 0.97, 0.9]
+        }
+      }
+    },
+
+    "SoundService": {
+      "$properties": {
+        "RespectFilteringEnabled": true
+      }
+    }
+  }
+}

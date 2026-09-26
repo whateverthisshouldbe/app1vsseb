@@ -1,0 +1,5 @@
+# Rojo sourcemap / editor files
+sourcemap.json
+*.rbxl.lock
+*.rbxlx.lock
+__pycache__/
