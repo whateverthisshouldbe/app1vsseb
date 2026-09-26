@@ -215,10 +215,10 @@ local function push(player: Player)
 
 	local stats = player:FindFirstChild("leaderstats")
 	if stats then
-		local cash = stats:FindFirstChild("Cash") :: IntValue?
+		local cash = stats:FindFirstChild("Cash") :: StringValue?
 		local pens = stats:FindFirstChild("Pennen") :: IntValue?
 		local rb = stats:FindFirstChild("Rebirths") :: IntValue?
-		if cash then cash.Value = math.floor(math.min(profile.cash, 2 ^ 31 - 1)) end
+		if cash then cash.Value = "$" .. Config.short(profile.cash) end
 		if pens then pens.Value = profile.pens end
 		if rb then rb.Value = profile.rebirths end
 	end
@@ -602,7 +602,12 @@ local function onPlayerAdded(player: Player)
 
 	local stats = Instance.new("Folder")
 	stats.Name = "leaderstats"
-	for _, name in { "Cash", "Pennen", "Rebirths" } do
+	-- Cash is een StringValue: een IntValue loopt vast op 2.147.483.647,
+	-- en dat bedrag haal je in deze game ruim voorbij.
+	local cashValue = Instance.new("StringValue")
+	cashValue.Name = "Cash"
+	cashValue.Parent = stats
+	for _, name in { "Pennen", "Rebirths" } do
 		local v = Instance.new("IntValue")
 		v.Name = name
 		v.Parent = stats

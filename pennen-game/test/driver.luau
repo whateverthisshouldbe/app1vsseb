@@ -230,6 +230,15 @@ check("geld terug na opnieuw joinen", reloaded ~= nil and math.floor(reloaded.ca
 check("rebirths bewaard", reloaded ~= nil and reloaded.rebirths == 2, reloaded and reloaded.rebirths)
 check("mascotte bewaard", reloaded ~= nil and reloaded.pets.clip == true)
 
+-- ------------------------------------------------- geen 2,1 miljard-grens --
+local rijk = PEN.Data.get(player)
+rijk.cash = 9.5e12
+remote("BuyUpgrade").OnServerEvent:Fire(player, "capacity")
+local stats = player:FindFirstChild("leaderstats")
+local cashStat = stats and stats:FindFirstChild("Cash")
+check("cash boven 2,1 miljard wordt niet afgekapt", cashStat ~= nil and string.find(cashStat.Value, "T") ~= nil,
+	cashStat and cashStat.Value)
+
 -- ------------------------------------------------------------- scorebord --
 local boardBody = world:FindFirstChild("Board_cash", true)
 local screenGui = boardBody and boardBody:FindFirstChild("Screen")

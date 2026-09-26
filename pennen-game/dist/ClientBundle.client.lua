@@ -344,7 +344,7 @@ PEN.Config = (function()
 
 	-- 1234567 -> "1.23M"
 	function Config.short(n: number): string
-		local units = { "", "K", "M", "B", "T", "Qa", "Qi", "Sx" }
+		local units = { "", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc" }
 		local i = 1
 		local v = math.abs(n)
 		while v >= 1000 and i < #units do
