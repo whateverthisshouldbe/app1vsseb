@@ -21,6 +21,55 @@ local ROAD_HALF = 15
 local WALK_OUTER = 32
 local PLOT_X = 70 -- midden van het terrein aan de rechterkant
 
+-- Vier wijken langs de straat: van marktstraat naar penthouse-wijk. Elke twee
+-- zaken schuif je een wijk op, en de omgeving wordt navenant rijker.
+local DISTRICTS = {
+	{
+		name = "Marktstraat",
+		palette = { P.brick, P.plasterWarm, P.plaster, P.teal },
+		minHeight = 24, maxHeight = 46,
+		material = Enum.Material.Brick,
+		awnings = true,
+		greenery = "tree",
+		carColor = Color3.fromRGB(108, 132, 168),
+		limo = false,
+	},
+	{
+		name = "Handelswijk",
+		palette = { Color3.fromRGB(150, 152, 158), P.brick, Color3.fromRGB(122, 128, 140), P.metalDark },
+		minHeight = 30, maxHeight = 62,
+		material = Enum.Material.Concrete,
+		awnings = false,
+		greenery = "none",
+		carColor = Color3.fromRGB(196, 196, 200),
+		limo = false,
+	},
+	{
+		name = "Pen Street",
+		palette = { Color3.fromRGB(206, 200, 186), Color3.fromRGB(120, 140, 172), Color3.fromRGB(96, 104, 126), P.plaster },
+		minHeight = 60, maxHeight = 120,
+		material = Enum.Material.Marble,
+		awnings = false,
+		greenery = "hedge",
+		carColor = Color3.fromRGB(236, 196, 60),
+		limo = false,
+	},
+	{
+		name = "Penthousewijk",
+		palette = { Color3.fromRGB(96, 124, 150), Color3.fromRGB(70, 86, 116), Color3.fromRGB(206, 178, 110), Color3.fromRGB(58, 68, 96) },
+		minHeight = 90, maxHeight = 190,
+		material = Enum.Material.Glass,
+		awnings = false,
+		greenery = "palm",
+		carColor = Color3.fromRGB(22, 22, 26),
+		limo = true,
+	},
+}
+
+local function districtOf(index: number)
+	return DISTRICTS[math.clamp(math.ceil(index / 2), 1, #DISTRICTS)]
+end
+
 local function wall(x: number, y: number, z: number, yawDeg: number): CFrame
 	return CFrame.new(x, y, z) * CFrame.Angles(0, math.rad(yawDeg), 0)
 end
@@ -150,18 +199,25 @@ local function buildStreet(root: Folder, totalLength: number, centerZ: number)
 	end
 end
 
-local function streetFurniture(root: Folder, fromZ: number, toZ: number)
+local function streetFurniture(root: Folder, fromZ: number, toZ: number, district)
 	local z = fromZ
 	local flip = false
 	while z > toZ do
 		for _, side in { -1, 1 } do
 			Scenery.lamppost(wall(side * (WALK_OUTER - 5), 1.2, z, side > 0 and 180 or 0), root)
 		end
+
+		if district.greenery == "tree" then
+			Scenery.tree(CFrame.new((flip and -1 or 1) * (WALK_OUTER - 18), 1.2, z - 22), flip and 1.1 or 1, root)
+		elseif district.greenery == "hedge" then
+			Scenery.hedge(wall((flip and -1 or 1) * (WALK_OUTER - 19), 1.2, z - 22, 90), 16, root)
+		elseif district.greenery == "palm" then
+			Scenery.palm(CFrame.new((flip and -1 or 1) * (WALK_OUTER - 18), 1.2, z - 22), root)
+		end
+
 		if flip then
-			Scenery.tree(CFrame.new(-(WALK_OUTER - 18), 1.2, z - 22), 1.1, root)
 			Scenery.bench(CFrame.new(WALK_OUTER - 20, 1.2, z - 30), root)
 		else
-			Scenery.tree(CFrame.new(WALK_OUTER - 18, 1.2, z - 24), 1, root)
 			Scenery.trashcan(CFrame.new(-(WALK_OUTER - 19), 1.2, z - 12), root)
 		end
 		flip = not flip
@@ -169,23 +225,35 @@ local function streetFurniture(root: Folder, fromZ: number, toZ: number)
 	end
 end
 
+-- Auto's langs de stoeprand, per wijk anders: bestelbus, taxi, limousine.
+local function parkedCars(root: Folder, fromZ: number, toZ: number, district)
+	local z = fromZ - 20
+	local side = 1
+	while z > toZ + 20 do
+		Scenery.car(wall(side * (ROAD_HALF - 5), 1, z, 0), district.carColor, district.limo, root)
+		side = -side
+		z -= 74
+	end
+end
+
 -- Aan de overkant van de straat: gevels waar je niet in kunt, voor de sfeer.
-local function facadeRow(root: Folder, fromZ: number, toZ: number)
-	local palette = { P.brick, P.plaster, P.plasterWarm, P.teal, Color3.fromRGB(118, 128, 150) }
+local function facadeRow(root: Folder, fromZ: number, toZ: number, district)
 	local z = fromZ
 	local i = 0
 	while z > toZ do
 		i += 1
 		local depth = 34
-		local width = 36 + math.random(0, 14)
-		local height = 28 + math.random(0, 46)
-		local color = palette[(i % #palette) + 1]
+		local width = 34 + math.random(0, 14)
+		local height = district.minHeight + math.random(0, district.maxHeight - district.minHeight)
+		local color = district.palette[(i % #district.palette) + 1]
 		local body = decor({
 			Name = "Facade",
 			Size = Vector3.new(depth, height, width),
 			CFrame = CFrame.new(-(WALK_OUTER + depth / 2), height / 2, z - width / 2),
 			Color = color,
-			Material = Enum.Material.Brick,
+			Material = district.material,
+			Transparency = district.material == Enum.Material.Glass and 0.15 or 0,
+			Reflectance = district.material == Enum.Material.Glass and 0.3 or 0,
 			CanCollide = true,
 		}, root)
 		Scenery.windows(
@@ -194,12 +262,118 @@ local function facadeRow(root: Folder, fromZ: number, toZ: number)
 			math.max(2, math.floor(width / 11)), math.max(2, math.floor(height / 12)),
 			0.4, root
 		)
-		-- winkelpui op de begane grond
+		decor({
+			Name = "FacadeCornice",
+			Size = Vector3.new(depth + 2, 2, width + 2),
+			CFrame = CFrame.new(-(WALK_OUTER + depth / 2), height, z - width / 2),
+			Color = color:Lerp(Color3.new(0, 0, 0), 0.3),
+		}, root)
+
 		Scenery.storefront(wall(-(WALK_OUTER + 0.4), 1.2, z - width / 2, 90), width * 0.6, 11, root)
-		Scenery.awning(wall(-(WALK_OUTER + 1), 13.5, z - width / 2, 90), width * 0.62, 6,
-			palette[((i + 2) % #palette) + 1], P.awningB, root)
+		if district.awnings then
+			Scenery.awning(wall(-(WALK_OUTER + 1), 13.5, z - width / 2, 90), width * 0.62, 6,
+				district.palette[((i + 2) % #district.palette) + 1], P.awningB, root)
+		else
+			-- strak afdakje in plaats van een markt-luifel
+			decor({
+				Name = "Canopy",
+				Size = Vector3.new(7, 1, width * 0.64),
+				CFrame = CFrame.new(-(WALK_OUTER + 2.5), 14.5, z - width / 2),
+				Color = P.metalDark,
+				Material = Enum.Material.Metal,
+			}, root)
+		end
 		z -= width + 6
 	end
+end
+
+-- Kenmerken die alleen in een bepaalde wijk staan.
+local function districtProps(root: Folder, centerZ: number, district, index: number)
+	if district.name == "Marktstraat" then
+		for _, dz in { -30, 10 } do
+			local counter = decor({
+				Name = "MarketStall",
+				Size = Vector3.new(8, 5, 14),
+				CFrame = CFrame.new(-(WALK_OUTER - 9), 3.9, centerZ + dz),
+				Color = P.wood,
+				Material = Enum.Material.WoodPlanks,
+				CanCollide = true,
+			}, root)
+			Scenery.awning(wall(-(WALK_OUTER - 13), 12, centerZ + dz, 90), 14, 6, P.awningA, P.awningB, root)
+			Scenery.crate(CFrame.new(-(WALK_OUTER - 6), 1.2, centerZ + dz + 10), 3.5, root)
+			counter.Name = "MarketStall"
+		end
+	elseif district.name == "Handelswijk" then
+		for i = 1, 5 do
+			Scenery.crate(CFrame.new(-(WALK_OUTER - 8) + (i % 2) * 5, 1.2, centerZ - 30 + i * 9), 4.5, root)
+		end
+		decor({
+			Name = "WaterTower",
+			Size = Vector3.new(14, 16, 14),
+			CFrame = CFrame.new(-(WALK_OUTER + 20), 58, centerZ - 10),
+			Color = P.woodDark,
+			Material = Enum.Material.WoodPlanks,
+		}, root)
+		for _, dx in { -5, 5 } do
+			for _, dz in { -5, 5 } do
+				decor({
+					Name = "TowerLeg",
+					Size = Vector3.new(1.4, 14, 1.4),
+					CFrame = CFrame.new(-(WALK_OUTER + 20) + dx, 43, centerZ - 10 + dz),
+					Color = P.woodDark,
+				}, root)
+			end
+		end
+	elseif district.name == "Pen Street" then
+		-- beurszuil met koersen
+		local pillar = decor({
+			Name = "TickerPillar",
+			Size = Vector3.new(6, 26, 6),
+			CFrame = CFrame.new(-(WALK_OUTER - 8), 14, centerZ),
+			Color = Color3.fromRGB(32, 34, 44),
+			Material = Enum.Material.Metal,
+			CanCollide = true,
+		}, root)
+		Scenery.wallText(wall(-(WALK_OUTER - 11.2), 20, centerZ, 90), 12, 5,
+			"PEN  +12.4%", Color3.fromRGB(120, 255, 150), root)
+		pillar.Name = "TickerPillar"
+		for _, dz in { -26, 26 } do
+			decor({
+				Name = "Column",
+				Size = Vector3.new(5, 26, 5),
+				CFrame = CFrame.new(-(WALK_OUTER + 4), 14, centerZ + dz),
+				Color = P.plaster,
+				Material = Enum.Material.Marble,
+				CanCollide = true,
+			}, root)
+		end
+	else
+		-- penthousewijk: rode loper, gouden paaltjes, palmen
+		Scenery.redCarpet(CFrame.new(-(WALK_OUTER - 8), 1.2, centerZ), 46, root)
+		Scenery.palm(CFrame.new(-(WALK_OUTER - 24), 1.2, centerZ + 26), root)
+		Scenery.palm(CFrame.new(-(WALK_OUTER - 24), 1.2, centerZ - 26), root)
+		decor({
+			Name = "Helipad",
+			Size = Vector3.new(30, 1.2, 30),
+			CFrame = CFrame.new(-(WALK_OUTER + 40), 120 + index * 4, centerZ),
+			Color = Color3.fromRGB(38, 40, 50),
+		}, root)
+		decor({
+			Name = "HelipadRing",
+			Size = Vector3.new(22, 1.4, 22),
+			CFrame = CFrame.new(-(WALK_OUTER + 40), 120 + index * 4, centerZ),
+			Color = P.gold,
+			Material = Enum.Material.Neon,
+			Transparency = 0.3,
+		}, root)
+	end
+end
+
+local function dressBlock(root: Folder, fromZ: number, toZ: number, district, index: number)
+	facadeRow(root, fromZ, toZ, district)
+	streetFurniture(root, fromZ, toZ, district)
+	parkedCars(root, fromZ, toZ, district)
+	districtProps(root, (fromZ + toZ) / 2, district, index)
 end
 
 -- ------------------------------------------------------------------ plein --
@@ -1252,6 +1426,42 @@ local function buildOrbit(folder: Folder, zc: number)
 	Scenery.wallText(wall(64, 46, zc, -90), 30, 7, "PEN ORBIT", Color3.fromRGB(190, 140, 255), folder)
 end
 
+-- Een zaak die je nog niet hebt vrijgespeeld is een bouwput: hekken, steigers,
+-- een kraan en een bord. De client haalt dit weg zodra jij hem opent, dus je
+-- ziet de stad meegroeien met je rebirths.
+local function buildConstruction(folder: Folder, station, zc: number)
+	local site = Instance.new("Folder")
+	site.Name = "Construction"
+	site.Parent = folder
+
+	-- hekken rond het terrein, met de opening naar de straat dicht
+	Scenery.fence(wall(30, 1.4, zc, 0), 108, site)
+	Scenery.fence(wall(PLOT_X + 8, 1.4, zc + 56, 90), 92, site)
+	Scenery.fence(wall(PLOT_X + 8, 1.4, zc - 56, 90), 92, site)
+
+	Scenery.crane(CFrame.new(PLOT_X + 34, 1.4, zc + 34), 70, site)
+	Scenery.scaffold(wall(74, 1.4, zc, -90), 50, 40, site)
+
+	for i = 1, 6 do
+		Scenery.cone(CFrame.new(33, 1.4, zc - 30 + i * 10), site)
+	end
+	Scenery.crate(CFrame.new(50, 1.4, zc + 44), 5, site)
+	Scenery.crate(CFrame.new(56, 1.4, zc + 44), 4, site)
+
+	decor({
+		Name = "SiteHut",
+		Size = Vector3.new(12, 9, 20),
+		CFrame = CFrame.new(46, 6.4, zc - 44),
+		Color = Color3.fromRGB(216, 176, 60),
+		Material = Enum.Material.Metal,
+		CanCollide = true,
+	}, site)
+
+	Scenery.wallText(wall(29, 18, zc, -90), 26, 10,
+		string.format("IN AANBOUW\n<font size=\"30\">%s opent na rebirth %d</font>",
+			station.name, station.unlockRebirth), Color3.fromRGB(255, 200, 80), site)
+end
+
 local BUILDERS: { [string]: (Folder, number) -> () } = {
 	kraam = buildKraam,
 	winkel = buildWinkel,
@@ -1314,8 +1524,8 @@ function World.build(): Folder
 		end
 	end
 
-	streetFurniture(root, 4, lastZ - 90)
-	facadeRow(root, 10, lastZ - 90)
+	-- het stuk tussen het plein en de eerste zaak
+	dressBlock(root, 6, World.FIRST_BLOCK_Z + 60, DISTRICTS[1], 0)
 
 	for index, station in Config.Stations do
 		local folder, zc = stationShell(root, station, index)
@@ -1325,6 +1535,12 @@ function World.build(): Folder
 		end
 		stationProps(folder, station, zc,
 			station.unlockRebirth == 0 and Color3.fromRGB(120, 255, 150) or Color3.fromRGB(200, 120, 255))
+
+		local district = districtOf(index)
+		dressBlock(root, zc + 59, zc - 61, district, index)
+		if station.unlockRebirth > 0 then
+			buildConstruction(folder, station, zc)
+		end
 	end
 
 	-- stad eromheen: eerst een dichte band vlak achter de gevels, daarachter

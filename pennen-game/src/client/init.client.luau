@@ -701,6 +701,41 @@ local function syncVisitors()
 	end
 end
 
+-- ------------------------------------------------------- bouwputten weg ---
+-- Zaken die jij nog niet hebt vrijgespeeld staan in de steigers. Zodra jij ze
+-- opent haalt de client de bouwput weg - alleen voor jou, want rebirths zijn
+-- persoonlijk en de wereld is gedeeld.
+
+local hiddenSites: { [string]: { folder: Instance, parent: Instance } } = {}
+
+local function syncConstruction()
+	if not state then
+		return
+	end
+	local world = workspace:FindFirstChild("PenWorld")
+	if not world then
+		return
+	end
+	for _, station in state.stations do
+		local stationFolder = world:FindFirstChild("Station_" .. station.key)
+		if stationFolder then
+			if station.unlocked then
+				local site = stationFolder:FindFirstChild("Construction")
+				if site then
+					hiddenSites[station.key] = { folder = site, parent = stationFolder }
+					site.Parent = nil
+				end
+			else
+				local hidden = hiddenSites[station.key]
+				if hidden and not hidden.folder.Parent then
+					hidden.folder.Parent = hidden.parent
+					hiddenSites[station.key] = nil
+				end
+			end
+		end
+	end
+end
+
 -- ---------------------------------------------------------------- tekenen --
 
 local function renderPets()
@@ -1081,10 +1116,19 @@ Net.event("StateChanged").OnClientEvent:Connect(function(newState)
 	state = newState
 	render()
 	syncVisitors()
+	syncConstruction()
 end)
 
 Net.event("Notify").OnClientEvent:Connect(function(message, color)
 	showToast(message, color or WHITE)
+end)
+
+-- de wereld kan later inladen (StreamingEnabled), dus blijven kijken
+task.spawn(function()
+	while true do
+		task.wait(4)
+		syncConstruction()
+	end
 end)
 
 -- pitch-timer

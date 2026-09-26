@@ -97,6 +97,17 @@ Licht en sfeer worden ook door de code gezet: Atmosphere, Bloom, kleurcorrectie,
 en een middagstand van de zon. Eén ding kan een script niet: zet in Studio bij **Lighting**
 de eigenschap **Technology** op **Future** (of ShadowMap) voor echte schaduwen.
 
+**Vier wijken.** Hoe verder je komt, hoe rijker de stad. Elke twee zaken schuif je een
+wijk op: marktstraat met kraampjes en luifels, dan de handelswijk met loodsen, kratten en
+een watertoren, dan Pen Street met marmeren kantoren, zuilen, een koersenzuil en gele
+taxi's, en tot slot de penthousewijk met glazen torens, rode lopers, palmen, limousines en
+helikopterdeks. Ook de auto's langs de stoeprand veranderen mee.
+
+**Bouwputten.** Een zaak die jij nog niet hebt vrijgespeeld staat in de steigers: bouwhekken,
+een kraan, pionnen, een keet en een bord "opent na rebirth 3". Zodra jij hem opent haalt de
+client die bouwput weg - alleen voor jou, want de wereld is gedeeld maar rebirths zijn
+persoonlijk. Zo zie je de stad met je meegroeien.
+
 Onderweg lopen kost tijd, dus er is een **Reizen**-knop: die brengt je direct naar elke
 zaak die je al geopend hebt.
 
@@ -132,7 +143,7 @@ schaduwen en neon-gloed ontbreken. In Roblox ziet het er zachter uit.
 | `tools/bundle.py` | maakt `dist/` opnieuw na een wijziging in `src/` |
 | `test/run.py` | speelt de game na met een nagemaakte Roblox-API (57 controles) |
 | `test/balance.py` | simuleert hoe lang rebirths duren |
-| `tools/preview.py` | tekent de map als plaatjes in `preview/` |
+| `tools/preview.py` | tekent de map als plaatjes en plattegronden in `preview/` |
 | `default.project.json` | Rojo-project |
 
 De map wordt met code gebouwd, dus in Studio hoef je niets te bouwen: leeg

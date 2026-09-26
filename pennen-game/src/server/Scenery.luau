@@ -496,6 +496,202 @@ function Scenery.skyline(origin: Vector3, spacing: number, count: number, facing
 	end
 end
 
+-- ------------------------------------------------------------- bouwplaats --
+
+function Scenery.fence(cf: CFrame, length: number, parent: Instance)
+	local panels = math.max(1, math.floor(length / 10))
+	local panelW = length / panels
+	for i = 1, panels do
+		local x = -length / 2 + panelW * (i - 0.5)
+		Scenery.decor({
+			Name = "FencePanel",
+			Size = Vector3.new(panelW - 0.6, 9, 0.4),
+			CFrame = cf * CFrame.new(x, 4.6, 0),
+			Color = Color3.fromRGB(216, 176, 60),
+			Material = Enum.Material.Metal,
+			Transparency = 0.15,
+			CanCollide = true,
+		}, parent)
+		Scenery.decor({
+			Name = "FenceFoot",
+			Size = Vector3.new(2.4, 1, 3),
+			CFrame = cf * CFrame.new(x - panelW / 2 + 0.6, 0.5, 0),
+			Color = Color3.fromRGB(56, 58, 66),
+		}, parent)
+	end
+end
+
+function Scenery.crane(cf: CFrame, height: number, parent: Instance)
+	Scenery.decor({
+		Name = "CraneBase",
+		Size = Vector3.new(10, 2, 10),
+		CFrame = cf * CFrame.new(0, 1, 0),
+		Color = P.metalDark,
+		CanCollide = true,
+	}, parent)
+	Scenery.decor({
+		Name = "CraneMast",
+		Size = Vector3.new(4, height, 4),
+		CFrame = cf * CFrame.new(0, height / 2 + 2, 0),
+		Color = Color3.fromRGB(226, 150, 40),
+		Material = Enum.Material.Metal,
+	}, parent)
+	Scenery.decor({
+		Name = "CraneJib",
+		Size = Vector3.new(52, 2.4, 2.4),
+		CFrame = cf * CFrame.new(16, height + 3, 0),
+		Color = Color3.fromRGB(226, 150, 40),
+		Material = Enum.Material.Metal,
+	}, parent)
+	Scenery.decor({
+		Name = "CraneCounter",
+		Size = Vector3.new(8, 4, 4),
+		CFrame = cf * CFrame.new(-12, height + 3, 0),
+		Color = P.metalDark,
+	}, parent)
+	Scenery.decor({
+		Name = "CraneCable",
+		Size = Vector3.new(0.4, height * 0.5, 0.4),
+		CFrame = cf * CFrame.new(32, height + 3 - height * 0.25, 0),
+		Color = Color3.fromRGB(40, 40, 46),
+	}, parent)
+	Scenery.decor({
+		Name = "CraneHook",
+		Size = Vector3.new(4, 3, 4),
+		CFrame = cf * CFrame.new(32, height + 3 - height * 0.5, 0),
+		Color = P.metal,
+		Material = Enum.Material.Metal,
+	}, parent)
+end
+
+function Scenery.scaffold(cf: CFrame, width: number, height: number, parent: Instance)
+	local levels = math.max(2, math.floor(height / 9))
+	for level = 1, levels do
+		Scenery.decor({
+			Name = "ScaffoldDeck",
+			Size = Vector3.new(width, 0.5, 4),
+			CFrame = cf * CFrame.new(0, level * 9, 0),
+			Color = P.wood,
+			Material = Enum.Material.WoodPlanks,
+		}, parent)
+		Scenery.decor({
+			Name = "ScaffoldRail",
+			Size = Vector3.new(width, 0.4, 0.4),
+			CFrame = cf * CFrame.new(0, level * 9 + 3, 1.8),
+			Color = P.metal,
+			Material = Enum.Material.Metal,
+		}, parent)
+	end
+	local posts = math.max(2, math.floor(width / 10))
+	for i = 0, posts do
+		Scenery.decor({
+			Name = "ScaffoldPost",
+			Size = Vector3.new(0.5, levels * 9 + 2, 0.5),
+			CFrame = cf * CFrame.new(-width / 2 + (width / posts) * i, (levels * 9) / 2 + 1, 0),
+			Color = P.metal,
+			Material = Enum.Material.Metal,
+		}, parent)
+	end
+end
+
+function Scenery.cone(cf: CFrame, parent: Instance)
+	Scenery.decor({
+		Name = "ConeBase",
+		Size = Vector3.new(2.4, 0.4, 2.4),
+		CFrame = cf * CFrame.new(0, 0.2, 0),
+		Color = Color3.fromRGB(240, 110, 40),
+	}, parent)
+	Scenery.decor({
+		Name = "ConeBody",
+		Size = Vector3.new(1.2, 3, 1.2),
+		CFrame = cf * CFrame.new(0, 1.7, 0),
+		Color = Color3.fromRGB(240, 110, 40),
+	}, parent)
+end
+
+-- --------------------------------------------------------------- voertuig --
+
+function Scenery.car(cf: CFrame, color: Color3, long: boolean, parent: Instance)
+	local length = long and 30 or 17
+	Scenery.decor({
+		Name = "CarBody",
+		Size = Vector3.new(7, 3.4, length),
+		CFrame = cf * CFrame.new(0, 2.6, 0),
+		Color = color,
+		Material = Enum.Material.Metal,
+		CanCollide = true,
+	}, parent)
+	Scenery.decor({
+		Name = "CarCabin",
+		Size = Vector3.new(6.4, 3, length * 0.42),
+		CFrame = cf * CFrame.new(0, 5.6, long and -2 or 0),
+		Color = Color3.fromRGB(40, 44, 56),
+		Material = Enum.Material.Glass,
+		Transparency = 0.35,
+		Reflectance = 0.3,
+	}, parent)
+	for _, dz in { length / 2 - 3.5, -(length / 2 - 3.5) } do
+		for _, dx in { -3.4, 3.4 } do
+			Scenery.cylinder({
+				Name = "CarWheel",
+				Size = Vector3.new(1.6, 3.2, 3.2),
+				CFrame = cf * CFrame.new(dx, 1.6, dz) * CFrame.Angles(0, 0, math.rad(90)),
+				Color = Color3.fromRGB(28, 28, 32),
+			}, parent)
+		end
+	end
+	Scenery.decor({
+		Name = "CarLight",
+		Size = Vector3.new(5, 0.8, 0.4),
+		CFrame = cf * CFrame.new(0, 3, length / 2),
+		Color = Color3.fromRGB(255, 240, 190),
+		Material = Enum.Material.Neon,
+	}, parent)
+end
+
+function Scenery.palm(cf: CFrame, parent: Instance)
+	for i = 1, 6 do
+		Scenery.decor({
+			Name = "PalmTrunk",
+			Size = Vector3.new(1.6, 3, 1.6),
+			CFrame = cf * CFrame.new(i * 0.25, i * 3 - 1.5, 0),
+			Color = Color3.fromRGB(150, 122, 86),
+		}, parent)
+	end
+	for i = 1, 6 do
+		local angle = (i / 6) * math.pi * 2
+		Scenery.decor({
+			Name = "PalmLeaf",
+			Size = Vector3.new(10, 0.4, 3),
+			CFrame = cf * CFrame.new(1.5 + math.cos(angle) * 4, 18, math.sin(angle) * 4)
+				* CFrame.Angles(0, -angle, math.rad(-12)),
+			Color = Color3.fromRGB(78, 148, 78),
+		}, parent)
+	end
+end
+
+function Scenery.redCarpet(cf: CFrame, length: number, parent: Instance)
+	Scenery.decor({
+		Name = "Carpet",
+		Size = Vector3.new(14, 0.25, length),
+		CFrame = cf * CFrame.new(0, 0.15, 0),
+		Color = Color3.fromRGB(150, 28, 40),
+		Material = Enum.Material.Fabric,
+	}, parent)
+	local posts = math.max(2, math.floor(length / 14))
+	for i = 0, posts do
+		for _, dx in { -8, 8 } do
+			Scenery.decor({
+				Name = "RopePost",
+				Size = Vector3.new(1, 5, 1),
+				CFrame = cf * CFrame.new(dx, 2.5, -length / 2 + (length / posts) * i),
+				Color = P.gold,
+				Material = Enum.Material.Metal,
+			}, parent)
+		end
+	end
+end
+
 function Scenery.smoke(attachTo: BasePart, size: number, color: Color3)
 	local attachment = Instance.new("Attachment")
 	attachment.Parent = attachTo

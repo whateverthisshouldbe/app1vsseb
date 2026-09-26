@@ -90,6 +90,25 @@ def build_faces(parts, bounds, max_height=None):
         if p["transparency"] >= 0.95:
             continue
         size = list(p["size"])
+        # Hele grote vlakken (de grond, de weg) afknippen op het venster: anders
+        # schildert zo'n plaat met zijn middelpunt dichterbij alles eroverheen.
+        if abs(p["rot"][1]) < 0.01:
+            margin = 40
+            for axis, (lo, hi) in ((0, (x0 - margin, x1 + margin)), (2, (z0 - margin, z1 + margin))):
+                low = p["pos"][axis] - size[axis] / 2
+                high = p["pos"][axis] + size[axis] / 2
+                if low < lo or high > hi:
+                    low, high = max(low, lo), min(high, hi)
+                    if high <= low:
+                        size[axis] = 0
+                    else:
+                        size[axis] = high - low
+                        if axis == 0:
+                            px = (low + high) / 2
+                        else:
+                            pz = (low + high) / 2
+            if size[0] <= 0 or size[2] <= 0:
+                continue
         if max_height is not None:
             bottom = py - size[1] / 2
             top = py + size[1] / 2
@@ -237,6 +256,8 @@ def main():
         if (p := find(parts, u))
     ]
     plan(parts, ((-120, 120), (0, 160)), OUT / "6-plein-plattegrond.png", size=(1200, 800), labels=plaza_marks)
+    render(parts, ((-80, 150), (-390, -250)), OUT / "7-bouwput.png")
+    render(parts, ((-90, 160), (-880, -700)), OUT / "8-penthousewijk.png")
 
 
 if __name__ == "__main__":
