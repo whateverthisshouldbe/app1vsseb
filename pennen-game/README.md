@@ -81,38 +81,39 @@ Gesimuleerd met normaal spel (zie `test/balance.py`):
 
 Te snel of te traag? `Config.Rebirth.growth` omhoog of omlaag, en opnieuw simuleren.
 
-## De map
+## De map: acht zones
 
-Pen Street is een stadsstraat die zichzelf bouwt: een plein met een fontein (een reuzenpen
-in het water), een klokzuil, marktkraampjes voor de upgrades, een rebirth-portaal en twee
-scoreborden. Vanaf het plein loopt de straat met stoepen, lantaarns, bomen, bankjes en
-winkelpuien langs je zaken, met stadsblokken eromheen zodat je nooit op een leeg veld
-uitkijkt. Elke zaak heeft een eigen terrein met bestrating, hek, poortje en aankleding:
-de kraam heeft een gestreepte luifel en kratten, de fabriek schoorstenen met rook, silo's
-en een lopende band, de toren een glazen gevel van 150 studs met verlichte ramen, het
-penthouse een zwembad op kolommen, het jacht een haven met steiger, en Pen Orbit een
-zwevend platform met ringen en sterren.
+Elke rebirth brengt je naar een compleet andere plek. De zones liggen ver uit elkaar, dus je
+ziet er nooit twee tegelijk; je reist ertussen met de **Reizen**-knop.
 
-Licht en sfeer worden ook door de code gezet: Atmosphere, Bloom, kleurcorrectie, zonnestralen
-en een middagstand van de zon. Eén ding kan een script niet: zet in Studio bij **Lighting**
-de eigenschap **Technology** op **Future** (of ShadowMap) voor echte schaduwen.
+| # | zone | sfeer |
+|---|---|---|
+| 0 | **The Back Alley** | nacht, natte bakstenen muren, brandtrappen, neonreclame, peertjes aan kabels, containers en regen |
+| 1 | **Retail Street** | klaarlichte dag, pastelkleurige winkeltjes met luifels, trap naar een grasveld, vlaggetjes, fontein |
+| 2 | **Business District** | ochtend, natuursteen met balkons, glazen torens, taxi's, verkeerslicht, stoepen |
+| 3 | **Wall Street Exchange** | binnen: marmer, zuilenrijen, cassetteplafond, groene en rode koersborden, handelsbalies, mezzanine |
+| 4 | **Corporate Tower Lobby** | binnen: marmeren schaakbordvloer, glazen liften, balies, roltrap, logo-wand, stad achter het glas |
+| 5 | **High-Rise Penthouse** | gouden uur, houten dek, infinity pool, vuurplaats, pergola, sky bar, de stad diep beneden |
+| 6 | **Billionaire Marina** | turquoise water, houten steigers, acht superjachten, vuurtoren, palmen, bergen aan de horizon |
+| 7 | **Orbit Finance Station** | ruimte: glazen koepel, hologrammen, zonnepanelen, ringen, sterren en de aarde onder je |
 
-**Vier wijken.** Hoe verder je komt, hoe rijker de stad. Elke twee zaken schuif je een
-wijk op: marktstraat met kraampjes en luifels, dan de handelswijk met loodsen, kratten en
-een watertoren, dan Pen Street met marmeren kantoren, zuilen, een koersenzuil en gele
-taxi's, en tot slot de penthousewijk met glazen torens, rode lopers, palmen, limousines en
-helikopterdeks. Ook de auto's langs de stoeprand veranderen mee.
+**Eigen licht per zone.** De steeg staat op 22:12 met neon en mist, de winkelstraat op half
+twee 's middags, de beursvloer op koel kunstlicht, het penthouse op gouden uur en Orbit op
+middernacht. Dat regelt de client, dus andere spelers merken niets van jouw overgang. Zet in
+Studio wel **Lighting → Technology** op **Future** (of laat het Rojo doen, dat staat al in
+`default.project.json`).
 
-**Bouwputten.** Een zaak die jij nog niet hebt vrijgespeeld staat in de steigers: bouwhekken,
-een kraan, pionnen, een keet en een bord "opent na rebirth 3". Zodra jij hem opent haalt de
-client die bouwput weg - alleen voor jou, want de wereld is gedeeld maar rebirths zijn
-persoonlijk. Zo zie je de stad met je meegroeien.
+**Overal hetzelfde spelen.** In elke zone staan de werkplek, de toonbank, de drie
+bezoekersplekken, de vijf upgradekiosken, het rebirth-portaal, de pennenbak en de twee
+scoreborden op dezelfde plek ten opzichte van het midden. Je hoeft dus nooit terug te reizen
+voor een upgrade.
 
-Onderweg lopen kost tijd, dus er is een **Reizen**-knop: die brengt je direct naar elke
-zaak die je al geopend hebt.
+**Bouwputten.** Een zone die jij nog niet hebt vrijgespeeld staat vol bouwhekken, kranen,
+steigers en pionnen, met een bord "opent na rebirth 3". Zodra jij hem opent haalt de client
+die bouwput weg - alleen voor jou, want de wereld is gedeeld maar rebirths zijn persoonlijk.
 
-De hele map is ongeveer 6.600 onderdelen. Te zwaar voor oudere telefoons? Zet in
-`World.build()` de aantallen bij `Scenery.skyline(...)` lager.
+De hele map is ongeveer 12.000 onderdelen. Te zwaar voor oudere telefoons? Zet de aantallen
+in `ZoneArt.luau` lager (minder sterren, minder kratten, minder gevels).
 
 ## Vormgeving bekijken zonder Studio
 
@@ -129,7 +130,9 @@ schaduwen en neon-gloed ontbreken. In Roblox ziet het er zachter uit.
 | `src/shared/Config.luau` | **alle balans en teksten**: zaken, pennen, upgrades, klanten, pitch-argumenten, mascottes, codes, gamepasses |
 | `src/shared/Net.luau` | de RemoteEvents tussen server en client |
 | `src/server/Game.luau` | de spelregels |
-| `src/server/World.luau` | bouwt de hele map met code |
+| `src/server/World.luau` | zet de acht zones neer |
+| `src/server/Zones.luau` | werkplek, toonbank, kiosk en bouwput: in elke zone hetzelfde |
+| `src/server/ZoneArt.luau` | de architectuur van elke zone afzonderlijk |
 | `src/server/Scenery.luau` | bouwstenen voor de aankleding: gevels, luifels, lantaarns, bomen, fontein |
 | `src/server/Customers.luau` | de klanten en hun types |
 | `src/server/Visitors.luau` | bezoekers: zeldzaamheid, bestelling en aflooptijd |

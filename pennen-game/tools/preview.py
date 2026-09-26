@@ -233,31 +233,33 @@ def find(parts, name):
     return None
 
 
+ZONES = [
+    ("0-steeg", 0, 0, None),
+    ("1-winkelstraat", 0, -1700, None),
+    ("2-zakencentrum", 0, -3400, None),
+    ("3-beursvloer", 0, -5100, 44),
+    ("4-lobby", 0, -6800, 48),
+    ("5-penthouse", 700, -8500, 30),
+    ("6-jachthaven", 0, -10200, None),
+    ("7-orbit", 1800, -11800, 52),
+]
+
+
 def main():
     subprocess.run([sys.executable, str(ROOT / "tools" / "bundle.py")], check=True, capture_output=True)
     parts = collect_parts()
     print(f"{len(parts)} onderdelen in de map")
     OUT.mkdir(exist_ok=True)
-    render(parts, ((-86, 86), (2, 148)), OUT / "1-plein.png", max_height=30)
-    render(parts, ((-70, 140), (-150, -10)), OUT / "2-eerste-zaak.png", max_height=40)
-    render(parts, ((-70, 150), (-420, -170)), OUT / "3-fabriek-en-toren.png")
-    render(parts, ((-260, 300), (-1300, 200)), OUT / "4-hele-straat.png", size=(2000, 1200))
-
+    for name, y, z, cut in ZONES:
+        # de doorsnede is een absolute hoogte, dus meeschuiven met de zone
+        render(parts, ((-230, 230), (z - 270, z + 200)), OUT / f"{name}.png",
+               max_height=None if cut is None else y + cut)
     marks = []
-    for name in ("PenSpawn", "RebirthPad", "PetPad", "Press_kraam", "Sell_kraam", "Spot_kraam",
-                 "UpgradePad_capacity", "Board_cash"):
+    for name in ("PenSpawn", "Press_steeg", "Sell_steeg", "RebirthPad", "PetPad", "UpgradePad_capacity"):
         p = find(parts, name)
         if p:
             marks.append((name, p["pos"][0], p["pos"][2], name))
-    plan(parts, ((-160, 180), (-200, 170)), OUT / "5-plattegrond.png", labels=marks)
-    plaza_marks = [m for m in marks if -10 < m[2] < 160] + [
-        (u, p["pos"][0], p["pos"][2], u.replace("UpgradePad_", ""))
-        for u in ("UpgradePad_speed", "UpgradePad_charm", "UpgradePad_auto", "UpgradePad_legs")
-        if (p := find(parts, u))
-    ]
-    plan(parts, ((-120, 120), (0, 160)), OUT / "6-plein-plattegrond.png", size=(1200, 800), labels=plaza_marks)
-    render(parts, ((-80, 150), (-390, -250)), OUT / "7-bouwput.png")
-    render(parts, ((-90, 160), (-880, -700)), OUT / "8-penthousewijk.png")
+    plan(parts, ((-230, 230), (-270, 200)), OUT / "plattegrond-steeg.png", size=(1100, 1100), labels=marks)
 
 
 if __name__ == "__main__":

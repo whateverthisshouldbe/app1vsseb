@@ -85,24 +85,24 @@ local function bagCount(prof)
 end
 
 -- ------------------------------------------------------- pennen maken -----
-standOn("Press_kraam")
+standOn("Press_steeg")
 advance(30, 300)
 local capacity = math.floor(Config.getUpgrade("capacity").value(1))
 check("pennen gemaakt tot de tas vol was", bagCount(profile) == capacity,
 	string.format("pens=%d capaciteit=%d", bagCount(profile), capacity))
-check("de tas houdt bij van welke zaak de pennen zijn", profile.bag.kraam == capacity, profile.bag.kraam)
+check("de tas houdt bij van welke zaak de pennen zijn", profile.bag.steeg == capacity, profile.bag.steeg)
 
 -- de gesloten fabriek mag niets opleveren
 profile.bag = {}
-standOn("Press_fabriek")
+standOn("Press_zakencentrum")
 advance(10, 100)
 check("gesloten zaak maakt geen pennen", bagCount(profile) == 0, bagCount(profile))
 
 -- ------------------------------------------------------------- pitchen ----
-standOn("Press_kraam")
+standOn("Press_steeg")
 advance(30, 300)
 local pensBefore = bagCount(profile)
-standOn("Sell_kraam")
+standOn("Sell_steeg")
 advance(1, 10)
 
 local pitch = lastPayload("PitchStart")
@@ -118,9 +118,9 @@ check("verkochte pennen geteld", profile.totalSold == pensBefore, profile.totalS
 
 -- tweede pitch: een fout antwoord levert minder op dan een perfect antwoord
 local function pitchOnce(wantPerfect)
-	standOn("Press_kraam")
+	standOn("Press_steeg")
 	advance(30, 300)
-	standOn("Sell_kraam")
+	standOn("Sell_steeg")
 	advance(1, 10)
 	local info = lastPayload("PitchStart")
 	assert(info, "geen pitch gestart")
@@ -129,7 +129,7 @@ local function pitchOnce(wantPerfect)
 		local isGood = false
 		for _, arg in Config.PitchArguments do
 			if arg.text == optionText and table.find(arg.good, nil) == nil then
-				isGood = table.find(arg.good, PEN.Customers.get("kraam").typeKey) ~= nil
+				isGood = table.find(arg.good, PEN.Customers.get("steeg").typeKey) ~= nil
 			end
 		end
 		if isGood == wantPerfect then
@@ -169,9 +169,9 @@ check("upgrades resetten na rebirth", profile.upgrades.capacity == 1 and profile
 	profile.upgrades.capacity)
 
 profile.cash = 100000
-standOn("Press_winkel")
+standOn("Press_winkelstraat")
 advance(20, 200)
-check("nieuwe zaak maakt duurdere pennen", (profile.bag.winkel or 0) > 0, profile.bag.winkel)
+check("nieuwe zaak maakt duurdere pennen", (profile.bag.winkelstraat or 0) > 0, profile.bag.winkelstraat)
 
 local state = lastPayload("StateChanged")
 check("kraam blijft passief doorlopen", state ~= nil and state.passivePerSecond > 0,
@@ -186,12 +186,12 @@ standAway()
 
 -- -------------------------------------------------------------- reizen ----
 standAway()
-remote("Travel").OnServerEvent:Fire(player, "winkel")
-local winkelPad = world:FindFirstChild("Press_winkel", true)
+remote("Travel").OnServerEvent:Fire(player, "winkelstraat")
+local winkelPad = world:FindFirstChild("Press_winkelstraat", true)
 local afstand = (root.Position - winkelPad.CFrame.Position).Magnitude
 check("reizen brengt je bij de geopende zaak", afstand < 12, afstand)
 
-remote("Travel").OnServerEvent:Fire(player, "jacht")
+remote("Travel").OnServerEvent:Fire(player, "jachthaven")
 local naLocked = (root.Position - winkelPad.CFrame.Position).Magnitude
 check("reizen naar een gesloten zaak doet niets", naLocked == afstand, naLocked)
 
@@ -221,7 +221,7 @@ check("dagbeloning niet twee keer op een dag", profile.cash == cashAfterDaily, p
 
 -- ------------------------------------------------------- opslaan/laden ----
 profile.cash = 123456
-profile.bag = { winkel = 3 }
+profile.bag = { winkelstraat = 3 }
 local saved = PEN.Data.save(player)
 check("profiel opgeslagen", saved == true)
 

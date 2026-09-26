@@ -701,6 +701,74 @@ local function syncVisitors()
 	end
 end
 
+-- ------------------------------------------------------ sfeer per zone ----
+-- Elke zone heeft zijn eigen licht: de steeg is nacht met neon, de
+-- winkelstraat is klaarlichte dag, de beursvloer koel kunstlicht. Dit doet de
+-- client, dus andere spelers merken er niets van.
+
+local Lighting = game:GetService("Lighting")
+local currentZone: string? = nil
+
+local function applyZoneLighting(station)
+	local L = station.lighting
+	if not L then
+		return
+	end
+	local info = TweenInfo.new(1.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	TweenService:Create(Lighting, info, {
+		ClockTime = L.clockTime,
+		Brightness = L.brightness,
+		Ambient = L.ambient,
+		OutdoorAmbient = L.outdoor,
+		FogEnd = L.fog,
+		FogColor = L.fogColor,
+	}):Play()
+
+	local atmosphere = Lighting:FindFirstChild("PenAtmosphere")
+	if atmosphere then
+		TweenService:Create(atmosphere, info, {
+			Density = L.density,
+			Haze = L.haze,
+			Glare = L.glare or 0.3,
+			Color = L.fogColor,
+		}):Play()
+	end
+	local grade = Lighting:FindFirstChild("PenGrade")
+	if grade then
+		TweenService:Create(grade, info, {
+			TintColor = L.tint,
+			Saturation = L.saturation,
+		}):Play()
+	end
+end
+
+local function zoneAt(position: Vector3)
+	local best, bestDistance = nil, math.huge
+	for _, station in Config.Stations do
+		local o = station.origin
+		local flat = (Vector3.new(position.X, 0, position.Z) - Vector3.new(o.X, 0, o.Z)).Magnitude
+		local height = math.abs(position.Y - o.Y)
+		if flat < station.radius + 220 and height < 520 and flat < bestDistance then
+			best, bestDistance = station, flat
+		end
+	end
+	return best
+end
+
+task.spawn(function()
+	while true do
+		task.wait(0.5)
+		local character = player.Character
+		local root = character and character:FindFirstChild("HumanoidRootPart")
+		local position = root and root:IsA("BasePart") and root.Position or workspace.CurrentCamera.CFrame.Position
+		local station = zoneAt(position)
+		if station and station.key ~= currentZone then
+			currentZone = station.key
+			applyZoneLighting(station)
+		end
+	end
+end)
+
 -- ------------------------------------------------------- bouwputten weg ---
 -- Zaken die jij nog niet hebt vrijgespeeld staan in de steigers. Zodra jij ze
 -- opent haalt de client de bouwput weg - alleen voor jou, want rebirths zijn

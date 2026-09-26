@@ -514,78 +514,169 @@ PEN.Config = (function()
 	-- ---------------------------------------------------------------- stations --
 	-- Elke rebirth opent een nieuwe zaak. De oude blijft gewoon open en blijft
 	-- passief geld opleveren, ook als je offline bent.
+	-- Acht zones, elk met een eigen sfeer en een eigen stukje wereld. Ze liggen
+	-- ver uit elkaar zodat je er geen twee tegelijk ziet; je reist ertussen.
+	-- `lighting` wordt door de client toegepast zodra je een zone binnenloopt.
 	Config.Stations = {
 		{
-			key = "kraam",
-			name = "Pennenkraam",
-			tagline = "Eerste pen, eerste klant",
+			key = "steeg",
+			name = "The Back Alley",
+			tagline = "Onderaan de ladder, tussen de kratten",
 			unlockRebirth = 0,
 			pen = { name = "Balpen", value = 4, color = Color3.fromRGB(35, 35, 40) },
 			autoPerSecond = 0.30,
-			color = Color3.fromRGB(120, 160, 90),
+			color = Color3.fromRGB(96, 104, 120),
+			origin = Vector3.new(0, 0, 0),
+			radius = 340,
+			indoors = false,
+			lighting = {
+				clockTime = 22.2, brightness = 1.6,
+				ambient = Color3.fromRGB(42, 48, 62),
+				outdoor = Color3.fromRGB(56, 64, 84),
+				fog = 260, fogColor = Color3.fromRGB(26, 32, 44),
+				density = 0.55, haze = 2.4,
+				tint = Color3.fromRGB(198, 214, 255), saturation = -0.05,
+			},
 		},
 		{
-			key = "winkel",
-			name = "Pennenwinkel",
-			tagline = "Een echte toonbank",
+			key = "winkelstraat",
+			name = "Retail Street",
+			tagline = "Je eerste eigen plek aan de boulevard",
 			unlockRebirth = 1,
 			pen = { name = "Gelpen", value = 18, color = Color3.fromRGB(30, 110, 220) },
 			autoPerSecond = 0.34,
-			color = Color3.fromRGB(70, 130, 200),
+			origin = Vector3.new(0, 0, -1700),
+			radius = 360,
+			indoors = false,
+			color = Color3.fromRGB(240, 226, 196),
+			lighting = {
+				clockTime = 13.5, brightness = 3.1,
+				ambient = Color3.fromRGB(128, 132, 138),
+				outdoor = Color3.fromRGB(168, 176, 186),
+				fog = 1400, fogColor = Color3.fromRGB(198, 216, 232),
+				density = 0.2, haze = 0.8,
+				tint = Color3.fromRGB(255, 250, 240), saturation = 0.2,
+			},
 		},
 		{
-			key = "fabriek",
-			name = "Pennenfabriek",
-			tagline = "Lopende banden vol inkt",
+			key = "zakencentrum",
+			name = "Business District",
+			tagline = "Strakke kantoren, asfalt en glas",
 			unlockRebirth = 2,
 			pen = { name = "Marker", value = 75, color = Color3.fromRGB(230, 90, 40) },
 			autoPerSecond = 0.38,
-			color = Color3.fromRGB(190, 110, 60),
+			origin = Vector3.new(0, 0, -3400),
+			radius = 400,
+			indoors = false,
+			color = Color3.fromRGB(206, 200, 186),
+			lighting = {
+				clockTime = 9.5, brightness = 2.6,
+				ambient = Color3.fromRGB(104, 108, 118),
+				outdoor = Color3.fromRGB(150, 156, 168),
+				fog = 1100, fogColor = Color3.fromRGB(186, 196, 210),
+				density = 0.34, haze = 1.4,
+				tint = Color3.fromRGB(246, 248, 255), saturation = 0.02,
+			},
 		},
 		{
-			key = "groothandel",
-			name = "Groothandel",
-			tagline = "Pallets in plaats van doosjes",
+			key = "beursvloer",
+			name = "Wall Street Exchange",
+			tagline = "Marmeren zuilen en koersborden",
 			unlockRebirth = 3,
 			pen = { name = "Vulpen", value = 290, color = Color3.fromRGB(150, 120, 60) },
 			autoPerSecond = 0.42,
-			color = Color3.fromRGB(150, 150, 160),
+			origin = Vector3.new(0, 0, -5100),
+			radius = 360,
+			indoors = true,
+			color = Color3.fromRGB(226, 220, 206),
+			lighting = {
+				clockTime = 15, brightness = 1.2,
+				ambient = Color3.fromRGB(92, 96, 108),
+				outdoor = Color3.fromRGB(60, 64, 76),
+				fog = 420, fogColor = Color3.fromRGB(28, 34, 44),
+				density = 0.1, haze = 0.4,
+				tint = Color3.fromRGB(226, 240, 255), saturation = 0.06,
+			},
 		},
 		{
-			key = "toren",
-			name = "Pen Street Toren",
-			tagline = "Handelaren in pak, telefoons roodgloeiend",
+			key = "lobby",
+			name = "Corporate Tower Lobby",
+			tagline = "Marmer, glazen liften en designbalies",
 			unlockRebirth = 4,
 			pen = { name = "Zilveren pen", value = 1100, color = Color3.fromRGB(190, 195, 205) },
 			autoPerSecond = 0.46,
-			color = Color3.fromRGB(90, 110, 150),
+			origin = Vector3.new(0, 0, -6800),
+			radius = 340,
+			indoors = true,
+			color = Color3.fromRGB(238, 234, 226),
+			lighting = {
+				clockTime = 17.5, brightness = 1.4,
+				ambient = Color3.fromRGB(112, 110, 106),
+				outdoor = Color3.fromRGB(96, 98, 104),
+				fog = 500, fogColor = Color3.fromRGB(52, 50, 48),
+				density = 0.12, haze = 0.5,
+				tint = Color3.fromRGB(255, 246, 228), saturation = 0.05,
+			},
 		},
 		{
 			key = "penthouse",
-			name = "Penthouse",
-			tagline = "Onderhandelen met uitzicht",
+			name = "High-Rise Penthouse",
+			tagline = "Infinity pool boven de stad",
 			unlockRebirth = 5,
 			pen = { name = "Gouden pen", value = 4200, color = Color3.fromRGB(235, 190, 60) },
 			autoPerSecond = 0.50,
-			color = Color3.fromRGB(210, 170, 70),
+			origin = Vector3.new(0, 700, -8500),
+			radius = 420,
+			indoors = false,
+			color = Color3.fromRGB(226, 212, 186),
+			lighting = {
+				clockTime = 18.4, brightness = 2.8,
+				ambient = Color3.fromRGB(122, 108, 102),
+				outdoor = Color3.fromRGB(176, 158, 142),
+				fog = 2200, fogColor = Color3.fromRGB(238, 196, 160),
+				density = 0.42, haze = 2, glare = 0.6,
+				tint = Color3.fromRGB(255, 234, 206), saturation = 0.18,
+			},
 		},
 		{
-			key = "jacht",
-			name = "Penjacht",
-			tagline = "De deal sluiten op open zee",
+			key = "jachthaven",
+			name = "Billionaire Marina",
+			tagline = "Steigers, turquoise water en superjachten",
 			unlockRebirth = 6,
 			pen = { name = "Diamanten pen", value = 16000, color = Color3.fromRGB(120, 230, 235) },
 			autoPerSecond = 0.55,
-			color = Color3.fromRGB(80, 200, 220),
+			origin = Vector3.new(0, 0, -10200),
+			radius = 520,
+			indoors = false,
+			color = Color3.fromRGB(240, 238, 232),
+			lighting = {
+				clockTime = 17.2, brightness = 3,
+				ambient = Color3.fromRGB(134, 136, 140),
+				outdoor = Color3.fromRGB(184, 190, 196),
+				fog = 2600, fogColor = Color3.fromRGB(226, 214, 196),
+				density = 0.3, haze = 1.4, glare = 0.4,
+				tint = Color3.fromRGB(255, 244, 226), saturation = 0.24,
+			},
 		},
 		{
 			key = "orbit",
-			name = "Pen Orbit",
-			tagline = "Pennen die ook in nul zwaartekracht schrijven",
+			name = "Orbit Finance Station",
+			tagline = "Hoofdkantoor in een baan om de aarde",
 			unlockRebirth = 7,
 			pen = { name = "Sterrenpen", value = 62000, color = Color3.fromRGB(180, 110, 240) },
 			autoPerSecond = 0.60,
+			origin = Vector3.new(0, 1800, -11800),
+			radius = 420,
+			indoors = true,
 			color = Color3.fromRGB(150, 100, 230),
+			lighting = {
+				clockTime = 0, brightness = 1,
+				ambient = Color3.fromRGB(28, 30, 46),
+				outdoor = Color3.fromRGB(18, 20, 34),
+				fog = 900, fogColor = Color3.fromRGB(6, 8, 18),
+				density = 0.05, haze = 0,
+				tint = Color3.fromRGB(216, 226, 255), saturation = -0.1,
+			},
 		},
 	}
 
@@ -2108,666 +2199,240 @@ PEN.Scenery = (function()
 	return Scenery
 end)()
 
-PEN.World = (function()
+PEN.Zones = (function()
 	--!strict
-	-- Bouwt Pen Street: een plein met fontein, een straat met stoepen, lantaarns
-	-- en bomen, en per rebirth een eigen zaak langs die straat. Alles met code.
-
-	local Lighting = game:GetService("Lighting")
-	local Workspace = game:GetService("Workspace")
+	-- De acht zones. Elke zone staat op zijn eigen plek in de wereld, heeft zijn
+	-- eigen architectuur en zijn eigen licht (dat zet de client). De werkplek, de
+	-- toonbank, de bezoekersplekken en de kiosk staan in elke zone op dezelfde
+	-- plaats ten opzichte van het middelpunt, zodat spelen overal hetzelfde voelt.
 
 	local Config = PEN.Config
 	local Scenery = PEN.Scenery
 
-	local World = {}
+	local Zones = {}
 
 	local P = Scenery.Palette
 	local part = Scenery.part
 	local decor = Scenery.decor
 
-	World.BLOCK_SPACING = 120
-	World.FIRST_BLOCK_Z = -80
+	-- vaste plekken binnen een zone
+	Zones.PRESS = Vector3.new(-46, 0, 26)
+	Zones.SELL = Vector3.new(40, 0, 26)
+	Zones.COUNTER = Vector3.new(52, 0, 26)
+	Zones.SPOT = Vector3.new(62, 0, 26)
+	Zones.VISITORS = { Vector3.new(-14, 0, -18), Vector3.new(6, 0, -24), Vector3.new(26, 0, -14) }
+	Zones.KIOSK_Z = -76
+	Zones.REBIRTH = Vector3.new(0, 0, -112)
+	Zones.PET = Vector3.new(74, 0, -76)
+	Zones.BOARDS = { Vector3.new(-52, 16, -124), Vector3.new(52, 16, -124) }
 
-	local ROAD_HALF = 15
-	local WALK_OUTER = 32
-	local PLOT_X = 70 -- midden van het terrein aan de rechterkant
-
-	-- Vier wijken langs de straat: van marktstraat naar penthouse-wijk. Elke twee
-	-- zaken schuif je een wijk op, en de omgeving wordt navenant rijker.
-	local DISTRICTS = {
-		{
-			name = "Marktstraat",
-			palette = { P.brick, P.plasterWarm, P.plaster, P.teal },
-			minHeight = 24, maxHeight = 46,
-			material = Enum.Material.Brick,
-			awnings = true,
-			greenery = "tree",
-			carColor = Color3.fromRGB(108, 132, 168),
-			limo = false,
-		},
-		{
-			name = "Handelswijk",
-			palette = { Color3.fromRGB(150, 152, 158), P.brick, Color3.fromRGB(122, 128, 140), P.metalDark },
-			minHeight = 30, maxHeight = 62,
-			material = Enum.Material.Concrete,
-			awnings = false,
-			greenery = "none",
-			carColor = Color3.fromRGB(196, 196, 200),
-			limo = false,
-		},
-		{
-			name = "Pen Street",
-			palette = { Color3.fromRGB(206, 200, 186), Color3.fromRGB(120, 140, 172), Color3.fromRGB(96, 104, 126), P.plaster },
-			minHeight = 60, maxHeight = 120,
-			material = Enum.Material.Marble,
-			awnings = false,
-			greenery = "hedge",
-			carColor = Color3.fromRGB(236, 196, 60),
-			limo = false,
-		},
-		{
-			name = "Penthousewijk",
-			palette = { Color3.fromRGB(96, 124, 150), Color3.fromRGB(70, 86, 116), Color3.fromRGB(206, 178, 110), Color3.fromRGB(58, 68, 96) },
-			minHeight = 90, maxHeight = 190,
-			material = Enum.Material.Glass,
-			awnings = false,
-			greenery = "palm",
-			carColor = Color3.fromRGB(22, 22, 26),
-			limo = true,
-		},
-	}
-
-	local function districtOf(index: number)
-		return DISTRICTS[math.clamp(math.ceil(index / 2), 1, #DISTRICTS)]
+	local function at(origin: Vector3, offset: Vector3, yawDeg: number?): CFrame
+		local cf = CFrame.new(origin + offset)
+		if yawDeg then
+			cf = cf * CFrame.Angles(0, math.rad(yawDeg), 0)
+		end
+		return cf
 	end
 
-	local function wall(x: number, y: number, z: number, yawDeg: number): CFrame
-		return CFrame.new(x, y, z) * CFrame.Angles(0, math.rad(yawDeg), 0)
-	end
-
-	local function blockZ(index: number): number
-		return World.FIRST_BLOCK_Z - (index - 1) * World.BLOCK_SPACING
-	end
-
-	-- ------------------------------------------------------------------ licht --
-
-	local function setupLighting()
-		pcall(function()
-			Lighting.Technology = Enum.Technology.Future
-		end)
-		Lighting.ClockTime = 16.2
-		Lighting.GeographicLatitude = 24
-		Lighting.Brightness = 2.4
-		Lighting.Ambient = Color3.fromRGB(88, 90, 100)
-		Lighting.OutdoorAmbient = Color3.fromRGB(132, 134, 144)
-		Lighting.EnvironmentDiffuseScale = 0.55
-		Lighting.EnvironmentSpecularScale = 0.45
-		Lighting.ExposureCompensation = 0.15
-		Lighting.GlobalShadows = true
-		Lighting.FogEnd = 1400
-
-		for _, old in Lighting:GetChildren() do
-			if old:IsA("Atmosphere") or old:IsA("BloomEffect") or old:IsA("ColorCorrectionEffect")
-				or old:IsA("SunRaysEffect") or old:IsA("Sky") then
-				old:Destroy()
-			end
-		end
-
-		local sky = Instance.new("Sky")
-		sky.Name = "PenSky"
-		sky.SunAngularSize = 14
-		sky.Parent = Lighting
-
-		local atmosphere = Instance.new("Atmosphere")
-		atmosphere.Density = 0.32
-		atmosphere.Offset = 0.15
-		atmosphere.Color = Color3.fromRGB(202, 199, 194)
-		atmosphere.Decay = Color3.fromRGB(106, 112, 125)
-		atmosphere.Glare = 0.3
-		atmosphere.Haze = 1.7
-		atmosphere.Parent = Lighting
-
-		local bloom = Instance.new("BloomEffect")
-		bloom.Intensity = 0.5
-		bloom.Size = 24
-		bloom.Threshold = 1.05
-		bloom.Parent = Lighting
-
-		local grade = Instance.new("ColorCorrectionEffect")
-		grade.Saturation = 0.14
-		grade.Contrast = 0.09
-		grade.TintColor = Color3.fromRGB(255, 249, 240)
-		grade.Parent = Lighting
-
-		local rays = Instance.new("SunRaysEffect")
-		rays.Intensity = 0.06
-		rays.Spread = 0.9
-		rays.Parent = Lighting
-	end
-
-	-- ----------------------------------------------------------- straat/stoep --
-
-	local function buildStreet(root: Folder, totalLength: number, centerZ: number)
-		decor({
-			Name = "Ground",
-			Size = Vector3.new(660, 2, totalLength + 260),
-			CFrame = CFrame.new(35, -1, centerZ),
-			Color = Color3.fromRGB(96, 100, 108),
-			Material = Enum.Material.Concrete,
-			CanCollide = true,
-		}, root)
-
-		-- groenstroken langs de stoepen, zodat het niet één grijze vlakte is
-		for _, side in { -1, 1 } do
-			decor({
-				Name = "Verge",
-				Size = Vector3.new(7, 1.3, totalLength + 260),
-				CFrame = CFrame.new(side * (WALK_OUTER + 3.5), 0.65, centerZ),
-				Color = P.grass,
-				Material = Enum.Material.Grass,
-				CanCollide = true,
-			}, root)
-		end
-
-		decor({
-			Name = "Road",
-			Size = Vector3.new(ROAD_HALF * 2, 0.6, totalLength + 300),
-			CFrame = CFrame.new(0, 0.3, centerZ),
-			Color = P.asphalt,
-			Material = Enum.Material.Asphalt,
-			CanCollide = true,
-		}, root)
-
-		for _, side in { -1, 1 } do
-			decor({
-				Name = "Sidewalk",
-				Size = Vector3.new(WALK_OUTER - ROAD_HALF, 1.2, totalLength + 300),
-				CFrame = CFrame.new(side * (ROAD_HALF + (WALK_OUTER - ROAD_HALF) / 2), 0.6, centerZ),
-				Color = P.sidewalk,
-				Material = Enum.Material.Concrete,
-				CanCollide = true,
-			}, root)
-			decor({
-				Name = "Curb",
-				Size = Vector3.new(1.4, 1.6, totalLength + 300),
-				CFrame = CFrame.new(side * ROAD_HALF, 0.8, centerZ),
-				Color = P.curb,
-				Material = Enum.Material.Concrete,
-				CanCollide = true,
-			}, root)
-		end
-
-		-- middenstreep
-		local stripes = math.floor((totalLength + 300) / 24)
-		for i = 0, stripes do
-			decor({
-				Name = "Line",
-				Size = Vector3.new(1.2, 0.2, 10),
-				CFrame = CFrame.new(0, 0.7, centerZ + (totalLength + 300) / 2 - i * 24),
-				Color = P.asphaltLine,
-				Material = Enum.Material.Concrete,
-			}, root)
-		end
-	end
-
-	local function streetFurniture(root: Folder, fromZ: number, toZ: number, district)
-		local z = fromZ
-		local flip = false
-		while z > toZ do
-			for _, side in { -1, 1 } do
-				Scenery.lamppost(wall(side * (WALK_OUTER - 5), 1.2, z, side > 0 and 180 or 0), root)
-			end
-
-			if district.greenery == "tree" then
-				Scenery.tree(CFrame.new((flip and -1 or 1) * (WALK_OUTER - 18), 1.2, z - 22), flip and 1.1 or 1, root)
-			elseif district.greenery == "hedge" then
-				Scenery.hedge(wall((flip and -1 or 1) * (WALK_OUTER - 19), 1.2, z - 22, 90), 16, root)
-			elseif district.greenery == "palm" then
-				Scenery.palm(CFrame.new((flip and -1 or 1) * (WALK_OUTER - 18), 1.2, z - 22), root)
-			end
-
-			if flip then
-				Scenery.bench(CFrame.new(WALK_OUTER - 20, 1.2, z - 30), root)
-			else
-				Scenery.trashcan(CFrame.new(-(WALK_OUTER - 19), 1.2, z - 12), root)
-			end
-			flip = not flip
-			z -= 46
-		end
-	end
-
-	-- Auto's langs de stoeprand, per wijk anders: bestelbus, taxi, limousine.
-	local function parkedCars(root: Folder, fromZ: number, toZ: number, district)
-		local z = fromZ - 20
-		local side = 1
-		while z > toZ + 20 do
-			Scenery.car(wall(side * (ROAD_HALF - 5), 1, z, 0), district.carColor, district.limo, root)
-			side = -side
-			z -= 74
-		end
-	end
-
-	-- Aan de overkant van de straat: gevels waar je niet in kunt, voor de sfeer.
-	local function facadeRow(root: Folder, fromZ: number, toZ: number, district)
-		local z = fromZ
-		local i = 0
-		while z > toZ do
-			i += 1
-			local depth = 34
-			local width = 34 + math.random(0, 14)
-			local height = district.minHeight + math.random(0, district.maxHeight - district.minHeight)
-			local color = district.palette[(i % #district.palette) + 1]
-			local body = decor({
-				Name = "Facade",
-				Size = Vector3.new(depth, height, width),
-				CFrame = CFrame.new(-(WALK_OUTER + depth / 2), height / 2, z - width / 2),
-				Color = color,
-				Material = district.material,
-				Transparency = district.material == Enum.Material.Glass and 0.15 or 0,
-				Reflectance = district.material == Enum.Material.Glass and 0.3 or 0,
-				CanCollide = true,
-			}, root)
-			Scenery.windows(
-				body.CFrame * CFrame.Angles(0, math.rad(90), 0) * CFrame.new(0, 2, depth / 2),
-				width * 0.8, height * 0.7,
-				math.max(2, math.floor(width / 11)), math.max(2, math.floor(height / 12)),
-				0.4, root
-			)
-			decor({
-				Name = "FacadeCornice",
-				Size = Vector3.new(depth + 2, 2, width + 2),
-				CFrame = CFrame.new(-(WALK_OUTER + depth / 2), height, z - width / 2),
-				Color = color:Lerp(Color3.new(0, 0, 0), 0.3),
-			}, root)
-
-			Scenery.storefront(wall(-(WALK_OUTER + 0.4), 1.2, z - width / 2, 90), width * 0.6, 11, root)
-			if district.awnings then
-				Scenery.awning(wall(-(WALK_OUTER + 1), 13.5, z - width / 2, 90), width * 0.62, 6,
-					district.palette[((i + 2) % #district.palette) + 1], P.awningB, root)
-			else
-				-- strak afdakje in plaats van een markt-luifel
-				decor({
-					Name = "Canopy",
-					Size = Vector3.new(7, 1, width * 0.64),
-					CFrame = CFrame.new(-(WALK_OUTER + 2.5), 14.5, z - width / 2),
-					Color = P.metalDark,
-					Material = Enum.Material.Metal,
-				}, root)
-			end
-			z -= width + 6
-		end
-	end
-
-	-- Kenmerken die alleen in een bepaalde wijk staan.
-	local function districtProps(root: Folder, centerZ: number, district, index: number)
-		if district.name == "Marktstraat" then
-			for _, dz in { -30, 10 } do
-				local counter = decor({
-					Name = "MarketStall",
-					Size = Vector3.new(8, 5, 14),
-					CFrame = CFrame.new(-(WALK_OUTER - 9), 3.9, centerZ + dz),
-					Color = P.wood,
-					Material = Enum.Material.WoodPlanks,
-					CanCollide = true,
-				}, root)
-				Scenery.awning(wall(-(WALK_OUTER - 13), 12, centerZ + dz, 90), 14, 6, P.awningA, P.awningB, root)
-				Scenery.crate(CFrame.new(-(WALK_OUTER - 6), 1.2, centerZ + dz + 10), 3.5, root)
-				counter.Name = "MarketStall"
-			end
-		elseif district.name == "Handelswijk" then
-			for i = 1, 5 do
-				Scenery.crate(CFrame.new(-(WALK_OUTER - 8) + (i % 2) * 5, 1.2, centerZ - 30 + i * 9), 4.5, root)
-			end
-			decor({
-				Name = "WaterTower",
-				Size = Vector3.new(14, 16, 14),
-				CFrame = CFrame.new(-(WALK_OUTER + 20), 58, centerZ - 10),
-				Color = P.woodDark,
-				Material = Enum.Material.WoodPlanks,
-			}, root)
-			for _, dx in { -5, 5 } do
-				for _, dz in { -5, 5 } do
-					decor({
-						Name = "TowerLeg",
-						Size = Vector3.new(1.4, 14, 1.4),
-						CFrame = CFrame.new(-(WALK_OUTER + 20) + dx, 43, centerZ - 10 + dz),
-						Color = P.woodDark,
-					}, root)
-				end
-			end
-		elseif district.name == "Pen Street" then
-			-- beurszuil met koersen
-			local pillar = decor({
-				Name = "TickerPillar",
-				Size = Vector3.new(6, 26, 6),
-				CFrame = CFrame.new(-(WALK_OUTER - 8), 14, centerZ),
-				Color = Color3.fromRGB(32, 34, 44),
-				Material = Enum.Material.Metal,
-				CanCollide = true,
-			}, root)
-			Scenery.wallText(wall(-(WALK_OUTER - 11.2), 20, centerZ, 90), 12, 5,
-				"PEN  +12.4%", Color3.fromRGB(120, 255, 150), root)
-			pillar.Name = "TickerPillar"
-			for _, dz in { -26, 26 } do
-				decor({
-					Name = "Column",
-					Size = Vector3.new(5, 26, 5),
-					CFrame = CFrame.new(-(WALK_OUTER + 4), 14, centerZ + dz),
-					Color = P.plaster,
-					Material = Enum.Material.Marble,
-					CanCollide = true,
-				}, root)
-			end
-		else
-			-- penthousewijk: rode loper, gouden paaltjes, palmen
-			Scenery.redCarpet(CFrame.new(-(WALK_OUTER - 8), 1.2, centerZ), 46, root)
-			Scenery.palm(CFrame.new(-(WALK_OUTER - 24), 1.2, centerZ + 26), root)
-			Scenery.palm(CFrame.new(-(WALK_OUTER - 24), 1.2, centerZ - 26), root)
-			decor({
-				Name = "Helipad",
-				Size = Vector3.new(30, 1.2, 30),
-				CFrame = CFrame.new(-(WALK_OUTER + 40), 120 + index * 4, centerZ),
-				Color = Color3.fromRGB(38, 40, 50),
-			}, root)
-			decor({
-				Name = "HelipadRing",
-				Size = Vector3.new(22, 1.4, 22),
-				CFrame = CFrame.new(-(WALK_OUTER + 40), 120 + index * 4, centerZ),
-				Color = P.gold,
-				Material = Enum.Material.Neon,
-				Transparency = 0.3,
-			}, root)
-		end
-	end
-
-	local function dressBlock(root: Folder, fromZ: number, toZ: number, district, index: number)
-		facadeRow(root, fromZ, toZ, district)
-		streetFurniture(root, fromZ, toZ, district)
-		parkedCars(root, fromZ, toZ, district)
-		districtProps(root, (fromZ + toZ) / 2, district, index)
-	end
-
-	-- ------------------------------------------------------------------ plein --
-
-	local function buildPlaza(root: Folder): Folder
-		local plaza = Instance.new("Folder")
-		plaza.Name = "Plaza"
-		plaza.Parent = root
-
-		decor({
-			Name = "PlazaFloor",
-			Size = Vector3.new(150, 1.4, 120),
-			CFrame = CFrame.new(0, 0.7, 66),
-			Color = P.sidewalk,
-			Material = Enum.Material.Pebble,
-			CanCollide = true,
-		}, plaza)
-
-		-- geblokte bestrating: vier tinten door elkaar, scheelt een dode vlakte
-		local tile = 15
-		for gx = -4, 4 do
-			for gz = 0, 7 do
-				local shade = ((gx + gz) % 2 == 0) and 0.06 or 0.16
-				decor({
-					Name = "Tile",
-					Size = Vector3.new(tile - 1, 0.2, tile - 1),
-					CFrame = CFrame.new(gx * tile, 1.45, 18 + gz * tile),
-					Color = P.sidewalk:Lerp(P.plasterWarm, shade),
-					Material = Enum.Material.Pebble,
-				}, plaza)
-			end
-		end
-
-		decor({
-			Name = "PlazaInlay",
-			Size = Vector3.new(46, 0.25, 46),
-			CFrame = CFrame.new(0, 1.5, 62),
-			Color = P.plasterWarm,
-			Material = Enum.Material.Marble,
-		}, plaza)
-
-		Scenery.fountain(CFrame.new(0, 1.5, 62), plaza)
-
-		-- welkomstboog over de straat
-		for _, x in { -20, 20 } do
-			decor({
-				Name = "ArchLeg",
-				Size = Vector3.new(4, 26, 4),
-				CFrame = CFrame.new(x, 13, 8),
-				Color = P.metalDark,
-				Material = Enum.Material.Metal,
-				CanCollide = true,
-			}, plaza)
-		end
-		decor({
-			Name = "ArchTop",
-			Size = Vector3.new(48, 4, 4),
-			CFrame = CFrame.new(0, 27, 8),
-			Color = P.metalDark,
-			Material = Enum.Material.Metal,
-		}, plaza)
-		Scenery.wallText(wall(0, 31, 8, 180), 42, 8, "PEN STREET", P.neonPink, plaza)
-
-		local spawn = Instance.new("SpawnLocation")
-		spawn.Name = "PenSpawn"
-		spawn.Anchored = true
-		spawn.Size = Vector3.new(16, 1, 16)
-		spawn.CFrame = CFrame.new(0, 1.9, 26)
-		spawn.Color = Color3.fromRGB(120, 200, 150)
-		spawn.Material = Enum.Material.Marble
-		spawn.Duration = 0
-		spawn.Parent = plaza
-
-		-- groen en zitjes
-		for _, spot in { Vector3.new(-34, 1.5, 34), Vector3.new(34, 1.5, 34),
-			Vector3.new(-34, 1.5, 92), Vector3.new(34, 1.5, 92) } do
-			Scenery.tree(CFrame.new(spot), 1.25, plaza)
-		end
-		Scenery.bench(CFrame.new(-22, 1.5, 44), plaza)
-		Scenery.bench(CFrame.new(22, 1.5, 44), plaza)
-		Scenery.bench(CFrame.new(-22, 1.5, 82), plaza)
-		Scenery.bench(CFrame.new(22, 1.5, 82), plaza)
-		Scenery.planter(CFrame.new(-30, 1.5, 62), plaza)
-		Scenery.planter(CFrame.new(30, 1.5, 62), plaza)
-		Scenery.trashcan(CFrame.new(-14, 1.5, 30), plaza)
-		Scenery.trashcan(CFrame.new(14, 1.5, 100), plaza)
-		for _, x in { -64, 64 } do
-			for _, z in { 30, 62, 94 } do
-				Scenery.lamppost(wall(x, 1.5, z, x > 0 and 180 or 0), plaza)
-			end
-		end
-
-		-- bankjes rond de fontein, kijkend naar het water
-		for _, spot in { { 0, 44, 0 }, { 0, 80, 180 }, { -22, 62, -90 }, { 22, 62, 90 } } do
-			Scenery.bench(wall(spot[1], 1.5, spot[2], spot[3]), plaza)
-		end
-
-		-- klokzuil als herkenningspunt bij de ingang
-		local clock = decor({
-			Name = "ClockPillar",
-			Size = Vector3.new(5, 30, 5),
-			CFrame = CFrame.new(-30, 16, 20),
-			Color = P.plaster,
-			Material = Enum.Material.Marble,
-			CanCollide = true,
-		}, plaza)
-		decor({
-			Name = "ClockFace",
-			Size = Vector3.new(7, 7, 1),
-			CFrame = CFrame.new(-30, 28, 17.4),
-			Color = P.windowLit,
+	local function pad(name: string, cf: CFrame, size: Vector3, color: Color3, label: string,
+		labelSize: number, distance: number, parent: Instance): Part
+		local p = part({
+			Name = name,
+			Size = size,
+			CFrame = cf,
+			Color = color,
 			Material = Enum.Material.Neon,
-		}, plaza)
-		decor({
-			Name = "ClockTop",
-			Size = Vector3.new(7, 2, 7),
-			CFrame = CFrame.new(-30, 32, 20),
-			Color = P.metalDark,
-		}, plaza)
-		clock.Name = "ClockPillar"
+			Transparency = 0.3,
+			CanCollide = false,
+		}, parent)
+		if label ~= "" then
+			Scenery.floatingText(p, label, size.Y / 2 + 3.5, labelSize, distance)
+		end
+		return p
+	end
 
-		-- pennenkarretje
-		decor({
-			Name = "CartBody",
-			Size = Vector3.new(12, 6, 7),
-			CFrame = CFrame.new(28, 4.5, 26),
-			Color = P.neonPink,
+	-- ---------------------------------------------------------- vaste inrichting
+
+	-- Werkbank, toonbank, bezoekersplekken: in elke zone hetzelfde, maar in de
+	-- kleuren en materialen van die zone.
+	function Zones.fixtures(folder: Folder, station, style: { bench: Color3, wood: Color3, metal: Color3 })
+		local o = station.origin
+
+		-- werkplek
+		local bench = decor({
+			Name = "WorkBench",
+			Size = Vector3.new(16, 5, 11),
+			CFrame = at(o, Zones.PRESS + Vector3.new(-12, 3.9, 0)),
+			Color = style.bench,
 			Material = Enum.Material.Metal,
 			CanCollide = true,
-		}, plaza)
-		Scenery.awning(wall(28, 11.5, 22.6, 180), 12, 5, P.awningB, P.neonPink, plaza)
-		for _, dx in { -4, 4 } do
+		}, folder)
+		decor({
+			Name = "PressArm",
+			Size = Vector3.new(4, 9, 4),
+			CFrame = at(o, Zones.PRESS + Vector3.new(-16, 10.9, 0)),
+			Color = style.metal,
+			Material = Enum.Material.Metal,
+		}, folder)
+		decor({
+			Name = "PressHead",
+			Size = Vector3.new(7, 2.4, 7),
+			CFrame = at(o, Zones.PRESS + Vector3.new(-14, 7.5, 0)),
+			Color = station.pen.color,
+			Material = Enum.Material.Metal,
+		}, folder)
+		Scenery.floatingText(bench, "<b>PENNEN MAKEN</b>", 6, 15, 60)
+
+		pad("Press_" .. station.key, at(o, Zones.PRESS + Vector3.new(0, 2, 0)), Vector3.new(16, 0.6, 14),
+			Color3.fromRGB(90, 190, 255), "ga hierop staan", 13, 42, folder)
+
+		-- toonbank
+		local counter = decor({
+			Name = "Counter",
+			Size = Vector3.new(7, 5, 20),
+			CFrame = at(o, Zones.COUNTER + Vector3.new(0, 3.9, 0)),
+			Color = style.wood,
+			Material = Enum.Material.WoodPlanks,
+			CanCollide = true,
+		}, folder)
+		decor({
+			Name = "CounterTop",
+			Size = Vector3.new(9, 0.6, 22),
+			CFrame = at(o, Zones.COUNTER + Vector3.new(0, 6.5, 0)),
+			Color = style.metal,
+			Material = Enum.Material.Metal,
+		}, folder)
+		Scenery.floatingText(counter, "<b>TOONBANK</b>", 6, 15, 60)
+
+		pad("Sell_" .. station.key, at(o, Zones.SELL + Vector3.new(0, 2, 0)), Vector3.new(14, 0.6, 20),
+			Color3.fromRGB(120, 255, 150), "verkopen", 13, 42, folder)
+
+		part({
+			Name = "Spot_" .. station.key,
+			Size = Vector3.new(4, 0.4, 4),
+			CFrame = at(o, Zones.SPOT + Vector3.new(0, 1.6, 0), -90),
+			Transparency = 1,
+			CanCollide = false,
+		}, folder)
+
+		-- uitstalrek naast de toonbank
+		decor({
+			Name = "DisplayRack",
+			Size = Vector3.new(4, 9, 12),
+			CFrame = at(o, Zones.COUNTER + Vector3.new(6, 5.9, -16)),
+			Color = style.wood,
+			Material = Enum.Material.Wood,
+			CanCollide = true,
+		}, folder)
+		for i = 1, 6 do
 			Scenery.cylinder({
-				Name = "CartWheel",
-				Size = Vector3.new(1.2, 4, 4),
-				CFrame = CFrame.new(28 + dx, 2, 29) * CFrame.Angles(0, 0, math.rad(90)),
-				Color = P.woodDark,
-			}, plaza)
-		end
-
-		-- fietsenrek
-		for i = 0, 3 do
-			decor({
-				Name = "BikeRack",
-				Size = Vector3.new(0.6, 3, 5),
-				CFrame = CFrame.new(-46, 3, 116 + i * 4),
-				Color = P.metal,
-				Material = Enum.Material.Metal,
-			}, plaza)
-		end
-
-		return plaza
-	end
-
-	local function buildKiosks(plaza: Folder)
-		-- marktkraampjes voor de upgrades, netjes op een rij langs het plein
-		local startZ = 26
-		local spacing = 22
-		for i, up in Config.Upgrades do
-			local z = startZ + (i - 1) * spacing
-			local x = -56
-
-			decor({
-				Name = "KioskCounter_" .. up.key,
-				Size = Vector3.new(10, 5, 16),
-				CFrame = CFrame.new(x, 3.9, z),
-				Color = P.wood,
-				Material = Enum.Material.WoodPlanks,
-				CanCollide = true,
-			}, plaza)
-			for _, dz in { -7, 7 } do
-				decor({
-					Name = "KioskPost",
-					Size = Vector3.new(0.8, 12, 0.8),
-					CFrame = CFrame.new(x - 3, 7.4, z + dz),
-					Color = P.woodDark,
-					Material = Enum.Material.Wood,
-				}, plaza)
-			end
-			Scenery.awning(wall(x - 3, 13.4, z, 90), 16, 7, P.awningA, P.awningB, plaza)
-			Scenery.wallText(wall(x + 5.3, 9, z, 90), 14, 4, up.name, P.gold, plaza)
-			Scenery.crate(CFrame.new(x - 4, 1.4, z + 10), 3.5, plaza)
-
-			local pad = part({
-				Name = "UpgradePad_" .. up.key,
-				Size = Vector3.new(12, 0.6, 14),
-				CFrame = CFrame.new(x + 11, 1.7, z),
-				Color = P.gold,
+				Name = "RackPen",
+				Size = Vector3.new(6, 0.9, 0.9),
+				CFrame = at(o, Zones.COUNTER + Vector3.new(4, 7 + (i % 2) * 3, -21 + i * 1.6))
+					* CFrame.Angles(0, 0, math.rad(80)),
+				Color = i % 3 == 0 and P.neonPink or (i % 3 == 1 and P.gold or P.neonCyan),
 				Material = Enum.Material.Neon,
-				Transparency = 0.3,
 				CanCollide = false,
-			}, plaza)
-			Scenery.floatingText(pad, string.format("<b>%s</b>\n%s", up.name, up.info), 4.5, 14, 50)
+			}, folder)
+		end
+
+		-- bezoekersplekken
+		for slot, offset in Zones.VISITORS do
+			part({
+				Name = string.format("VisitorSpot%d_%s", slot, station.key),
+				Size = Vector3.new(4, 0.4, 4),
+				CFrame = at(o, offset + Vector3.new(0, 1.6, 0), 180),
+				Transparency = 1,
+				CanCollide = false,
+			}, folder)
 		end
 	end
 
-	local function buildRebirthPortal(plaza: Folder)
-		local z = 112
-		for _, x in { -13, 13 } do
+	-- Kiosk met upgrades, rebirth en mascottes: elke zone heeft zijn eigen set,
+	-- zodat je nooit hoeft terug te reizen voor een upgrade.
+	function Zones.services(folder: Folder, station, style: { stand: Color3, accent: Color3 })
+		local o = station.origin
+		local spacing = 24
+		local startX = -((#Config.Upgrades - 1) * spacing) / 2
+
+		for i, up in Config.Upgrades do
+			local x = startX + (i - 1) * spacing
+			decor({
+				Name = "KioskBody_" .. up.key,
+				Size = Vector3.new(10, 7, 6),
+				CFrame = at(o, Vector3.new(x, 4.9, Zones.KIOSK_Z - 10)),
+				Color = style.stand,
+				Material = Enum.Material.Metal,
+				CanCollide = true,
+			}, folder)
+			Scenery.wallText(at(o, Vector3.new(x, 10, Zones.KIOSK_Z - 13.2), 180), 12, 4, up.name, style.accent, folder)
+			pad("UpgradePad_" .. up.key, at(o, Vector3.new(x, 2, Zones.KIOSK_Z)), Vector3.new(12, 0.6, 12),
+				P.gold, string.format("<b>%s</b>\n%s", up.name, up.info), 14, 50, folder)
+		end
+
+		-- rebirth
+		for _, dx in { -13, 13 } do
 			decor({
 				Name = "PortalLeg",
 				Size = Vector3.new(5, 30, 5),
-				CFrame = CFrame.new(x, 16, z),
+				CFrame = at(o, Zones.REBIRTH + Vector3.new(dx, 16, -12)),
 				Color = Color3.fromRGB(64, 40, 92),
 				Material = Enum.Material.Marble,
 				CanCollide = true,
-			}, plaza)
+			}, folder)
 		end
 		decor({
 			Name = "PortalTop",
 			Size = Vector3.new(31, 5, 5),
-			CFrame = CFrame.new(0, 33, z),
+			CFrame = at(o, Zones.REBIRTH + Vector3.new(0, 33, -12)),
 			Color = Color3.fromRGB(64, 40, 92),
 			Material = Enum.Material.Marble,
-		}, plaza)
+		}, folder)
 		local veil = decor({
 			Name = "PortalVeil",
 			Size = Vector3.new(21, 28, 1),
-			CFrame = CFrame.new(0, 16, z),
+			CFrame = at(o, Zones.REBIRTH + Vector3.new(0, 16, -12)),
 			Color = Color3.fromRGB(184, 108, 255),
 			Material = Enum.Material.Neon,
 			Transparency = 0.45,
-		}, plaza)
+		}, folder)
 		Scenery.sparkle(veil, Color3.fromRGB(214, 160, 255))
-		Scenery.wallText(wall(0, 37, z, 180), 30, 7, "REBIRTH", Color3.fromRGB(214, 160, 255), plaza)
+		Scenery.wallText(at(o, Zones.REBIRTH + Vector3.new(0, 37, -12), 180), 28, 6, "REBIRTH",
+			Color3.fromRGB(214, 160, 255), folder)
+		pad("RebirthPad", at(o, Zones.REBIRTH + Vector3.new(0, 2, 0)), Vector3.new(16, 0.6, 12),
+			Color3.fromRGB(200, 120, 255), "<b>REBIRTH</b>\n2 seconden blijven staan", 15, 55, folder)
 
-		local pad = part({
-			Name = "RebirthPad",
-			Size = Vector3.new(16, 0.6, 12),
-			CFrame = CFrame.new(0, 1.7, z - 12),
-			Color = Color3.fromRGB(200, 120, 255),
-			Material = Enum.Material.Neon,
-			Transparency = 0.3,
-			CanCollide = false,
-		}, plaza)
-		Scenery.floatingText(pad, "<b>REBIRTH</b>\n2 seconden blijven staan", 4.5, 15, 55)
-	end
-
-	local function buildPetStand(plaza: Folder)
-		local x, z = 56, 40
+		-- mascottes
 		decor({
 			Name = "PetStand",
 			Size = Vector3.new(12, 7, 18),
-			CFrame = CFrame.new(x, 4.9, z),
+			CFrame = at(o, Zones.PET + Vector3.new(14, 4.9, 0)),
 			Color = P.teal,
 			Material = Enum.Material.Metal,
 			CanCollide = true,
-		}, plaza)
+		}, folder)
 		decor({
 			Name = "PetTank",
 			Size = Vector3.new(10, 8, 16),
-			CFrame = CFrame.new(x, 12.4, z),
+			CFrame = at(o, Zones.PET + Vector3.new(14, 12.4, 0)),
 			Color = P.glass,
 			Material = Enum.Material.Glass,
 			Transparency = 0.5,
 			Reflectance = 0.25,
-		}, plaza)
-		for i = 1, 4 do
-			Scenery.cylinder({
-				Name = "TankPen",
-				Size = Vector3.new(5, 1, 1),
-				CFrame = CFrame.new(x - 3 + i * 1.6, 11 + (i % 2) * 2.5, z - 4 + i * 2)
-					* CFrame.Angles(0, 0, math.rad(70 + i * 8)),
-				Color = i % 2 == 0 and P.neonCyan or P.neonPink,
-				Material = Enum.Material.Neon,
-				CanCollide = false,
-			}, plaza)
-		end
-		Scenery.wallText(wall(x - 6.3, 20, z, -90), 16, 5, "PENNENBAK", P.neonCyan, plaza)
+		}, folder)
+		Scenery.wallText(at(o, Zones.PET + Vector3.new(14, 20, 0), 180), 14, 4, "PENNENBAK", P.neonCyan, folder)
+		pad("PetPad", at(o, Zones.PET + Vector3.new(0, 2, 0)), Vector3.new(12, 0.6, 14),
+			P.neonCyan, "<b>MASCOTTES</b>", 14, 50, folder)
 
-		local pad = part({
-			Name = "PetPad",
-			Size = Vector3.new(12, 0.6, 14),
-			CFrame = CFrame.new(x - 12, 1.7, z),
-			Color = P.neonCyan,
-			Material = Enum.Material.Neon,
-			Transparency = 0.3,
-			CanCollide = false,
-		}, plaza)
-		Scenery.floatingText(pad, "<b>MASCOTTES</b>", 4.5, 14, 50)
+		-- scoreborden
+		local titles = { "RIJKSTE VERKOPERS", "MEESTE REBIRTHS" }
+		local names = { "Board_cash", "Board_rebirths" }
+		for i, offset in Zones.BOARDS do
+			Zones.board(folder, names[i], at(o, offset, 180), titles[i], style.accent)
+		end
 	end
 
-	local function buildBoard(plaza: Folder, name: string, cf: CFrame, title: string)
+	function Zones.board(parent: Instance, name: string, cf: CFrame, title: string, accent: Color3)
 		for _, dx in { -11, 11 } do
 			decor({
 				Name = "BoardLeg",
@@ -2775,22 +2440,21 @@ PEN.World = (function()
 				CFrame = cf * CFrame.new(dx, -17, 0),
 				Color = P.metalDark,
 				Material = Enum.Material.Metal,
-			}, plaza)
+			}, parent)
 		end
 		local stand = decor({
 			Name = name,
 			Size = Vector3.new(26, 20, 1.6),
 			CFrame = cf,
 			Color = Color3.fromRGB(22, 24, 32),
-			Material = Enum.Material.SmoothPlastic,
-		}, plaza)
+		}, parent)
 		decor({
 			Name = "BoardEdge",
 			Size = Vector3.new(27.5, 21.5, 1),
 			CFrame = cf * CFrame.new(0, 0, -0.4),
-			Color = P.gold,
+			Color = accent,
 			Material = Enum.Material.Neon,
-		}, plaza)
+		}, parent)
 
 		local surface = Instance.new("SurfaceGui")
 		surface.Name = "Screen"
@@ -2805,7 +2469,7 @@ PEN.World = (function()
 		header.BackgroundTransparency = 1
 		header.Font = Enum.Font.GothamBlack
 		header.TextSize = 36
-		header.TextColor3 = P.gold
+		header.TextColor3 = accent
 		header.Text = title
 		header.Parent = surface
 
@@ -2824,767 +2488,1386 @@ PEN.World = (function()
 		body.Parent = surface
 	end
 
-	-- --------------------------------------------------------------- stations --
+	-- Bouwput voor een zone die je nog niet hebt vrijgespeeld.
+	function Zones.construction(folder: Folder, station)
+		local o = station.origin
+		local site = Instance.new("Folder")
+		site.Name = "Construction"
+		site.Parent = folder
 
-	local function stationShell(root: Folder, station, index: number): (Folder, number)
-		local folder = Instance.new("Folder")
-		folder.Name = "Station_" .. station.key
-		folder.Parent = root
+		Scenery.fence(at(o, Vector3.new(0, 1, 150)), 300, site)
+		Scenery.fence(at(o, Vector3.new(-150, 1, 0), 90), 300, site)
+		Scenery.fence(at(o, Vector3.new(150, 1, 0), 90), 300, site)
+		Scenery.crane(at(o, Vector3.new(-100, 0, -60)), 80, site)
+		Scenery.crane(at(o, Vector3.new(110, 0, 80)), 62, site)
+		Scenery.scaffold(at(o, Vector3.new(0, 0, -150), 180), 120, 60, site)
 
-		local zc = blockZ(index)
-
-		-- voorterrein met bestrating in blokken
+		for i = 1, 10 do
+			Scenery.cone(at(o, Vector3.new(-120 + i * 26, 0, 140)), site)
+		end
 		decor({
-			Name = "Plot",
-			Size = Vector3.new(92, 1.4, 112),
-			CFrame = CFrame.new(PLOT_X + 8, 0.7, zc),
-			Color = P.curb,
-			Material = Enum.Material.Concrete,
+			Name = "SiteHut",
+			Size = Vector3.new(14, 9, 22),
+			CFrame = at(o, Vector3.new(-120, 6.4, 120)),
+			Color = Color3.fromRGB(216, 176, 60),
+			Material = Enum.Material.Metal,
+			CanCollide = true,
+		}, site)
+		Scenery.wallText(at(o, Vector3.new(0, 22, 148), 180), 40, 14,
+			string.format("IN AANBOUW\n<font size=\"34\">%s opent na rebirth %d</font>",
+				station.name, station.unlockRebirth), Color3.fromRGB(255, 200, 80), site)
+	end
+
+	return Zones
+end)()
+
+PEN.ZoneArt = (function()
+	--!strict
+	-- De architectuur van elke zone. Zones.luau zet overal dezelfde werkplek,
+	-- toonbank en kiosk neer; dit bestand maakt de wereld eromheen.
+
+	local Config = PEN.Config
+	local Scenery = PEN.Scenery
+
+	local ZoneArt = {}
+
+	local P = Scenery.Palette
+	local decor = Scenery.decor
+
+	local function at(o: Vector3, x: number, y: number, z: number, yawDeg: number?): CFrame
+		local cf = CFrame.new(o + Vector3.new(x, y, z))
+		if yawDeg then
+			cf = cf * CFrame.Angles(0, math.rad(yawDeg), 0)
+		end
+		return cf
+	end
+
+	local function floor(folder: Folder, o: Vector3, size: Vector3, y: number, color: Color3, material: Enum.Material)
+		decor({
+			Name = "Floor",
+			Size = size,
+			CFrame = CFrame.new(o + Vector3.new(0, y, -40)),
+			Color = color,
+			Material = material,
 			CanCollide = true,
 		}, folder)
-		for gx = 0, 5 do
-			for gz = 0, 6 do
-				local shade = ((gx + gz) % 2 == 0) and 0.1 or 0.26
+	end
+
+	-- Tegelpatroon over de vloer, voor wat leven in grote vlakken.
+	local function tiles(folder: Folder, o: Vector3, cols: number, rows: number, tile: number,
+		y: number, a: Color3, b: Color3, material: Enum.Material)
+		for gx = 0, cols - 1 do
+			for gz = 0, rows - 1 do
 				decor({
-					Name = "PlotTile",
-					Size = Vector3.new(14, 0.2, 15),
-					CFrame = CFrame.new(34 + gx * 15, 1.45, zc - 48 + gz * 16),
-					Color = P.sidewalk:Lerp(P.plasterWarm, shade),
-					Material = Enum.Material.Pebble,
+					Name = "Tile",
+					Size = Vector3.new(tile - 0.6, 0.2, tile - 0.6),
+					CFrame = CFrame.new(o + Vector3.new(
+						(gx - (cols - 1) / 2) * tile,
+						y,
+						-40 + (gz - (rows - 1) / 2) * tile)),
+					Color = (gx + gz) % 2 == 0 and a or b,
+					Material = material,
+				}, folder)
+			end
+		end
+	end
+
+	local function wallBlock(folder: Folder, cf: CFrame, size: Vector3, color: Color3, material: Enum.Material): Part
+		return decor({
+			Name = "Wall",
+			Size = size,
+			CFrame = cf,
+			Color = color,
+			Material = material,
+			CanCollide = true,
+		}, folder)
+	end
+
+	local function ceilingLight(folder: Folder, cf: CFrame, width: number, color: Color3)
+		local strip = decor({
+			Name = "CeilingLight",
+			Size = Vector3.new(width, 0.6, 3),
+			CFrame = cf,
+			Color = color,
+			Material = Enum.Material.Neon,
+		}, folder)
+		local light = Instance.new("PointLight")
+		light.Brightness = 2.2
+		light.Range = 48
+		light.Color = color
+		light.Parent = strip
+	end
+
+	-- ------------------------------------------------------------ 0. de steeg --
+
+	function ZoneArt.steeg(folder: Folder, station)
+		local o = station.origin
+		floor(folder, o, Vector3.new(300, 2, 360), -1, Color3.fromRGB(38, 40, 48), Enum.Material.Asphalt)
+
+		-- natte plekken
+		for i = 1, 14 do
+			decor({
+				Name = "Puddle",
+				Size = Vector3.new(math.random(10, 26), 0.12, math.random(8, 20)),
+				CFrame = at(o, math.random(-120, 120), 0.12, math.random(-160, 130)),
+				Color = Color3.fromRGB(58, 66, 82),
+				Material = Enum.Material.Glass,
+				Reflectance = 0.45,
+				Transparency = 0.25,
+			}, folder)
+		end
+
+		-- de twee hoge muren van de steeg
+		for _, side in { -1, 1 } do
+			local wall = wallBlock(folder, at(o, side * 150, 45, -40), Vector3.new(60, 90, 360),
+				side < 0 and P.brick:Lerp(Color3.new(0, 0, 0), 0.35) or Color3.fromRGB(78, 70, 66),
+				Enum.Material.Brick)
+			Scenery.windows(wall.CFrame * CFrame.Angles(0, math.rad(side < 0 and 90 or -90), 0) * CFrame.new(0, 10, 30),
+				300, 60, 10, 5, 0.3, folder)
+
+			-- brandtrappen
+			for level = 1, 3 do
+				for _, dz in { -90, 10, 100 } do
+					decor({
+						Name = "FireEscape",
+						Size = Vector3.new(10, 0.5, 22),
+						CFrame = at(o, side * 114, 14 + level * 18, -40 + dz),
+						Color = Color3.fromRGB(52, 54, 62),
+						Material = Enum.Material.DiamondPlate,
+						CanCollide = true,
+					}, folder)
+					decor({
+						Name = "EscapeRail",
+						Size = Vector3.new(0.4, 5, 22),
+						CFrame = at(o, side * 109, 17 + level * 18, -40 + dz),
+						Color = Color3.fromRGB(52, 54, 62),
+						Material = Enum.Material.Metal,
+					}, folder)
+				end
+			end
+
+			-- pijpen langs de muur
+			for i = 1, 6 do
+				Scenery.cylinder({
+					Name = "Pipe",
+					Size = Vector3.new(70, 2, 2),
+					CFrame = at(o, side * 119, 40, -170 + i * 52) * CFrame.Angles(0, 0, math.rad(90)),
+					Color = Color3.fromRGB(64, 62, 58),
+					Material = Enum.Material.Metal,
+				}, folder)
+			end
+
+			-- airco's
+			for i = 1, 5 do
+				decor({
+					Name = "AC",
+					Size = Vector3.new(7, 6, 6),
+					CFrame = at(o, side * 116, 22 + (i % 3) * 20, -150 + i * 58),
+					Color = Color3.fromRGB(96, 98, 104),
+					Material = Enum.Material.Metal,
 				}, folder)
 			end
 		end
 
-		-- oprit naar de stoep
-		decor({
-			Name = "Apron",
-			Size = Vector3.new(14, 1.4, 34),
-			CFrame = CFrame.new(WALK_OUTER + 5, 0.7, zc),
-			Color = P.sidewalk,
-			Material = Enum.Material.Concrete,
-			CanCollide = true,
-		}, folder)
-
-		-- hek langs de randen, met een opening naar de straat toe
-		for _, dz in { -56, 56 } do
-			Scenery.hedge(CFrame.new(PLOT_X + 8, 1.4, zc + dz), 90, folder)
+		-- neonreclame
+		local neons = {
+			{ z = -130, color = Color3.fromRGB(255, 92, 150), text = "PEN" },
+			{ z = -20, color = Color3.fromRGB(96, 226, 255), text = "INKT 24H" },
+			{ z = 90, color = Color3.fromRGB(255, 196, 70), text = "OPEN" },
+		}
+		for i, n in neons do
+			local side = i % 2 == 0 and 1 or -1
+			Scenery.wallText(at(o, side * 118, 30, n.z, side < 0 and 90 or -90), 20, 7, n.text, n.color, folder)
+			local glow = decor({
+				Name = "NeonGlow",
+				Size = Vector3.new(2, 10, 24),
+				CFrame = at(o, side * 116, 30, n.z),
+				Color = n.color,
+				Material = Enum.Material.Neon,
+				Transparency = 0.5,
+			}, folder)
+			local light = Instance.new("PointLight")
+			light.Brightness = 3
+			light.Range = 60
+			light.Color = n.color
+			light.Parent = glow
 		end
-		for _, dz in { -40, 40 } do
-			Scenery.hedge(wall(26, 1.4, zc + dz, 90), 28, folder)
-		end
 
-		-- toegangspoortje vanaf de stoep
-		for _, dz in { -13, 13 } do
+		-- kabels met peertjes over de steeg
+		for i = 1, 5 do
+			local z = -160 + i * 60
 			decor({
-				Name = "GatePost",
-				Size = Vector3.new(3, 12, 3),
-				CFrame = CFrame.new(28, 7, zc + dz),
-				Color = P.metalDark,
+				Name = "Cable",
+				Size = Vector3.new(300, 0.3, 0.3),
+				CFrame = at(o, 0, 46, z),
+				Color = Color3.fromRGB(24, 24, 28),
+			}, folder)
+			for b = 1, 7 do
+				local bulb = decor({
+					Name = "Bulb",
+					Size = Vector3.new(1.4, 1.4, 1.4),
+					CFrame = at(o, -120 + b * 34, 44.6, z),
+					Color = Color3.fromRGB(255, 226, 160),
+					Material = Enum.Material.Neon,
+				}, folder)
+				if b % 3 == 0 then
+					local light = Instance.new("PointLight")
+					light.Brightness = 1.6
+					light.Range = 34
+					light.Color = Color3.fromRGB(255, 226, 170)
+					light.Parent = bulb
+				end
+			end
+		end
+
+		-- rommel: containers, kratten, pallets
+		for i = 1, 5 do
+			local side = i % 2 == 0 and 1 or -1
+			decor({
+				Name = "Dumpster",
+				Size = Vector3.new(14, 9, 22),
+				CFrame = at(o, side * 100, 5.5, -150 + i * 62),
+				Color = i % 2 == 0 and Color3.fromRGB(46, 92, 72) or Color3.fromRGB(88, 62, 52),
 				Material = Enum.Material.Metal,
 				CanCollide = true,
 			}, folder)
-		end
-		decor({
-			Name = "GateBeam",
-			Size = Vector3.new(3, 2, 29),
-			CFrame = CFrame.new(28, 14, zc),
-			Color = P.metalDark,
-			Material = Enum.Material.Metal,
-		}, folder)
-
-		-- wat groen en een bankje op het terrein
-		Scenery.planter(CFrame.new(38, 1.4, zc + 44), folder)
-		Scenery.planter(CFrame.new(38, 1.4, zc - 44), folder)
-		Scenery.bench(wall(36, 1.4, zc, 90), folder)
-		Scenery.lamppost(wall(34, 1.4, zc + 30, -90), folder)
-		Scenery.lamppost(wall(34, 1.4, zc - 30, -90), folder)
-
-		return folder, zc
-	end
-
-	local function stationProps(folder: Folder, station, zc: number, unlockColor: Color3)
-		-- werkbank met de pers
-		local bench = decor({
-			Name = "WorkBench",
-			Size = Vector3.new(16, 5, 10),
-			CFrame = CFrame.new(52, 3.9, zc + 22),
-			Color = P.metalDark,
-			Material = Enum.Material.Metal,
-			CanCollide = true,
-		}, folder)
-		decor({
-			Name = "PressArm",
-			Size = Vector3.new(4, 9, 4),
-			CFrame = CFrame.new(56, 10.9, zc + 22),
-			Color = P.metal,
-			Material = Enum.Material.Metal,
-		}, folder)
-		decor({
-			Name = "PressHead",
-			Size = Vector3.new(7, 2.4, 7),
-			CFrame = CFrame.new(54, 7.5, zc + 22),
-			Color = station.color,
-			Material = Enum.Material.Metal,
-		}, folder)
-		Scenery.floatingText(bench, "<b>PENNEN MAKEN</b>", 6, 15, 60)
-
-		local pressPad = part({
-			Name = "Press_" .. station.key,
-			Size = Vector3.new(16, 0.6, 14),
-			CFrame = CFrame.new(40, 2, zc + 22),
-			Color = Color3.fromRGB(90, 190, 255),
-			Material = Enum.Material.Neon,
-			Transparency = 0.3,
-			CanCollide = false,
-		}, folder)
-		Scenery.floatingText(pressPad, "ga hierop staan", 3.5, 13, 42)
-
-		Scenery.crate(CFrame.new(64, 1.4, zc + 32), 5, folder)
-		Scenery.crate(CFrame.new(64, 1.4, zc + 38), 4, folder)
-		Scenery.crate(CFrame.new(69, 1.4, zc + 33), 4, folder)
-
-		-- toonbank
-		local counter = decor({
-			Name = "Counter",
-			Size = Vector3.new(6, 5, 20),
-			CFrame = CFrame.new(54, 3.9, zc - 22),
-			Color = P.wood,
-			Material = Enum.Material.WoodPlanks,
-			CanCollide = true,
-		}, folder)
-		decor({
-			Name = "CounterTop",
-			Size = Vector3.new(8, 0.6, 22),
-			CFrame = CFrame.new(54, 6.5, zc - 22),
-			Color = P.woodDark,
-			Material = Enum.Material.Wood,
-		}, folder)
-		Scenery.floatingText(counter, "<b>TOONBANK</b>", 6, 15, 60)
-
-		local sellPad = part({
-			Name = "Sell_" .. station.key,
-			Size = Vector3.new(14, 0.6, 20),
-			CFrame = CFrame.new(42, 2, zc - 22),
-			Color = Color3.fromRGB(120, 255, 150),
-			Material = Enum.Material.Neon,
-			Transparency = 0.3,
-			CanCollide = false,
-		}, folder)
-		Scenery.floatingText(sellPad, "verkopen", 3.5, 13, 42)
-
-		-- uitstalrek met pennen naast de toonbank
-		decor({
-			Name = "DisplayRack",
-			Size = Vector3.new(4, 9, 12),
-			CFrame = CFrame.new(58, 5.9, zc - 36),
-			Color = P.woodDark,
-			Material = Enum.Material.Wood,
-			CanCollide = true,
-		}, folder)
-		for i = 1, 6 do
-			Scenery.cylinder({
-				Name = "RackPen",
-				Size = Vector3.new(6, 0.9, 0.9),
-				CFrame = CFrame.new(56, 7 + (i % 2) * 3, zc - 41 + i * 1.6) * CFrame.Angles(0, 0, math.rad(80)),
-				Color = i % 3 == 0 and P.neonPink or (i % 3 == 1 and P.gold or P.neonCyan),
-				Material = Enum.Material.Neon,
-				CanCollide = false,
-			}, folder)
-		end
-
-		-- parasol boven de wachtplek
-		decor({
-			Name = "UmbrellaPole",
-			Size = Vector3.new(0.7, 14, 0.7),
-			CFrame = CFrame.new(40, 8, zc + 2),
-			Color = P.woodDark,
-		}, folder)
-		Scenery.cylinder({
-			Name = "UmbrellaTop",
-			Size = Vector3.new(1, 18, 18),
-			CFrame = CFrame.new(40, 15, zc + 2) * CFrame.Angles(0, 0, math.rad(90)),
-			Color = P.awningA,
-			Material = Enum.Material.Fabric,
-			CanCollide = false,
-		}, folder)
-
-		-- plekken waar de bezoekers komen staan (de client zet de poppetjes neer)
-		for slot, dz in { -4, 8, 20 } do
-			part({
-				Name = string.format("VisitorSpot%d_%s", slot, station.key),
-				Size = Vector3.new(4, 0.4, 4),
-				CFrame = wall(36, 1.6, zc + dz, -90),
-				Transparency = 1,
-				CanCollide = false,
-			}, folder)
-		end
-
-		-- de klant staat achter de toonbank en kijkt naar de speler toe (-X)
-		part({
-			Name = "Spot_" .. station.key,
-			Size = Vector3.new(4, 0.4, 4),
-			CFrame = wall(62, 1.6, zc - 22, -90),
-			Transparency = 1,
-			CanCollide = false,
-		}, folder)
-
-		-- bord bij de stoep met de naam van de zaak
-		local sign = decor({
-			Name = "PlotSign",
-			Size = Vector3.new(1.6, 16, 1.6),
-			CFrame = CFrame.new(34, 9, zc + 44),
-			Color = P.metalDark,
-			Material = Enum.Material.Metal,
-		}, folder)
-		local unlockText = station.unlockRebirth == 0 and "open"
-			or string.format("rebirth %d", station.unlockRebirth)
-		Scenery.wallText(wall(34, 20, zc + 44, -90), 20, 9,
-			string.format("%s\n<font size=\"28\">%s</font>", station.name, unlockText), unlockColor, folder)
-		sign.Name = "PlotSign"
-	end
-
-	-- ------------------------------------------------------ gebouw per zaak ----
-
-	local function buildKraam(folder: Folder, zc: number)
-		-- houten marktkraam met luifel
-		decor({
-			Name = "StallFloor",
-			Size = Vector3.new(30, 0.6, 40),
-			CFrame = CFrame.new(84, 1.7, zc),
-			Color = P.woodDark,
-			Material = Enum.Material.WoodPlanks,
-			CanCollide = true,
-		}, folder)
-		for _, offset in { Vector3.new(-13, 0, -18), Vector3.new(-13, 0, 18), Vector3.new(13, 0, -18), Vector3.new(13, 0, 18) } do
 			decor({
-				Name = "StallPost",
-				Size = Vector3.new(1.4, 16, 1.4),
-				CFrame = CFrame.new(84 + offset.X, 10, zc + offset.Z),
-				Color = P.wood,
-				Material = Enum.Material.Wood,
+				Name = "DumpsterLid",
+				Size = Vector3.new(15, 1, 23),
+				CFrame = at(o, side * 100, 10.4, -150 + i * 62),
+				Color = Color3.fromRGB(36, 38, 44),
 			}, folder)
 		end
-		-- achterwand zodat de kraam niet in het niets staat
-		local backWall = decor({
-			Name = "StallBack",
-			Size = Vector3.new(3, 26, 52),
-			CFrame = CFrame.new(103, 14, zc),
-			Color = P.brick,
-			Material = Enum.Material.Brick,
-			CanCollide = true,
-		}, folder)
-		decor({
-			Name = "StallBackTop",
-			Size = Vector3.new(5, 2, 54),
-			CFrame = CFrame.new(103, 27, zc),
-			Color = P.brick:Lerp(Color3.new(0, 0, 0), 0.3),
-		}, folder)
-		Scenery.windows(backWall.CFrame * CFrame.Angles(0, math.rad(-90), 0) * CFrame.new(0, 4, 1.6),
-			40, 12, 3, 1, 0.5, folder)
-
-		Scenery.awning(wall(72, 18.5, zc, 90), 40, 14, P.awningA, P.awningB, folder)
-		Scenery.wallText(wall(98, 12, zc, -90), 22, 6, "PENNENKRAAM", P.gold, folder)
-		Scenery.crate(CFrame.new(92, 2, zc - 12), 4, folder)
-		Scenery.crate(CFrame.new(92, 2, zc + 12), 4, folder)
-		Scenery.tree(CFrame.new(106, 1.4, zc + 30), 1.2, folder)
-		Scenery.hedge(CFrame.new(100, 1.4, zc - 34), 30, folder)
-	end
-
-	local function buildWinkel(folder: Folder, zc: number)
-		local body = decor({
-			Name = "ShopBody",
-			Size = Vector3.new(34, 32, 54),
-			CFrame = CFrame.new(90, 17, zc),
-			Color = P.plaster,
-			Material = Enum.Material.Brick,
-			CanCollide = true,
-		}, folder)
-		decor({
-			Name = "ShopBase",
-			Size = Vector3.new(35, 8, 55),
-			CFrame = CFrame.new(90, 5, zc),
-			Color = P.brick,
-			Material = Enum.Material.Brick,
-		}, folder)
-		Scenery.storefront(wall(72.9, 1.4, zc, -90), 40, 13, folder)
-		Scenery.awning(wall(72, 16, zc, -90), 42, 8, P.teal, P.awningB, folder)
-		Scenery.windows(body.CFrame * CFrame.Angles(0, math.rad(-90), 0) * CFrame.new(0, 6, 17), 42, 14, 4, 2, 0.6, folder)
-		Scenery.wallText(wall(72.4, 26, zc, -90), 30, 7, "PENNENWINKEL", P.neonPink, folder)
-		decor({
-			Name = "ShopRoof",
-			Size = Vector3.new(37, 2, 57),
-			CFrame = CFrame.new(90, 34, zc),
-			Color = P.woodDark,
-		}, folder)
-		Scenery.planter(CFrame.new(76, 1.4, zc + 26), folder)
-		Scenery.planter(CFrame.new(76, 1.4, zc - 26), folder)
-	end
-
-	local function buildFabriek(folder: Folder, zc: number)
-		local body = decor({
-			Name = "FactoryBody",
-			Size = Vector3.new(44, 30, 76),
-			CFrame = CFrame.new(96, 16, zc),
-			Color = P.brick,
-			Material = Enum.Material.Brick,
-			CanCollide = true,
-		}, folder)
-		Scenery.windows(body.CFrame * CFrame.Angles(0, math.rad(-90), 0) * CFrame.new(0, 3, 22), 62, 18, 6, 2, 0.75, folder)
-		Scenery.wallText(wall(73.6, 27, zc, -90), 34, 7, "PENNENFABRIEK", P.neonCyan, folder)
-
-		-- rolluik
-		decor({
-			Name = "RollDoor",
-			Size = Vector3.new(1, 16, 20),
-			CFrame = CFrame.new(73.6, 9, zc - 4),
-			Color = P.metal,
-			Material = Enum.Material.DiamondPlate,
-		}, folder)
-
-		-- schoorstenen met rook
-		for i, dz in { -22, 14 } do
-			local stack = decor({
-				Name = "Chimney",
-				Size = Vector3.new(7, 34, 7),
-				CFrame = CFrame.new(104, 45, zc + dz),
-				Color = P.brick:Lerp(Color3.new(0, 0, 0), 0.2),
-				Material = Enum.Material.Brick,
-			}, folder)
-			Scenery.smoke(stack, 10 + i * 2, Color3.fromRGB(210, 210, 214))
+		for i = 1, 14 do
+			Scenery.crate(at(o, math.random(-118, 118), 1, math.random(-160, 120)), math.random(3, 6), folder)
 		end
 
-		-- silo's
-		for _, dz in { 30, 40 } do
-			Scenery.cylinder({
-				Name = "Silo",
-				Size = Vector3.new(26, 14, 14),
-				CFrame = CFrame.new(112, 14, zc + dz) * CFrame.Angles(0, 0, math.rad(90)),
-				Color = P.metal,
-				Material = Enum.Material.Metal,
-				CanCollide = true,
-			}, folder)
-		end
-
-		-- lopende band naar buiten
-		decor({
-			Name = "Conveyor",
-			Size = Vector3.new(28, 1.2, 8),
-			CFrame = CFrame.new(64, 6, zc + 6),
-			Color = P.metalDark,
-			Material = Enum.Material.Metal,
-		}, folder)
-		for i = 1, 6 do
-			Scenery.cylinder({
-				Name = "ConveyorPen",
-				Size = Vector3.new(6, 0.8, 0.8),
-				CFrame = CFrame.new(54 + i * 4, 7, zc + 6) * CFrame.Angles(0, math.rad(90), math.rad(90)),
-				Color = i % 2 == 0 and P.neonPink or P.gold,
-				Material = Enum.Material.Neon,
-				CanCollide = false,
-			}, folder)
-		end
-	end
-
-	local function buildGroothandel(folder: Folder, zc: number)
-		local body = decor({
-			Name = "WarehouseBody",
-			Size = Vector3.new(50, 34, 96),
-			CFrame = CFrame.new(100, 18, zc),
-			Color = Color3.fromRGB(176, 180, 188),
-			Material = Enum.Material.DiamondPlate,
-			CanCollide = true,
-		}, folder)
-		decor({
-			Name = "WarehouseStripe",
-			Size = Vector3.new(51, 5, 97),
-			CFrame = CFrame.new(100, 26, zc),
-			Color = P.teal,
-		}, folder)
-		Scenery.wallText(wall(74.6, 30, zc, -90), 40, 8, "GROOTHANDEL", P.gold, folder)
-		for _, dz in { -30, 0, 30 } do
-			decor({
-				Name = "DockDoor",
-				Size = Vector3.new(1.2, 18, 22),
-				CFrame = CFrame.new(74.6, 10, zc + dz),
-				Color = P.metalDark,
+		-- stoom uit de putdeksels
+		for i = 1, 4 do
+			local grate = decor({
+				Name = "Grate",
+				Size = Vector3.new(8, 0.3, 8),
+				CFrame = at(o, math.random(-90, 90), 0.2, -140 + i * 70),
+				Color = Color3.fromRGB(58, 58, 64),
 				Material = Enum.Material.DiamondPlate,
 			}, folder)
+			Scenery.smoke(grate, 14, Color3.fromRGB(198, 202, 210))
+		end
+
+		-- regen over de hele steeg
+		local rainAnchor = decor({
+			Name = "RainAnchor",
+			Size = Vector3.new(4, 1, 4),
+			CFrame = at(o, 0, 88, -40),
+			Transparency = 1,
+		}, folder)
+		local attachment = Instance.new("Attachment")
+		attachment.Parent = rainAnchor
+		local rain = Instance.new("ParticleEmitter")
+		rain.Name = "Rain"
+		rain.Rate = 320
+		rain.Lifetime = NumberRange.new(2.4, 3)
+		rain.Speed = NumberRange.new(90, 120)
+		rain.SpreadAngle = Vector2.new(6, 6)
+		rain.Size = NumberSequence.new(0.35)
+		rain.Transparency = NumberSequence.new(0.35)
+		rain.Color = ColorSequence.new(Color3.fromRGB(170, 190, 215))
+		rain.Acceleration = Vector3.new(0, -60, 0)
+		rain.EmissionDirection = Enum.NormalId.Bottom
+		rain.Parent = attachment
+	end
+
+	-- ------------------------------------------------------ 1. winkelstraat ----
+
+	function ZoneArt.winkelstraat(folder: Folder, station)
+		local o = station.origin
+		floor(folder, o, Vector3.new(340, 2, 380), -1, Color3.fromRGB(126, 176, 96), Enum.Material.Grass)
+
+		-- geplaveide boulevard
+		tiles(folder, o, 12, 16, 22, 0.3, Color3.fromRGB(226, 216, 198), Color3.fromRGB(208, 196, 178),
+			Enum.Material.Pebble)
+
+		local pastels = {
+			Color3.fromRGB(246, 232, 206), Color3.fromRGB(196, 228, 222),
+			Color3.fromRGB(244, 206, 198), Color3.fromRGB(208, 220, 244),
+			Color3.fromRGB(250, 240, 186),
+		}
+
+		-- winkeltjes aan beide kanten
+		for _, side in { -1, 1 } do
+			local z = -170
+			local i = 0
+			while z < 150 do
+				i += 1
+				local width = 40 + math.random(0, 14)
+				local height = 26 + math.random(0, 12)
+				local color = pastels[((i + (side > 0 and 2 or 0)) % #pastels) + 1]
+				local body = wallBlock(folder, at(o, side * 146, height / 2, z + width / 2),
+					Vector3.new(46, height, width), color, Enum.Material.Plaster)
+				Scenery.windows(
+					body.CFrame * CFrame.Angles(0, math.rad(side < 0 and 90 or -90), 0) * CFrame.new(0, 5, 23),
+					width * 0.7, height * 0.4, 3, 2, 0.15, folder
+				)
+				Scenery.storefront(at(o, side * 123, 0.4, z + width / 2, side < 0 and 90 or -90), width * 0.62, 13, folder)
+				Scenery.awning(at(o, side * 122, 16, z + width / 2, side < 0 and 90 or -90), width * 0.66, 8,
+					pastels[((i + 3) % #pastels) + 1], Color3.fromRGB(252, 250, 244), folder)
+				-- dakrand
+				decor({
+					Name = "Cornice",
+					Size = Vector3.new(50, 2.5, width + 3),
+					CFrame = at(o, side * 146, height + 1, z + width / 2),
+					Color = color:Lerp(Color3.new(1, 1, 1), 0.35),
+				}, folder)
+				z += width + 8
+			end
+		end
+
+		-- trap naar het hoger gelegen deel, zoals op de referentie
+		for step = 1, 8 do
 			decor({
-				Name = "DockRamp",
-				Size = Vector3.new(12, 1.2, 22),
-				CFrame = CFrame.new(68, 2.2, zc + dz),
-				Color = P.curb,
+				Name = "Step",
+				Size = Vector3.new(90, 1.6, 6),
+				CFrame = at(o, 0, 0.8 + (step - 1) * 1.6, -150 + step * 6),
+				Color = Color3.fromRGB(196, 190, 178),
 				Material = Enum.Material.Concrete,
 				CanCollide = true,
 			}, folder)
 		end
-		for i = 1, 6 do
-			Scenery.crate(CFrame.new(62 + (i % 3) * 7, 1.4, zc - 46 + i * 5), 5, folder)
+		decor({
+			Name = "UpperLawn",
+			Size = Vector3.new(300, 2, 110),
+			CFrame = at(o, 0, 12, -210),
+			Color = Color3.fromRGB(132, 184, 100),
+			Material = Enum.Material.Grass,
+			CanCollide = true,
+		}, folder)
+
+		-- bomen, bankjes, lantaarns, bloembakken
+		for i = 1, 8 do
+			local side = i % 2 == 0 and 1 or -1
+			Scenery.tree(at(o, side * 100, 0.4, -160 + i * 42), 1.3, folder)
+			Scenery.lamppost(at(o, side * 88, 0.4, -140 + i * 42, side > 0 and 180 or 0), folder)
+			if i % 2 == 0 then
+				Scenery.bench(at(o, side * 78, 0.4, -120 + i * 38, side > 0 and 180 or 0), folder)
+			else
+				Scenery.planter(at(o, side * 82, 0.4, -130 + i * 40), folder)
+			end
 		end
-		-- vrachtwagen
-		decor({
-			Name = "TruckBox",
-			Size = Vector3.new(14, 14, 34),
-			CFrame = CFrame.new(50, 9, zc + 48),
-			Color = P.plaster,
-			Material = Enum.Material.Metal,
-			CanCollide = true,
-		}, folder)
-		decor({
-			Name = "TruckCab",
-			Size = Vector3.new(13, 11, 12),
-			CFrame = CFrame.new(50, 7.5, zc + 70),
-			Color = P.awningA,
-			Material = Enum.Material.Metal,
-			CanCollide = true,
-		}, folder)
-		for _, dz in { 38, 46, 64 } do
-			Scenery.cylinder({
-				Name = "Wheel",
-				Size = Vector3.new(15, 6, 6),
-				CFrame = CFrame.new(50, 3, zc + dz) * CFrame.Angles(0, 0, math.rad(90)) * CFrame.Angles(0, math.rad(90), 0),
-				Color = Color3.fromRGB(32, 32, 36),
+
+		-- vlaggetjes tussen de lantaarns
+		for i = 1, 7 do
+			decor({
+				Name = "Bunting",
+				Size = Vector3.new(180, 0.25, 0.25),
+				CFrame = at(o, 0, 22, -150 + i * 44),
+				Color = Color3.fromRGB(240, 240, 240),
 			}, folder)
+			for f = 1, 9 do
+				decor({
+					Name = "Flag",
+					Size = Vector3.new(3, 3.4, 0.2),
+					CFrame = at(o, -80 + f * 20, 20, -150 + i * 44),
+					Color = pastels[(f % #pastels) + 1],
+					Material = Enum.Material.Fabric,
+				}, folder)
+			end
 		end
+
+		Scenery.fountain(at(o, 0, 0.4, 90), folder)
 	end
 
-	local function buildToren(folder: Folder, zc: number)
-		local height = 150
-		local body = decor({
-			Name = "TowerBody",
-			Size = Vector3.new(44, height, 56),
-			CFrame = CFrame.new(98, height / 2, zc),
-			Color = Color3.fromRGB(96, 124, 150),
-			Material = Enum.Material.Glass,
-			Transparency = 0.2,
-			Reflectance = 0.35,
-			CanCollide = true,
-		}, folder)
-		for _, face in { { yaw = -90, w = 56, d = 22 }, { yaw = 90, w = 56, d = 22 },
-			{ yaw = 0, w = 44, d = 28 }, { yaw = 180, w = 44, d = 28 } } do
+	-- ------------------------------------------------------ 2. zakencentrum ----
+
+	function ZoneArt.zakencentrum(folder: Folder, station)
+		local o = station.origin
+		floor(folder, o, Vector3.new(340, 2, 380), -1, Color3.fromRGB(64, 66, 74), Enum.Material.Asphalt)
+
+		-- brede stoepen
+		for _, side in { -1, 1 } do
+			decor({
+				Name = "Sidewalk",
+				Size = Vector3.new(70, 1.4, 380),
+				CFrame = at(o, side * 122, 0.7, -40),
+				Color = Color3.fromRGB(176, 172, 164),
+				Material = Enum.Material.Concrete,
+				CanCollide = true,
+			}, folder)
+			decor({
+				Name = "Curb",
+				Size = Vector3.new(1.6, 1.8, 380),
+				CFrame = at(o, side * 87, 0.9, -40),
+				Color = Color3.fromRGB(150, 146, 140),
+			}, folder)
+		end
+		for i = 0, 15 do
+			decor({
+				Name = "RoadLine",
+				Size = Vector3.new(1.4, 0.2, 12),
+				CFrame = at(o, 0, 0.3, -220 + i * 26),
+				Color = Color3.fromRGB(226, 218, 160),
+			}, folder)
+		end
+
+		-- natuurstenen panden met balkons (linkerzijde)
+		local z = -190
+		local i = 0
+		while z < 160 do
+			i += 1
+			local width = 52 + math.random(0, 16)
+			local height = 66 + math.random(0, 26)
+			local body = wallBlock(folder, at(o, -196, height / 2, z + width / 2),
+				Vector3.new(80, height, width), Color3.fromRGB(214, 206, 188), Enum.Material.Concrete)
 			Scenery.windows(
-				body.CFrame * CFrame.Angles(0, math.rad(face.yaw), 0) * CFrame.new(0, 0, face.d),
-				face.w - 6, height - 20, math.max(3, math.floor(face.w / 10)), 12, 0.55, folder
+				body.CFrame * CFrame.Angles(0, math.rad(90), 0) * CFrame.new(0, 4, 40),
+				width * 0.82, height * 0.74, math.max(3, math.floor(width / 13)), math.max(4, math.floor(height / 15)),
+				0.25, folder
 			)
+			for level = 1, math.floor(height / 22) do
+				decor({
+					Name = "Balcony",
+					Size = Vector3.new(3, 0.6, width * 0.8),
+					CFrame = at(o, -155, level * 22, z + width / 2),
+					Color = Color3.fromRGB(196, 190, 176),
+				}, folder)
+				decor({
+					Name = "BalconyRail",
+					Size = Vector3.new(0.4, 3, width * 0.8),
+					CFrame = at(o, -154, level * 22 + 1.8, z + width / 2),
+					Color = Color3.fromRGB(52, 54, 60),
+					Material = Enum.Material.Metal,
+				}, folder)
+			end
+			decor({
+				Name = "Cornice",
+				Size = Vector3.new(84, 3, width + 3),
+				CFrame = at(o, -196, height + 1.5, z + width / 2),
+				Color = Color3.fromRGB(196, 188, 172),
+			}, folder)
+			z += width + 4
+		end
+
+		-- glazen torens aan de overkant en op de achtergrond
+		for i = 1, 5 do
+			local height = 150 + math.random(0, 160)
+			local width = 54 + math.random(0, 26)
+			local body = wallBlock(folder, at(o, 200 + math.random(-20, 40), height / 2, -190 + i * 84),
+				Vector3.new(width, height, width), Color3.fromRGB(104, 128, 156), Enum.Material.Glass)
+			body.Transparency = 0.15
+			body.Reflectance = 0.35
+			Scenery.windows(body.CFrame * CFrame.Angles(0, math.rad(-90), 0) * CFrame.new(0, 0, width / 2),
+				width * 0.85, height * 0.9, math.max(3, math.floor(width / 12)), math.floor(height / 14), 0.45, folder)
+		end
+		Scenery.skyline(o + Vector3.new(-330, 0, 120), 90, 6, 90, folder,
+			{ minHeight = 120, maxHeight = 260, cool = 0.5, jitter = 20, axis = "z" })
+		Scenery.skyline(o + Vector3.new(330, 0, 120), 90, 6, -90, folder,
+			{ minHeight = 140, maxHeight = 280, cool = 0.55, jitter = 20, axis = "z" })
+
+		-- straatspul: taxi's, verkeerslicht, bushalte, bomen in roosters
+		for i = 1, 4 do
+			Scenery.car(at(o, (i % 2 == 0 and 1 or -1) * 70, 0.4, -170 + i * 76, i % 2 == 0 and 180 or 0),
+				Color3.fromRGB(236, 196, 60), false, folder)
 		end
 		decor({
-			Name = "TowerCrown",
-			Size = Vector3.new(30, 16, 38),
-			CFrame = CFrame.new(98, height + 8, zc),
-			Color = P.metalDark,
+			Name = "TrafficPole",
+			Size = Vector3.new(1.2, 26, 1.2),
+			CFrame = at(o, -88, 13, 60),
+			Color = Color3.fromRGB(44, 46, 52),
 			Material = Enum.Material.Metal,
 		}, folder)
-		decor({
-			Name = "TowerAntenna",
-			Size = Vector3.new(1.6, 26, 1.6),
-			CFrame = CFrame.new(98, height + 29, zc),
-			Color = P.neonPink,
-			Material = Enum.Material.Neon,
-		}, folder)
-		-- luifel boven de ingang
-		decor({
-			Name = "Canopy",
-			Size = Vector3.new(16, 1.2, 34),
-			CFrame = CFrame.new(68, 16, zc),
-			Color = P.metalDark,
-			Material = Enum.Material.Metal,
-		}, folder)
-		Scenery.wallText(wall(75.6, 26, zc, -90), 34, 8, "PEN STREET TOREN", P.neonCyan, folder)
-		Scenery.storefront(wall(75.9, 1.4, zc, -90), 30, 14, folder)
-		for _, dz in { -22, 22 } do
+		for i, color in { Color3.fromRGB(230, 60, 60), Color3.fromRGB(240, 200, 70), Color3.fromRGB(90, 220, 120) } do
 			decor({
-				Name = "Flagpole",
-				Size = Vector3.new(0.8, 22, 0.8),
-				CFrame = CFrame.new(70, 12, zc + dz),
-				Color = P.metal,
-				Material = Enum.Material.Metal,
-			}, folder)
-			decor({
-				Name = "Flag",
-				Size = Vector3.new(0.3, 7, 11),
-				CFrame = CFrame.new(70, 19, zc + dz + 5.5),
-				Color = P.neonPink,
-				Material = Enum.Material.Fabric,
+				Name = "TrafficLight",
+				Size = Vector3.new(2.4, 2.4, 2.4),
+				CFrame = at(o, -88, 30 - i * 3, 60),
+				Color = color,
+				Material = Enum.Material.Neon,
 			}, folder)
 		end
-		Scenery.hedge(CFrame.new(64, 1.4, zc + 40), 28, folder)
-		Scenery.hedge(CFrame.new(64, 1.4, zc - 40), 28, folder)
+		for i = 1, 8 do
+			local side = i % 2 == 0 and 1 or -1
+			Scenery.tree(at(o, side * 104, 1.4, -180 + i * 44), 0.9, folder)
+			Scenery.lamppost(at(o, side * 116, 1.4, -160 + i * 44, side > 0 and 180 or 0), folder)
+		end
 	end
 
-	local function buildPenthouse(folder: Folder, zc: number)
-		-- terras op kolommen
-		for _, offset in { Vector3.new(-20, 0, -30), Vector3.new(-20, 0, 30), Vector3.new(24, 0, -30), Vector3.new(24, 0, 30) } do
+
+	-- -------------------------------------------------------- 3. beursvloer ----
+
+	function ZoneArt.beursvloer(folder: Folder, station)
+		local o = station.origin
+		floor(folder, o, Vector3.new(360, 2, 380), -1, Color3.fromRGB(228, 222, 210), Enum.Material.Marble)
+		tiles(folder, o, 14, 16, 24, 0.25, Color3.fromRGB(236, 230, 218), Color3.fromRGB(206, 198, 184),
+			Enum.Material.Marble)
+
+		-- muren en plafond: het is binnen
+		local H = 78
+		for _, side in { -1, 1 } do
+			wallBlock(folder, at(o, side * 178, H / 2, -40), Vector3.new(8, H, 380),
+				Color3.fromRGB(214, 206, 190), Enum.Material.Marble)
+		end
+		wallBlock(folder, at(o, 0, H / 2, 150), Vector3.new(360, H, 8), Color3.fromRGB(214, 206, 190), Enum.Material.Marble)
+		wallBlock(folder, at(o, 0, H / 2, -230), Vector3.new(360, H, 8), Color3.fromRGB(214, 206, 190), Enum.Material.Marble)
+		decor({
+			Name = "Ceiling",
+			Size = Vector3.new(360, 4, 380),
+			CFrame = at(o, 0, H, -40),
+			Color = Color3.fromRGB(58, 60, 70),
+			Material = Enum.Material.Concrete,
+			CanCollide = true,
+		}, folder)
+		-- cassetteplafond met lichtstroken
+		for gx = -2, 2 do
+			for gz = -3, 3 do
+				decor({
+					Name = "CeilingPanel",
+					Size = Vector3.new(60, 2, 46),
+					CFrame = at(o, gx * 66, H - 3, -40 + gz * 52),
+					Color = Color3.fromRGB(72, 74, 86),
+				}, folder)
+			end
+			ceilingLight(folder, at(o, gx * 66, H - 5, -40), 300, Color3.fromRGB(226, 238, 255))
+		end
+
+		-- zuilenrij
+		for _, side in { -1, 1 } do
+			for i = 1, 6 do
+				Scenery.cylinder({
+					Name = "Column",
+					Size = Vector3.new(H, 16, 16),
+					CFrame = at(o, side * 132, H / 2, -190 + i * 58) * CFrame.Angles(0, 0, math.rad(90)),
+					Color = Color3.fromRGB(238, 232, 220),
+					Material = Enum.Material.Marble,
+					CanCollide = true,
+				}, folder)
+				decor({
+					Name = "ColumnCap",
+					Size = Vector3.new(22, 4, 22),
+					CFrame = at(o, side * 132, H - 6, -190 + i * 58),
+					Color = Color3.fromRGB(226, 218, 202),
+					Material = Enum.Material.Marble,
+				}, folder)
+			end
+		end
+
+		-- koersborden tegen de achterwand
+		for i = 0, 5 do
+			local green = i % 2 == 0
+			local board = decor({
+				Name = "Ticker",
+				Size = Vector3.new(52, 14, 1.4),
+				CFrame = at(o, -140 + i * 56, 46, -225),
+				Color = Color3.fromRGB(16, 18, 24),
+			}, folder)
+			Scenery.wallText(at(o, -140 + i * 56, 46, -223, 180), 48, 12,
+				green and "PEN  +14.2%" or "INK  -3.8%",
+				green and Color3.fromRGB(90, 250, 140) or Color3.fromRGB(255, 96, 96), folder)
+			local light = Instance.new("PointLight")
+			light.Brightness = 2
+			light.Range = 50
+			light.Color = green and Color3.fromRGB(90, 250, 140) or Color3.fromRGB(255, 96, 96)
+			light.Parent = board
+		end
+
+		-- handelsbalies met schermen
+		for i = 1, 6 do
+			local x = -150 + i * 46
 			decor({
-				Name = "Column",
-				Size = Vector3.new(6, 26, 6),
-				CFrame = CFrame.new(96 + offset.X, 14, zc + offset.Z),
-				Color = P.plaster,
+				Name = "TradingDesk",
+				Size = Vector3.new(26, 6, 14),
+				CFrame = at(o, x, 3, 96),
+				Color = Color3.fromRGB(64, 66, 78),
+				Material = Enum.Material.Metal,
+				CanCollide = true,
+			}, folder)
+			for m = 1, 3 do
+				decor({
+					Name = "Monitor",
+					Size = Vector3.new(7, 5, 0.6),
+					CFrame = at(o, x - 9 + m * 7, 9, 92),
+					Color = m % 2 == 0 and Color3.fromRGB(70, 230, 140) or Color3.fromRGB(240, 96, 96),
+					Material = Enum.Material.Neon,
+					Transparency = 0.15,
+				}, folder)
+			end
+		end
+
+		-- mezzanine rondom
+		for _, side in { -1, 1 } do
+			decor({
+				Name = "Mezzanine",
+				Size = Vector3.new(40, 2, 380),
+				CFrame = at(o, side * 154, 40, -40),
+				Color = Color3.fromRGB(226, 220, 206),
 				Material = Enum.Material.Marble,
 				CanCollide = true,
 			}, folder)
+			decor({
+				Name = "MezzanineRail",
+				Size = Vector3.new(1, 7, 380),
+				CFrame = at(o, side * 134, 44, -40),
+				Color = P.gold,
+				Material = Enum.Material.Metal,
+			}, folder)
 		end
+
+		-- klok boven de ingang
 		decor({
-			Name = "Terrace",
-			Size = Vector3.new(60, 2, 78),
-			CFrame = CFrame.new(98, 28, zc),
-			Color = P.plaster,
-			Material = Enum.Material.Marble,
+			Name = "ClockFace",
+			Size = Vector3.new(18, 18, 2),
+			CFrame = at(o, 0, 58, 146),
+			Color = Color3.fromRGB(246, 240, 226),
+			Material = Enum.Material.Neon,
+		}, folder)
+		decor({
+			Name = "ClockRing",
+			Size = Vector3.new(22, 22, 1),
+			CFrame = at(o, 0, 58, 147),
+			Color = P.gold,
+			Material = Enum.Material.Metal,
+		}, folder)
+	end
+
+	-- ------------------------------------------------------------- 4. lobby ----
+
+	function ZoneArt.lobby(folder: Folder, station)
+		local o = station.origin
+		floor(folder, o, Vector3.new(360, 2, 380), -1, Color3.fromRGB(240, 236, 228), Enum.Material.Marble)
+		tiles(folder, o, 18, 20, 20, 0.25, Color3.fromRGB(246, 242, 234), Color3.fromRGB(58, 56, 56),
+			Enum.Material.Marble)
+
+		local H = 86
+		-- glazen voorgevel aan de zuidkant, dichte wanden verder
+		decor({
+			Name = "Facade",
+			Size = Vector3.new(360, H, 3),
+			CFrame = at(o, 0, H / 2, 150),
+			Color = Color3.fromRGB(150, 190, 214),
+			Material = Enum.Material.Glass,
+			Transparency = 0.55,
+			Reflectance = 0.3,
 			CanCollide = true,
 		}, folder)
-		-- zwembad
+		for i = -5, 5 do
+			decor({
+				Name = "Mullion",
+				Size = Vector3.new(2, H, 4),
+				CFrame = at(o, i * 32, H / 2, 150),
+				Color = Color3.fromRGB(58, 60, 68),
+				Material = Enum.Material.Metal,
+			}, folder)
+		end
+		for _, side in { -1, 1 } do
+			wallBlock(folder, at(o, side * 178, H / 2, -40), Vector3.new(8, H, 380),
+				Color3.fromRGB(236, 230, 220), Enum.Material.Marble)
+		end
+		wallBlock(folder, at(o, 0, H / 2, -230), Vector3.new(360, H, 8), Color3.fromRGB(236, 230, 220), Enum.Material.Marble)
+		decor({
+			Name = "Ceiling",
+			Size = Vector3.new(360, 4, 380),
+			CFrame = at(o, 0, H, -40),
+			Color = Color3.fromRGB(226, 220, 210),
+			CanCollide = true,
+		}, folder)
+		for i = -4, 4 do
+			ceilingLight(folder, at(o, i * 38, H - 3, -40), 320, Color3.fromRGB(255, 240, 216))
+		end
+
+		-- logo-wand achterin
+		decor({
+			Name = "LogoWall",
+			Size = Vector3.new(120, 40, 3),
+			CFrame = at(o, 0, 30, -224),
+			Color = Color3.fromRGB(46, 44, 42),
+			Material = Enum.Material.Marble,
+		}, folder)
+		Scenery.wallText(at(o, 0, 32, -221, 180), 100, 22, "PEN STREET", P.gold, folder)
+
+		-- glazen liften
+		for _, side in { -1, 1 } do
+			for i = 1, 2 do
+				local x = side * (86 + i * 26)
+				decor({
+					Name = "LiftShaft",
+					Size = Vector3.new(22, H, 22),
+					CFrame = at(o, x, H / 2, -150),
+					Color = Color3.fromRGB(170, 206, 226),
+					Material = Enum.Material.Glass,
+					Transparency = 0.6,
+					Reflectance = 0.3,
+				}, folder)
+				local cab = decor({
+					Name = "LiftCab",
+					Size = Vector3.new(18, 14, 18),
+					CFrame = at(o, x, 8 + i * 18, -150),
+					Color = Color3.fromRGB(226, 220, 210),
+					Material = Enum.Material.Metal,
+				}, folder)
+				decor({
+					Name = "LiftGlow",
+					Size = Vector3.new(19, 1, 19),
+					CFrame = at(o, x, 15 + i * 18, -150),
+					Color = P.gold,
+					Material = Enum.Material.Neon,
+				}, folder)
+				cab.Name = "LiftCab"
+			end
+		end
+
+		-- balies
+		for i = -1, 1 do
+			decor({
+				Name = "Reception",
+				Size = Vector3.new(44, 7, 12),
+				CFrame = at(o, i * 60, 3.5, -100),
+				Color = Color3.fromRGB(58, 54, 52),
+				Material = Enum.Material.Wood,
+				CanCollide = true,
+			}, folder)
+			decor({
+				Name = "ReceptionTop",
+				Size = Vector3.new(48, 0.8, 14),
+				CFrame = at(o, i * 60, 7.4, -100),
+				Color = Color3.fromRGB(238, 234, 226),
+				Material = Enum.Material.Marble,
+			}, folder)
+			decor({
+				Name = "DeskGlow",
+				Size = Vector3.new(44, 0.6, 1),
+				CFrame = at(o, i * 60, 1.6, -94),
+				Color = P.gold,
+				Material = Enum.Material.Neon,
+			}, folder)
+		end
+
+		-- zithoek en groen
+		for _, spot in { Vector3.new(-120, 0, 60), Vector3.new(120, 0, 60) } do
+			decor({
+				Name = "Sofa",
+				Size = Vector3.new(28, 4, 12),
+				CFrame = at(o, spot.X, 3, spot.Z),
+				Color = Color3.fromRGB(64, 70, 86),
+				Material = Enum.Material.Fabric,
+				CanCollide = true,
+			}, folder)
+			decor({
+				Name = "SofaBack",
+				Size = Vector3.new(28, 8, 3),
+				CFrame = at(o, spot.X, 6, spot.Z - 6),
+				Color = Color3.fromRGB(64, 70, 86),
+				Material = Enum.Material.Fabric,
+			}, folder)
+			Scenery.planter(at(o, spot.X + 22, 0.4, spot.Z), folder)
+		end
+
+		-- roltrap naar de mezzanine
+		for step = 1, 14 do
+			decor({
+				Name = "EscalatorStep",
+				Size = Vector3.new(16, 2, 5),
+				CFrame = at(o, 140, 1 + step * 2.4, -30 - step * 5),
+				Color = Color3.fromRGB(150, 154, 162),
+				Material = Enum.Material.DiamondPlate,
+				CanCollide = true,
+			}, folder)
+		end
+
+		-- de stad buiten het glas
+		Scenery.skyline(o + Vector3.new(-160, 0, 330), 76, 5, 180, folder,
+			{ minHeight = 130, maxHeight = 300, cool = 0.45, jitter = 18, axis = "x" })
+	end
+
+	-- --------------------------------------------------------- 5. penthouse ----
+
+	function ZoneArt.penthouse(folder: Folder, station)
+		local o = station.origin
+
+		-- het dek zelf
+		decor({
+			Name = "Deck",
+			Size = Vector3.new(320, 6, 360),
+			CFrame = at(o, 0, -3, -40),
+			Color = Color3.fromRGB(198, 160, 116),
+			Material = Enum.Material.WoodPlanks,
+			CanCollide = true,
+		}, folder)
+		for i = 0, 22 do
+			decor({
+				Name = "DeckSeam",
+				Size = Vector3.new(320, 0.2, 1),
+				CFrame = at(o, 0, 0.2, -215 + i * 16),
+				Color = Color3.fromRGB(168, 132, 92),
+			}, folder)
+		end
+
+		-- infinity pool aan de rand
 		decor({
 			Name = "PoolWall",
-			Size = Vector3.new(26, 3, 34),
-			CFrame = CFrame.new(104, 30.5, zc),
-			Color = P.plaster,
+			Size = Vector3.new(150, 8, 70),
+			CFrame = at(o, 0, 1, 90),
+			Color = Color3.fromRGB(232, 228, 220),
 			Material = Enum.Material.Marble,
+			CanCollide = true,
 		}, folder)
 		decor({
 			Name = "PoolWater",
-			Size = Vector3.new(22, 2.4, 30),
-			CFrame = CFrame.new(104, 30.8, zc),
-			Color = P.water,
+			Size = Vector3.new(142, 6, 62),
+			CFrame = at(o, 0, 2, 90),
+			Color = Color3.fromRGB(86, 196, 206),
 			Material = Enum.Material.Glass,
-			Transparency = 0.35,
+			Transparency = 0.3,
+			Reflectance = 0.25,
 		}, folder)
-		-- glazen balustrade
-		for _, dz in { -39, 39 } do
-			decor({
-				Name = "Railing",
-				Size = Vector3.new(60, 7, 0.6),
-				CFrame = CFrame.new(98, 32.5, zc + dz),
-				Color = P.glass,
-				Material = Enum.Material.Glass,
-				Transparency = 0.6,
-				Reflectance = 0.3,
-			}, folder)
-		end
 		decor({
-			Name = "RailingFront",
-			Size = Vector3.new(0.6, 7, 78),
-			CFrame = CFrame.new(68, 32.5, zc),
-			Color = P.glass,
+			Name = "PoolEdgeGlass",
+			Size = Vector3.new(150, 8, 1),
+			CFrame = at(o, 0, 1, 125),
+			Color = Color3.fromRGB(190, 226, 232),
 			Material = Enum.Material.Glass,
-			Transparency = 0.6,
-			Reflectance = 0.3,
+			Transparency = 0.45,
+			Reflectance = 0.4,
 		}, folder)
-		-- ligbedden en parasol
-		for _, dz in { -14, -6 } do
+
+		-- ronde zithoek met vuurplaats, zoals op de foto
+		Scenery.cylinder({
+			Name = "LoungePit",
+			Size = Vector3.new(4, 58, 58),
+			CFrame = at(o, -96, 2, 40) * CFrame.Angles(0, 0, math.rad(90)),
+			Color = Color3.fromRGB(226, 216, 196),
+			Material = Enum.Material.Concrete,
+			CanCollide = true,
+		}, folder)
+		Scenery.cylinder({
+			Name = "LoungeSeat",
+			Size = Vector3.new(6, 50, 50),
+			CFrame = at(o, -96, 5, 40) * CFrame.Angles(0, 0, math.rad(90)),
+			Color = Color3.fromRGB(240, 234, 222),
+			Material = Enum.Material.Fabric,
+		}, folder)
+		Scenery.cylinder({
+			Name = "FirePit",
+			Size = Vector3.new(4, 18, 18),
+			CFrame = at(o, -96, 6, 40) * CFrame.Angles(0, 0, math.rad(90)),
+			Color = Color3.fromRGB(58, 54, 50),
+			Material = Enum.Material.Slate,
+		}, folder)
+		local fire = decor({
+			Name = "Fire",
+			Size = Vector3.new(10, 3, 10),
+			CFrame = at(o, -96, 9, 40),
+			Color = Color3.fromRGB(255, 150, 60),
+			Material = Enum.Material.Neon,
+			Transparency = 0.3,
+		}, folder)
+		Scenery.smoke(fire, 8, Color3.fromRGB(255, 180, 110))
+
+		-- ligbedden, parasols, pergola
+		for i = 1, 4 do
 			decor({
 				Name = "Lounger",
-				Size = Vector3.new(11, 1.2, 4),
-				CFrame = CFrame.new(84, 30, zc + dz),
-				Color = P.awningB,
+				Size = Vector3.new(12, 1.4, 5),
+				CFrame = at(o, 90, 1.5, 20 + i * 14),
+				Color = Color3.fromRGB(244, 240, 232),
+				Material = Enum.Material.Fabric,
+				CanCollide = true,
+			}, folder)
+			decor({
+				Name = "LoungerBack",
+				Size = Vector3.new(6, 4, 5),
+				CFrame = at(o, 95, 3.5, 20 + i * 14) * CFrame.Angles(0, 0, math.rad(-25)),
+				Color = Color3.fromRGB(244, 240, 232),
 				Material = Enum.Material.Fabric,
 			}, folder)
 		end
-		decor({
-			Name = "Parasol",
-			Size = Vector3.new(0.6, 12, 0.6),
-			CFrame = CFrame.new(84, 36, zc + 4),
-			Color = P.woodDark,
-		}, folder)
-		Scenery.cylinder({
-			Name = "ParasolTop",
-			Size = Vector3.new(1, 16, 16),
-			CFrame = CFrame.new(84, 42, zc + 4) * CFrame.Angles(0, 0, math.rad(90)),
-			Color = P.awningA,
-			Material = Enum.Material.Fabric,
-		}, folder)
-		Scenery.wallText(wall(68, 42, zc, -90), 30, 7, "PENTHOUSE", P.gold, folder)
-		-- trap naar beneden
-		for i = 1, 9 do
+		for _, dx in { -150, 150 } do
+			for i = 1, 5 do
+				decor({
+					Name = "PergolaBeam",
+					Size = Vector3.new(30, 1.6, 1.6),
+					CFrame = at(o, dx, 26, -170 + i * 22),
+					Color = Color3.fromRGB(206, 172, 128),
+					Material = Enum.Material.Wood,
+				}, folder)
+			end
+			for _, dz in { -160, -80 } do
+				decor({
+					Name = "PergolaPost",
+					Size = Vector3.new(2.4, 26, 2.4),
+					CFrame = at(o, dx, 13, dz),
+					Color = Color3.fromRGB(186, 152, 112),
+					Material = Enum.Material.Wood,
+					CanCollide = true,
+				}, folder)
+			end
+		end
+
+		-- glazen balustrade rondom
+		for _, spec in { { x = 0, z = -220, w = 320, yaw = 0 }, { x = -160, z = -40, w = 360, yaw = 90 },
+			{ x = 160, z = -40, w = 360, yaw = 90 } } do
 			decor({
-				Name = "Step",
-				Size = Vector3.new(6, 3, 18),
-				CFrame = CFrame.new(64 - i * 2, 28 - i * 3, zc),
-				Color = P.plaster,
-				Material = Enum.Material.Marble,
+				Name = "Railing",
+				Size = Vector3.new(spec.w, 9, 0.8),
+				CFrame = at(o, spec.x, 4.5, spec.z, spec.yaw),
+				Color = Color3.fromRGB(198, 226, 236),
+				Material = Enum.Material.Glass,
+				Transparency = 0.55,
+				Reflectance = 0.35,
 				CanCollide = true,
 			}, folder)
 		end
+
+		-- buitenbar en groen
+		decor({
+			Name = "Bar",
+			Size = Vector3.new(50, 7, 14),
+			CFrame = at(o, 110, 3.5, -130),
+			Color = Color3.fromRGB(52, 48, 46),
+			Material = Enum.Material.Marble,
+			CanCollide = true,
+		}, folder)
+		Scenery.wallText(at(o, 110, 14, -137, 180), 30, 6, "SKY BAR", P.gold, folder)
+		for i = 1, 6 do
+			Scenery.hedge(at(o, -140 + i * 18, 0.4, -200), 14, folder)
+		end
+		for _, dx in { -60, 60 } do
+			Scenery.palm(at(o, dx, 0.4, -190), folder)
+		end
+
+		-- de stad diep beneden
+		Scenery.skyline(o + Vector3.new(-420, -700, 260), 110, 7, 90, folder,
+			{ minHeight = 240, maxHeight = 560, cool = 0.55, jitter = 40, axis = "z" })
+		Scenery.skyline(o + Vector3.new(420, -700, 260), 110, 7, -90, folder,
+			{ minHeight = 240, maxHeight = 560, cool = 0.6, jitter = 40, axis = "z" })
+		Scenery.skyline(o + Vector3.new(-300, -700, 420), 120, 6, 180, folder,
+			{ minHeight = 200, maxHeight = 520, cool = 0.65, jitter = 40, axis = "x" })
 	end
 
-	local function buildJacht(folder: Folder, zc: number)
-		-- haven met water
+	-- -------------------------------------------------------- 6. jachthaven ----
+
+	function ZoneArt.jachthaven(folder: Folder, station)
+		local o = station.origin
+
 		decor({
-			Name = "Harbour",
-			Size = Vector3.new(120, 1, 120),
-			CFrame = CFrame.new(112, 1.2, zc),
-			Color = P.water,
-			Material = Enum.Material.Glass,
-			Transparency = 0.25,
+			Name = "Seabed",
+			Size = Vector3.new(900, 4, 900),
+			CFrame = at(o, 0, -26, -40),
+			Color = Color3.fromRGB(38, 76, 92),
 			CanCollide = true,
 		}, folder)
+		decor({
+			Name = "Water",
+			Size = Vector3.new(900, 20, 900),
+			CFrame = at(o, 0, -10, -40),
+			Color = Color3.fromRGB(64, 196, 196),
+			Material = Enum.Material.Glass,
+			Transparency = 0.3,
+			Reflectance = 0.3,
+		}, folder)
+
+		-- kade en steigers
 		decor({
 			Name = "Quay",
-			Size = Vector3.new(18, 3, 120),
-			CFrame = CFrame.new(60, 2.2, zc),
-			Color = P.wood,
+			Size = Vector3.new(340, 6, 150),
+			CFrame = at(o, 0, -2, -110),
+			Color = Color3.fromRGB(206, 196, 178),
+			Material = Enum.Material.Concrete,
+			CanCollide = true,
+		}, folder)
+		decor({
+			Name = "MainPier",
+			Size = Vector3.new(60, 4, 320),
+			CFrame = at(o, 0, -1, 20),
+			Color = Color3.fromRGB(196, 156, 112),
 			Material = Enum.Material.WoodPlanks,
 			CanCollide = true,
 		}, folder)
-		-- romp
+		for i = 1, 5 do
+			for _, side in { -1, 1 } do
+				decor({
+					Name = "Finger",
+					Size = Vector3.new(120, 3, 14),
+					CFrame = at(o, side * 90, -1.5, -110 + i * 62),
+					Color = Color3.fromRGB(196, 156, 112),
+					Material = Enum.Material.WoodPlanks,
+					CanCollide = true,
+				}, folder)
+			end
+		end
+
+		-- jachten
+		local hulls = { Color3.fromRGB(246, 244, 240), Color3.fromRGB(226, 226, 230), Color3.fromRGB(248, 250, 252) }
+		for i = 1, 8 do
+			local side = i % 2 == 0 and 1 or -1
+			local length = 70 + math.random(0, 60)
+			local x = side * (120 + math.random(0, 40))
+			local z = -130 + math.random(0, 260)
+			local hull = decor({
+				Name = "YachtHull",
+				Size = Vector3.new(26, 14, length),
+				CFrame = at(o, x, 1, z),
+				Color = hulls[(i % #hulls) + 1],
+				Material = Enum.Material.SmoothPlastic,
+				CanCollide = true,
+			}, folder)
+			Scenery.wedge({
+				Name = "YachtBow",
+				Size = Vector3.new(26, 14, 26),
+				CFrame = at(o, x, 1, z - length / 2 - 13, 180),
+				Color = hull.Color,
+				Anchored = true,
+			}, folder)
+			decor({
+				Name = "YachtDeck",
+				Size = Vector3.new(26, 1.4, length),
+				CFrame = at(o, x, 8, z),
+				Color = Color3.fromRGB(206, 170, 124),
+				Material = Enum.Material.WoodPlanks,
+				CanCollide = true,
+			}, folder)
+			decor({
+				Name = "YachtCabin",
+				Size = Vector3.new(19, 12, length * 0.4),
+				CFrame = at(o, x, 14, z + length * 0.12),
+				Color = hull.Color,
+				CanCollide = true,
+			}, folder)
+			decor({
+				Name = "YachtBridge",
+				Size = Vector3.new(14, 8, length * 0.2),
+				CFrame = at(o, x, 23, z + length * 0.2),
+				Color = Color3.fromRGB(96, 130, 150),
+				Material = Enum.Material.Glass,
+				Transparency = 0.35,
+				Reflectance = 0.3,
+			}, folder)
+			decor({
+				Name = "YachtMast",
+				Size = Vector3.new(0.8, 26, 0.8),
+				CFrame = at(o, x, 38, z + length * 0.2),
+				Color = P.metal,
+				Material = Enum.Material.Metal,
+			}, folder)
+		end
+
+		-- havenmeester, palmen, bolders, lampen
 		decor({
-			Name = "Hull",
-			Size = Vector3.new(34, 12, 86),
-			CFrame = CFrame.new(96, 6, zc),
-			Color = P.plaster,
-			Material = Enum.Material.SmoothPlastic,
+			Name = "HarbourOffice",
+			Size = Vector3.new(60, 26, 40),
+			CFrame = at(o, -130, 14, -150),
+			Color = Color3.fromRGB(240, 236, 226),
+			Material = Enum.Material.Plaster,
 			CanCollide = true,
 		}, folder)
-		Scenery.wedge({
-			Name = "Bow",
-			Size = Vector3.new(34, 12, 22),
-			CFrame = CFrame.new(96, 6, zc - 54) * CFrame.Angles(0, math.rad(180), 0),
-			Color = P.plaster,
-			Anchored = true,
-		}, folder)
 		decor({
-			Name = "Deck",
-			Size = Vector3.new(34, 1.2, 86),
-			CFrame = CFrame.new(96, 12.5, zc),
-			Color = P.wood,
-			Material = Enum.Material.WoodPlanks,
-			CanCollide = true,
+			Name = "OfficeRoof",
+			Size = Vector3.new(66, 3, 46),
+			CFrame = at(o, -130, 28, -150),
+			Color = Color3.fromRGB(186, 90, 72),
 		}, folder)
-		decor({
-			Name = "Cabin",
-			Size = Vector3.new(24, 13, 34),
-			CFrame = CFrame.new(96, 19, zc + 12),
-			Color = P.plaster,
-			Material = Enum.Material.SmoothPlastic,
-			CanCollide = true,
-		}, folder)
-		Scenery.windows(
-			CFrame.new(96, 20, zc - 5.2) * CFrame.Angles(0, math.rad(180), 0),
-			20, 8, 3, 1, 1, folder
-		)
-		decor({
-			Name = "Bridge",
-			Size = Vector3.new(16, 8, 20),
-			CFrame = CFrame.new(96, 29, zc + 16),
-			Color = P.plaster,
-		}, folder)
-		decor({
-			Name = "Mast",
-			Size = Vector3.new(1, 26, 1),
-			CFrame = CFrame.new(96, 45, zc + 16),
-			Color = P.metal,
-			Material = Enum.Material.Metal,
-		}, folder)
-		Scenery.wallText(wall(78.5, 20, zc - 20, -90), 26, 6, "PENJACHT", P.neonCyan, folder)
-		for _, dz in { -30, 0, 30 } do
+		Scenery.wallText(at(o, -130, 20, -129, 180), 34, 7, "MARINA", Color3.fromRGB(96, 226, 255), folder)
+		for i = 1, 8 do
+			Scenery.palm(at(o, -150 + i * 40, 1.4, -170), folder)
 			decor({
 				Name = "Bollard",
-				Size = Vector3.new(2.4, 4, 2.4),
-				CFrame = CFrame.new(66, 5, zc + dz),
-				Color = P.metalDark,
+				Size = Vector3.new(3, 5, 3),
+				CFrame = at(o, -30 + (i % 2) * 60, 2, -120 + i * 34),
+				Color = Color3.fromRGB(56, 58, 64),
 				Material = Enum.Material.Metal,
+			}, folder)
+		end
+		for i = 1, 6 do
+			Scenery.lamppost(at(o, (i % 2 == 0 and 1 or -1) * 34, 1, -140 + i * 56, 0), folder)
+		end
+
+		-- pier met vuurtoren en bergen in de verte
+		decor({
+			Name = "Breakwater",
+			Size = Vector3.new(420, 12, 24),
+			CFrame = at(o, 0, 0, 220),
+			Color = Color3.fromRGB(128, 124, 116),
+			Material = Enum.Material.Rock,
+			CanCollide = true,
+		}, folder)
+		decor({
+			Name = "Lighthouse",
+			Size = Vector3.new(16, 54, 16),
+			CFrame = at(o, 190, 30, 220),
+			Color = Color3.fromRGB(244, 242, 236),
+			CanCollide = true,
+		}, folder)
+		local beacon = decor({
+			Name = "Beacon",
+			Size = Vector3.new(12, 8, 12),
+			CFrame = at(o, 190, 60, 220),
+			Color = Color3.fromRGB(255, 120, 90),
+			Material = Enum.Material.Neon,
+		}, folder)
+		local beaconLight = Instance.new("PointLight")
+		beaconLight.Brightness = 3
+		beaconLight.Range = 90
+		beaconLight.Color = Color3.fromRGB(255, 140, 110)
+		beaconLight.Parent = beacon
+
+		for i = 1, 7 do
+			decor({
+				Name = "Mountain",
+				Size = Vector3.new(220 + math.random(0, 160), 150 + math.random(0, 160), 200),
+				CFrame = at(o, -600 + i * 190, 40, 520 + math.random(-60, 60)),
+				Color = Color3.fromRGB(112, 118, 134):Lerp(Color3.fromRGB(196, 176, 168), math.random()),
+				Material = Enum.Material.Rock,
 			}, folder)
 		end
 	end
 
-	local function buildOrbit(folder: Folder, zc: number)
+	-- ------------------------------------------------------------- 7. orbit ----
+
+	function ZoneArt.orbit(folder: Folder, station)
+		local o = station.origin
+
+		-- het platform
 		decor({
 			Name = "Platform",
-			Size = Vector3.new(70, 3, 90),
-			CFrame = CFrame.new(100, 30, zc),
+			Size = Vector3.new(320, 6, 360),
+			CFrame = at(o, 0, -3, -40),
 			Color = Color3.fromRGB(46, 50, 72),
 			Material = Enum.Material.Metal,
 			CanCollide = true,
 		}, folder)
+		tiles(folder, o, 14, 16, 22, 0.3, Color3.fromRGB(54, 58, 82), Color3.fromRGB(40, 44, 64),
+			Enum.Material.Metal)
 		decor({
 			Name = "PlatformGlow",
-			Size = Vector3.new(72, 0.8, 92),
-			CFrame = CFrame.new(100, 28.4, zc),
+			Size = Vector3.new(326, 1, 366),
+			CFrame = at(o, 0, -6.4, -40),
 			Color = Color3.fromRGB(150, 110, 240),
 			Material = Enum.Material.Neon,
+			Transparency = 0.25,
 		}, folder)
-		for i = 1, 3 do
-			Scenery.cylinder({
-				Name = "Ring",
-				Size = Vector3.new(2, 44 + i * 16, 44 + i * 16),
-				CFrame = CFrame.new(100, 52 + i * 6, zc) * CFrame.Angles(0, 0, math.rad(90)) * CFrame.Angles(math.rad(18 * i), 0, 0),
-				Color = i % 2 == 0 and P.neonCyan or Color3.fromRGB(180, 110, 240),
-				Material = Enum.Material.Neon,
+
+		-- glazen koepel
+		local H = 92
+		for _, side in { -1, 1 } do
+			decor({
+				Name = "DomeWall",
+				Size = Vector3.new(3, H, 360),
+				CFrame = at(o, side * 158, H / 2, -40),
+				Color = Color3.fromRGB(140, 180, 220),
+				Material = Enum.Material.Glass,
+				Transparency = 0.72,
+				Reflectance = 0.25,
+				CanCollide = true,
+			}, folder)
+		end
+		for _, spec in { { z = 150 }, { z = -230 } } do
+			decor({
+				Name = "DomeWall",
+				Size = Vector3.new(320, H, 3),
+				CFrame = at(o, 0, H / 2, spec.z),
+				Color = Color3.fromRGB(140, 180, 220),
+				Material = Enum.Material.Glass,
+				Transparency = 0.72,
+				Reflectance = 0.25,
+				CanCollide = true,
+			}, folder)
+		end
+		decor({
+			Name = "DomeRoof",
+			Size = Vector3.new(320, 3, 360),
+			CFrame = at(o, 0, H, -40),
+			Color = Color3.fromRGB(140, 180, 220),
+			Material = Enum.Material.Glass,
+			Transparency = 0.8,
+			Reflectance = 0.3,
+			CanCollide = true,
+		}, folder)
+		for i = -4, 4 do
+			decor({
+				Name = "DomeRib",
+				Size = Vector3.new(4, H + 4, 4),
+				CFrame = at(o, i * 38, H / 2, 150),
+				Color = Color3.fromRGB(82, 86, 120),
+				Material = Enum.Material.Metal,
+			}, folder)
+			ceilingLight(folder, at(o, i * 38, H - 4, -40), 340, Color3.fromRGB(170, 150, 255))
+		end
+
+		-- de aarde onder het station
+		Scenery.ball({
+			Name = "Earth",
+			Size = Vector3.new(1400, 1400, 1400),
+			CFrame = at(o, 0, -1120, 220),
+			Color = Color3.fromRGB(46, 104, 180),
+			Material = Enum.Material.SmoothPlastic,
+			CanCollide = false,
+		}, folder)
+		for i = 1, 16 do
+			Scenery.ball({
+				Name = "Cloud",
+				Size = Vector3.new(160 + math.random(0, 200), 30, 160 + math.random(0, 200)),
+				CFrame = at(o, math.random(-520, 520), -460 + math.random(-120, 40), 200 + math.random(-400, 400)),
+				Color = Color3.fromRGB(226, 234, 244),
 				Transparency = 0.25,
 				CanCollide = false,
 			}, folder)
 		end
-		for i = 1, 22 do
+
+		-- sterren
+		for i = 1, 90 do
 			Scenery.ball({
 				Name = "Star",
-				Size = Vector3.new(1.6, 1.6, 1.6),
-				CFrame = CFrame.new(70 + math.random(0, 80), 40 + math.random(0, 70), zc - 50 + math.random(0, 100)),
+				Size = Vector3.new(2.4, 2.4, 2.4),
+				CFrame = at(o, math.random(-900, 900), math.random(-200, 700), math.random(-900, 900)),
 				Color = Color3.fromRGB(255, 255, 240),
 				Material = Enum.Material.Neon,
 				CanCollide = false,
 			}, folder)
 		end
-		-- lift omhoog vanaf het terrein
-		for i = 1, 14 do
+
+		-- zonnepanelen en ringen buiten de koepel
+		for _, side in { -1, 1 } do
 			decor({
-				Name = "FloatStep",
-				Size = Vector3.new(10, 1, 10),
-				CFrame = CFrame.new(60 + i * 1.5, 3 + i * 2, zc - 30 + i * 2),
-				Color = Color3.fromRGB(150, 110, 240),
+				Name = "SolarArm",
+				Size = Vector3.new(90, 3, 6),
+				CFrame = at(o, side * 210, 30, -40),
+				Color = P.metalDark,
+				Material = Enum.Material.Metal,
+			}, folder)
+			for i = -1, 1 do
+				decor({
+					Name = "SolarPanel",
+					Size = Vector3.new(70, 1.4, 44),
+					CFrame = at(o, side * 280, 30, -40 + i * 50),
+					Color = Color3.fromRGB(58, 70, 140),
+					Material = Enum.Material.Neon,
+					Transparency = 0.15,
+				}, folder)
+			end
+		end
+		for i = 1, 3 do
+			Scenery.cylinder({
+				Name = "Ring",
+				Size = Vector3.new(3, 420 + i * 70, 420 + i * 70),
+				CFrame = at(o, 0, 40, -40) * CFrame.Angles(0, 0, math.rad(90)) * CFrame.Angles(math.rad(14 * i), 0, 0),
+				Color = i % 2 == 0 and P.neonCyan or Color3.fromRGB(180, 110, 240),
 				Material = Enum.Material.Neon,
-				Transparency = 0.2,
-				CanCollide = true,
+				Transparency = 0.45,
+				CanCollide = false,
 			}, folder)
 		end
-		Scenery.wallText(wall(64, 46, zc, -90), 30, 7, "PEN ORBIT", Color3.fromRGB(190, 140, 255), folder)
-	end
 
-	-- Een zaak die je nog niet hebt vrijgespeeld is een bouwput: hekken, steigers,
-	-- een kraan en een bord. De client haalt dit weg zodra jij hem opent, dus je
-	-- ziet de stad meegroeien met je rebirths.
-	local function buildConstruction(folder: Folder, station, zc: number)
-		local site = Instance.new("Folder")
-		site.Name = "Construction"
-		site.Parent = folder
-
-		-- hekken rond het terrein, met de opening naar de straat dicht
-		Scenery.fence(wall(30, 1.4, zc, 0), 108, site)
-		Scenery.fence(wall(PLOT_X + 8, 1.4, zc + 56, 90), 92, site)
-		Scenery.fence(wall(PLOT_X + 8, 1.4, zc - 56, 90), 92, site)
-
-		Scenery.crane(CFrame.new(PLOT_X + 34, 1.4, zc + 34), 70, site)
-		Scenery.scaffold(wall(74, 1.4, zc, -90), 50, 40, site)
-
-		for i = 1, 6 do
-			Scenery.cone(CFrame.new(33, 1.4, zc - 30 + i * 10), site)
+		-- hologram-consoles binnen
+		for i = 1, 5 do
+			local x = -120 + i * 48
+			decor({
+				Name = "Console",
+				Size = Vector3.new(22, 6, 12),
+				CFrame = at(o, x, 3, 96),
+				Color = Color3.fromRGB(42, 46, 66),
+				Material = Enum.Material.Metal,
+				CanCollide = true,
+			}, folder)
+			decor({
+				Name = "Hologram",
+				Size = Vector3.new(18, 14, 0.4),
+				CFrame = at(o, x, 13, 96),
+				Color = Color3.fromRGB(120, 210, 255),
+				Material = Enum.Material.Neon,
+				Transparency = 0.55,
+			}, folder)
 		end
-		Scenery.crate(CFrame.new(50, 1.4, zc + 44), 5, site)
-		Scenery.crate(CFrame.new(56, 1.4, zc + 44), 4, site)
-
-		decor({
-			Name = "SiteHut",
-			Size = Vector3.new(12, 9, 20),
-			CFrame = CFrame.new(46, 6.4, zc - 44),
-			Color = Color3.fromRGB(216, 176, 60),
-			Material = Enum.Material.Metal,
-			CanCollide = true,
-		}, site)
-
-		Scenery.wallText(wall(29, 18, zc, -90), 26, 10,
-			string.format("IN AANBOUW\n<font size=\"30\">%s opent na rebirth %d</font>",
-				station.name, station.unlockRebirth), Color3.fromRGB(255, 200, 80), site)
+		Scenery.wallText(at(o, 0, 60, -226, 180), 90, 18, "ORBIT FINANCE", Color3.fromRGB(190, 140, 255), folder)
 	end
 
-	local BUILDERS: { [string]: (Folder, number) -> () } = {
-		kraam = buildKraam,
-		winkel = buildWinkel,
-		fabriek = buildFabriek,
-		groothandel = buildGroothandel,
-		toren = buildToren,
-		penthouse = buildPenthouse,
-		jacht = buildJacht,
-		orbit = buildOrbit,
+	return ZoneArt
+end)()
+
+PEN.World = (function()
+	--!strict
+	-- Zet de acht zones neer. Elke zone krijgt zijn eigen architectuur (ZoneArt),
+	-- daarbovenop overal dezelfde werkplek, toonbank en kiosk (Zones), en een
+	-- bouwput als je hem nog niet hebt vrijgespeeld.
+
+	local Lighting = game:GetService("Lighting")
+	local Workspace = game:GetService("Workspace")
+
+	local Config = PEN.Config
+	local Scenery = PEN.Scenery
+	local Zones = PEN.Zones
+	local ZoneArt = PEN.ZoneArt
+
+	local World = {}
+
+	local P = Scenery.Palette
+
+	-- kleuren van de vaste inrichting, per zone
+	local STYLES: { [string]: any } = {
+		steeg        = { bench = Color3.fromRGB(64, 68, 78), wood = Color3.fromRGB(104, 74, 48), metal = Color3.fromRGB(120, 124, 132), stand = Color3.fromRGB(58, 60, 70), accent = P.neonPink },
+		winkelstraat = { bench = Color3.fromRGB(196, 214, 210), wood = Color3.fromRGB(176, 128, 82), metal = Color3.fromRGB(226, 226, 230), stand = Color3.fromRGB(226, 216, 198), accent = Color3.fromRGB(236, 132, 96) },
+		zakencentrum = { bench = Color3.fromRGB(96, 102, 116), wood = Color3.fromRGB(120, 96, 72), metal = Color3.fromRGB(176, 180, 190), stand = Color3.fromRGB(150, 156, 168), accent = Color3.fromRGB(96, 226, 255) },
+		beursvloer   = { bench = Color3.fromRGB(72, 76, 92), wood = Color3.fromRGB(96, 70, 52), metal = P.gold, stand = Color3.fromRGB(226, 220, 206), accent = P.gold },
+		lobby        = { bench = Color3.fromRGB(58, 56, 56), wood = Color3.fromRGB(70, 56, 48), metal = P.gold, stand = Color3.fromRGB(238, 234, 226), accent = P.gold },
+		penthouse    = { bench = Color3.fromRGB(206, 172, 128), wood = Color3.fromRGB(186, 146, 104), metal = Color3.fromRGB(236, 230, 220), stand = Color3.fromRGB(226, 216, 196), accent = Color3.fromRGB(255, 196, 120) },
+		jachthaven   = { bench = Color3.fromRGB(226, 226, 226), wood = Color3.fromRGB(196, 156, 112), metal = Color3.fromRGB(236, 240, 244), stand = Color3.fromRGB(240, 236, 226), accent = P.neonCyan },
+		orbit        = { bench = Color3.fromRGB(52, 56, 80), wood = Color3.fromRGB(64, 60, 86), metal = Color3.fromRGB(150, 110, 240), stand = Color3.fromRGB(46, 50, 72), accent = Color3.fromRGB(190, 140, 255) },
 	}
 
-	-- ------------------------------------------------------------------ bouw ---
+	-- Basisinstelling; de client past per zone de sfeer aan.
+	local function setupLighting()
+		pcall(function()
+			Lighting.Technology = Enum.Technology.Future
+		end)
+		Lighting.ClockTime = 16
+		Lighting.GeographicLatitude = 24
+		Lighting.Brightness = 2.4
+		Lighting.Ambient = Color3.fromRGB(88, 90, 100)
+		Lighting.OutdoorAmbient = Color3.fromRGB(132, 134, 144)
+		Lighting.EnvironmentDiffuseScale = 0.55
+		Lighting.EnvironmentSpecularScale = 0.45
+		Lighting.ExposureCompensation = 0.15
+		Lighting.GlobalShadows = true
+		Lighting.FogEnd = 1200
+
+		for _, old in Lighting:GetChildren() do
+			if old:IsA("Atmosphere") or old:IsA("BloomEffect") or old:IsA("ColorCorrectionEffect")
+				or old:IsA("SunRaysEffect") or old:IsA("Sky") then
+				old:Destroy()
+			end
+		end
+
+		local sky = Instance.new("Sky")
+		sky.Name = "PenSky"
+		sky.SunAngularSize = 14
+		sky.Parent = Lighting
+
+		local atmosphere = Instance.new("Atmosphere")
+		atmosphere.Name = "PenAtmosphere"
+		atmosphere.Density = 0.32
+		atmosphere.Offset = 0.15
+		atmosphere.Color = Color3.fromRGB(202, 199, 194)
+		atmosphere.Decay = Color3.fromRGB(106, 112, 125)
+		atmosphere.Glare = 0.3
+		atmosphere.Haze = 1.7
+		atmosphere.Parent = Lighting
+
+		local bloom = Instance.new("BloomEffect")
+		bloom.Name = "PenBloom"
+		bloom.Intensity = 0.5
+		bloom.Size = 24
+		bloom.Threshold = 1.05
+		bloom.Parent = Lighting
+
+		local grade = Instance.new("ColorCorrectionEffect")
+		grade.Name = "PenGrade"
+		grade.Saturation = 0.12
+		grade.Contrast = 0.08
+		grade.TintColor = Color3.fromRGB(255, 249, 240)
+		grade.Parent = Lighting
+
+		local rays = Instance.new("SunRaysEffect")
+		rays.Name = "PenRays"
+		rays.Intensity = 0.06
+		rays.Spread = 0.9
+		rays.Parent = Lighting
+	end
 
 	function World.build(): Folder
 		local existing = Workspace:FindFirstChild("PenWorld")
@@ -3598,98 +3881,69 @@ PEN.World = (function()
 
 		setupLighting()
 
-		local lastZ = blockZ(#Config.Stations)
-		local totalLength = math.abs(lastZ) + 260
-		buildStreet(root, totalLength, (140 + lastZ - 80) / 2)
+		for _, station in Config.Stations do
+			local folder = Instance.new("Folder")
+			folder.Name = "Station_" .. station.key
+			folder.Parent = root
 
-		local plaza = buildPlaza(root)
-		buildKiosks(plaza)
-		buildRebirthPortal(plaza)
-		buildPetStand(plaza)
-		buildBoard(plaza, "Board_cash", wall(60, 30, 78, -90), "RIJKSTE VERKOPERS")
-		buildBoard(plaza, "Board_rebirths", wall(60, 30, 110, -90), "MEESTE REBIRTHS")
-
-		-- lage panden die het plein omsluiten, zodat het geen losse vlakte is
-		for _, side in { -1, 1 } do
-			local z = 18
-			while z < 140 do
-				local height = 22 + math.random(0, 12)
-				local depth = 34
-				local width = 26 + math.random(0, 10)
-				local body = decor({
-					Name = "PlazaShop",
-					Size = Vector3.new(depth, height, width),
-					CFrame = CFrame.new(side * 99, height / 2, z + width / 2),
-					Color = ({ P.brick, P.plaster, P.plasterWarm, P.teal })[math.random(4)],
-					Material = Enum.Material.Brick,
-					CanCollide = true,
-				}, root)
-				Scenery.windows(
-					body.CFrame * CFrame.Angles(0, math.rad(side > 0 and 90 or -90), 0) * CFrame.new(0, 4, depth / 2),
-					width * 0.8, height * 0.55, 3, 2, 0.5, root
-				)
-				Scenery.storefront(wall(side * 82.2, 1.4, z + width / 2, side > 0 and 90 or -90), width * 0.6, 11, root)
-				Scenery.awning(wall(side * 81.3, 13.6, z + width / 2, side > 0 and 90 or -90), width * 0.62, 6,
-					({ P.awningA, P.teal, P.neonPink })[math.random(3)], P.awningB, root)
-				z += width + 4
-			end
-		end
-
-		-- het stuk tussen het plein en de eerste zaak
-		dressBlock(root, 6, World.FIRST_BLOCK_Z + 60, DISTRICTS[1], 0)
-
-		for index, station in Config.Stations do
-			local folder, zc = stationShell(root, station, index)
-			local builder = BUILDERS[station.key]
+			local builder = (ZoneArt :: any)[station.key]
 			if builder then
-				builder(folder, zc)
+				builder(folder, station)
 			end
-			stationProps(folder, station, zc,
-				station.unlockRebirth == 0 and Color3.fromRGB(120, 255, 150) or Color3.fromRGB(200, 120, 255))
 
-			local district = districtOf(index)
-			dressBlock(root, zc + 59, zc - 61, district, index)
+			local style = STYLES[station.key] or STYLES.steeg
+			Zones.fixtures(folder, station, style)
+			Zones.services(folder, station, style)
+
 			if station.unlockRebirth > 0 then
-				buildConstruction(folder, station, zc)
+				Zones.construction(folder, station)
 			end
 		end
 
-		-- stad eromheen: eerst een dichte band vlak achter de gevels, daarachter
-		-- lagere blokken in de verte. Zo kijk je nooit uit op een leeg veld.
-		local near = { minHeight = 34, maxHeight = 78, cool = 0.15, jitter = 8 }
-		local far = { minHeight = 80, maxHeight = 190, cool = 0.55, jitter = 16 }
-		local rows = math.max(6, math.floor((math.abs(lastZ) + 260) / 62))
-		Scenery.skyline(Vector3.new(-152, 0, 120), 62, rows, 90, root, near)
-		Scenery.skyline(Vector3.new(-250, 0, 140), 92, math.floor(rows * 0.6), 90, root, far)
-		Scenery.skyline(Vector3.new(214, 0, 120), 64, rows, -90, root, near)
-		Scenery.skyline(Vector3.new(320, 0, 140), 92, math.floor(rows * 0.6), -90, root, far)
-		-- afsluiting aan beide uiteinden van de straat (rij loopt over de X-as)
-		local endCap = { minHeight = 70, maxHeight = 160, cool = 0.5, jitter = 12, axis = "x" }
-		Scenery.skyline(Vector3.new(-180, 0, lastZ - 170), 86, 6, 0, root, endCap)
-		Scenery.skyline(Vector3.new(-180, 0, 250), 86, 6, 180, root, endCap)
+		-- je begint in de steeg
+		local first = Config.Stations[1]
+		local spawn = Instance.new("SpawnLocation")
+		spawn.Name = "PenSpawn"
+		spawn.Anchored = true
+		spawn.Size = Vector3.new(16, 1, 16)
+		spawn.CFrame = CFrame.new(first.origin + Vector3.new(0, 1.5, 70))
+		spawn.Color = Color3.fromRGB(120, 200, 150)
+		spawn.Material = Enum.Material.Neon
+		spawn.Transparency = 0.4
+		spawn.Duration = 0
+		spawn.Parent = root
 
 		return root
 	end
 
-	function World.find(root: Instance, name: string): BasePart?
-		local p = root:FindFirstChild(name, true)
-		if p and p:IsA("BasePart") then
-			return p
+	-- Alle onderdelen met deze naam: elke zone heeft zijn eigen set platen.
+	function World.findAll(root: Instance, name: string): { BasePart }
+		local out = {}
+		for _, item in root:GetDescendants() do
+			if item.Name == name and item:IsA("BasePart") then
+				table.insert(out, item)
+			end
 		end
-		return nil
+		return out
 	end
 
-	function World.boardBody(root: Instance, name: string): TextLabel?
-		local stand = root:FindFirstChild(name, true)
-		if not stand then
-			return nil
+	function World.find(root: Instance, name: string): BasePart?
+		local all = World.findAll(root, name)
+		return all[1]
+	end
+
+	function World.boardBodies(root: Instance, name: string): { TextLabel }
+		local out = {}
+		for _, item in root:GetDescendants() do
+			if item.Name == name then
+				local screen = item:FindFirstChild("Screen")
+				local body = screen and screen:FindFirstChild("Body")
+				if body and body:IsA("TextLabel") then
+					table.insert(out, body)
+				end
+			end
 		end
-		local screen = stand:FindFirstChild("Screen")
-		local body = screen and screen:FindFirstChild("Body")
-		if body and body:IsA("TextLabel") then
-			return body
-		end
-		return nil
+		return out
 	end
 
 	return World
@@ -4399,7 +4653,7 @@ PEN.Leaderboards = (function()
 	local MAX_VALUE = 1e15
 
 	local stores: { [string]: OrderedDataStore } = {}
-	local labels: { [string]: TextLabel } = {}
+	local labels: { [string]: { TextLabel } } = {}
 	local nameCache: { [number]: string } = {}
 
 	local function getStore(kind: string): OrderedDataStore?
@@ -4447,20 +4701,25 @@ PEN.Leaderboards = (function()
 	end
 
 	local function render(kind: string, formatValue: (number) -> string)
-		local label = labels[kind]
-		if not label then
+		local group = labels[kind]
+		if not group or #group == 0 then
 			return
+		end
+		local function write(message: string)
+			for _, label in group do
+				label.Text = message
+			end
 		end
 		local store = getStore(kind)
 		if not store then
-			label.Text = "Scorebord werkt pas in een gepubliceerde game."
+			write("Scorebord werkt pas in een gepubliceerde game.")
 			return
 		end
 		local ok, pages = pcall(function()
 			return store:GetSortedAsync(false, 10)
 		end)
 		if not ok then
-			label.Text = "Even geen verbinding met het scorebord."
+			write("Even geen verbinding met het scorebord.")
 			return
 		end
 		local rows = {}
@@ -4473,19 +4732,15 @@ PEN.Leaderboards = (function()
 			end
 		end
 		if #rows == 0 then
-			label.Text = "Nog niemand. Wees de eerste!"
+			write("Nog niemand. Wees de eerste!")
 		else
-			label.Text = table.concat(rows, "\n")
+			write(table.concat(rows, "\n"))
 		end
 	end
 
-	function Leaderboards.start(cashLabel: TextLabel?, rebirthLabel: TextLabel?)
-		if cashLabel then
-			labels.cash = cashLabel
-		end
-		if rebirthLabel then
-			labels.rebirths = rebirthLabel
-		end
+	function Leaderboards.start(cashLabels: { TextLabel }, rebirthLabels: { TextLabel })
+		labels.cash = cashLabels
+		labels.rebirths = rebirthLabels
 
 		task.spawn(function()
 			while true do
@@ -4530,7 +4785,7 @@ PEN.Game = (function()
 	local REBIRTH_HOLD = 2
 	local HINT_COOLDOWN = 12
 
-	local pads: { [string]: BasePart } = {}
+	local pads: { [string]: { BasePart } } = {}
 	local nextProduce: { [Player]: number } = {}
 	local nextSell: { [Player]: number } = {}
 	local nextUpgrade: { [Player]: number } = {}
@@ -5339,6 +5594,16 @@ PEN.Game = (function()
 			and offset.Y <= 8
 	end
 
+	-- Elke zone heeft zijn eigen platen, dus we kijken naar alle platen met die naam.
+	local function onAnyPad(root: BasePart, name: string): boolean
+		for _, padPart in pads[name] or {} do
+			if isOnPad(root, padPart) then
+				return true
+			end
+		end
+		return false
+	end
+
 	local function hint(player: Player, now: number, text: string)
 		if now >= (nextHint[player] or 0) then
 			nextHint[player] = now + HINT_COOLDOWN
@@ -5363,8 +5628,7 @@ PEN.Game = (function()
 		local capacity = capacityOf(player, profile)
 
 		for _, station in Config.Stations do
-			local pressPad = pads["Press_" .. station.key]
-			if pressPad and isOnPad(root, pressPad) then
+			if onAnyPad(root, "Press_" .. station.key) then
 				if not stationUnlocked(profile, station) then
 					hint(player, now, string.format("%s opent na rebirth %d", station.name, station.unlockRebirth))
 				else
@@ -5385,8 +5649,7 @@ PEN.Game = (function()
 				end
 			end
 
-			local sellPad = pads["Sell_" .. station.key]
-			if sellPad and isOnPad(root, sellPad) then
+			if onAnyPad(root, "Sell_" .. station.key) then
 				if not stationUnlocked(profile, station) then
 					hint(player, now, string.format("%s opent na rebirth %d", station.name, station.unlockRebirth))
 				elseif bagCount(profile) > 0 and not pitches[player] and now >= (nextSell[player] or 0) then
@@ -5399,8 +5662,7 @@ PEN.Game = (function()
 		-- upgrades op de plaat
 		if now >= (nextUpgrade[player] or 0) then
 			for _, up in Config.Upgrades do
-				local padPart = pads["UpgradePad_" .. up.key]
-				if padPart and isOnPad(root, padPart) then
+				if onAnyPad(root, "UpgradePad_" .. up.key) then
 					nextUpgrade[player] = now + UPGRADE_PAD_COOLDOWN
 					buyUpgrade(player, up.key, true)
 					break
@@ -5408,14 +5670,12 @@ PEN.Game = (function()
 			end
 		end
 
-		local petPad = pads.PetPad
-		if petPad and isOnPad(root, petPad) then
+		if onAnyPad(root, "PetPad") then
 			hint(player, now, "Open 'Mascottes' rechtsonder om er een te kopen.")
 		end
 
 		-- rebirth: even blijven staan
-		local rebirthPad = pads.RebirthPad
-		if rebirthPad and isOnPad(root, rebirthPad) then
+		if onAnyPad(root, "RebirthPad") then
 			local since = rebirthHeldSince[player]
 			if not since then
 				rebirthHeldSince[player] = now
@@ -5434,26 +5694,17 @@ PEN.Game = (function()
 		Net.init()
 
 		local root = World.build()
-		pads.RebirthPad = World.find(root, "RebirthPad") :: BasePart
-		pads.PetPad = World.find(root, "PetPad") :: BasePart
+		pads.RebirthPad = World.findAll(root, "RebirthPad")
+		pads.PetPad = World.findAll(root, "PetPad")
 		for _, up in Config.Upgrades do
-			local p = World.find(root, "UpgradePad_" .. up.key)
-			if p then
-				pads["UpgradePad_" .. up.key] = p
-			end
+			pads["UpgradePad_" .. up.key] = World.findAll(root, "UpgradePad_" .. up.key)
 		end
 
 		local spots: { [string]: BasePart } = {}
 		for _, station in Config.Stations do
-			local press = World.find(root, "Press_" .. station.key)
-			local sell = World.find(root, "Sell_" .. station.key)
+			pads["Press_" .. station.key] = World.findAll(root, "Press_" .. station.key)
+			pads["Sell_" .. station.key] = World.findAll(root, "Sell_" .. station.key)
 			local spot = World.find(root, "Spot_" .. station.key)
-			if press then
-				pads["Press_" .. station.key] = press
-			end
-			if sell then
-				pads["Sell_" .. station.key] = sell
-			end
 			if spot then
 				spots[station.key] = spot
 			end
@@ -5464,7 +5715,7 @@ PEN.Game = (function()
 		Passes.start(function(player)
 			push(player)
 		end)
-		Leaderboards.start(World.boardBody(root, "Board_cash"), World.boardBody(root, "Board_rebirths"))
+		Leaderboards.start(World.boardBodies(root, "Board_cash"), World.boardBodies(root, "Board_rebirths"))
 
 		Net.event("BuyUpgrade").OnServerEvent:Connect(function(player, key)
 			if typeof(key) == "string" then
@@ -5548,7 +5799,7 @@ PEN.Game = (function()
 							Color3.fromRGB(255, 150, 150))
 						return
 					end
-					local pad = pads["Press_" .. key]
+					local pad = (pads["Press_" .. key] or {})[1]
 					if pad then
 						pitches[player] = nil
 						-- met StreamingEnabled moet de omgeving er eerst zijn,

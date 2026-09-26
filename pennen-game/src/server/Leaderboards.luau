@@ -12,7 +12,7 @@ local REFRESH_SECONDS = 120
 local MAX_VALUE = 1e15
 
 local stores: { [string]: OrderedDataStore } = {}
-local labels: { [string]: TextLabel } = {}
+local labels: { [string]: { TextLabel } } = {}
 local nameCache: { [number]: string } = {}
 
 local function getStore(kind: string): OrderedDataStore?
@@ -60,20 +60,25 @@ function Leaderboards.submit(player: Player, cash: number, rebirths: number)
 end
 
 local function render(kind: string, formatValue: (number) -> string)
-	local label = labels[kind]
-	if not label then
+	local group = labels[kind]
+	if not group or #group == 0 then
 		return
+	end
+	local function write(message: string)
+		for _, label in group do
+			label.Text = message
+		end
 	end
 	local store = getStore(kind)
 	if not store then
-		label.Text = "Scorebord werkt pas in een gepubliceerde game."
+		write("Scorebord werkt pas in een gepubliceerde game.")
 		return
 	end
 	local ok, pages = pcall(function()
 		return store:GetSortedAsync(false, 10)
 	end)
 	if not ok then
-		label.Text = "Even geen verbinding met het scorebord."
+		write("Even geen verbinding met het scorebord.")
 		return
 	end
 	local rows = {}
@@ -86,19 +91,15 @@ local function render(kind: string, formatValue: (number) -> string)
 		end
 	end
 	if #rows == 0 then
-		label.Text = "Nog niemand. Wees de eerste!"
+		write("Nog niemand. Wees de eerste!")
 	else
-		label.Text = table.concat(rows, "\n")
+		write(table.concat(rows, "\n"))
 	end
 end
 
-function Leaderboards.start(cashLabel: TextLabel?, rebirthLabel: TextLabel?)
-	if cashLabel then
-		labels.cash = cashLabel
-	end
-	if rebirthLabel then
-		labels.rebirths = rebirthLabel
-	end
+function Leaderboards.start(cashLabels: { TextLabel }, rebirthLabels: { TextLabel })
+	labels.cash = cashLabels
+	labels.rebirths = rebirthLabels
 
 	task.spawn(function()
 		while true do

@@ -98,10 +98,18 @@ local function buyUpgrades()
 	end
 end
 
+local function bagCount()
+	local total = 0
+	for _, amount in profile.bag do
+		total += amount
+	end
+	return total
+end
+
 local function trip()
 	standOn("Press_" .. station().key)
 	local guard = 0
-	while profile.pens < math.floor(Config.getUpgrade("capacity").value(profile.upgrades.capacity)) and guard < 400 do
+	while bagCount() < math.floor(Config.getUpgrade("capacity").value(profile.upgrades.capacity)) and guard < 400 do
 		tick(0.5)
 		guard += 1
 	end

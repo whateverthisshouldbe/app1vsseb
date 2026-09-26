@@ -25,7 +25,7 @@ local SELL_COOLDOWN = 0.4
 local REBIRTH_HOLD = 2
 local HINT_COOLDOWN = 12
 
-local pads: { [string]: BasePart } = {}
+local pads: { [string]: { BasePart } } = {}
 local nextProduce: { [Player]: number } = {}
 local nextSell: { [Player]: number } = {}
 local nextUpgrade: { [Player]: number } = {}
@@ -834,6 +834,16 @@ local function isOnPad(root: BasePart, padPart: BasePart): boolean
 		and offset.Y <= 8
 end
 
+-- Elke zone heeft zijn eigen platen, dus we kijken naar alle platen met die naam.
+local function onAnyPad(root: BasePart, name: string): boolean
+	for _, padPart in pads[name] or {} do
+		if isOnPad(root, padPart) then
+			return true
+		end
+	end
+	return false
+end
+
 local function hint(player: Player, now: number, text: string)
 	if now >= (nextHint[player] or 0) then
 		nextHint[player] = now + HINT_COOLDOWN
@@ -858,8 +868,7 @@ local function stepPlayer(player: Player, now: number)
 	local capacity = capacityOf(player, profile)
 
 	for _, station in Config.Stations do
-		local pressPad = pads["Press_" .. station.key]
-		if pressPad and isOnPad(root, pressPad) then
+		if onAnyPad(root, "Press_" .. station.key) then
 			if not stationUnlocked(profile, station) then
 				hint(player, now, string.format("%s opent na rebirth %d", station.name, station.unlockRebirth))
 			else
@@ -880,8 +889,7 @@ local function stepPlayer(player: Player, now: number)
 			end
 		end
 
-		local sellPad = pads["Sell_" .. station.key]
-		if sellPad and isOnPad(root, sellPad) then
+		if onAnyPad(root, "Sell_" .. station.key) then
 			if not stationUnlocked(profile, station) then
 				hint(player, now, string.format("%s opent na rebirth %d", station.name, station.unlockRebirth))
 			elseif bagCount(profile) > 0 and not pitches[player] and now >= (nextSell[player] or 0) then
@@ -894,8 +902,7 @@ local function stepPlayer(player: Player, now: number)
 	-- upgrades op de plaat
 	if now >= (nextUpgrade[player] or 0) then
 		for _, up in Config.Upgrades do
-			local padPart = pads["UpgradePad_" .. up.key]
-			if padPart and isOnPad(root, padPart) then
+			if onAnyPad(root, "UpgradePad_" .. up.key) then
 				nextUpgrade[player] = now + UPGRADE_PAD_COOLDOWN
 				buyUpgrade(player, up.key, true)
 				break
@@ -903,14 +910,12 @@ local function stepPlayer(player: Player, now: number)
 		end
 	end
 
-	local petPad = pads.PetPad
-	if petPad and isOnPad(root, petPad) then
+	if onAnyPad(root, "PetPad") then
 		hint(player, now, "Open 'Mascottes' rechtsonder om er een te kopen.")
 	end
 
 	-- rebirth: even blijven staan
-	local rebirthPad = pads.RebirthPad
-	if rebirthPad and isOnPad(root, rebirthPad) then
+	if onAnyPad(root, "RebirthPad") then
 		local since = rebirthHeldSince[player]
 		if not since then
 			rebirthHeldSince[player] = now
@@ -929,26 +934,17 @@ function Game.start()
 	Net.init()
 
 	local root = World.build()
-	pads.RebirthPad = World.find(root, "RebirthPad") :: BasePart
-	pads.PetPad = World.find(root, "PetPad") :: BasePart
+	pads.RebirthPad = World.findAll(root, "RebirthPad")
+	pads.PetPad = World.findAll(root, "PetPad")
 	for _, up in Config.Upgrades do
-		local p = World.find(root, "UpgradePad_" .. up.key)
-		if p then
-			pads["UpgradePad_" .. up.key] = p
-		end
+		pads["UpgradePad_" .. up.key] = World.findAll(root, "UpgradePad_" .. up.key)
 	end
 
 	local spots: { [string]: BasePart } = {}
 	for _, station in Config.Stations do
-		local press = World.find(root, "Press_" .. station.key)
-		local sell = World.find(root, "Sell_" .. station.key)
+		pads["Press_" .. station.key] = World.findAll(root, "Press_" .. station.key)
+		pads["Sell_" .. station.key] = World.findAll(root, "Sell_" .. station.key)
 		local spot = World.find(root, "Spot_" .. station.key)
-		if press then
-			pads["Press_" .. station.key] = press
-		end
-		if sell then
-			pads["Sell_" .. station.key] = sell
-		end
 		if spot then
 			spots[station.key] = spot
 		end
@@ -959,7 +955,7 @@ function Game.start()
 	Passes.start(function(player)
 		push(player)
 	end)
-	Leaderboards.start(World.boardBody(root, "Board_cash"), World.boardBody(root, "Board_rebirths"))
+	Leaderboards.start(World.boardBodies(root, "Board_cash"), World.boardBodies(root, "Board_rebirths"))
 
 	Net.event("BuyUpgrade").OnServerEvent:Connect(function(player, key)
 		if typeof(key) == "string" then
@@ -1043,7 +1039,7 @@ function Game.start()
 						Color3.fromRGB(255, 150, 150))
 					return
 				end
-				local pad = pads["Press_" .. key]
+				local pad = (pads["Press_" .. key] or {})[1]
 				if pad then
 					pitches[player] = nil
 					-- met StreamingEnabled moet de omgeving er eerst zijn,

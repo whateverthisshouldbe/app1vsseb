@@ -18,78 +18,169 @@ PEN.Config = (function()
 	-- ---------------------------------------------------------------- stations --
 	-- Elke rebirth opent een nieuwe zaak. De oude blijft gewoon open en blijft
 	-- passief geld opleveren, ook als je offline bent.
+	-- Acht zones, elk met een eigen sfeer en een eigen stukje wereld. Ze liggen
+	-- ver uit elkaar zodat je er geen twee tegelijk ziet; je reist ertussen.
+	-- `lighting` wordt door de client toegepast zodra je een zone binnenloopt.
 	Config.Stations = {
 		{
-			key = "kraam",
-			name = "Pennenkraam",
-			tagline = "Eerste pen, eerste klant",
+			key = "steeg",
+			name = "The Back Alley",
+			tagline = "Onderaan de ladder, tussen de kratten",
 			unlockRebirth = 0,
 			pen = { name = "Balpen", value = 4, color = Color3.fromRGB(35, 35, 40) },
 			autoPerSecond = 0.30,
-			color = Color3.fromRGB(120, 160, 90),
+			color = Color3.fromRGB(96, 104, 120),
+			origin = Vector3.new(0, 0, 0),
+			radius = 340,
+			indoors = false,
+			lighting = {
+				clockTime = 22.2, brightness = 1.6,
+				ambient = Color3.fromRGB(42, 48, 62),
+				outdoor = Color3.fromRGB(56, 64, 84),
+				fog = 260, fogColor = Color3.fromRGB(26, 32, 44),
+				density = 0.55, haze = 2.4,
+				tint = Color3.fromRGB(198, 214, 255), saturation = -0.05,
+			},
 		},
 		{
-			key = "winkel",
-			name = "Pennenwinkel",
-			tagline = "Een echte toonbank",
+			key = "winkelstraat",
+			name = "Retail Street",
+			tagline = "Je eerste eigen plek aan de boulevard",
 			unlockRebirth = 1,
 			pen = { name = "Gelpen", value = 18, color = Color3.fromRGB(30, 110, 220) },
 			autoPerSecond = 0.34,
-			color = Color3.fromRGB(70, 130, 200),
+			origin = Vector3.new(0, 0, -1700),
+			radius = 360,
+			indoors = false,
+			color = Color3.fromRGB(240, 226, 196),
+			lighting = {
+				clockTime = 13.5, brightness = 3.1,
+				ambient = Color3.fromRGB(128, 132, 138),
+				outdoor = Color3.fromRGB(168, 176, 186),
+				fog = 1400, fogColor = Color3.fromRGB(198, 216, 232),
+				density = 0.2, haze = 0.8,
+				tint = Color3.fromRGB(255, 250, 240), saturation = 0.2,
+			},
 		},
 		{
-			key = "fabriek",
-			name = "Pennenfabriek",
-			tagline = "Lopende banden vol inkt",
+			key = "zakencentrum",
+			name = "Business District",
+			tagline = "Strakke kantoren, asfalt en glas",
 			unlockRebirth = 2,
 			pen = { name = "Marker", value = 75, color = Color3.fromRGB(230, 90, 40) },
 			autoPerSecond = 0.38,
-			color = Color3.fromRGB(190, 110, 60),
+			origin = Vector3.new(0, 0, -3400),
+			radius = 400,
+			indoors = false,
+			color = Color3.fromRGB(206, 200, 186),
+			lighting = {
+				clockTime = 9.5, brightness = 2.6,
+				ambient = Color3.fromRGB(104, 108, 118),
+				outdoor = Color3.fromRGB(150, 156, 168),
+				fog = 1100, fogColor = Color3.fromRGB(186, 196, 210),
+				density = 0.34, haze = 1.4,
+				tint = Color3.fromRGB(246, 248, 255), saturation = 0.02,
+			},
 		},
 		{
-			key = "groothandel",
-			name = "Groothandel",
-			tagline = "Pallets in plaats van doosjes",
+			key = "beursvloer",
+			name = "Wall Street Exchange",
+			tagline = "Marmeren zuilen en koersborden",
 			unlockRebirth = 3,
 			pen = { name = "Vulpen", value = 290, color = Color3.fromRGB(150, 120, 60) },
 			autoPerSecond = 0.42,
-			color = Color3.fromRGB(150, 150, 160),
+			origin = Vector3.new(0, 0, -5100),
+			radius = 360,
+			indoors = true,
+			color = Color3.fromRGB(226, 220, 206),
+			lighting = {
+				clockTime = 15, brightness = 1.2,
+				ambient = Color3.fromRGB(92, 96, 108),
+				outdoor = Color3.fromRGB(60, 64, 76),
+				fog = 420, fogColor = Color3.fromRGB(28, 34, 44),
+				density = 0.1, haze = 0.4,
+				tint = Color3.fromRGB(226, 240, 255), saturation = 0.06,
+			},
 		},
 		{
-			key = "toren",
-			name = "Pen Street Toren",
-			tagline = "Handelaren in pak, telefoons roodgloeiend",
+			key = "lobby",
+			name = "Corporate Tower Lobby",
+			tagline = "Marmer, glazen liften en designbalies",
 			unlockRebirth = 4,
 			pen = { name = "Zilveren pen", value = 1100, color = Color3.fromRGB(190, 195, 205) },
 			autoPerSecond = 0.46,
-			color = Color3.fromRGB(90, 110, 150),
+			origin = Vector3.new(0, 0, -6800),
+			radius = 340,
+			indoors = true,
+			color = Color3.fromRGB(238, 234, 226),
+			lighting = {
+				clockTime = 17.5, brightness = 1.4,
+				ambient = Color3.fromRGB(112, 110, 106),
+				outdoor = Color3.fromRGB(96, 98, 104),
+				fog = 500, fogColor = Color3.fromRGB(52, 50, 48),
+				density = 0.12, haze = 0.5,
+				tint = Color3.fromRGB(255, 246, 228), saturation = 0.05,
+			},
 		},
 		{
 			key = "penthouse",
-			name = "Penthouse",
-			tagline = "Onderhandelen met uitzicht",
+			name = "High-Rise Penthouse",
+			tagline = "Infinity pool boven de stad",
 			unlockRebirth = 5,
 			pen = { name = "Gouden pen", value = 4200, color = Color3.fromRGB(235, 190, 60) },
 			autoPerSecond = 0.50,
-			color = Color3.fromRGB(210, 170, 70),
+			origin = Vector3.new(0, 700, -8500),
+			radius = 420,
+			indoors = false,
+			color = Color3.fromRGB(226, 212, 186),
+			lighting = {
+				clockTime = 18.4, brightness = 2.8,
+				ambient = Color3.fromRGB(122, 108, 102),
+				outdoor = Color3.fromRGB(176, 158, 142),
+				fog = 2200, fogColor = Color3.fromRGB(238, 196, 160),
+				density = 0.42, haze = 2, glare = 0.6,
+				tint = Color3.fromRGB(255, 234, 206), saturation = 0.18,
+			},
 		},
 		{
-			key = "jacht",
-			name = "Penjacht",
-			tagline = "De deal sluiten op open zee",
+			key = "jachthaven",
+			name = "Billionaire Marina",
+			tagline = "Steigers, turquoise water en superjachten",
 			unlockRebirth = 6,
 			pen = { name = "Diamanten pen", value = 16000, color = Color3.fromRGB(120, 230, 235) },
 			autoPerSecond = 0.55,
-			color = Color3.fromRGB(80, 200, 220),
+			origin = Vector3.new(0, 0, -10200),
+			radius = 520,
+			indoors = false,
+			color = Color3.fromRGB(240, 238, 232),
+			lighting = {
+				clockTime = 17.2, brightness = 3,
+				ambient = Color3.fromRGB(134, 136, 140),
+				outdoor = Color3.fromRGB(184, 190, 196),
+				fog = 2600, fogColor = Color3.fromRGB(226, 214, 196),
+				density = 0.3, haze = 1.4, glare = 0.4,
+				tint = Color3.fromRGB(255, 244, 226), saturation = 0.24,
+			},
 		},
 		{
 			key = "orbit",
-			name = "Pen Orbit",
-			tagline = "Pennen die ook in nul zwaartekracht schrijven",
+			name = "Orbit Finance Station",
+			tagline = "Hoofdkantoor in een baan om de aarde",
 			unlockRebirth = 7,
 			pen = { name = "Sterrenpen", value = 62000, color = Color3.fromRGB(180, 110, 240) },
 			autoPerSecond = 0.60,
+			origin = Vector3.new(0, 1800, -11800),
+			radius = 420,
+			indoors = true,
 			color = Color3.fromRGB(150, 100, 230),
+			lighting = {
+				clockTime = 0, brightness = 1,
+				ambient = Color3.fromRGB(28, 30, 46),
+				outdoor = Color3.fromRGB(18, 20, 34),
+				fog = 900, fogColor = Color3.fromRGB(6, 8, 18),
+				density = 0.05, haze = 0,
+				tint = Color3.fromRGB(216, 226, 255), saturation = -0.1,
+			},
 		},
 	}
 
@@ -1325,6 +1416,74 @@ local function syncVisitors()
 		end
 	end
 end
+
+-- ------------------------------------------------------ sfeer per zone ----
+-- Elke zone heeft zijn eigen licht: de steeg is nacht met neon, de
+-- winkelstraat is klaarlichte dag, de beursvloer koel kunstlicht. Dit doet de
+-- client, dus andere spelers merken er niets van.
+
+local Lighting = game:GetService("Lighting")
+local currentZone: string? = nil
+
+local function applyZoneLighting(station)
+	local L = station.lighting
+	if not L then
+		return
+	end
+	local info = TweenInfo.new(1.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	TweenService:Create(Lighting, info, {
+		ClockTime = L.clockTime,
+		Brightness = L.brightness,
+		Ambient = L.ambient,
+		OutdoorAmbient = L.outdoor,
+		FogEnd = L.fog,
+		FogColor = L.fogColor,
+	}):Play()
+
+	local atmosphere = Lighting:FindFirstChild("PenAtmosphere")
+	if atmosphere then
+		TweenService:Create(atmosphere, info, {
+			Density = L.density,
+			Haze = L.haze,
+			Glare = L.glare or 0.3,
+			Color = L.fogColor,
+		}):Play()
+	end
+	local grade = Lighting:FindFirstChild("PenGrade")
+	if grade then
+		TweenService:Create(grade, info, {
+			TintColor = L.tint,
+			Saturation = L.saturation,
+		}):Play()
+	end
+end
+
+local function zoneAt(position: Vector3)
+	local best, bestDistance = nil, math.huge
+	for _, station in Config.Stations do
+		local o = station.origin
+		local flat = (Vector3.new(position.X, 0, position.Z) - Vector3.new(o.X, 0, o.Z)).Magnitude
+		local height = math.abs(position.Y - o.Y)
+		if flat < station.radius + 220 and height < 520 and flat < bestDistance then
+			best, bestDistance = station, flat
+		end
+	end
+	return best
+end
+
+task.spawn(function()
+	while true do
+		task.wait(0.5)
+		local character = player.Character
+		local root = character and character:FindFirstChild("HumanoidRootPart")
+		local position = root and root:IsA("BasePart") and root.Position or workspace.CurrentCamera.CFrame.Position
+		local station = zoneAt(position)
+		if station and station.key ~= currentZone then
+			currentZone = station.key
+			applyZoneLighting(station)
+		end
+	end
+end)
 
 -- ------------------------------------------------------- bouwputten weg ---
 -- Zaken die jij nog niet hebt vrijgespeeld staan in de steigers. Zodra jij ze
