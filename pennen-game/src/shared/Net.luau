@@ -25,6 +25,12 @@ local EVENT_NAMES = {
 	"RedeemCode",
 	"PromptPass",
 	"Travel",
+	"TradeVisitor",
+	"HireStaff",
+	"PayStaff",
+	"FireStaff",
+	-- server -> iedereen
+	"Announce",
 }
 
 local folder: Folder

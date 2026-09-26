@@ -12,8 +12,7 @@ local Data = {}
 
 export type Profile = {
 	cash: number,
-	pens: number,
-	penValue: number,
+	bag: { [string]: number },   -- pennen per soort zaak
 	rebirths: number,
 	totalSold: number,
 	upgrades: { [string]: number },
@@ -22,6 +21,8 @@ export type Profile = {
 	dailyStreak: number,
 	lastDailyAt: number,
 	redeemed: { [string]: boolean },
+	index: { [string]: number },          -- bezoekers die je getrade hebt
+	staff: { { key: string, stamina: number, lastPaidAt: number } },
 	lastSeen: number,
 	-- niet opgeslagen, alleen deze sessie:
 	loaded: boolean,
@@ -40,8 +41,7 @@ local function defaultProfile(): Profile
 	end
 	return {
 		cash = 0,
-		pens = 0,
-		penValue = 0,
+		bag = {},
 		rebirths = 0,
 		totalSold = 0,
 		upgrades = upgrades,
@@ -50,6 +50,8 @@ local function defaultProfile(): Profile
 		dailyStreak = 0,
 		lastDailyAt = 0,
 		redeemed = {},
+		index = {},
+		staff = {},
 		lastSeen = 0,
 		loaded = false,
 		dirty = false,
@@ -63,8 +65,20 @@ local function sanitize(raw: any): Profile
 		return p
 	end
 	p.cash = math.max(0, tonumber(raw.cash) or 0)
-	p.pens = math.max(0, math.floor(tonumber(raw.pens) or 0))
-	p.penValue = math.max(0, tonumber(raw.penValue) or 0)
+	if typeof(raw.bag) == "table" then
+		for _, station in Config.Stations do
+			local amount = math.floor(tonumber(raw.bag[station.key]) or 0)
+			if amount > 0 then
+				p.bag[station.key] = amount
+			end
+		end
+	elseif tonumber(raw.pens) then
+		-- opslag van voor de bezoekers-update: alles telt als pennen van de kraam
+		local amount = math.max(0, math.floor(tonumber(raw.pens) or 0))
+		if amount > 0 then
+			p.bag[Config.Stations[1].key] = amount
+		end
+	end
 	p.rebirths = math.clamp(math.floor(tonumber(raw.rebirths) or 0), 0, #Config.Stations - 1)
 	p.totalSold = math.max(0, math.floor(tonumber(raw.totalSold) or 0))
 	p.dailyStreak = math.clamp(math.floor(tonumber(raw.dailyStreak) or 0), 0, Config.Daily.maxStreak)
@@ -86,6 +100,26 @@ local function sanitize(raw: any): Profile
 	end
 	if typeof(raw.equippedPet) == "string" and p.pets[raw.equippedPet] then
 		p.equippedPet = raw.equippedPet
+	end
+	if typeof(raw.index) == "table" then
+		for _, visitor in Config.Visitors do
+			local traded = math.floor(tonumber(raw.index[visitor.key]) or 0)
+			if traded > 0 then
+				p.index[visitor.key] = traded
+			end
+		end
+	end
+	if typeof(raw.staff) == "table" then
+		for _, entry in raw.staff do
+			if typeof(entry) == "table" and typeof(entry.key) == "string"
+				and Config.getVisitor(entry.key) and p.index[entry.key] then
+				table.insert(p.staff, {
+					key = entry.key,
+					stamina = math.clamp(tonumber(entry.stamina) or 100, 0, 1000),
+					lastPaidAt = math.max(0, math.floor(tonumber(entry.lastPaidAt) or 0)),
+				})
+			end
+		end
 	end
 	if typeof(raw.redeemed) == "table" then
 		for _, entry in Config.Codes do
@@ -161,8 +195,7 @@ function Data.save(player: Player): boolean
 	end
 	local payload = {
 		cash = profile.cash,
-		pens = profile.pens,
-		penValue = profile.penValue,
+		bag = profile.bag,
 		rebirths = profile.rebirths,
 		totalSold = profile.totalSold,
 		upgrades = profile.upgrades,
@@ -171,6 +204,8 @@ function Data.save(player: Player): boolean
 		dailyStreak = profile.dailyStreak,
 		lastDailyAt = profile.lastDailyAt,
 		redeemed = profile.redeemed,
+		index = profile.index,
+		staff = profile.staff,
 		lastSeen = profile.lastSeen,
 	}
 	local ok, err = pcall(function()

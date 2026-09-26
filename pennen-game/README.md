@@ -31,6 +31,32 @@ prijs*, *gelooft er niets van*, *wil de details*, *zoekt een cadeau*. Perfect
 antwoord = **x2**, half raak = x1.15, mis = x0.7, te laat = x0.6. Elke perfecte
 pitch op rij geeft +10% bovenop, tot +100%.
 
+**Bezoekers.** Los van de klanten aan de toonbank lopen er bezoekers je terrein op
+(maximaal drie tegelijk, elk met een eigen bestelling en een eigen aflooptijd). Ze vragen
+een aantal pennen van een bepaald soort - "40 markers" - en betalen daar een veelvoud voor.
+Je tas houdt daarom per soort bij wat erin zit. Wie je getrade hebt komt in je **index**.
+
+| zeldzaamheid | kans | betaalt | dagloon als personeel |
+|---|---|---|---|
+| Common | 1 op 2 | 3x | $250 |
+| Rare | 1 op 4 | 7x | $1.2K |
+| Super Rare | 1 op 11 | 15x | $6K |
+| Epic | 1 op 38 | 34x | $32K |
+| Mythic | 1 op 143 | 85x | $180K |
+| Legendary | 1 op 606 | 220x | $1.1M |
+| Exotic | 1 op 3.753 | 650x | $7.5M |
+| **Ultra Exotic** (Beldan Jolfort) | **1 op 49.252** | 6000x | $90M |
+
+Elke rebirth maakt zeldzame bezoekers iets waarschijnlijker (tot 2,5x). Zeldzamere bezoekers
+vragen ook pennen uit je duurdere zaken. Komt er een **Legendary of hoger** langs, dan ziet
+de hele server een banner in beeld - ook al is de bezoeker van jou alleen.
+
+**Personeel.** Een bezoeker die in je index staat kun je inhuren. Personeel maakt pennen
+voor je (het telt op bij je passieve inkomen), raakt vermoeid van doorwerken en rust dan
+zelf even uit. Elke 24 uur willen ze loon; betaal je twaalf uur na de vervaldag nog niet,
+dan nemen ze ontslag. Ze blijven wel in je index, dus je kunt ze opnieuw inhuren. Je begint
+met één plek en krijgt er elke twee rebirths een bij, tot zes.
+
 **Idle.** Al je geopende zaken verdienen automatisch door, ook als je weg bent
 (2 uur offline, 8 uur met de VIP-gamepass). Bij het inloggen zie je wat ze
 opgeleverd hebben.
@@ -95,6 +121,8 @@ schaduwen en neon-gloed ontbreken. In Roblox ziet het er zachter uit.
 | `src/server/World.luau` | bouwt de hele map met code |
 | `src/server/Scenery.luau` | bouwstenen voor de aankleding: gevels, luifels, lantaarns, bomen, fontein |
 | `src/server/Customers.luau` | de klanten en hun types |
+| `src/server/Visitors.luau` | bezoekers: zeldzaamheid, bestelling en aflooptijd |
+| `src/server/Staff.luau` | personeel: stamina, loon en ontslag |
 | `src/server/Data.luau` | opslaan/laden met autosave |
 | `src/server/Passes.luau` | gamepasses |
 | `src/server/Pets.luau` | de zwevende mascotte |
@@ -102,7 +130,7 @@ schaduwen en neon-gloed ontbreken. In Roblox ziet het er zachter uit.
 | `src/client/init.client.luau` | de hele interface |
 | `dist/*.lua` | de gebundelde versie om in Studio te plakken (gegenereerd) |
 | `tools/bundle.py` | maakt `dist/` opnieuw na een wijziging in `src/` |
-| `test/run.py` | speelt de game na met een nagemaakte Roblox-API (39 controles) |
+| `test/run.py` | speelt de game na met een nagemaakte Roblox-API (57 controles) |
 | `test/balance.py` | simuleert hoe lang rebirths duren |
 | `tools/preview.py` | tekent de map als plaatjes in `preview/` |
 | `default.project.json` | Rojo-project |

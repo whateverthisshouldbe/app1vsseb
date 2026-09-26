@@ -14,6 +14,8 @@ local Customers = require(script.Parent.Customers)
 local Passes = require(script.Parent.Passes)
 local Pets = require(script.Parent.Pets)
 local Leaderboards = require(script.Parent.Leaderboards)
+local Visitors = require(script.Parent.Visitors)
+local Staff = require(script.Parent.Staff)
 
 local Game = {}
 
@@ -43,8 +45,46 @@ local pitchCounter = 0
 
 -- ------------------------------------------------------------- hulpjes ----
 
+local function announce(text: string, color: Color3)
+	Net.event("Announce"):FireAllClients({ text = text, color = color })
+end
+
 local function notify(player: Player, text: string, color: Color3?)
 	Net.event("Notify"):FireClient(player, text, color or Color3.fromRGB(255, 255, 255))
+end
+
+-- ------------------------------------------------------------------ tas ---
+-- De tas houdt per soort zaak bij hoeveel pennen erin zitten, want bezoekers
+-- vragen om een bepaald soort.
+
+local function bagCount(profile): number
+	local total = 0
+	for _, amount in profile.bag do
+		total += amount
+	end
+	return total
+end
+
+local function bagValue(profile): number
+	local total = 0
+	for key, amount in profile.bag do
+		local station = Config.getStation(key)
+		if station then
+			total += amount * station.pen.value
+		end
+	end
+	return total
+end
+
+local function bagContents(profile)
+	local rows = {}
+	for _, station in Config.Stations do
+		local amount = profile.bag[station.key]
+		if amount and amount > 0 then
+			table.insert(rows, { station = station.key, name = station.pen.name, amount = amount })
+		end
+	end
+	return rows
 end
 
 local function upgradeValue(profile, key: string): number
@@ -88,6 +128,9 @@ local function passivePerSecond(player: Player, profile): number
 			total += station.autoPerSecond * station.pen.value
 		end
 	end
+	-- personeel maakt pennen van je beste zaak
+	local best = Config.stationForRebirths(profile.rebirths)
+	total += Staff.workRate(profile) * best.pen.value
 	local pet = petOf(profile)
 	total *= upgradeValue(profile, "auto")
 		* Config.rebirthMultiplier(profile.rebirths)
@@ -183,12 +226,45 @@ local function buildState(player: Player, profile)
 
 	local upcoming = nextStation(profile)
 
+	local count = bagCount(profile)
+	local visits = {}
+	for _, visit in Visitors.list(player) do
+		local row = Visitors.describe(visit)
+		row.payout = math.floor(row.basePayout * cashMultiplier(player, profile))
+		row.have = profile.bag[row.station] or 0
+		row.canTrade = row.have >= row.amount
+		table.insert(visits, row)
+	end
+
+	local indexRows = {}
+	for _, visitor in Config.Visitors do
+		local rarity = Config.getRarity(visitor.rarity)
+		table.insert(indexRows, {
+			key = visitor.key,
+			name = visitor.name,
+			rarityKey = rarity.key,
+			rarityName = rarity.name,
+			rarityColor = rarity.color,
+			traded = profile.index[visitor.key] or 0,
+			odds = math.floor(Config.rarityOdds(rarity.key,
+				math.min(Config.Visit.maxLuck, 1 + profile.rebirths * Config.Visit.luckPerRebirth))),
+			hired = Staff.find(profile, visitor.key) ~= nil,
+			hireCost = Staff.hireCost(visitor.key),
+		})
+	end
+
 	return {
 		cash = profile.cash,
-		pens = profile.pens,
-		penValue = profile.penValue,
+		pens = count,
+		penValue = count > 0 and bagValue(profile) / count or 0,
+		bagRows = bagContents(profile),
 		capacity = capacityOf(player, profile),
-		bagValue = math.floor(profile.pens * profile.penValue * cashMultiplier(player, profile)),
+		bagValue = math.floor(bagValue(profile) * cashMultiplier(player, profile)),
+		visitors = visits,
+		indexRows = indexRows,
+		staff = Staff.describe(profile, os.time()),
+		staffSlots = Staff.slots(profile),
+		staffRate = Staff.workRate(profile),
 		rebirths = profile.rebirths,
 		totalSold = profile.totalSold,
 		multiplier = cashMultiplier(player, profile),
@@ -219,7 +295,7 @@ local function push(player: Player)
 		local pens = stats:FindFirstChild("Pennen") :: IntValue?
 		local rb = stats:FindFirstChild("Rebirths") :: IntValue?
 		if cash then cash.Value = "$" .. Config.short(profile.cash) end
-		if pens then pens.Value = profile.pens end
+		if pens then pens.Value = bagCount(profile) end
 		if rb then rb.Value = profile.rebirths end
 	end
 end
@@ -274,7 +350,8 @@ local function finishPitch(player: Player, profile, pitch: Pitch, choiceIndex: n
 	pitches[player] = nil
 
 	local customer = Customers.get(pitch.station)
-	local sold = math.min(profile.pens, pitch.pens)
+	local sold = bagCount(profile)
+	local rawValue = bagValue(profile)
 	if sold <= 0 then
 		Net.event("PitchEnd"):FireClient(player, { ok = false, text = "Je tas was leeg." })
 		return
@@ -311,15 +388,11 @@ local function finishPitch(player: Player, profile, pitch: Pitch, choiceIndex: n
 
 	local customerMult = customer and customer.multiplier or 1
 	local total = pitchMult * (1 + streakBonus) * customerMult
-	local earned = math.floor(sold * profile.penValue * cashMultiplier(player, profile) * total)
+	local earned = math.floor(rawValue * cashMultiplier(player, profile) * total)
 
 	profile.cash += earned
 	profile.totalSold += sold
-	profile.pens -= sold
-	if profile.pens <= 0 then
-		profile.pens = 0
-		profile.penValue = 0
-	end
+	profile.bag = {}
 	profile.dirty = true
 
 	Customers.serve(pitch.station)
@@ -356,7 +429,7 @@ local function startPitch(player: Player, profile, stationKey: string)
 		station = stationKey,
 		options = options,
 		customerType = customer.typeKey,
-		pens = profile.pens,
+		pens = bagCount(profile),
 		expires = os.clock() + Config.Pitch.seconds,
 	}
 	pitches[player] = pitch
@@ -374,7 +447,7 @@ local function startPitch(player: Player, profile, stationKey: string)
 		typeLabel = typeInfo.label,
 		typeColor = typeInfo.color,
 		customerMultiplier = customer.multiplier,
-		pens = profile.pens,
+		pens = bagCount(profile),
 		seconds = Config.Pitch.seconds,
 		options = texts,
 	})
@@ -416,9 +489,6 @@ local function buyUpgrade(player: Player, key: string, silent: boolean?)
 	if key == "legs" then
 		applyWalkSpeed(player)
 	end
-	if key == "capacity" then
-		profile.pens = math.min(profile.pens, capacityOf(player, profile))
-	end
 	push(player)
 end
 
@@ -441,8 +511,7 @@ local function rebirth(player: Player)
 	-- open en blijven passief geld opleveren.
 	profile.cash = 0
 	profile.rebirths += 1
-	profile.pens = 0
-	profile.penValue = 0
+	profile.bag = {}
 	profile.pitchStreak = 0
 	for _, up in Config.Upgrades do
 		profile.upgrades[up.key] = 1
@@ -564,6 +633,102 @@ local function redeemCode(player: Player, raw: string)
 	notify(player, "Die code kennen we niet.", Color3.fromRGB(255, 150, 150))
 end
 
+local function tradeVisitor(player: Player, id: number)
+	local profile = Data.get(player)
+	if not profile then
+		return
+	end
+	local visit = Visitors.find(player, id)
+	if not visit then
+		notify(player, "Die bezoeker is al vertrokken.", Color3.fromRGB(255, 150, 150))
+		return
+	end
+	local have = profile.bag[visit.station] or 0
+	local station = Config.getStation(visit.station)
+	local visitor = Config.getVisitor(visit.visitor)
+	local rarity = Config.getRarity(visit.rarity)
+	if not station or not visitor then
+		return
+	end
+	if have < visit.amount then
+		notify(player, string.format("%s wil %d x %s - je hebt er %d",
+			visitor.name, visit.amount, station.pen.name, have), Color3.fromRGB(255, 150, 150))
+		return
+	end
+
+	local earned = math.floor(Visitors.basePayout(visit) * cashMultiplier(player, profile))
+	profile.bag[visit.station] = have - visit.amount
+	if profile.bag[visit.station] <= 0 then
+		profile.bag[visit.station] = nil
+	end
+	profile.cash += earned
+	profile.totalSold += visit.amount
+	local firstTime = (profile.index[visitor.key] or 0) == 0
+	profile.index[visitor.key] = (profile.index[visitor.key] or 0) + 1
+	profile.dirty = true
+	Visitors.remove(player, id)
+
+	notify(player, string.format("%s (%s) betaalde $%s voor %d x %s",
+		visitor.name, rarity.name, Config.short(earned), visit.amount, station.pen.name), rarity.color)
+	if firstTime then
+		notify(player, string.format("Nieuw in je index: %s", visitor.name), rarity.color)
+	end
+	push(player)
+	Data.save(player)
+end
+
+local function hireStaff(player: Player, key: string)
+	local profile = Data.get(player)
+	if not profile then
+		return
+	end
+	local ok, reason = Staff.canHire(profile, key)
+	if not ok then
+		notify(player, reason, Color3.fromRGB(255, 150, 150))
+		return
+	end
+	local cost = Staff.hireCost(key)
+	if profile.cash < cost then
+		notify(player, string.format("Inhuren kost $%s", Config.short(cost)), Color3.fromRGB(255, 150, 150))
+		return
+	end
+	profile.cash -= cost
+	Staff.hire(profile, key, os.time())
+	profile.dirty = true
+	local visitor = Config.getVisitor(key)
+	notify(player, string.format("%s komt bij je werken.", visitor and visitor.name or key),
+		Color3.fromRGB(120, 255, 150))
+	push(player)
+end
+
+local function payStaff(player: Player, key: string)
+	local profile = Data.get(player)
+	if not profile then
+		return
+	end
+	local paid = Staff.pay(profile, key, os.time())
+	if not paid then
+		notify(player, string.format("Je hebt $%s nodig om hem te betalen", Config.short(Staff.wage(key))),
+			Color3.fromRGB(255, 150, 150))
+		return
+	end
+	profile.dirty = true
+	local visitor = Config.getVisitor(key)
+	notify(player, string.format("%s is betaald ($%s)", visitor and visitor.name or key, Config.short(paid)),
+		Color3.fromRGB(120, 255, 150))
+	push(player)
+end
+
+local function fireStaff(player: Player, key: string)
+	local profile = Data.get(player)
+	if not profile then
+		return
+	end
+	Staff.fire(profile, key)
+	profile.dirty = true
+	push(player)
+end
+
 -- ------------------------------------------------------------ spelers -----
 
 local function onCharacter(player: Player, character: Model)
@@ -618,6 +783,7 @@ local function onPlayerAdded(player: Player)
 	nextSell[player] = 0
 	nextUpgrade[player] = 0
 	nextHint[player] = 0
+	Visitors.init(player)
 
 	player.CharacterAdded:Connect(function(character)
 		onCharacter(player, character)
@@ -653,6 +819,7 @@ local function onPlayerRemoving(player: Player)
 	nextHint[player] = nil
 	rebirthHeldSince[player] = nil
 	pitches[player] = nil
+	Visitors.clear(player)
 	Data.release(player)
 end
 
@@ -698,17 +865,15 @@ local function stepPlayer(player: Player, now: number)
 			else
 				local interval = produceInterval(profile)
 				local made = 0
-				while now >= (nextProduce[player] or 0) and profile.pens < capacity and made < 64 do
-					local totalValue = profile.pens * profile.penValue + station.pen.value
-					profile.pens += 1
-					profile.penValue = totalValue / profile.pens
+				while now >= (nextProduce[player] or 0) and bagCount(profile) < capacity and made < 64 do
+					profile.bag[station.key] = (profile.bag[station.key] or 0) + 1
 					made += 1
 					nextProduce[player] = math.max((nextProduce[player] or now) + interval, now - interval)
 				end
 				if made > 0 then
 					profile.dirty = true
 					push(player)
-				elseif profile.pens >= capacity and now >= (nextProduce[player] or 0) then
+				elseif bagCount(profile) >= capacity and now >= (nextProduce[player] or 0) then
 					nextProduce[player] = now + 1.5
 					hint(player, now, "Je tas zit vol - ga pitchen bij de toonbank!")
 				end
@@ -719,7 +884,7 @@ local function stepPlayer(player: Player, now: number)
 		if sellPad and isOnPad(root, sellPad) then
 			if not stationUnlocked(profile, station) then
 				hint(player, now, string.format("%s opent na rebirth %d", station.name, station.unlockRebirth))
-			elseif profile.pens > 0 and not pitches[player] and now >= (nextSell[player] or 0) then
+			elseif bagCount(profile) > 0 and not pitches[player] and now >= (nextSell[player] or 0) then
 				nextSell[player] = now + SELL_COOLDOWN
 				startPitch(player, profile, station.key)
 			end
@@ -840,6 +1005,27 @@ function Game.start()
 			redeemCode(player, code)
 		end
 	end)
+	Net.event("TradeVisitor").OnServerEvent:Connect(function(player, id)
+		if typeof(id) == "number" then
+			tradeVisitor(player, math.floor(id))
+		end
+	end)
+	Net.event("HireStaff").OnServerEvent:Connect(function(player, key)
+		if typeof(key) == "string" then
+			hireStaff(player, key)
+		end
+	end)
+	Net.event("PayStaff").OnServerEvent:Connect(function(player, key)
+		if typeof(key) == "string" then
+			payStaff(player, key)
+		end
+	end)
+	Net.event("FireStaff").OnServerEvent:Connect(function(player, key)
+		if typeof(key) == "string" then
+			fireStaff(player, key)
+		end
+	end)
+
 	Net.event("Travel").OnServerEvent:Connect(function(player, key)
 		if typeof(key) ~= "string" then
 			return
@@ -898,6 +1084,56 @@ function Game.start()
 					profile.dirty = true
 				end
 				push(player)
+			end
+		end
+	end)
+
+	-- bezoekers laten komen en gaan, en het personeel bijhouden
+	task.spawn(function()
+		local last = os.clock()
+		while true do
+			task.wait(2)
+			local now = os.clock()
+			local dt = now - last
+			last = now
+			local stamp = os.time()
+
+			for player, profile in Data.all() do
+				local changed = false
+
+				local arrived = Visitors.tick(player, profile, now, capacityOf(player, profile))
+				for _, visit in arrived do
+					local rarity = Config.getRarity(visit.rarity)
+					local visitor = Config.getVisitor(visit.visitor)
+					local station = Config.getStation(visit.station)
+					notify(player, string.format("%s (%s) wil %d x %s",
+						visitor and visitor.name or "?", rarity.name, visit.amount,
+						station and station.pen.name or "pennen"), rarity.color)
+					if rarity.announce then
+						announce(string.format("%s kreeg bezoek van <b>%s</b> - %s!",
+							player.DisplayName, visitor and visitor.name or "?", rarity.name), rarity.color)
+					end
+					changed = true
+				end
+				if #Visitors.list(player) > 0 then
+					changed = true
+				end
+
+				local left = Staff.tick(profile, stamp, dt)
+				for _, key in left do
+					local visitor = Config.getVisitor(key)
+					notify(player, string.format("%s heeft ontslag genomen - te lang niet betaald.",
+						visitor and visitor.name or key), Color3.fromRGB(255, 150, 150))
+					changed = true
+					profile.dirty = true
+				end
+				if #profile.staff > 0 then
+					changed = true
+				end
+
+				if changed then
+					push(player)
+				end
 			end
 		end
 	end)

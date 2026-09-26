@@ -273,6 +273,161 @@ Config.Perks = {
 }
 
 -- ------------------------------------------------------------------ hulp ----
+
+-- ------------------------------------------------------------- bezoekers --
+-- Visitors komen los van de gewone klanten je terrein op. Hoe zeldzamer, hoe
+-- groter de bestelling en hoe veel meer ze betalen. Wie je getrade hebt komt
+-- in je index te staan en kun je daarna inhuren als personeel.
+
+Config.Rarities = {
+	{
+		key = "common", name = "Common", color = Color3.fromRGB(180, 186, 198),
+		weight = 1000, payout = 3, orderMin = 8, orderMax = 16,
+		wage = 250, workRate = 0.30, stamina = 100, announce = false,
+	},
+	{
+		key = "rare", name = "Rare", color = Color3.fromRGB(90, 170, 255),
+		weight = 380, payout = 7, orderMin = 14, orderMax = 26,
+		wage = 1200, workRate = 0.55, stamina = 120, announce = false,
+	},
+	{
+		key = "superrare", name = "Super Rare", color = Color3.fromRGB(60, 220, 200),
+		weight = 140, payout = 15, orderMin = 22, orderMax = 40,
+		wage = 6000, workRate = 0.95, stamina = 140, announce = false,
+	},
+	{
+		key = "epic", name = "Epic", color = Color3.fromRGB(190, 110, 255),
+		weight = 42, payout = 34, orderMin = 34, orderMax = 60,
+		wage = 32000, workRate = 1.7, stamina = 170, announce = false,
+	},
+	{
+		key = "mythic", name = "Mythic", color = Color3.fromRGB(255, 120, 190),
+		weight = 11, payout = 85, orderMin = 50, orderMax = 90,
+		wage = 180000, workRate = 3.0, stamina = 200, announce = false,
+	},
+	{
+		key = "legendary", name = "Legendary", color = Color3.fromRGB(255, 196, 70),
+		weight = 2.6, payout = 220, orderMin = 75, orderMax = 130,
+		wage = 1100000, workRate = 5.5, stamina = 240, announce = true,
+	},
+	{
+		key = "exotic", name = "Exotic", color = Color3.fromRGB(255, 96, 72),
+		weight = 0.42, payout = 650, orderMin = 110, orderMax = 190,
+		wage = 7500000, workRate = 10, stamina = 300, announce = true,
+	},
+	{
+		key = "ultra", name = "Ultra Exotic", color = Color3.fromRGB(255, 240, 150),
+		weight = 0.032, payout = 6000, orderMin = 160, orderMax = 260,
+		wage = 90000000, workRate = 22, stamina = 400, announce = true,
+	},
+}
+
+-- Kans per bezoeker: gewicht gedeeld door de som (ruim 1576).
+-- Ultra Exotic staat daarmee op ongeveer 1 op de 49.000 bezoekers.
+Config.Visit = {
+	slots = 3,             -- hoeveel bezoekers er tegelijk kunnen staan
+	spawnSeconds = 75,     -- hoe vaak een lege plek opnieuw geprobeerd wordt
+	spawnChance = 0.55,    -- kans dat er dan echt iemand komt
+	staySeconds = 260,     -- hoe lang een bezoeker blijft wachten
+	luckPerRebirth = 0.04, -- elke rebirth maakt zeldzame bezoekers iets waarschijnlijker
+	maxLuck = 2.5,
+}
+
+Config.Visitors = {
+	-- common
+	{ key = "joris",   name = "Joris Bakker",    rarity = "common", line = "Doe mij er maar een paar voor kantoor." },
+	{ key = "aisha",   name = "Aisha Demir",     rarity = "common", line = "Mijn oude pen is op." },
+	{ key = "stefan",  name = "Stefan de Wit",   rarity = "common", line = "Heb je er toevallig een stapel?" },
+	{ key = "lotte",   name = "Lotte Prins",     rarity = "common", line = "Voor de hele klas, graag." },
+	{ key = "hakim",   name = "Hakim Osei",      rarity = "common", line = "Snel wat schrijfwerk te doen." },
+	-- rare
+	{ key = "viktor",  name = "Viktor Halm",     rarity = "rare", line = "Ik teken vandaag een contract." },
+	{ key = "noor",    name = "Noor Vermeer",    rarity = "rare", line = "Iets beters dan de kantoorpennen." },
+	{ key = "dmitri",  name = "Dmitri Lasko",    rarity = "rare", line = "Voor mijn hele afdeling." },
+	{ key = "sasha",   name = "Sasha Brandt",    rarity = "rare", line = "Ik betaal graag voor kwaliteit." },
+	-- super rare
+	{ key = "margot",  name = "Margot Feyn",     rarity = "superrare", line = "Mijn notulen verdienen beter." },
+	{ key = "ren",     name = "Ren Takahara",    rarity = "superrare", line = "Vakmanschap herken ik meteen." },
+	{ key = "olivier", name = "Olivier Sand",    rarity = "superrare", line = "Ik verzamel schrijfgerei." },
+	-- epic
+	{ key = "cassia",  name = "Cassia Moreau",   rarity = "epic", line = "Ik koop in bulk, of niet." },
+	{ key = "theo",    name = "Theo Vandergriff", rarity = "epic", line = "Mijn galerie opent volgende week." },
+	{ key = "iris",    name = "Iris Halvorsen",  rarity = "epic", line = "Alleen het bijzondere interesseert me." },
+	-- mythic
+	{ key = "dorian",  name = "Dorian Vex",      rarity = "mythic", line = "Ik betaal contant, en veel." },
+	{ key = "solene",  name = "Solene Ward",     rarity = "mythic", line = "Verras me, dan verras ik jou." },
+	-- legendary
+	{ key = "augusta", name = "Augusta Kane",    rarity = "legendary", line = "Ik teken alleen met het beste." },
+	{ key = "rafael",  name = "Rafael Quist",    rarity = "legendary", line = "Mijn handtekening is miljoenen waard." },
+	-- exotic
+	{ key = "veyra",   name = "Veyra Solheim",   rarity = "exotic", line = "Ik kom zelden de deur uit." },
+	{ key = "orson",   name = "Orson Vale",      rarity = "exotic", line = "Noem je prijs. Ik betaal hem." },
+	-- ultra exotic
+	{ key = "beldan",  name = "Beldan Jolfort",  rarity = "ultra",
+	  line = "Ik heb elke pen ter wereld gehad, op de jouwe na." },
+}
+
+-- ------------------------------------------------------------- personeel --
+Config.Staff = {
+	baseSlots = 1,            -- hoeveel personeel je aan het begin kunt hebben
+	slotsPerRebirth = 0.5,    -- elke twee rebirths een plek erbij
+	maxSlots = 6,
+	wagePeriod = 24 * 60 * 60, -- elke 24 uur wil iemand loon
+	graceSeconds = 12 * 60 * 60, -- zo lang blijft hij nog na de vervaldag
+	drainPerSecond = 0.035,   -- ongeveer 48 minuten werken op volle stamina
+	recoverPerSecond = 0.05,
+	resumeAt = 45,            -- uitgerust tot dit percentage, dan weer aan het werk
+	hireCostFactor = 4,       -- inhuren kost dit maal het dagloon
+}
+
+function Config.getRarity(key: string)
+	for _, r in Config.Rarities do
+		if r.key == key then
+			return r
+		end
+	end
+	return Config.Rarities[1]
+end
+
+function Config.getVisitor(key: string)
+	for _, v in Config.Visitors do
+		if v.key == key then
+			return v
+		end
+	end
+	return nil
+end
+
+function Config.visitorsOfRarity(rarityKey: string)
+	local out = {}
+	for _, v in Config.Visitors do
+		if v.rarity == rarityKey then
+			table.insert(out, v)
+		end
+	end
+	return out
+end
+
+-- Kans van 1 op hoeveel, voor in de index en de README.
+function Config.rarityOdds(rarityKey: string, luck: number): number
+	local total = 0
+	local mine = 0
+	for _, r in Config.Rarities do
+		local weight = r.weight
+		if r.weight < 100 then
+			weight *= luck
+		end
+		total += weight
+		if r.key == rarityKey then
+			mine = weight
+		end
+	end
+	if mine <= 0 then
+		return math.huge
+	end
+	return total / mine
+end
+
 function Config.stationForRebirths(rebirths: number)
 	local best = Config.Stations[1]
 	for _, station in Config.Stations do
@@ -291,6 +446,33 @@ function Config.unlockedStationCount(rebirths: number): number
 		end
 	end
 	return math.max(1, count)
+end
+
+function Config.getStation(key: string)
+	for _, station in Config.Stations do
+		if station.key == key then
+			return station
+		end
+	end
+	return nil
+end
+
+function Config.stationIndex(key: string): number
+	for i, station in Config.Stations do
+		if station.key == key then
+			return i
+		end
+	end
+	return 1
+end
+
+function Config.rarityIndex(key: string): number
+	for i, r in Config.Rarities do
+		if r.key == key then
+			return i
+		end
+	end
+	return 1
 end
 
 function Config.getUpgrade(key: string)

@@ -723,6 +723,17 @@ local function stationProps(folder: Folder, station, zc: number, unlockColor: Co
 		CanCollide = false,
 	}, folder)
 
+	-- plekken waar de bezoekers komen staan (de client zet de poppetjes neer)
+	for slot, dz in { -4, 8, 20 } do
+		part({
+			Name = string.format("VisitorSpot%d_%s", slot, station.key),
+			Size = Vector3.new(4, 0.4, 4),
+			CFrame = wall(36, 1.6, zc + dz, -90),
+			Transparency = 1,
+			CanCollide = false,
+		}, folder)
+	end
+
 	-- de klant staat achter de toonbank en kijkt naar de speler toe (-X)
 	part({
 		Name = "Spot_" .. station.key,

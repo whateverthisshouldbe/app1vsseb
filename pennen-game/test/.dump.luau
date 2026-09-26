@@ -776,6 +776,161 @@ PEN.Config = (function()
 	}
 
 	-- ------------------------------------------------------------------ hulp ----
+
+	-- ------------------------------------------------------------- bezoekers --
+	-- Visitors komen los van de gewone klanten je terrein op. Hoe zeldzamer, hoe
+	-- groter de bestelling en hoe veel meer ze betalen. Wie je getrade hebt komt
+	-- in je index te staan en kun je daarna inhuren als personeel.
+
+	Config.Rarities = {
+		{
+			key = "common", name = "Common", color = Color3.fromRGB(180, 186, 198),
+			weight = 1000, payout = 3, orderMin = 8, orderMax = 16,
+			wage = 250, workRate = 0.30, stamina = 100, announce = false,
+		},
+		{
+			key = "rare", name = "Rare", color = Color3.fromRGB(90, 170, 255),
+			weight = 380, payout = 7, orderMin = 14, orderMax = 26,
+			wage = 1200, workRate = 0.55, stamina = 120, announce = false,
+		},
+		{
+			key = "superrare", name = "Super Rare", color = Color3.fromRGB(60, 220, 200),
+			weight = 140, payout = 15, orderMin = 22, orderMax = 40,
+			wage = 6000, workRate = 0.95, stamina = 140, announce = false,
+		},
+		{
+			key = "epic", name = "Epic", color = Color3.fromRGB(190, 110, 255),
+			weight = 42, payout = 34, orderMin = 34, orderMax = 60,
+			wage = 32000, workRate = 1.7, stamina = 170, announce = false,
+		},
+		{
+			key = "mythic", name = "Mythic", color = Color3.fromRGB(255, 120, 190),
+			weight = 11, payout = 85, orderMin = 50, orderMax = 90,
+			wage = 180000, workRate = 3.0, stamina = 200, announce = false,
+		},
+		{
+			key = "legendary", name = "Legendary", color = Color3.fromRGB(255, 196, 70),
+			weight = 2.6, payout = 220, orderMin = 75, orderMax = 130,
+			wage = 1100000, workRate = 5.5, stamina = 240, announce = true,
+		},
+		{
+			key = "exotic", name = "Exotic", color = Color3.fromRGB(255, 96, 72),
+			weight = 0.42, payout = 650, orderMin = 110, orderMax = 190,
+			wage = 7500000, workRate = 10, stamina = 300, announce = true,
+		},
+		{
+			key = "ultra", name = "Ultra Exotic", color = Color3.fromRGB(255, 240, 150),
+			weight = 0.032, payout = 6000, orderMin = 160, orderMax = 260,
+			wage = 90000000, workRate = 22, stamina = 400, announce = true,
+		},
+	}
+
+	-- Kans per bezoeker: gewicht gedeeld door de som (ruim 1576).
+	-- Ultra Exotic staat daarmee op ongeveer 1 op de 49.000 bezoekers.
+	Config.Visit = {
+		slots = 3,             -- hoeveel bezoekers er tegelijk kunnen staan
+		spawnSeconds = 75,     -- hoe vaak een lege plek opnieuw geprobeerd wordt
+		spawnChance = 0.55,    -- kans dat er dan echt iemand komt
+		staySeconds = 260,     -- hoe lang een bezoeker blijft wachten
+		luckPerRebirth = 0.04, -- elke rebirth maakt zeldzame bezoekers iets waarschijnlijker
+		maxLuck = 2.5,
+	}
+
+	Config.Visitors = {
+		-- common
+		{ key = "joris",   name = "Joris Bakker",    rarity = "common", line = "Doe mij er maar een paar voor kantoor." },
+		{ key = "aisha",   name = "Aisha Demir",     rarity = "common", line = "Mijn oude pen is op." },
+		{ key = "stefan",  name = "Stefan de Wit",   rarity = "common", line = "Heb je er toevallig een stapel?" },
+		{ key = "lotte",   name = "Lotte Prins",     rarity = "common", line = "Voor de hele klas, graag." },
+		{ key = "hakim",   name = "Hakim Osei",      rarity = "common", line = "Snel wat schrijfwerk te doen." },
+		-- rare
+		{ key = "viktor",  name = "Viktor Halm",     rarity = "rare", line = "Ik teken vandaag een contract." },
+		{ key = "noor",    name = "Noor Vermeer",    rarity = "rare", line = "Iets beters dan de kantoorpennen." },
+		{ key = "dmitri",  name = "Dmitri Lasko",    rarity = "rare", line = "Voor mijn hele afdeling." },
+		{ key = "sasha",   name = "Sasha Brandt",    rarity = "rare", line = "Ik betaal graag voor kwaliteit." },
+		-- super rare
+		{ key = "margot",  name = "Margot Feyn",     rarity = "superrare", line = "Mijn notulen verdienen beter." },
+		{ key = "ren",     name = "Ren Takahara",    rarity = "superrare", line = "Vakmanschap herken ik meteen." },
+		{ key = "olivier", name = "Olivier Sand",    rarity = "superrare", line = "Ik verzamel schrijfgerei." },
+		-- epic
+		{ key = "cassia",  name = "Cassia Moreau",   rarity = "epic", line = "Ik koop in bulk, of niet." },
+		{ key = "theo",    name = "Theo Vandergriff", rarity = "epic", line = "Mijn galerie opent volgende week." },
+		{ key = "iris",    name = "Iris Halvorsen",  rarity = "epic", line = "Alleen het bijzondere interesseert me." },
+		-- mythic
+		{ key = "dorian",  name = "Dorian Vex",      rarity = "mythic", line = "Ik betaal contant, en veel." },
+		{ key = "solene",  name = "Solene Ward",     rarity = "mythic", line = "Verras me, dan verras ik jou." },
+		-- legendary
+		{ key = "augusta", name = "Augusta Kane",    rarity = "legendary", line = "Ik teken alleen met het beste." },
+		{ key = "rafael",  name = "Rafael Quist",    rarity = "legendary", line = "Mijn handtekening is miljoenen waard." },
+		-- exotic
+		{ key = "veyra",   name = "Veyra Solheim",   rarity = "exotic", line = "Ik kom zelden de deur uit." },
+		{ key = "orson",   name = "Orson Vale",      rarity = "exotic", line = "Noem je prijs. Ik betaal hem." },
+		-- ultra exotic
+		{ key = "beldan",  name = "Beldan Jolfort",  rarity = "ultra",
+		  line = "Ik heb elke pen ter wereld gehad, op de jouwe na." },
+	}
+
+	-- ------------------------------------------------------------- personeel --
+	Config.Staff = {
+		baseSlots = 1,            -- hoeveel personeel je aan het begin kunt hebben
+		slotsPerRebirth = 0.5,    -- elke twee rebirths een plek erbij
+		maxSlots = 6,
+		wagePeriod = 24 * 60 * 60, -- elke 24 uur wil iemand loon
+		graceSeconds = 12 * 60 * 60, -- zo lang blijft hij nog na de vervaldag
+		drainPerSecond = 0.035,   -- ongeveer 48 minuten werken op volle stamina
+		recoverPerSecond = 0.05,
+		resumeAt = 45,            -- uitgerust tot dit percentage, dan weer aan het werk
+		hireCostFactor = 4,       -- inhuren kost dit maal het dagloon
+	}
+
+	function Config.getRarity(key: string)
+		for _, r in Config.Rarities do
+			if r.key == key then
+				return r
+			end
+		end
+		return Config.Rarities[1]
+	end
+
+	function Config.getVisitor(key: string)
+		for _, v in Config.Visitors do
+			if v.key == key then
+				return v
+			end
+		end
+		return nil
+	end
+
+	function Config.visitorsOfRarity(rarityKey: string)
+		local out = {}
+		for _, v in Config.Visitors do
+			if v.rarity == rarityKey then
+				table.insert(out, v)
+			end
+		end
+		return out
+	end
+
+	-- Kans van 1 op hoeveel, voor in de index en de README.
+	function Config.rarityOdds(rarityKey: string, luck: number): number
+		local total = 0
+		local mine = 0
+		for _, r in Config.Rarities do
+			local weight = r.weight
+			if r.weight < 100 then
+				weight *= luck
+			end
+			total += weight
+			if r.key == rarityKey then
+				mine = weight
+			end
+		end
+		if mine <= 0 then
+			return math.huge
+		end
+		return total / mine
+	end
+
 	function Config.stationForRebirths(rebirths: number)
 		local best = Config.Stations[1]
 		for _, station in Config.Stations do
@@ -794,6 +949,33 @@ PEN.Config = (function()
 			end
 		end
 		return math.max(1, count)
+	end
+
+	function Config.getStation(key: string)
+		for _, station in Config.Stations do
+			if station.key == key then
+				return station
+			end
+		end
+		return nil
+	end
+
+	function Config.stationIndex(key: string): number
+		for i, station in Config.Stations do
+			if station.key == key then
+				return i
+			end
+		end
+		return 1
+	end
+
+	function Config.rarityIndex(key: string): number
+		for i, r in Config.Rarities do
+			if r.key == key then
+				return i
+			end
+		end
+		return 1
 	end
 
 	function Config.getUpgrade(key: string)
@@ -840,7 +1022,7 @@ PEN.Config = (function()
 
 	-- 1234567 -> "1.23M"
 	function Config.short(n: number): string
-		local units = { "", "K", "M", "B", "T", "Qa", "Qi", "Sx" }
+		local units = { "", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc" }
 		local i = 1
 		local v = math.abs(n)
 		while v >= 1000 and i < #units do
@@ -885,6 +1067,12 @@ PEN.Net = (function()
 		"RedeemCode",
 		"PromptPass",
 		"Travel",
+		"TradeVisitor",
+		"HireStaff",
+		"PayStaff",
+		"FireStaff",
+		-- server -> iedereen
+		"Announce",
 	}
 
 	local folder: Folder
@@ -946,8 +1134,7 @@ PEN.Data = (function()
 
 	export type Profile = {
 		cash: number,
-		pens: number,
-		penValue: number,
+		bag: { [string]: number },   -- pennen per soort zaak
 		rebirths: number,
 		totalSold: number,
 		upgrades: { [string]: number },
@@ -956,6 +1143,8 @@ PEN.Data = (function()
 		dailyStreak: number,
 		lastDailyAt: number,
 		redeemed: { [string]: boolean },
+		index: { [string]: number },          -- bezoekers die je getrade hebt
+		staff: { { key: string, stamina: number, lastPaidAt: number } },
 		lastSeen: number,
 		-- niet opgeslagen, alleen deze sessie:
 		loaded: boolean,
@@ -974,8 +1163,7 @@ PEN.Data = (function()
 		end
 		return {
 			cash = 0,
-			pens = 0,
-			penValue = 0,
+			bag = {},
 			rebirths = 0,
 			totalSold = 0,
 			upgrades = upgrades,
@@ -984,6 +1172,8 @@ PEN.Data = (function()
 			dailyStreak = 0,
 			lastDailyAt = 0,
 			redeemed = {},
+			index = {},
+			staff = {},
 			lastSeen = 0,
 			loaded = false,
 			dirty = false,
@@ -997,8 +1187,20 @@ PEN.Data = (function()
 			return p
 		end
 		p.cash = math.max(0, tonumber(raw.cash) or 0)
-		p.pens = math.max(0, math.floor(tonumber(raw.pens) or 0))
-		p.penValue = math.max(0, tonumber(raw.penValue) or 0)
+		if typeof(raw.bag) == "table" then
+			for _, station in Config.Stations do
+				local amount = math.floor(tonumber(raw.bag[station.key]) or 0)
+				if amount > 0 then
+					p.bag[station.key] = amount
+				end
+			end
+		elseif tonumber(raw.pens) then
+			-- opslag van voor de bezoekers-update: alles telt als pennen van de kraam
+			local amount = math.max(0, math.floor(tonumber(raw.pens) or 0))
+			if amount > 0 then
+				p.bag[Config.Stations[1].key] = amount
+			end
+		end
 		p.rebirths = math.clamp(math.floor(tonumber(raw.rebirths) or 0), 0, #Config.Stations - 1)
 		p.totalSold = math.max(0, math.floor(tonumber(raw.totalSold) or 0))
 		p.dailyStreak = math.clamp(math.floor(tonumber(raw.dailyStreak) or 0), 0, Config.Daily.maxStreak)
@@ -1020,6 +1222,26 @@ PEN.Data = (function()
 		end
 		if typeof(raw.equippedPet) == "string" and p.pets[raw.equippedPet] then
 			p.equippedPet = raw.equippedPet
+		end
+		if typeof(raw.index) == "table" then
+			for _, visitor in Config.Visitors do
+				local traded = math.floor(tonumber(raw.index[visitor.key]) or 0)
+				if traded > 0 then
+					p.index[visitor.key] = traded
+				end
+			end
+		end
+		if typeof(raw.staff) == "table" then
+			for _, entry in raw.staff do
+				if typeof(entry) == "table" and typeof(entry.key) == "string"
+					and Config.getVisitor(entry.key) and p.index[entry.key] then
+					table.insert(p.staff, {
+						key = entry.key,
+						stamina = math.clamp(tonumber(entry.stamina) or 100, 0, 1000),
+						lastPaidAt = math.max(0, math.floor(tonumber(entry.lastPaidAt) or 0)),
+					})
+				end
+			end
 		end
 		if typeof(raw.redeemed) == "table" then
 			for _, entry in Config.Codes do
@@ -1095,8 +1317,7 @@ PEN.Data = (function()
 		end
 		local payload = {
 			cash = profile.cash,
-			pens = profile.pens,
-			penValue = profile.penValue,
+			bag = profile.bag,
 			rebirths = profile.rebirths,
 			totalSold = profile.totalSold,
 			upgrades = profile.upgrades,
@@ -1105,6 +1326,8 @@ PEN.Data = (function()
 			dailyStreak = profile.dailyStreak,
 			lastDailyAt = profile.lastDailyAt,
 			redeemed = profile.redeemed,
+			index = profile.index,
+			staff = profile.staff,
 			lastSeen = profile.lastSeen,
 		}
 		local ok, err = pcall(function()
@@ -1245,6 +1468,7 @@ PEN.Scenery = (function()
 		surface.Face = Enum.NormalId.Front
 		surface.CanvasSize = Vector2.new(math.floor(width * 20), math.floor(height * 20))
 		surface.LightInfluence = 0
+		surface.MaxDistance = 200
 		surface.Parent = plate
 
 		local tl = Instance.new("TextLabel")
@@ -1272,10 +1496,11 @@ PEN.Scenery = (function()
 	function Scenery.floatingText(adornee: BasePart, message: string, offsetY: number, size: number, distance: number?)
 		local gui = Instance.new("BillboardGui")
 		gui.Name = "Label"
-		gui.Size = UDim2.fromScale(16, 4)
+		gui.Size = UDim2.fromScale(11, 2.8)
 		gui.StudsOffsetWorldSpace = Vector3.new(0, offsetY, 0)
-		gui.AlwaysOnTop = true
-		gui.MaxDistance = distance or 260
+		-- niet meer door muren heen, en pas leesbaar als je in de buurt staat
+		gui.AlwaysOnTop = false
+		gui.MaxDistance = distance or 55
 		gui.Parent = adornee
 
 		local tl = Instance.new("TextLabel")
@@ -2082,7 +2307,7 @@ PEN.World = (function()
 				Transparency = 0.3,
 				CanCollide = false,
 			}, plaza)
-			Scenery.floatingText(pad, string.format("<b>%s</b>\n%s", up.name, up.info), 5, 20, 120)
+			Scenery.floatingText(pad, string.format("<b>%s</b>\n%s", up.name, up.info), 4.5, 14, 50)
 		end
 	end
 
@@ -2125,7 +2350,7 @@ PEN.World = (function()
 			Transparency = 0.3,
 			CanCollide = false,
 		}, plaza)
-		Scenery.floatingText(pad, "<b>REBIRTH</b>\n2 seconden blijven staan", 5, 22, 140)
+		Scenery.floatingText(pad, "<b>REBIRTH</b>\n2 seconden blijven staan", 4.5, 15, 55)
 	end
 
 	local function buildPetStand(plaza: Folder)
@@ -2169,7 +2394,7 @@ PEN.World = (function()
 			Transparency = 0.3,
 			CanCollide = false,
 		}, plaza)
-		Scenery.floatingText(pad, "<b>MASCOTTES</b>", 5, 20, 120)
+		Scenery.floatingText(pad, "<b>MASCOTTES</b>", 4.5, 14, 50)
 	end
 
 	local function buildBoard(plaza: Folder, name: string, cf: CFrame, title: string)
@@ -2202,6 +2427,7 @@ PEN.World = (function()
 		surface.Face = Enum.NormalId.Front
 		surface.CanvasSize = Vector2.new(520, 400)
 		surface.LightInfluence = 0
+		surface.MaxDistance = 160
 		surface.Parent = stand
 
 		local header = Instance.new("TextLabel")
@@ -2330,7 +2556,7 @@ PEN.World = (function()
 			Color = station.color,
 			Material = Enum.Material.Metal,
 		}, folder)
-		Scenery.floatingText(bench, "<b>PENNEN MAKEN</b>", 6, 22, 150)
+		Scenery.floatingText(bench, "<b>PENNEN MAKEN</b>", 6, 15, 60)
 
 		local pressPad = part({
 			Name = "Press_" .. station.key,
@@ -2341,7 +2567,7 @@ PEN.World = (function()
 			Transparency = 0.3,
 			CanCollide = false,
 		}, folder)
-		Scenery.floatingText(pressPad, "ga hierop staan", 4, 18, 110)
+		Scenery.floatingText(pressPad, "ga hierop staan", 3.5, 13, 42)
 
 		Scenery.crate(CFrame.new(64, 1.4, zc + 32), 5, folder)
 		Scenery.crate(CFrame.new(64, 1.4, zc + 38), 4, folder)
@@ -2363,7 +2589,7 @@ PEN.World = (function()
 			Color = P.woodDark,
 			Material = Enum.Material.Wood,
 		}, folder)
-		Scenery.floatingText(counter, "<b>TOONBANK</b>", 6, 22, 150)
+		Scenery.floatingText(counter, "<b>TOONBANK</b>", 6, 15, 60)
 
 		local sellPad = part({
 			Name = "Sell_" .. station.key,
@@ -2374,7 +2600,7 @@ PEN.World = (function()
 			Transparency = 0.3,
 			CanCollide = false,
 		}, folder)
-		Scenery.floatingText(sellPad, "verkopen", 4, 18, 110)
+		Scenery.floatingText(sellPad, "verkopen", 3.5, 13, 42)
 
 		-- uitstalrek met pennen naast de toonbank
 		decor({
@@ -2411,6 +2637,17 @@ PEN.World = (function()
 			Material = Enum.Material.Fabric,
 			CanCollide = false,
 		}, folder)
+
+		-- plekken waar de bezoekers komen staan (de client zet de poppetjes neer)
+		for slot, dz in { -4, 8, 20 } do
+			part({
+				Name = string.format("VisitorSpot%d_%s", slot, station.key),
+				Size = Vector3.new(4, 0.4, 4),
+				CFrame = wall(36, 1.6, zc + dz, -90),
+				Transparency = 1,
+				CanCollide = false,
+			}, folder)
+		end
 
 		-- de klant staat achter de toonbank en kijkt naar de speler toe (-X)
 		part({
@@ -3105,10 +3342,10 @@ PEN.Customers = (function()
 
 		local gui = Instance.new("BillboardGui")
 		gui.Name = "Bubble"
-		gui.Size = UDim2.fromScale(13, 3.8)
-		gui.StudsOffsetWorldSpace = Vector3.new(0, 3.6, 0)
+		gui.Size = UDim2.fromScale(9, 2.7)
+		gui.StudsOffsetWorldSpace = Vector3.new(0, 3.2, 0)
 		gui.AlwaysOnTop = true
-		gui.MaxDistance = 180
+		gui.MaxDistance = 60
 		gui.Adornee = torso
 		gui.Parent = torso
 
@@ -3127,7 +3364,7 @@ PEN.Customers = (function()
 		tl.Position = UDim2.new(0, 6, 0, 4)
 		tl.BackgroundTransparency = 1
 		tl.Font = Enum.Font.GothamMedium
-		tl.TextSize = 20
+		tl.TextSize = 15
 		tl.TextColor3 = Color3.new(1, 1, 1)
 		tl.TextWrapped = true
 		tl.RichText = true
@@ -3201,6 +3438,361 @@ PEN.Customers = (function()
 	end
 
 	return Customers
+end)()
+
+PEN.Visitors = (function()
+	--!strict
+	-- Bezoekers: los van de gewone klanten lopen er mensen je terrein op met een
+	-- bestelling voor een bepaald soort pen. Hoe zeldzamer, hoe meer ze betalen.
+	-- Wie je getrade hebt komt in je index en kun je daarna inhuren als personeel.
+	--
+	-- De bezoekers zijn persoonlijk: iedereen heeft zijn eigen kansen. De server
+	-- houdt alleen de gegevens bij; de client zet de poppetjes neer.
+
+	local Config = PEN.Config
+
+	local Visitors = {}
+
+	export type Visit = {
+		id: number,
+		visitor: string,
+		rarity: string,
+		station: string,
+		amount: number,
+		slot: number,
+		expiresAt: number,
+	}
+
+	local active: { [Player]: { Visit } } = {}
+	local nextRoll: { [Player]: { number } } = {}
+	local counter = 0
+
+	local function luckOf(profile): number
+		return math.min(Config.Visit.maxLuck, 1 + profile.rebirths * Config.Visit.luckPerRebirth)
+	end
+
+	local function rollRarity(luck: number)
+		local total = 0
+		local weights = {}
+		for i, r in Config.Rarities do
+			-- alleen de zeldzame kant profiteert van geluk
+			local weight = r.weight < 100 and r.weight * luck or r.weight
+			weights[i] = weight
+			total += weight
+		end
+		local pick = math.random() * total
+		for i, r in Config.Rarities do
+			pick -= weights[i]
+			if pick <= 0 then
+				return r
+			end
+		end
+		return Config.Rarities[1]
+	end
+
+	-- Zeldzame bezoekers willen pennen uit je duurdere zaken.
+	local function pickStation(profile, rarityKey: string): string
+		local unlocked = {}
+		for _, station in Config.Stations do
+			if profile.rebirths >= station.unlockRebirth then
+				table.insert(unlocked, station)
+			end
+		end
+		if #unlocked == 0 then
+			return Config.Stations[1].key
+		end
+		local rarityIndex = Config.rarityIndex(rarityKey)
+		local lowest = math.clamp(
+			math.ceil(#unlocked * (rarityIndex - 1) / #Config.Rarities),
+			1, #unlocked
+		)
+		return unlocked[math.random(lowest, #unlocked)].key
+	end
+
+	function Visitors.init(player: Player)
+		active[player] = {}
+		nextRoll[player] = {}
+		for slot = 1, Config.Visit.slots do
+			-- de eerste bezoeker laat niet de volle wachttijd op zich wachten
+			nextRoll[player][slot] = os.clock() + 8 + slot * 12
+		end
+	end
+
+	function Visitors.clear(player: Player)
+		active[player] = nil
+		nextRoll[player] = nil
+	end
+
+	function Visitors.list(player: Player): { Visit }
+		return active[player] or {}
+	end
+
+	local function slotTaken(player: Player, slot: number): boolean
+		for _, visit in Visitors.list(player) do
+			if visit.slot == slot then
+				return true
+			end
+		end
+		return false
+	end
+
+	-- Laat bezoekers vertrekken en probeer lege plekken te vullen.
+	-- Geeft terug wie er nieuw is aangekomen.
+	function Visitors.tick(player: Player, profile, now: number, capacity: number): { Visit }
+		local list = active[player]
+		local rolls = nextRoll[player]
+		if not list or not rolls then
+			return {}
+		end
+
+		for i = #list, 1, -1 do
+			if now >= list[i].expiresAt then
+				table.remove(list, i)
+			end
+		end
+
+		local arrived = {}
+		for slot = 1, Config.Visit.slots do
+			if now >= (rolls[slot] or 0) and not slotTaken(player, slot) then
+				rolls[slot] = now + Config.Visit.spawnSeconds
+				if math.random() <= Config.Visit.spawnChance then
+					local rarity = rollRarity(luckOf(profile))
+					local options = Config.visitorsOfRarity(rarity.key)
+					if #options > 0 then
+						counter += 1
+						local stationKey = pickStation(profile, rarity.key)
+						local wanted = math.random(rarity.orderMin, rarity.orderMax)
+						local visit: Visit = {
+							id = counter,
+							visitor = options[math.random(#options)].key,
+							rarity = rarity.key,
+							station = stationKey,
+							-- nooit meer dan er in je tas past
+							amount = math.clamp(wanted, 1, math.max(1, capacity)),
+							slot = slot,
+							expiresAt = now + Config.Visit.staySeconds,
+						}
+						table.insert(list, visit)
+						table.insert(arrived, visit)
+					end
+				end
+			end
+		end
+		return arrived
+	end
+
+	function Visitors.find(player: Player, id: number): Visit?
+		for _, visit in Visitors.list(player) do
+			if visit.id == id then
+				return visit
+			end
+		end
+		return nil
+	end
+
+	function Visitors.remove(player: Player, id: number)
+		local list = active[player]
+		if not list then
+			return
+		end
+		for i, visit in list do
+			if visit.id == id then
+				table.remove(list, i)
+				return
+			end
+		end
+	end
+
+	-- Wat een bezoeker oplevert, nog zonder de multipliers van de speler.
+	function Visitors.basePayout(visit: Visit): number
+		local station = Config.getStation(visit.station)
+		local rarity = Config.getRarity(visit.rarity)
+		if not station then
+			return 0
+		end
+		return visit.amount * station.pen.value * rarity.payout
+	end
+
+	function Visitors.describe(visit: Visit)
+		local visitor = Config.getVisitor(visit.visitor)
+		local rarity = Config.getRarity(visit.rarity)
+		local station = Config.getStation(visit.station)
+		return {
+			id = visit.id,
+			slot = visit.slot,
+			name = visitor and visitor.name or visit.visitor,
+			line = visitor and visitor.line or "",
+			rarityKey = rarity.key,
+			rarityName = rarity.name,
+			rarityColor = rarity.color,
+			station = visit.station,
+			penName = station and station.pen.name or "",
+			amount = visit.amount,
+			basePayout = Visitors.basePayout(visit),
+			expiresAt = visit.expiresAt,
+		}
+	end
+
+	return Visitors
+end)()
+
+PEN.Staff = (function()
+	--!strict
+	-- Personeel: bezoekers die je al getrade hebt kun je in dienst nemen. Ze maken
+	-- pennen voor je, raken vermoeid van doorwerken en willen elke dag loon.
+	-- Betaal je niet op tijd, dan nemen ze ontslag - maar ze blijven in je index,
+	-- dus je kunt ze later opnieuw inhuren.
+
+	local Config = PEN.Config
+
+	local Staff = {}
+
+	export type Member = {
+		key: string,
+		stamina: number,
+		lastPaidAt: number,
+		resting: boolean?,
+	}
+
+	function Staff.slots(profile): number
+		local slots = Config.Staff.baseSlots + math.floor(profile.rebirths * Config.Staff.slotsPerRebirth)
+		return math.min(Config.Staff.maxSlots, slots)
+	end
+
+	function Staff.find(profile, key: string): Member?
+		for _, member in profile.staff do
+			if member.key == key then
+				return member
+			end
+		end
+		return nil
+	end
+
+	function Staff.rarityOf(key: string)
+		local visitor = Config.getVisitor(key)
+		return Config.getRarity(visitor and visitor.rarity or "common")
+	end
+
+	function Staff.wage(key: string): number
+		return Staff.rarityOf(key).wage
+	end
+
+	function Staff.hireCost(key: string): number
+		return math.floor(Staff.wage(key) * Config.Staff.hireCostFactor)
+	end
+
+	function Staff.canHire(profile, key: string): (boolean, string)
+		if not Config.getVisitor(key) then
+			return false, "Die kennen we niet."
+		end
+		if not profile.index[key] then
+			return false, "Je hebt nog niet met hem getrade."
+		end
+		if Staff.find(profile, key) then
+			return false, "Die werkt al voor je."
+		end
+		if #profile.staff >= Staff.slots(profile) then
+			return false, "Je hebt geen plek meer - rebirth geeft er meer."
+		end
+		return true, ""
+	end
+
+	function Staff.hire(profile, key: string, now: number)
+		table.insert(profile.staff, {
+			key = key,
+			stamina = Staff.rarityOf(key).stamina,
+			lastPaidAt = now,
+			resting = false,
+		})
+	end
+
+	function Staff.fire(profile, key: string)
+		for i, member in profile.staff do
+			if member.key == key then
+				table.remove(profile.staff, i)
+				return
+			end
+		end
+	end
+
+	function Staff.wageDueIn(member: Member, now: number): number
+		return (member.lastPaidAt + Config.Staff.wagePeriod) - now
+	end
+
+	function Staff.pay(profile, key: string, now: number): number?
+		local member = Staff.find(profile, key)
+		if not member then
+			return nil
+		end
+		local wage = Staff.wage(key)
+		if profile.cash < wage then
+			return nil
+		end
+		profile.cash -= wage
+		member.lastPaidAt = now
+		return wage
+	end
+
+	-- Pennen per seconde die het personeel op dit moment maakt.
+	function Staff.workRate(profile): number
+		local rate = 0
+		for _, member in profile.staff do
+			if member.stamina > 0 and not member.resting then
+				rate += Staff.rarityOf(member.key).workRate
+			end
+		end
+		return rate
+	end
+
+	-- Stamina bijwerken en kijken wie er weg is. Geeft de vertrekkers terug.
+	function Staff.tick(profile, now: number, dt: number): { string }
+		local left = {}
+		for i = #profile.staff, 1, -1 do
+			local member = profile.staff[i]
+			local max = Staff.rarityOf(member.key).stamina
+
+			if member.resting then
+				member.stamina = math.min(max, member.stamina + Config.Staff.recoverPerSecond * dt)
+				if member.stamina >= max * (Config.Staff.resumeAt / 100) then
+					member.resting = false
+				end
+			else
+				member.stamina = math.max(0, member.stamina - Config.Staff.drainPerSecond * dt)
+				if member.stamina <= 0 then
+					member.resting = true
+				end
+			end
+
+			if Staff.wageDueIn(member, now) < -Config.Staff.graceSeconds then
+				table.remove(profile.staff, i)
+				table.insert(left, member.key)
+			end
+		end
+		return left
+	end
+
+	function Staff.describe(profile, now: number)
+		local out = {}
+		for _, member in profile.staff do
+			local visitor = Config.getVisitor(member.key)
+			local rarity = Staff.rarityOf(member.key)
+			table.insert(out, {
+				key = member.key,
+				name = visitor and visitor.name or member.key,
+				rarityName = rarity.name,
+				rarityColor = rarity.color,
+				stamina = math.floor(member.stamina),
+				maxStamina = rarity.stamina,
+				resting = member.resting == true,
+				workRate = rarity.workRate,
+				wage = rarity.wage,
+				wageDueIn = math.floor(Staff.wageDueIn(member, now)),
+			})
+		end
+		return out
+	end
+
+	return Staff
 end)()
 
 PEN.Passes = (function()
@@ -3315,10 +3907,10 @@ PEN.Pets = (function()
 		m.PrimaryPart = body
 
 		local gui = Instance.new("BillboardGui")
-		gui.Size = UDim2.fromScale(6, 1.4)
+		gui.Size = UDim2.fromScale(4.5, 1.1)
 		gui.StudsOffsetWorldSpace = Vector3.new(0, 2.2, 0)
 		gui.AlwaysOnTop = true
-		gui.MaxDistance = 90
+		gui.MaxDistance = 35
 		gui.Adornee = body
 		gui.Parent = body
 
@@ -3326,7 +3918,7 @@ PEN.Pets = (function()
 		tl.Size = UDim2.fromScale(1, 1)
 		tl.BackgroundTransparency = 1
 		tl.Font = Enum.Font.GothamBold
-		tl.TextSize = 16
+		tl.TextSize = 12
 		tl.TextColor3 = pet.color
 		tl.TextStrokeTransparency = 0.4
 		tl.Text = pet.name
@@ -3515,6 +4107,8 @@ PEN.Game = (function()
 	local Passes = PEN.Passes
 	local Pets = PEN.Pets
 	local Leaderboards = PEN.Leaderboards
+	local Visitors = PEN.Visitors
+	local Staff = PEN.Staff
 
 	local Game = {}
 
@@ -3544,8 +4138,46 @@ PEN.Game = (function()
 
 	-- ------------------------------------------------------------- hulpjes ----
 
+	local function announce(text: string, color: Color3)
+		Net.event("Announce"):FireAllClients({ text = text, color = color })
+	end
+
 	local function notify(player: Player, text: string, color: Color3?)
 		Net.event("Notify"):FireClient(player, text, color or Color3.fromRGB(255, 255, 255))
+	end
+
+	-- ------------------------------------------------------------------ tas ---
+	-- De tas houdt per soort zaak bij hoeveel pennen erin zitten, want bezoekers
+	-- vragen om een bepaald soort.
+
+	local function bagCount(profile): number
+		local total = 0
+		for _, amount in profile.bag do
+			total += amount
+		end
+		return total
+	end
+
+	local function bagValue(profile): number
+		local total = 0
+		for key, amount in profile.bag do
+			local station = Config.getStation(key)
+			if station then
+				total += amount * station.pen.value
+			end
+		end
+		return total
+	end
+
+	local function bagContents(profile)
+		local rows = {}
+		for _, station in Config.Stations do
+			local amount = profile.bag[station.key]
+			if amount and amount > 0 then
+				table.insert(rows, { station = station.key, name = station.pen.name, amount = amount })
+			end
+		end
+		return rows
 	end
 
 	local function upgradeValue(profile, key: string): number
@@ -3589,6 +4221,9 @@ PEN.Game = (function()
 				total += station.autoPerSecond * station.pen.value
 			end
 		end
+		-- personeel maakt pennen van je beste zaak
+		local best = Config.stationForRebirths(profile.rebirths)
+		total += Staff.workRate(profile) * best.pen.value
 		local pet = petOf(profile)
 		total *= upgradeValue(profile, "auto")
 			* Config.rebirthMultiplier(profile.rebirths)
@@ -3684,12 +4319,45 @@ PEN.Game = (function()
 
 		local upcoming = nextStation(profile)
 
+		local count = bagCount(profile)
+		local visits = {}
+		for _, visit in Visitors.list(player) do
+			local row = Visitors.describe(visit)
+			row.payout = math.floor(row.basePayout * cashMultiplier(player, profile))
+			row.have = profile.bag[row.station] or 0
+			row.canTrade = row.have >= row.amount
+			table.insert(visits, row)
+		end
+
+		local indexRows = {}
+		for _, visitor in Config.Visitors do
+			local rarity = Config.getRarity(visitor.rarity)
+			table.insert(indexRows, {
+				key = visitor.key,
+				name = visitor.name,
+				rarityKey = rarity.key,
+				rarityName = rarity.name,
+				rarityColor = rarity.color,
+				traded = profile.index[visitor.key] or 0,
+				odds = math.floor(Config.rarityOdds(rarity.key,
+					math.min(Config.Visit.maxLuck, 1 + profile.rebirths * Config.Visit.luckPerRebirth))),
+				hired = Staff.find(profile, visitor.key) ~= nil,
+				hireCost = Staff.hireCost(visitor.key),
+			})
+		end
+
 		return {
 			cash = profile.cash,
-			pens = profile.pens,
-			penValue = profile.penValue,
+			pens = count,
+			penValue = count > 0 and bagValue(profile) / count or 0,
+			bagRows = bagContents(profile),
 			capacity = capacityOf(player, profile),
-			bagValue = math.floor(profile.pens * profile.penValue * cashMultiplier(player, profile)),
+			bagValue = math.floor(bagValue(profile) * cashMultiplier(player, profile)),
+			visitors = visits,
+			indexRows = indexRows,
+			staff = Staff.describe(profile, os.time()),
+			staffSlots = Staff.slots(profile),
+			staffRate = Staff.workRate(profile),
 			rebirths = profile.rebirths,
 			totalSold = profile.totalSold,
 			multiplier = cashMultiplier(player, profile),
@@ -3716,11 +4384,11 @@ PEN.Game = (function()
 
 		local stats = player:FindFirstChild("leaderstats")
 		if stats then
-			local cash = stats:FindFirstChild("Cash") :: IntValue?
+			local cash = stats:FindFirstChild("Cash") :: StringValue?
 			local pens = stats:FindFirstChild("Pennen") :: IntValue?
 			local rb = stats:FindFirstChild("Rebirths") :: IntValue?
-			if cash then cash.Value = math.floor(math.min(profile.cash, 2 ^ 31 - 1)) end
-			if pens then pens.Value = profile.pens end
+			if cash then cash.Value = "$" .. Config.short(profile.cash) end
+			if pens then pens.Value = bagCount(profile) end
 			if rb then rb.Value = profile.rebirths end
 		end
 	end
@@ -3775,7 +4443,8 @@ PEN.Game = (function()
 		pitches[player] = nil
 
 		local customer = Customers.get(pitch.station)
-		local sold = math.min(profile.pens, pitch.pens)
+		local sold = bagCount(profile)
+		local rawValue = bagValue(profile)
 		if sold <= 0 then
 			Net.event("PitchEnd"):FireClient(player, { ok = false, text = "Je tas was leeg." })
 			return
@@ -3812,15 +4481,11 @@ PEN.Game = (function()
 
 		local customerMult = customer and customer.multiplier or 1
 		local total = pitchMult * (1 + streakBonus) * customerMult
-		local earned = math.floor(sold * profile.penValue * cashMultiplier(player, profile) * total)
+		local earned = math.floor(rawValue * cashMultiplier(player, profile) * total)
 
 		profile.cash += earned
 		profile.totalSold += sold
-		profile.pens -= sold
-		if profile.pens <= 0 then
-			profile.pens = 0
-			profile.penValue = 0
-		end
+		profile.bag = {}
 		profile.dirty = true
 
 		Customers.serve(pitch.station)
@@ -3857,7 +4522,7 @@ PEN.Game = (function()
 			station = stationKey,
 			options = options,
 			customerType = customer.typeKey,
-			pens = profile.pens,
+			pens = bagCount(profile),
 			expires = os.clock() + Config.Pitch.seconds,
 		}
 		pitches[player] = pitch
@@ -3875,7 +4540,7 @@ PEN.Game = (function()
 			typeLabel = typeInfo.label,
 			typeColor = typeInfo.color,
 			customerMultiplier = customer.multiplier,
-			pens = profile.pens,
+			pens = bagCount(profile),
 			seconds = Config.Pitch.seconds,
 			options = texts,
 		})
@@ -3917,9 +4582,6 @@ PEN.Game = (function()
 		if key == "legs" then
 			applyWalkSpeed(player)
 		end
-		if key == "capacity" then
-			profile.pens = math.min(profile.pens, capacityOf(player, profile))
-		end
 		push(player)
 	end
 
@@ -3942,8 +4604,7 @@ PEN.Game = (function()
 		-- open en blijven passief geld opleveren.
 		profile.cash = 0
 		profile.rebirths += 1
-		profile.pens = 0
-		profile.penValue = 0
+		profile.bag = {}
 		profile.pitchStreak = 0
 		for _, up in Config.Upgrades do
 			profile.upgrades[up.key] = 1
@@ -4065,6 +4726,102 @@ PEN.Game = (function()
 		notify(player, "Die code kennen we niet.", Color3.fromRGB(255, 150, 150))
 	end
 
+	local function tradeVisitor(player: Player, id: number)
+		local profile = Data.get(player)
+		if not profile then
+			return
+		end
+		local visit = Visitors.find(player, id)
+		if not visit then
+			notify(player, "Die bezoeker is al vertrokken.", Color3.fromRGB(255, 150, 150))
+			return
+		end
+		local have = profile.bag[visit.station] or 0
+		local station = Config.getStation(visit.station)
+		local visitor = Config.getVisitor(visit.visitor)
+		local rarity = Config.getRarity(visit.rarity)
+		if not station or not visitor then
+			return
+		end
+		if have < visit.amount then
+			notify(player, string.format("%s wil %d x %s - je hebt er %d",
+				visitor.name, visit.amount, station.pen.name, have), Color3.fromRGB(255, 150, 150))
+			return
+		end
+
+		local earned = math.floor(Visitors.basePayout(visit) * cashMultiplier(player, profile))
+		profile.bag[visit.station] = have - visit.amount
+		if profile.bag[visit.station] <= 0 then
+			profile.bag[visit.station] = nil
+		end
+		profile.cash += earned
+		profile.totalSold += visit.amount
+		local firstTime = (profile.index[visitor.key] or 0) == 0
+		profile.index[visitor.key] = (profile.index[visitor.key] or 0) + 1
+		profile.dirty = true
+		Visitors.remove(player, id)
+
+		notify(player, string.format("%s (%s) betaalde $%s voor %d x %s",
+			visitor.name, rarity.name, Config.short(earned), visit.amount, station.pen.name), rarity.color)
+		if firstTime then
+			notify(player, string.format("Nieuw in je index: %s", visitor.name), rarity.color)
+		end
+		push(player)
+		Data.save(player)
+	end
+
+	local function hireStaff(player: Player, key: string)
+		local profile = Data.get(player)
+		if not profile then
+			return
+		end
+		local ok, reason = Staff.canHire(profile, key)
+		if not ok then
+			notify(player, reason, Color3.fromRGB(255, 150, 150))
+			return
+		end
+		local cost = Staff.hireCost(key)
+		if profile.cash < cost then
+			notify(player, string.format("Inhuren kost $%s", Config.short(cost)), Color3.fromRGB(255, 150, 150))
+			return
+		end
+		profile.cash -= cost
+		Staff.hire(profile, key, os.time())
+		profile.dirty = true
+		local visitor = Config.getVisitor(key)
+		notify(player, string.format("%s komt bij je werken.", visitor and visitor.name or key),
+			Color3.fromRGB(120, 255, 150))
+		push(player)
+	end
+
+	local function payStaff(player: Player, key: string)
+		local profile = Data.get(player)
+		if not profile then
+			return
+		end
+		local paid = Staff.pay(profile, key, os.time())
+		if not paid then
+			notify(player, string.format("Je hebt $%s nodig om hem te betalen", Config.short(Staff.wage(key))),
+				Color3.fromRGB(255, 150, 150))
+			return
+		end
+		profile.dirty = true
+		local visitor = Config.getVisitor(key)
+		notify(player, string.format("%s is betaald ($%s)", visitor and visitor.name or key, Config.short(paid)),
+			Color3.fromRGB(120, 255, 150))
+		push(player)
+	end
+
+	local function fireStaff(player: Player, key: string)
+		local profile = Data.get(player)
+		if not profile then
+			return
+		end
+		Staff.fire(profile, key)
+		profile.dirty = true
+		push(player)
+	end
+
 	-- ------------------------------------------------------------ spelers -----
 
 	local function onCharacter(player: Player, character: Model)
@@ -4103,7 +4860,12 @@ PEN.Game = (function()
 
 		local stats = Instance.new("Folder")
 		stats.Name = "leaderstats"
-		for _, name in { "Cash", "Pennen", "Rebirths" } do
+		-- Cash is een StringValue: een IntValue loopt vast op 2.147.483.647,
+		-- en dat bedrag haal je in deze game ruim voorbij.
+		local cashValue = Instance.new("StringValue")
+		cashValue.Name = "Cash"
+		cashValue.Parent = stats
+		for _, name in { "Pennen", "Rebirths" } do
 			local v = Instance.new("IntValue")
 			v.Name = name
 			v.Parent = stats
@@ -4114,6 +4876,7 @@ PEN.Game = (function()
 		nextSell[player] = 0
 		nextUpgrade[player] = 0
 		nextHint[player] = 0
+		Visitors.init(player)
 
 		player.CharacterAdded:Connect(function(character)
 			onCharacter(player, character)
@@ -4149,6 +4912,7 @@ PEN.Game = (function()
 		nextHint[player] = nil
 		rebirthHeldSince[player] = nil
 		pitches[player] = nil
+		Visitors.clear(player)
 		Data.release(player)
 	end
 
@@ -4194,17 +4958,15 @@ PEN.Game = (function()
 				else
 					local interval = produceInterval(profile)
 					local made = 0
-					while now >= (nextProduce[player] or 0) and profile.pens < capacity and made < 64 do
-						local totalValue = profile.pens * profile.penValue + station.pen.value
-						profile.pens += 1
-						profile.penValue = totalValue / profile.pens
+					while now >= (nextProduce[player] or 0) and bagCount(profile) < capacity and made < 64 do
+						profile.bag[station.key] = (profile.bag[station.key] or 0) + 1
 						made += 1
 						nextProduce[player] = math.max((nextProduce[player] or now) + interval, now - interval)
 					end
 					if made > 0 then
 						profile.dirty = true
 						push(player)
-					elseif profile.pens >= capacity and now >= (nextProduce[player] or 0) then
+					elseif bagCount(profile) >= capacity and now >= (nextProduce[player] or 0) then
 						nextProduce[player] = now + 1.5
 						hint(player, now, "Je tas zit vol - ga pitchen bij de toonbank!")
 					end
@@ -4215,7 +4977,7 @@ PEN.Game = (function()
 			if sellPad and isOnPad(root, sellPad) then
 				if not stationUnlocked(profile, station) then
 					hint(player, now, string.format("%s opent na rebirth %d", station.name, station.unlockRebirth))
-				elseif profile.pens > 0 and not pitches[player] and now >= (nextSell[player] or 0) then
+				elseif bagCount(profile) > 0 and not pitches[player] and now >= (nextSell[player] or 0) then
 					nextSell[player] = now + SELL_COOLDOWN
 					startPitch(player, profile, station.key)
 				end
@@ -4336,6 +5098,27 @@ PEN.Game = (function()
 				redeemCode(player, code)
 			end
 		end)
+		Net.event("TradeVisitor").OnServerEvent:Connect(function(player, id)
+			if typeof(id) == "number" then
+				tradeVisitor(player, math.floor(id))
+			end
+		end)
+		Net.event("HireStaff").OnServerEvent:Connect(function(player, key)
+			if typeof(key) == "string" then
+				hireStaff(player, key)
+			end
+		end)
+		Net.event("PayStaff").OnServerEvent:Connect(function(player, key)
+			if typeof(key) == "string" then
+				payStaff(player, key)
+			end
+		end)
+		Net.event("FireStaff").OnServerEvent:Connect(function(player, key)
+			if typeof(key) == "string" then
+				fireStaff(player, key)
+			end
+		end)
+
 		Net.event("Travel").OnServerEvent:Connect(function(player, key)
 			if typeof(key) ~= "string" then
 				return
@@ -4356,6 +5139,11 @@ PEN.Game = (function()
 					local pad = pads["Press_" .. key]
 					if pad then
 						pitches[player] = nil
+						-- met StreamingEnabled moet de omgeving er eerst zijn,
+						-- anders val je door de grond bij aankomst
+						pcall(function()
+							player:RequestStreamAroundAsync(pad.Position, 10)
+						end)
 						root.CFrame = pad.CFrame * CFrame.new(0, 6, 0)
 						notify(player, "Onderweg naar " .. station.name, Color3.fromRGB(150, 210, 255))
 					end
@@ -4389,6 +5177,56 @@ PEN.Game = (function()
 						profile.dirty = true
 					end
 					push(player)
+				end
+			end
+		end)
+
+		-- bezoekers laten komen en gaan, en het personeel bijhouden
+		task.spawn(function()
+			local last = os.clock()
+			while true do
+				task.wait(2)
+				local now = os.clock()
+				local dt = now - last
+				last = now
+				local stamp = os.time()
+
+				for player, profile in Data.all() do
+					local changed = false
+
+					local arrived = Visitors.tick(player, profile, now, capacityOf(player, profile))
+					for _, visit in arrived do
+						local rarity = Config.getRarity(visit.rarity)
+						local visitor = Config.getVisitor(visit.visitor)
+						local station = Config.getStation(visit.station)
+						notify(player, string.format("%s (%s) wil %d x %s",
+							visitor and visitor.name or "?", rarity.name, visit.amount,
+							station and station.pen.name or "pennen"), rarity.color)
+						if rarity.announce then
+							announce(string.format("%s kreeg bezoek van <b>%s</b> - %s!",
+								player.DisplayName, visitor and visitor.name or "?", rarity.name), rarity.color)
+						end
+						changed = true
+					end
+					if #Visitors.list(player) > 0 then
+						changed = true
+					end
+
+					local left = Staff.tick(profile, stamp, dt)
+					for _, key in left do
+						local visitor = Config.getVisitor(key)
+						notify(player, string.format("%s heeft ontslag genomen - te lang niet betaald.",
+							visitor and visitor.name or key), Color3.fromRGB(255, 150, 150))
+						changed = true
+						profile.dirty = true
+					end
+					if #profile.staff > 0 then
+						changed = true
+					end
+
+					if changed then
+						push(player)
+					end
 				end
 			end
 		end)

@@ -22,13 +22,15 @@ MODULES = {
     "Scenery": SRC / "server" / "Scenery.luau",
     "World": SRC / "server" / "World.luau",
     "Customers": SRC / "server" / "Customers.luau",
+    "Visitors": SRC / "server" / "Visitors.luau",
+    "Staff": SRC / "server" / "Staff.luau",
     "Passes": SRC / "server" / "Passes.luau",
     "Pets": SRC / "server" / "Pets.luau",
     "Leaderboards": SRC / "server" / "Leaderboards.luau",
     "Game": SRC / "server" / "Game.luau",
 }
 
-SERVER_ORDER = ["Config", "Net", "Data", "Scenery", "World", "Customers", "Passes", "Pets", "Leaderboards", "Game"]
+SERVER_ORDER = ["Config", "Net", "Data", "Scenery", "World", "Customers", "Visitors", "Staff", "Passes", "Pets", "Leaderboards", "Game"]
 CLIENT_ORDER = ["Config", "Net"]
 
 # regels die alleen bestaan om de PenShared-map te vinden: die map is er niet in een bundel
