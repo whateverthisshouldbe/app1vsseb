@@ -10,8 +10,8 @@ local Config = require(ReplicatedStorage.Shared.Config)
 
 local DataService = {}
 
-local STORE_NAME = "SellMeThisPen_v1"
-local LEADERBOARD_NAME = "SellMeThisPen_NetWorth_v1"
+local STORE_NAME = "SellMeThisPen_v2"
+local LEADERBOARD_NAME = "SellMeThisPen_NetWorth_v2"
 
 local store
 local leaderboardStore
@@ -38,8 +38,9 @@ local function defaultProfile()
 		pen = "bic",
 		suit = "thrift",
 		phone = "none",
-		brokers = {},
-		zones = { strip = true },
+		brokers = {}, -- array of visitor ids, max Config.MaxBrokers
+		index = {}, -- [visitorId] = times sold to
+		best = nil, -- id of the rarest visitor ever sold to
 		perfectCloses = 0,
 		napkins = 0,
 		lastOnline = 0,
@@ -55,6 +56,15 @@ local function reconcile(data)
 			data[key] = value
 		end
 	end
+	-- Brokers must be a plain array of visitor ids.
+	local clean = {}
+	for _, id in ipairs(data.brokers) do
+		if type(id) == "string" and #clean < Config.MaxBrokers then
+			table.insert(clean, id)
+		end
+	end
+	data.brokers = clean
+	data.zones = nil
 	return data
 end
 

@@ -33,25 +33,22 @@ local function fillWater()
 	end
 end
 
-local function setupGates()
-	local gates = map:FindFirstChild("Gates")
-	if not gates then
-		return
-	end
-	for _, zone in Config.Zones do
-		local gate = zone.gate and gates:FindFirstChild(zone.gate)
-		if gate then
+-- Parts named "Elevator_<zoneId>" take you to that zone.
+local function setupElevators()
+	for _, part in map:GetDescendants() do
+		local zoneId = part:IsA("BasePart") and string.match(part.Name, "^Elevator_(%w+)$")
+		local zone = zoneId and Config.getZone(zoneId)
+		if zone then
 			local prompt = Instance.new("ProximityPrompt")
-			prompt.Name = "UnlockPrompt"
-			prompt.ActionText = "Unlock (" .. Format.cash(zone.cost) .. ")"
-			prompt.ObjectText = zone.name
-			prompt.HoldDuration = 0.6
-			prompt.MaxActivationDistance = 14
+			prompt.Name = "ElevatorPrompt"
+			prompt.ActionText = "Ride elevator"
+			prompt.ObjectText = zone.name .. (zone.rebirths > 0 and string.format(" (%d rebirths)", zone.rebirths) or "")
+			prompt.HoldDuration = 0.4
+			prompt.MaxActivationDistance = 10
 			prompt.RequiresLineOfSight = false
-			prompt:SetAttribute("Zone", zone.id)
-			prompt.Parent = gate
+			prompt.Parent = part
 			prompt.Triggered:Connect(function(player)
-				local ok, message = EconomyService.purchase(player, "zone", zone.id)
+				local ok, message = EconomyService.teleport(player, zone.id)
 				EconomyService.notify(player, message, ok and "success" or "error")
 			end)
 		end
@@ -243,7 +240,7 @@ end
 
 function WorldService.start()
 	task.spawn(fillWater)
-	setupGates()
+	setupElevators()
 	setStage(false)
 	task.spawn(runSpeechLoop)
 

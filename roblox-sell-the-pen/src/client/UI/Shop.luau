@@ -1,10 +1,11 @@
--- The shop (pens, suits, phones, brokers, zones), the IPO screen and the
--- how-to-play screen.
+-- The shop (pens, suits, phones), the rebirth screen and the how-to-play
+-- screen.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Config = require(ReplicatedStorage.Shared.Config)
 local Format = require(ReplicatedStorage.Shared.Format)
+local Animations = require(ReplicatedStorage.Shared.Animations)
 local Theme = require(script.Parent.Theme)
 local Modal = require(script.Parent.Modal)
 local Notifier = require(script.Parent.Notifier)
@@ -19,8 +20,6 @@ local TABS = {
 	{ id = "pen", name = "Pens", color = Colors.pen },
 	{ id = "suit", name = "Suits", color = Colors.you },
 	{ id = "phone", name = "Phones", color = Colors.money },
-	{ id = "broker", name = "Brokers", color = Colors.firm },
-	{ id = "zone", name = "Zones", color = Colors.gold },
 }
 
 local shopModal, ipoModal, helpModal
@@ -44,7 +43,7 @@ local function rowsFor(tab, profile)
 			if tab == "pen" then
 				detail = string.format("Base sale %s  ·  %s", Format.cash(item.value), item.blurb)
 			elseif tab == "suit" then
-				detail = string.format("+%.1f starting certainty  ·  %d%% sweet spot  ·  x%.2f cash", item.startBonus, item.sweetSpot * 100, item.cashMult)
+				detail = string.format("+%.1f certainty  ·  %d%% sweet spot  ·  x%.2f cash  ·  %s walk", item.startBonus, item.sweetSpot * 100, item.cashMult, Animations.BySuit[item.id] or "?")
 			else
 				detail = item.income > 0 and string.format("Cold calls earn %s/s while you play (and half offline)", Format.cash(item.income)) or "Silence."
 			end
@@ -57,36 +56,6 @@ local function rowsFor(tab, profile)
 				color = item.color,
 				action = function()
 					buy(tab, item.id)
-				end,
-			})
-		end
-	elseif tab == "broker" then
-		for _, broker in Config.Brokers do
-			local owned = profile.brokers[broker.id] or 0
-			table.insert(rows, {
-				title = string.format("%s  (x%d)", broker.name, owned),
-				detail = string.format("+%s/s each  ·  %s", Format.cash(broker.income), broker.blurb),
-				cost = Config.brokerCost(broker, owned),
-				state = "buy",
-				buyText = "HIRE",
-				action = function()
-					buy("broker", broker.id)
-				end,
-			})
-		end
-	elseif tab == "zone" then
-		for index, zone in Config.Zones do
-			local previous = Config.Zones[index - 1]
-			local state = profile.zones[zone.id] and "owned"
-				or ((previous and not profile.zones[previous.id]) and "locked" or "buy")
-			table.insert(rows, {
-				title = zone.name,
-				detail = string.format("%s  ·  customers pay x%.1f", zone.subtitle, zone.budgetMult),
-				cost = zone.cost,
-				state = state,
-				buyText = "UNLOCK",
-				action = function()
-					buy("zone", zone.id)
 				end,
 			})
 		end
@@ -240,22 +209,28 @@ local function renderIPO()
 		return
 	end
 	local profile = data.profile
-	local hasYacht = profile.zones[Config.IPO.requiresZone] == true
-	local hasCash = profile.cash >= Config.IPO.cashRequired
+	local hasCash = profile.cash >= data.rebirthCost
+	local nextZone
+	for _, zone in Config.Zones do
+		if zone.rebirths == profile.ipos + 1 then
+			nextZone = zone
+		end
+	end
 	ipoInfo.Text = string.format(
-		"Take Stratton Oakpen public.\n\nYou LOSE: cash, pens, suits, phones, brokers and zones.\nYou KEEP: a permanent x%.1f multiplier on everything (now x%.1f).\n\n%s  Unlock the Yacht\n%s  Have %s cash (%s)",
+		"Take Stratton Oakpen public (rebirth %d).\n\nYou LOSE: cash, pen, suit and phone.\nYou KEEP: your brokers, your Index and a permanent x%.1f multiplier (now x%.1f).%s\n\n%s  Have %s cash (you have %s)",
+		profile.ipos + 1,
 		data.nextIpoMult,
 		data.ipoMult,
-		hasYacht and "[OK]" or "[  ]",
+		nextZone and ("\nUNLOCKS: " .. nextZone.name .. "!") or "",
 		hasCash and "[OK]" or "[  ]",
-		Format.cash(Config.IPO.cashRequired),
+		Format.cash(data.rebirthCost),
 		Format.cash(profile.cash)
 	)
-	ipoButton.BackgroundColor3 = (hasYacht and hasCash) and Color3.fromRGB(140, 70, 220) or Colors.panelLight
+	ipoButton.BackgroundColor3 = hasCash and Color3.fromRGB(140, 70, 220) or Colors.panelLight
 end
 
 local function buildIPO(screen)
-	ipoModal = Modal.new(screen, "RING THE BELL: IPO", Colors.purple, Vector2.new(560, 420))
+	ipoModal = Modal.new(screen, "REBIRTH: RING THE BELL", Colors.purple, Vector2.new(560, 420))
 	ipoInfo = Theme.label({
 		Size = UDim2.new(1, 0, 1, -80),
 		Font = Theme.FontBold,
@@ -271,7 +246,7 @@ local function buildIPO(screen)
 		Position = UDim2.new(0.5, 0, 1, 0),
 		Size = UDim2.new(0.7, 0, 0, 60),
 		Font = Theme.FontBlack,
-		Text = "GO PUBLIC",
+		Text = "REBIRTH",
 		Parent = ipoModal.content,
 	}, function()
 		local ok, message = Remotes.IPO:InvokeServer()
@@ -292,7 +267,15 @@ local HELP_TEXT = [[<b><font color="#FFC846">1. Find a customer.</font></b> Walk
 
 <b><font color="#FFC846">4. Close.</font></b> Hit CLOSE whenever you like. Higher certainty = better odds and a bigger sale. Max all three bars for a PERFECT CLOSE.
 
-<b><font color="#FFC846">5. Grow.</font></b> Buy better pens and suits, hire brokers, unlock Pen Street, the Trading Floor and the Yacht. Then IPO for a permanent multiplier.
+<b><font color="#FFC846">5. Rarities.</font></b> Every visitor has a rarity, from Common (x3) to the one and only Ultra Exotic <b>Beldan Jolfort</b> (x6000). Rarer visitors pay far more, but are harder to convince. Fancier zones attract rarer visitors.
+
+<b><font color="#FFC846">6. Cash or recruit?</font></b> After every sale you choose: take the money, or recruit the visitor as a broker. You can have 8 brokers; they earn their daily wage all the time (half while you're offline).
+
+<b><font color="#FFC846">7. Index.</font></b> 150 unique visitors to collect. Every one you sell to adds +0.5% to all your sales.
+
+<b><font color="#FFC846">8. Rebirth.</font></b> Buy better pens, suits and phones, then rebirth. New zones open at 1, 3, 5, 8, 10 and 14 rebirths. Use TP to travel.
+
+<b><font color="#FFC846">Moving.</font></b> Hold <b>Left Shift</b> to sprint (RUN button on mobile). Better suits give you a cooler walk. Jump often: sometimes you'll pull off a flip.
 
 <b><font color="#FFC846">Secrets.</font></b> Sometimes a mysterious napkin line appears. Use it. Hum (H) with other players for a crowd boost. Be on the Trading Floor when the Wolf gives his speech.]]
 

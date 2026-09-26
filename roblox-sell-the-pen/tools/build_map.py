@@ -376,6 +376,8 @@ def skyscraper(g, name, x0, x1, z0, z1, height, color, material="Glass", band=(2
         b.box("H1", (1.2, 0.1, 8), (tcx - 2.5, ty + 2.05, tcz), WHITE, "SmoothPlastic")
         b.box("H2", (1.2, 0.1, 8), (tcx + 2.5, ty + 2.05, tcz), WHITE, "SmoothPlastic")
         b.box("H3", (4, 0.1, 1.2), (tcx, ty + 2.05, tcz), WHITE, "SmoothPlastic")
+    elif crown == "flat":
+        pass
     else:
         # Rooftop clutter.
         for _ in range(3):
@@ -598,7 +600,7 @@ lb.box("LeaderboardBoard", (36, 16, 1), (0, 24, 0), BLACK, "SmoothPlastic", r=(0
 lb.box("BoardFrame", (37, 17, 0.8), (0.6, 24, 0), GOLD, "Metal", r=(0, 90, 0))
 
 # Buildings.
-skyscraper(ps, "TowerA", -105, -55, 34, 90, 150, GLASS_BLUE, "Glass", (200, 210, 220), "Metal", crown="helipad")
+skyscraper(ps, "TowerA", -105, -55, 34, 90, 150, GLASS_BLUE, "Glass", (200, 210, 220), "Metal", crown="flat")
 skyscraper(ps, "TowerB", 120, 185, 34, 110, 190, (200, 175, 135), "Limestone", (170, 145, 110), "Limestone",
            setbacks=((0.55, 6), (0.8, 14)), crown="spire")
 skyscraper(ps, "BrickC", -105, -52, -95, -34, 70, (140, 70, 55), "Brick", (190, 180, 165), "Concrete", crown="watertower")
@@ -652,13 +654,13 @@ sign(sub, "Name", "PEN ST STATION", (0, 3.8, -2.4), 8, 1.2, "-z", WHITE, bg=(40,
 # ===========================================================================
 so = root.sub("StrattonOakpen")
 FX0, FX1, FZ0, FZ1, FH = 210, 376, -82, 82, 36
-so.box("Floor", (FX1 - FX0, 0.4, FZ1 - FZ0), ((FX0 + FX1) / 2, 0.2, 0), (35, 35, 40), "Marble", Reflectance=0.15)
+so.box("Floor", (FX1 - FX0, 0.4, FZ1 - FZ0), ((FX0 + FX1) / 2, 0.2, 0), (95, 95, 105), "Marble", Reflectance=0.12)
 so.box("Carpet", (120, 0.05, 76), (282, 0.42, 0), (110, 20, 30), "Carpet", CanCollide=False)
-so.box("Ceiling", (FX1 - FX0, 2, FZ1 - FZ0), ((FX0 + FX1) / 2, FH + 1, 0), (30, 30, 35), "Concrete")
+so.box("Ceiling", (FX1 - FX0, 2, FZ1 - FZ0), ((FX0 + FX1) / 2, FH + 1, 0), (215, 212, 205), "SmoothPlastic")
 # Walls: glass curtain with a doorway on the west side.
 so.box("WallN", (FX1 - FX0, FH, 1), ((FX0 + FX1) / 2, FH / 2, FZ1), (120, 160, 190), "Glass", Transparency=0.55)
 so.box("WallS", (FX1 - FX0, FH, 1), ((FX0 + FX1) / 2, FH / 2, FZ0), (120, 160, 190), "Glass", Transparency=0.55)
-so.box("WallE", (1, FH, FZ1 - FZ0), (FX1, FH / 2, 0), (40, 40, 45), "Concrete")
+so.box("WallE", (1, FH, FZ1 - FZ0), (FX1, FH / 2, 0), (120, 110, 100), "Wood")
 so.box("WallW_N", (1, FH, FZ1 - 13), (FX0, FH / 2, (FZ1 + 13) / 2), (120, 160, 190), "Glass", Transparency=0.55)
 so.box("WallW_S", (1, FH, -13 - FZ0), (FX0, FH / 2, (FZ0 - 13) / 2), (120, 160, 190), "Glass", Transparency=0.55)
 so.box("WallW_Top", (1, FH - 18, 26), (FX0, 18 + (FH - 18) / 2, 0), (40, 40, 45), "Concrete")
@@ -703,7 +705,7 @@ for side in (-1, 1):
 for x in range(225, 370, 24):
     for z in (-50, 0, 50):
         so.box("CeilingPanel", (14, 0.3, 3), (x, FH - 0.2, z), (255, 250, 235), "Neon", CastShadow=False,
-               children=[light("PointLight", (255, 240, 215), 0.9, 34)] if z == 0 else None)
+               children=[light("PointLight", (255, 240, 215), 1.3, 40)])
 # Goldfish tank by the entrance. Yes, that goldfish.
 tank = so.sub("GoldfishTank", (222, 0.4, -20))
 tank.box("Stand", (6, 3, 4), (0, 1.5, 0), BLACK, "Wood")
@@ -900,6 +902,225 @@ lib.box("PenTip", (1.4, 2.4, 1.4), (9.6, 102.2, 0), (240, 240, 240), "Metal", r=
 lib.ball("PenGlow", 3, (9.8, 104, 0), (255, 230, 120), "Neon", CanCollide=False, children=[light("PointLight", (255, 220, 120), 4, 40)])
 lib.box("Tablet", (5, 7, 1.5), (-6, 60, -3), GREEN, "Metal", r=(0, 0, 15))
 sign(lib, "Plaque", "STATUE OF PEN-ERTY", (0, 24, -11.1), 18, 3, "-z", GOLD, bg=(40, 40, 40), part_color=(40, 40, 40), ppu=20)
+
+# ===========================================================================
+# 7. THE PENTHOUSE (rebirth 8) on top of Tower A. Visitors come to the door.
+# ===========================================================================
+ph = root.sub("Penthouse")
+PY = 152  # floor surface
+CREAM = (235, 228, 214)
+ph.box("Floor", (50, 0.4, 56), (-80, PY - 0.2, 62), (60, 45, 35), "WoodPlanks")
+ph.box("Roof", (50, 1, 38), (-80, PY + 14.5, 55), CREAM, "SmoothPlastic")
+# Elevator lobby (z 34..46) with the elevator back down.
+ph.box("LobbyFloor", (22, 0.1, 10), (-80, PY + 0.05, 40), (230, 225, 215), "Marble", CanCollide=False)
+ph.box("LobbyWallS", (50, 14, 1), (-80, PY + 7, 34.5), CREAM, "SmoothPlastic")
+ph.box("Elevator_street", (8, 11, 0.6), (-80, PY + 5.5, 35.3), GOLD, "Foil")
+sign(ph, "ElevatorSign", "ELEVATOR  ↓  PEN STREET", (-80, PY + 12, 35.1), 12, 1.6, "+z", GOLD, bg=BLACK, part_color=BLACK, ppu=24)
+ph.box("LobbySideW", (1, 14, 12), (-91.5, PY + 7, 40), CREAM, "SmoothPlastic")
+ph.box("LobbySideE", (1, 14, 12), (-68.5, PY + 7, 40), CREAM, "SmoothPlastic")
+ph.box("DoorWallW", (7.5, 14, 1), (-87.75, PY + 7, 46), CREAM, "SmoothPlastic")
+ph.box("DoorWallE", (7.5, 14, 1), (-72.25, PY + 7, 46), CREAM, "SmoothPlastic")
+ph.box("DoorTop", (8, 4, 1), (-80, PY + 12, 46), CREAM, "SmoothPlastic")
+ph.box("DoorFrame", (9, 0.6, 1.2), (-80, PY + 10, 46), GOLD, "Foil")
+ph.box("Doorbell", (0.4, 0.6, 0.3), (-85, PY + 5, 46.6), GOLD, "Neon")
+sign(ph, "DoorSign", "THE PENTHOUSE", (-80, PY + 12, 45.3), 7, 1.4, "-z", GOLD, bg=BLACK, part_color=BLACK, ppu=30)
+# Glass all around the living room, with a door to the terrace.
+for side in (-1, 1):
+    ph.box("GlassSide", (0.6, 14, 40), (-80 + side * 24.7, PY + 7, 54), (170, 210, 230), "Glass", Transparency=0.6)
+ph.box("GlassNorthW", (26, 14, 0.6), (-92, PY + 7, 74), (170, 210, 230), "Glass", Transparency=0.6)
+ph.box("GlassNorthE", (14, 14, 0.6), (-62, PY + 7, 74), (170, 210, 230), "Glass", Transparency=0.6)
+ph.box("GlassNorthTop", (10, 4, 0.6), (-74, PY + 12, 74), (170, 210, 230), "Glass", Transparency=0.6)
+ph.box("Rug", (26, 0.1, 12), (-80, PY + 0.05, 66), (160, 30, 45), "Fabric", CanCollide=False)
+ph.box("Sofa", (16, 2, 4), (-80, PY + 1, 71), (240, 240, 235), "Fabric", cls="Seat")
+ph.box("SofaBack", (16, 3, 1.2), (-80, PY + 2.5, 72.8), (240, 240, 235), "Fabric")
+ph.box("SofaArm", (4, 2, 10), (-90, PY + 1, 67), (240, 240, 235), "Fabric", cls="Seat")
+ph.box("CoffeeTable", (7, 1.4, 3.5), (-80, PY + 0.7, 65.5), (30, 30, 30), "Glass", Reflectance=0.3)
+ph.box("GoldBar", (1.4, 0.5, 0.7), (-79, PY + 1.65, 65.5), GOLD, "Foil")
+ph.box("Piano", (6, 3.2, 5), (-66, PY + 1.6, 66), (15, 15, 15), "SmoothPlastic", Reflectance=0.3)
+ph.box("PianoLid", (6, 0.2, 5), (-66, PY + 4.4, 67), (15, 15, 15), "SmoothPlastic", r=(-30, 0, 0))
+ph.box("Bar", (3, 4, 14), (-101, PY + 2, 63), (40, 30, 25), "Wood")
+ph.box("BarTop", (3.6, 0.3, 14.6), (-101, PY + 4.15, 63), GOLD, "Foil")
+for z in (58, 63, 68):
+    ph.cyl("BarStool", 3, 1.4, (-98, PY + 1.5, z), (200, 170, 90), "Metal")
+ph.box("TV", (0.4, 7, 13), (-55.9, PY + 6, 56), BLACK, "SmoothPlastic",
+       children=[inst("SurfaceGui", "Screen", {"Face": "Left", "SizingMode": "PixelsPerStud", "PixelsPerStud": 16, "LightInfluence": 0, "Brightness": 1.5},
+                      [inst("TextLabel", "Label", {"Text": "PEN +420%", "TextScaled": True, "Font": "GothamBlack", "TextColor3": rgb(*MONEY), "BackgroundColor3": rgb(5, 15, 10), "Size": {"UDim2": [[1, 0], [1, 0]]}})])])
+sign(ph, "WolfNeon", "SELL ME THIS PEN", (-80, PY + 11, 46.9), 14, 2.2, "+z", NEON_PINK, part_color=BLACK, ppu=20, transparent=True)
+for x, z in ((-80, 60), (-80, 52)):
+    ph.box("Chandelier", (6, 0.6, 6), (x, PY + 13.4, z), (255, 240, 200), "Neon", CastShadow=False,
+           children=[light("PointLight", (255, 235, 200), 1.5, 34)])
+# Terrace with an infinity pool.
+ph.box("Terrace", (50, 0.4, 14), (-80, PY - 0.2, 81), (200, 195, 185), "Limestone")
+ph.box("Pool", (20, 0.2, 8), (-90, PY + 0.05, 82), (60, 210, 230), "Neon", CanCollide=False, Transparency=0.15)
+ph.box("PoolEdge", (22, 0.5, 0.6), (-90, PY + 0.25, 77.7), WHITE, "Marble")
+for x in (-74, -68, -62):
+    ph.box("Lounger", (3, 1, 6), (x, PY + 0.5, 82), WHITE, "Fabric", cls="Seat")
+for x in range(-104, -54, 3):
+    ph.box("GlassRail", (3, 3.5, 0.3), (x + 1.5, PY + 1.75, 87.8), (170, 210, 230), "Glass", Transparency=0.5)
+for side in (-1, 1):
+    ph.box("GlassRailSide", (0.3, 3.5, 14), (-80 + side * 24.8, PY + 1.75, 81), (170, 210, 230), "Glass", Transparency=0.5)
+planter_tree(ph, -58, 85, PY)
+planter_tree(ph, -102, 85, PY)
+sign(ph, "RoofSign", "PENTHOUSE", (-80, PY + 19, 34.8), 30, 7, "-z", GOLD, part_color=BLACK, ppu=10, transparent=True)
+ph.box("RoofSignBar", (30, 0.6, 0.6), (-80, PY + 15.4, 34.8), (60, 60, 60), "Metal")
+# Street-level elevator in the Tower A lobby.
+ps.box("Elevator_penthouse", (8, 11, 0.6), (-80, 6, 33.5), GOLD, "Foil")
+sign(ps, "PenthouseElevatorSign", "PENTHOUSE ELEVATOR", (-80, 13.4, 33.3), 14, 2, "-z", GOLD, bg=BLACK, part_color=BLACK, ppu=24)
+ps.box("ElevatorAwning", (14, 0.6, 5), (-80, 15, 31), (30, 30, 35), "Metal")
+
+# ===========================================================================
+# 8. THE SWISS VAULT (rebirth 10): a snowy island and a bank full of gold.
+# ===========================================================================
+sv = root.sub("SwissVault")
+VX, VZ = -620, 380
+SNOW = (245, 248, 252)
+sv.box("Island", (190, 6, 170), (VX, -3, VZ), SNOW, "Snow")
+sv.box("Rocks", (200, 4, 180), (VX, -6, VZ), (90, 90, 95), "Rock")
+sv.box("Path", (14, 0.2, 40), (VX, 0.1, 320), (120, 115, 110), "Cobblestone")
+
+
+def mountain(g, x, z, base, height, peak_snow=True):
+    m = g.sub("Mountain", (x, 0, z))
+    steps = 5
+    for i in range(steps):
+        w = base * (1 - i / steps)
+        h = height / steps
+        color = SNOW if (peak_snow and i >= steps - 2) else (110, 105, 100)
+        m.box("Tier", (w, h, w), (0, h * i + h / 2, 0), color, "Snow" if color == SNOW else "Rock", r=(0, 45 * (i % 2), 0))
+    m.box("Peak", (base * 0.18, height * 0.25, base * 0.18), (0, height + height * 0.1, 0), SNOW, "Snow", r=(0, 45, 0))
+
+
+for x, z, b, h in ((-690, 455, 70, 70), (-630, 470, 90, 95), (-560, 455, 70, 60), (-700, 400, 40, 35), (-545, 400, 40, 30)):
+    mountain(sv, x, z, b, h)
+for x, z in ((-690, 330), (-670, 310), (-560, 330), (-575, 310), (-700, 360), (-548, 360)):
+    t = sv.sub("Pine", (x, 0, z))
+    t.cyl("Trunk", 4, 1, (0, 2, 0), (80, 55, 35), "Wood")
+    for i, (w, y) in enumerate(((8, 5), (6, 8), (4, 11))):
+        t.box("Needles", (w, 3.5, w), (0, y, 0), (40, 90, 60), "Grass", r=(0, 45 * i, 0))
+        t.box("Snow", (w * 0.8, 0.4, w * 0.8), (0, y + 1.9, 0), SNOW, "Snow", r=(0, 45 * i, 0))
+# The bank: hall interior x -655..-585, z 345..415.
+BW = (225, 220, 210)
+sv.box("Floor", (70, 0.4, 70), (VX, 0.2, 380), (240, 235, 225), "Marble", Reflectance=0.1)
+sv.box("FloorInlay", (30, 0.05, 30), (VX, 0.43, 382), GOLD, "Foil", CanCollide=False)
+sv.box("Ceiling", (74, 2, 74), (VX, 31, 380), BW, "Marble")
+sv.box("WallN", (74, 30, 2), (VX, 15, 416), BW, "Marble")
+sv.box("WallW", (2, 30, 74), (-656, 15, 380), BW, "Marble")
+sv.box("WallE", (2, 30, 74), (-584, 15, 380), BW, "Marble")
+sv.box("WallS_W", (31, 30, 2), (-641.5, 15, 344), BW, "Marble")
+sv.box("WallS_E", (31, 30, 2), (-598.5, 15, 344), BW, "Marble")
+sv.box("WallS_Top", (12, 14, 2), (VX, 23, 344), BW, "Marble")
+for x in (-650, -640, -630, -610, -600, -590):
+    sv.cyl("Column", 22, 3.5, (x, 11, 339), BW, "Marble")
+sv.box("Portico", (74, 3, 12), (VX, 23.5, 339), BW, "Marble")
+sign(sv, "BankName", "BANQUE DE PEN-EVE", (VX, 23.5, 332.9), 56, 3, "-z", GOLD, part_color=BW, material="Marble", font="Garamond", ppu=16)
+sv.box("SwissFlag", (8, 8, 0.3), (VX, 34, 343), (220, 30, 40), "Fabric")
+sv.box("CrossV", (1.6, 5, 0.35), (VX, 34, 342.9), WHITE, "Fabric")
+sv.box("CrossH", (5, 1.6, 0.35), (VX, 34, 342.9), WHITE, "Fabric")
+# The vault door on the north wall.
+sv.cyl("VaultDoor", 2, 26, (VX, 14, 414), (150, 155, 165), "DiamondPlate", r=(0, 90, 0), Reflectance=0.2)
+sv.cyl("VaultHub", 3, 6, (VX, 14, 412.5), (190, 190, 200), "Metal", r=(0, 90, 0))
+for a in range(0, 180, 45):
+    sv.box("Spoke", (0.8, 12, 0.8), (VX, 14, 411.8), (190, 190, 200), "Metal", r=(0, 0, a))
+sign(sv, "VaultSign", "NUMBERED ACCOUNTS ONLY", (VX, 28.5, 414.9), 30, 2, "-z", GOLD, bg=BLACK, part_color=BLACK, ppu=20)
+# Gold everywhere, kept to the edges so customers can walk the hall.
+for x0, z0 in ((-651, 352), (-651, 368), (-651, 392), (-651, 408), (-589, 352), (-589, 368), (-589, 392), (-589, 408)):
+    for layer in range(3):
+        for i in range(4 - layer):
+            for j in range(2):
+                sv.box("GoldBar", (1.8, 0.8, 3.6), (x0 - 2.7 + i * 1.9 + layer * 0.95, 0.8 + layer * 0.8, z0 - 1.9 + j * 3.8), GOLD, "Foil")
+# Safety deposit boxes on the side walls.
+for side in (-1, 1):
+    for y in range(4, 26, 3):
+        for z in range(352, 410, 4):
+            if 360 <= z <= 404:
+                sv.box("DepositBox", (0.4, 2.6, 3.6), (VX + side * 34.8, y, z), (190, 170, 110), "Metal")
+for x, z in ((-635, 365), (-605, 365), (-635, 395), (-605, 395)):
+    sv.box("Chandelier", (5, 0.6, 5), (x, 29.4, z), (255, 240, 200), "Neon", CastShadow=False, children=[light("PointLight", (255, 235, 200), 1.6, 40)])
+sv.box("TellerDesk", (24, 4, 3), (VX, 2.4, 409), (70, 45, 30), "Wood")
+sv.box("TellerTop", (24.6, 0.3, 3.6), (VX, 4.55, 409), GOLD, "Foil")
+sv.box("Snowfall", (190, 1, 170), (VX, 70, VZ), WHITE, "SmoothPlastic", Transparency=1, CanCollide=False, CastShadow=False,
+       children=[inst("ParticleEmitter", "Snow", {
+           "Rate": 120, "Lifetime": {"NumberRange": [8, 12]}, "Speed": {"NumberRange": [3, 6]},
+           "SpreadAngle": [20, 20], "EmissionDirection": "Bottom", "Acceleration": [1, 0, 0],
+           "Color": {"ColorSequence": {"keypoints": [{"time": 0, "color": [1, 1, 1]}, {"time": 1, "color": [1, 1, 1]}]}},
+           "Size": {"NumberSequence": {"keypoints": [{"time": 0, "value": 0.35, "envelope": 0.1}, {"time": 1, "value": 0.35, "envelope": 0.1}]}},
+       })])
+
+# ===========================================================================
+# 9. PRIVATE ISLAND (rebirth 14): the retirement plan.
+# ===========================================================================
+pi = root.sub("PrivateIsland")
+IX, IZ = 560, 560
+SAND = (238, 214, 160)
+pi.box("Sand", (8, 200, 200), (IX, -4, IZ), SAND, "Sand", Shape="Cylinder", r=(0, 0, 90))
+pi.box("Grass", (8, 120, 120), (IX, -3.7, IZ + 30), (90, 160, 70), "Grass", Shape="Cylinder", r=(0, 0, 90))
+
+
+def palm(g, x, z, lean=12, yaw=0):
+    p = g.sub("Palm", (x, 0, z), yaw)
+    prev = (0, 0, 0)
+    for i in range(6):
+        nxt = (math.sin(math.radians(lean)) * (i + 1) * 3.2, (i + 1) * 3.2, 0)
+        p.beam("Trunk", prev, nxt, 1.2 - i * 0.08, (120, 90, 55), "Wood")
+        prev = nxt
+    top = prev
+    for a in range(0, 360, 60):
+        tip = (top[0] + math.cos(math.radians(a)) * 8, top[1] - 2.5, math.sin(math.radians(a)) * 8)
+        p.beam("Frond", top, tip, 0.5, (60, 150, 60), "Grass")
+        p.box("Leaf", (7, 0.2, 2.4), ((top[0] + tip[0]) / 2, (top[1] + tip[1]) / 2 + 0.2, (top[2] + tip[2]) / 2), (70, 170, 70), "Grass", r=(0, -a, -18))
+    p.ball("Coconut", 1, (top[0] + 0.6, top[1] - 0.8, 0.5), (90, 60, 30), "Wood")
+
+
+for i in range(14):
+    a = math.radians(i * (360 / 14) + 8)
+    palm(pi, IX + math.cos(a) * 84, IZ + math.sin(a) * 84, random.uniform(8, 20), -math.degrees(a) + 180)
+# Villa on the north side.
+pi.box("VillaBase", (84, 1, 40), (IX, 0.5, 610), (240, 238, 232), "Concrete")
+pi.box("VillaGround", (70, 12, 30), (IX, 7, 612), WHITE, "SmoothPlastic")
+pi.box("VillaGlass", (60, 9, 0.4), (IX, 6, 596.8), (150, 200, 220), "Glass", Transparency=0.4)
+pi.box("VillaUpper", (50, 10, 26), (IX + 8, 18, 614), WHITE, "SmoothPlastic")
+pi.box("VillaUpperGlass", (44, 7, 0.4), (IX + 8, 18, 600.8), (150, 200, 220), "Glass", Transparency=0.4)
+pi.box("VillaRoof", (56, 1, 32), (IX + 8, 23.5, 614), (60, 50, 45), "Wood")
+pi.box("Balcony", (50, 0.6, 6), (IX + 8, 12.7, 598), (200, 190, 175), "Wood")
+sign(pi, "VillaSign", "VILLA JOLFORT", (IX, 11, 596.4), 24, 2.4, "-z", GOLD, part_color=WHITE, ppu=20, transparent=True)
+pi.box("Pool", (40, 0.2, 10), (IX, 0.55, 584), (50, 200, 225), "Neon", CanCollide=False, Transparency=0.15)
+pi.box("PoolDeck", (46, 0.5, 14), (IX, 0.25, 584), (220, 210, 190), "Wood")
+for x in range(-18, 19, 6):
+    pi.box("Lounger", (3, 1, 6), (IX + x, 1, 575.5), WHITE, "Fabric", cls="Seat")
+# Beach bar, umbrellas, bonfire.
+pi.box("BarHut", (14, 4, 6), (IX - 32, 2, 530), (160, 120, 70), "Wood")
+pi.box("BarRoof", (18, 1, 10), (IX - 32, 9, 530), (200, 170, 90), "Grass")
+for dx in (-6, 6):
+    pi.cyl("BarPost", 8, 0.6, (IX - 32 + dx, 4.5, 533), (120, 90, 55), "Wood")
+sign(pi, "BarSign", "TIKI TICKER BAR", (IX - 32, 7, 526.8), 12, 1.6, "-z", (255, 220, 120), bg=(90, 50, 20), part_color=(90, 50, 20), ppu=24)
+for x, z, c in ((IX + 20, 528, (230, 60, 60)), (IX + 35, 540, (60, 140, 230)), (IX - 10, 520, (250, 200, 40))):
+    u = pi.sub("Umbrella", (x, 0, z))
+    u.cyl("Pole", 8, 0.3, (0, 4, 0), WHITE, "Metal")
+    u.box("Canopy", (7, 0.4, 7), (0, 8, 0), c, "Fabric", r=(0, 45, 0))
+    u.box("Towel", (3, 0.1, 6), (2.5, 0.1, 0), c, "Fabric", CanCollide=False)
+pi.cyl("FirePit", 1, 6, (IX + 5, 0.5, 545), (70, 70, 70), "Rock")
+pi.box("Fire", (2.5, 2.5, 2.5), (IX + 5, 1.8, 545), (255, 140, 40), "Neon", CanCollide=False, r=(0, 45, 0),
+       children=[light("PointLight", (255, 150, 60), 3, 24), inst("Fire", "Fire", {"Heat": 6, "Size": 5})])
+# Dock with a seaplane.
+pi.box("Dock", (10, 1, 50), (IX, -0.3, 450), TEAK, "WoodPlanks")
+for z in range(430, 476, 10):
+    for dx in (-4.5, 4.5):
+        pi.cyl("DockPost", 8, 1, (IX + dx, -3, z), (90, 65, 45), "Wood")
+plane = pi.sub("Seaplane", (IX + 18, -1.5, 440), yaw=90)
+plane.box("Fuselage", (16, 3, 3), (0, 3, 0), WHITE, "SmoothPlastic")
+plane.box("Nose", (2, 2.4, 2.4), (8.6, 3, 0), (220, 40, 40), "SmoothPlastic")
+plane.box("Wing", (4, 0.4, 22), (1, 4.6, 0), WHITE, "SmoothPlastic")
+plane.box("Tail", (2, 3, 0.4), (-7.5, 5, 0), (220, 40, 40), "SmoothPlastic")
+plane.box("Stabilizer", (2, 0.3, 7), (-7.5, 3.5, 0), WHITE, "SmoothPlastic")
+for dz in (-4, 4):
+    plane.box("Float", (12, 1.2, 1.4), (1, 0, dz), (200, 200, 205), "Metal")
+    plane.beam("Strut", (1, 0.6, dz), (1, 2, dz * 0.4), 0.3, (120, 120, 120), "Metal")
+plane.box("Propeller", (0.2, 5, 0.5), (9.7, 3, 0), BLACK, "Metal")
+
+# Teleport arrival markers (purely decorative rings).
+for x, y, z in ((-315, 0.25, -58), (-30, 0.55, 25), (290, 0.45, 0), (560, 0.1, 502), (-620, 0.45, 352)):
+    root.add(part("TeleportPad", (0.2, 7, 7), (x, y, z), NEON_BLUE, "Neon", rot(0, 0, 90), Shape="Cylinder",
+                  CanCollide=False, Transparency=0.4, CastShadow=False))
 
 # ---------------------------------------------------------------------------
 # Write

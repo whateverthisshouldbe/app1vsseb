@@ -19,6 +19,9 @@ Config.Pens = {
 	{ id = "montblank", name = "Mont Blank", cost = 250_000, value = 7_000, color = Color3.fromRGB(245, 245, 245), blurb = "Definitely not a knockoff." },
 	{ id = "diamond", name = "Diamond Pen", cost = 1_500_000, value = 28_000, color = Color3.fromRGB(150, 230, 255), blurb = "Writes in pure flex." },
 	{ id = "wolf", name = "The Wolf's Pen", cost = 10_000_000, value = 120_000, color = Color3.fromRGB(255, 120, 0), blurb = "The pen. THE pen." },
+	{ id = "platinum", name = "Platinum Pen", cost = 80_000_000, value = 600_000, color = Color3.fromRGB(225, 230, 240), blurb = "Penthouse-grade stationery." },
+	{ id = "quill", name = "Golden Quill", cost = 900_000_000, value = 3_000_000, color = Color3.fromRGB(255, 215, 120), blurb = "Swiss bankers sign with nothing less." },
+	{ id = "blackcard", name = "Black Card Pen", cost = 12_000_000_000, value = 20_000_000, color = Color3.fromRGB(10, 10, 12), blurb = "There is no limit." },
 }
 
 -- Suits: charisma. Start each pitch with higher certainty and a wider
@@ -41,67 +44,127 @@ Config.Phones = {
 	{ id = "sat", name = "Satellite Phone", cost = 2_000_000, income = 1_500 },
 }
 
--- Brokers: stackable hires. Every hire costs a bit more than the last.
-Config.BrokerCostGrowth = 1.18
-Config.Brokers = {
-	{ id = "diner", name = "Buddy From The Diner", cost = 1_000, income = 5, blurb = "Quit his job on the spot." },
-	{ id = "rookie", name = "Rookie Broker", cost = 12_000, income = 40, blurb = "Headset on. No fear." },
-	{ id = "senior", name = "Senior Broker", cost = 150_000, income = 350, blurb = "Has a boat. Wants a bigger boat." },
-	{ id = "partner", name = "Founding Partner", cost = 2_000_000, income = 3_000, blurb = "Was there in the garage." },
+-- Rarities. Every visitor has one. `odds` is "1 in N", `mult` multiplies the
+-- sale and `daily` is what they earn you per workday as a broker.
+Config.Rarities = {
+	{ id = "common", name = "Common", odds = 2, mult = 3, daily = 250, color = Color3.fromRGB(190, 190, 190) },
+	{ id = "rare", name = "Rare", odds = 4, mult = 7, daily = 1_200, color = Color3.fromRGB(70, 150, 255) },
+	{ id = "superrare", name = "Super Rare", odds = 11, mult = 15, daily = 6_000, color = Color3.fromRGB(40, 220, 210) },
+	{ id = "epic", name = "Epic", odds = 38, mult = 34, daily = 32_000, color = Color3.fromRGB(170, 80, 255) },
+	{ id = "mythic", name = "Mythic", odds = 143, mult = 85, daily = 180_000, color = Color3.fromRGB(255, 60, 70) },
+	{ id = "legendary", name = "Legendary", odds = 606, mult = 220, daily = 1_100_000, color = Color3.fromRGB(255, 200, 40) },
+	{ id = "exotic", name = "Exotic", odds = 3_753, mult = 650, daily = 7_500_000, color = Color3.fromRGB(255, 90, 200) },
+	{ id = "ultra", name = "Ultra Exotic", odds = 49_252, mult = 6_000, daily = 90_000_000, color = Color3.fromRGB(255, 255, 255) },
 }
+-- Rarities from here up get announced to the whole server when they show up.
+Config.AnnounceRarity = "mythic"
 
--- Zones. `area` is the rectangle customers wander in (x/z), at height y.
+-- Brokers are visitors you recruited instead of taking their money.
+Config.MaxBrokers = 8
+Config.WorkdayLength = 10 * 60 -- seconds; "daily" is paid out over this
+Config.DealTimeout = 25 -- seconds to choose cash or recruit before it defaults to cash
+Config.IndexBonusPerVisitor = 0.005 -- +0.5% sales per unique visitor in your Index
+
+-- Zones open by rebirth count. `area` is where customers wander (x/z at
+-- height y); `tp` is where the teleporter drops you. Door zones have
+-- visitors arrive at a door and queue instead of wandering.
 Config.Zones = {
 	{
 		id = "strip",
 		name = "The Strip Mall",
 		subtitle = "Long Island Investor Center",
-		cost = 0,
+		rebirths = 0,
 		budgetMult = 1,
-		customers = 7,
-		archetypes = { "tourist", "plumber", "dentist", "mom" },
+		luck = 1,
+		customers = 6,
 		area = { minX = -375, maxX = -235, minZ = -55, maxZ = 55, y = 0 },
-		gate = nil,
+		tp = Vector3.new(-315, 4, -58),
 	},
 	{
 		id = "street",
 		name = "Pen Street",
 		subtitle = "The financial district",
-		cost = 2_500,
-		budgetMult = 2.2,
-		customers = 9,
-		archetypes = { "tourist", "accountant", "shoes", "intern", "fbi" },
+		rebirths = 1,
+		budgetMult = 2.5,
+		luck = 1.25,
+		customers = 8,
 		area = { minX = -95, maxX = 190, minZ = -30, maxZ = 30, y = 0 },
 		gate = "Gate_PenStreet",
+		tp = Vector3.new(-30, 4, 25),
 	},
 	{
 		id = "floor",
 		name = "The Trading Floor",
 		subtitle = "Stratton Oakpen HQ",
-		cost = 60_000,
-		budgetMult = 5,
-		customers = 9,
-		archetypes = { "bro", "accountant", "shoes", "swiss", "fbi" },
+		rebirths = 3,
+		budgetMult = 6,
+		luck = 1.6,
+		customers = 8,
 		area = { minX = 226, maxX = 338, minZ = -34, maxZ = 34, y = 0 },
 		gate = "Gate_TradingFloor",
+		tp = Vector3.new(290, 4, 0),
 	},
 	{
 		id = "yacht",
 		name = "The Yacht",
 		subtitle = "Moored in the harbor",
-		cost = 1_500_000,
-		budgetMult = 14,
-		customers = 7,
-		archetypes = { "duchess", "oil", "swiss", "bro", "fbi" },
+		rebirths = 5,
+		budgetMult = 15,
+		luck = 2,
+		customers = 6,
 		area = { minX = 317, maxX = 343, minZ = 202, maxZ = 226, y = 5.4 },
 		gate = "Gate_Yacht",
+		tp = Vector3.new(330, 9, 214),
+	},
+	{
+		id = "penthouse",
+		name = "The Penthouse",
+		subtitle = "They come to YOU now",
+		rebirths = 8,
+		budgetMult = 40,
+		luck = 2.6,
+		customers = 4,
+		mode = "door",
+		door = Vector3.new(-80, 152, 40),
+		entry = Vector3.new(-80, 152, 50), -- just inside the front door
+		queue = {
+			Vector3.new(-91, 152, 53),
+			Vector3.new(-85, 152, 53),
+			Vector3.new(-75, 152, 53),
+			Vector3.new(-69, 152, 53),
+		},
+		area = { minX = -103, maxX = -57, minZ = 36, maxZ = 88, y = 152 },
+		tp = Vector3.new(-80, 156, 58),
+	},
+	{
+		id = "vault",
+		name = "The Swiss Vault",
+		subtitle = "Banque de Pen-eve, Geneva",
+		rebirths = 10,
+		budgetMult = 100,
+		luck = 3.2,
+		customers = 6,
+		area = { minX = -645, maxX = -595, minZ = 360, maxZ = 405, y = 0 },
+		tp = Vector3.new(-620, 4, 352),
+	},
+	{
+		id = "island",
+		name = "Private Island",
+		subtitle = "Retired. Still selling.",
+		rebirths = 14,
+		budgetMult = 250,
+		luck = 4,
+		customers = 6,
+		area = { minX = 520, maxX = 600, minZ = 510, maxZ = 572, y = 0.5 },
+		tp = Vector3.new(560, 5, 502),
 	},
 }
 
--- IPO = rebirth. Reset everything, keep a permanent multiplier.
+-- Rebirth (going public / IPO): resets cash, pen, suit and phone. Brokers
+-- and the Index stay. Each rebirth adds a permanent multiplier.
 Config.IPO = {
-	cashRequired = 10_000_000,
-	requiresZone = "yacht",
+	baseCost = 25_000,
+	costGrowth = 5,
 	multPerIPO = 0.5,
 }
 
@@ -153,8 +216,54 @@ function Config.findById(list, id)
 	return nil, nil
 end
 
-function Config.brokerCost(broker, owned)
-	return math.floor(broker.cost * Config.BrokerCostGrowth ^ owned)
+function Config.rebirthCost(rebirths)
+	return math.floor(Config.IPO.baseCost * Config.IPO.costGrowth ^ rebirths)
+end
+
+function Config.zoneUnlocked(profile, zoneId)
+	local zone = Config.getZone(zoneId)
+	return zone ~= nil and profile.ipos >= zone.rebirths
+end
+
+-- "0-1", "8-10", "14+": the rebirth range a zone is meant for.
+function Config.zoneRange(zone)
+	local _, index = Config.findById(Config.Zones, zone.id)
+	local nextZone = Config.Zones[index + 1]
+	if nextZone then
+		return string.format("%d-%d", zone.rebirths, nextZone.rebirths)
+	end
+	return zone.rebirths .. "+"
+end
+
+function Config.getRarity(id)
+	return (Config.findById(Config.Rarities, id))
+end
+
+-- Pick a rarity. Zone luck multiplies the chance of everything above Common.
+function Config.rollRarity(luck, rng)
+	local total = 0
+	local weights = {}
+	for index, rarity in Config.Rarities do
+		local weight = 1 / rarity.odds
+		if index > 1 then
+			weight *= luck
+		end
+		weights[index] = weight
+		total += weight
+	end
+	local roll = rng:NextNumber() * total
+	for index, rarity in Config.Rarities do
+		roll -= weights[index]
+		if roll <= 0 then
+			return rarity
+		end
+	end
+	return Config.Rarities[1]
+end
+
+function Config.brokerIncome(rarityId)
+	local rarity = Config.getRarity(rarityId)
+	return rarity and rarity.daily / Config.WorkdayLength or 0
 end
 
 return Config

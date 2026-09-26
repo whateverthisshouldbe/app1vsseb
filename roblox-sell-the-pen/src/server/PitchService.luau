@@ -7,6 +7,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Config = require(ReplicatedStorage.Shared.Config)
 local PitchData = require(ReplicatedStorage.Shared.PitchData)
 local Format = require(ReplicatedStorage.Shared.Format)
+local Visitors = require(ReplicatedStorage.Shared.Visitors)
 local DataService = require(script.Parent.DataService)
 local EconomyService = require(script.Parent.EconomyService)
 local CustomerService = require(script.Parent.CustomerService)
@@ -16,6 +17,7 @@ local Remotes = ReplicatedStorage.Remotes
 local PitchService = {}
 
 local sessions = {} -- [Player] = session
+local pendingDeals = {} -- [Player] = { amount, visitorId, token }
 local rng = Random.new()
 
 local METERS = { "pen", "you", "firm" }
@@ -67,12 +69,12 @@ end
 
 local function payoutFor(session, profile, player)
 	local pen = Config.findById(Config.Pens, profile.pen)
-	local archetype = PitchData.Archetypes[session.archetypeKey]
+	local rarity = Config.getRarity(session.visitor.rarity)
 	local m = session.meters
 	local average = (m.pen + m.you + m.firm) / (3 * MAX)
 	local quality = 0.5 + 1.5 * average
 	local perfect = m.pen >= MAX and m.you >= MAX and m.firm >= MAX
-	local amount = pen.value * session.zone.budgetMult * archetype.budget * quality
+	local amount = pen.value * session.zone.budgetMult * rarity.mult * quality
 	if perfect then
 		amount *= Config.Pitch.perfectCloseBonus
 	end
@@ -100,17 +102,24 @@ local function finish(player, result, amount, line, extra)
 		return
 	end
 	sessions[player] = nil
+	player:SetAttribute("InPitch", nil)
 	local customer = session.customer
 
-	Remotes.PitchEnd:FireClient(player, {
+	local payload = {
 		result = result,
 		amount = amount or 0,
 		line = line,
 		perfect = extra and extra.perfect or false,
 		napkin = extra and extra.napkin or false,
-	})
+	}
+	if extra and extra.deal then
+		for key, value in extra.deal do
+			payload[key] = value
+		end
+	end
+	Remotes.PitchEnd:FireClient(player, payload)
 
-	if result == "sold" or result == "busted" then
+	if result == "deal" or result == "busted" then
 		if line then
 			CustomerService.say(customer, line, 3)
 		end
@@ -126,7 +135,7 @@ end
 
 local function start(player, customer)
 	local profile = DataService.get(player)
-	if not profile or sessions[player] or customer.busy then
+	if not profile or sessions[player] or pendingDeals[player] or customer.busy then
 		return
 	end
 	local character = player.Character
@@ -134,8 +143,8 @@ local function start(player, customer)
 	if not root or (root.Position - customer.root.Position).Magnitude > 16 then
 		return
 	end
-	if not profile.zones[customer.zone.id] then
-		EconomyService.notify(player, "Unlock " .. customer.zone.name .. " to pitch here.", "error")
+	if not Config.zoneUnlocked(profile, customer.zone.id) then
+		EconomyService.notify(player, string.format("%s needs %d rebirths.", customer.zone.name, customer.zone.rebirths), "error")
 		return
 	end
 	local cooldown = customer.cooldowns[player]
@@ -145,10 +154,14 @@ local function start(player, customer)
 	end
 
 	local archetype = PitchData.Archetypes[customer.archetypeKey]
+	local visitor = customer.visitor
+	local rarity, rarityIndex = Config.findById(Config.Rarities, visitor.rarity)
 	local suit = Config.findById(Config.Suits, profile.suit)
 	local meters = {}
+	-- Rarer visitors are tougher to convince.
+	local toughness = (rarityIndex - 1) * 0.25
 	for _, key in METERS do
-		local value = Config.Pitch.startMeter + suit.startBonus + rng:NextNumber(-1, 1) * Config.Pitch.startJitter
+		local value = Config.Pitch.startMeter + suit.startBonus - toughness + rng:NextNumber(-1, 1) * Config.Pitch.startJitter
 		meters[key] = math.clamp(math.floor(value * 2 + 0.5) / 2, 0, MAX)
 	end
 
@@ -157,6 +170,7 @@ local function start(player, customer)
 		customer = customer,
 		zone = customer.zone,
 		archetypeKey = customer.archetypeKey,
+		visitor = visitor,
 		meters = meters,
 		patience = Config.Pitch.patience,
 		maxPatience = Config.Pitch.patience,
@@ -166,6 +180,7 @@ local function start(player, customer)
 	}
 	drawOptions(session)
 	sessions[player] = session
+	player:SetAttribute("InPitch", true)
 	CustomerService.setBusy(customer, true, player)
 	local greeting = pick(archetype.greeting)
 	CustomerService.say(customer, greeting, 4)
@@ -173,16 +188,19 @@ local function start(player, customer)
 	local pen = Config.findById(Config.Pens, profile.pen)
 	local data = snapshot(session)
 	data.customer = {
-		name = archetype.name,
+		name = visitor.name,
+		personality = archetype.name,
 		key = customer.archetypeKey,
+		visitorId = visitor.id,
+		rarity = rarity.id,
 		greeting = greeting,
 		likes = archetype.likes,
 		dislikes = archetype.dislikes,
-		budget = archetype.budget * customer.zone.budgetMult,
+		budget = rarity.mult * customer.zone.budgetMult,
 		zone = customer.zone.name,
 	}
 	data.pen = pen.name
-	data.estimate = math.floor(pen.value * customer.zone.budgetMult * archetype.budget * EconomyService.saleMult(player, profile))
+	data.estimate = math.floor(pen.value * customer.zone.budgetMult * rarity.mult * EconomyService.saleMult(player, profile))
 	data.sweetSpot = suit.sweetSpot
 	data.tags = PitchData.Tags
 	data.model = customer.model
@@ -309,13 +327,49 @@ local function onAction(player, action)
 			if session.napkinUsed then
 				profile.napkins += 1
 			end
-			DataService.addCash(player, amount)
+
+			-- Index.
+			local visitor = session.visitor
+			local isNew = profile.index[visitor.id] == nil
+			profile.index[visitor.id] = (profile.index[visitor.id] or 0) + 1
+			local _, rarityIndex = Config.findById(Config.Rarities, visitor.rarity)
+			local best = profile.best and Visitors.byId[profile.best]
+			local _, bestIndex = Config.findById(Config.Rarities, best and best.rarity or "")
+			if not best or rarityIndex > (bestIndex or 0) then
+				profile.best = visitor.id
+			end
+			DataService.changed(player)
+
+			-- Cash or recruit? The player decides; no answer = cash.
+			local weakest = EconomyService.weakestBroker(profile)
+			local daily = Config.getRarity(visitor.rarity).daily
+			local canRecruit = weakest == nil or Config.getRarity(weakest.rarity).daily < daily
+			local token = {}
+			pendingDeals[player] = { amount = amount, visitorId = visitor.id, token = token }
+			task.delay(Config.DealTimeout, function()
+				local deal = pendingDeals[player]
+				if deal and deal.token == token then
+					PitchService.resolveDeal(player, "cash")
+				end
+			end)
 
 			local line = archetype.special == "fbi" and PitchData.FBI.honest or pick(PitchData.CloseSuccess)
-			finish(player, "sold", amount, line, { perfect = perfect, napkin = session.napkinUsed })
-			if amount >= 1_000_000 then
+			finish(player, "deal", amount, line, {
+				perfect = perfect,
+				napkin = session.napkinUsed,
+				deal = {
+					visitorId = visitor.id,
+					daily = daily,
+					isNew = isNew,
+					canRecruit = canRecruit,
+					replaces = weakest and weakest.id or nil,
+					brokerCount = #profile.brokers,
+					timeout = Config.DealTimeout,
+				},
+			})
+			if rarityIndex >= 5 then
 				EconomyService.notifyAll(
-					string.format("%s just sold a pen for %s!", player.DisplayName, Format.cash(amount)),
+					string.format("%s closed %s (%s)!", player.DisplayName, visitor.name, Config.getRarity(visitor.rarity).name),
 					"big"
 				)
 			end
@@ -345,11 +399,40 @@ local function onAction(player, action)
 	end
 end
 
+function PitchService.resolveDeal(player, choice)
+	local deal = pendingDeals[player]
+	if not deal then
+		return
+	end
+	pendingDeals[player] = nil
+	local visitor = Visitors.byId[deal.visitorId]
+	if choice == "recruit" and EconomyService.recruit(player, deal.visitorId) then
+		Remotes.PitchEnd:FireClient(player, { result = "recruited", visitorId = deal.visitorId })
+		EconomyService.notify(player, visitor.name .. " joined your firm!", "success")
+		return
+	end
+	DataService.addCash(player, deal.amount)
+	Remotes.PitchEnd:FireClient(player, { result = "sold", amount = deal.amount, visitorId = deal.visitorId })
+	if deal.amount >= 1_000_000 then
+		EconomyService.notifyAll(
+			string.format("%s just sold a pen for %s!", player.DisplayName, Format.cash(deal.amount)),
+			"big"
+		)
+	end
+end
+
 function PitchService.start()
 	CustomerService.start(start)
 	Remotes.PitchAction.OnServerEvent:Connect(onAction)
+	Remotes.Deal.OnServerEvent:Connect(function(player, choice)
+		PitchService.resolveDeal(player, choice == "recruit" and "recruit" or "cash")
+	end)
 
 	Players.PlayerRemoving:Connect(function(player)
+		-- Leaving mid-deal still pays out.
+		if pendingDeals[player] then
+			PitchService.resolveDeal(player, "cash")
+		end
 		local session = sessions[player]
 		if session then
 			sessions[player] = nil

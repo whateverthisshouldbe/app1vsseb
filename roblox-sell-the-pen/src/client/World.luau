@@ -8,7 +8,6 @@ local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
 
 local Config = require(ReplicatedStorage.Shared.Config)
-local Format = require(ReplicatedStorage.Shared.Format)
 local Theme = require(script.Parent.UI.Theme)
 local Hud = require(script.Parent.UI.Hud)
 local Store = require(script.Parent.Store)
@@ -52,7 +51,7 @@ local function setupGates()
 	for _, zone in Config.Zones do
 		local gate = zone.gate and gates:WaitForChild(zone.gate, 10)
 		if gate then
-			local text = string.format("LOCKED\n%s\n%s", string.upper(zone.name), Format.cash(zone.cost))
+			local text = string.format("LOCKED\n%s\n%d REBIRTH%s", string.upper(zone.name), zone.rebirths, zone.rebirths == 1 and "" or "S")
 			local signs = {}
 			for _, face in { Enum.NormalId.Front, Enum.NormalId.Back, Enum.NormalId.Left, Enum.NormalId.Right } do
 				local gui, label = signOn(gate, face)
@@ -70,15 +69,11 @@ local function refreshGates()
 		return
 	end
 	for zoneId, entry in gateSigns do
-		local open = profile.zones[zoneId] == true
+		local open = Config.zoneUnlocked(profile, zoneId)
 		entry.gate.CanCollide = not open
 		entry.gate.Transparency = open and 1 or entry.transparency
 		for _, sign in entry.signs do
 			sign.Enabled = not open
-		end
-		local prompt = entry.gate:FindFirstChild("UnlockPrompt")
-		if prompt then
-			prompt.Enabled = not open
 		end
 	end
 end
@@ -88,7 +83,8 @@ end
 local function promptGui(prompt)
 	local profile = Store.profile()
 	local zoneId = prompt:GetAttribute("Zone")
-	local locked = profile and zoneId and not profile.zones[zoneId]
+	local locked = profile and zoneId and not Config.zoneUnlocked(profile, zoneId)
+	local rarity = Config.getRarity(prompt:GetAttribute("Rarity") or "common")
 	local gui = Theme.create("BillboardGui", {
 		Name = "PromptUI",
 		Size = UDim2.fromOffset(230, 64),
@@ -102,7 +98,7 @@ local function promptGui(prompt)
 		BackgroundColor3 = Colors.bg,
 		BackgroundTransparency = 0.1,
 		Parent = gui,
-	}, { Theme.corner(14), Theme.stroke(locked and Colors.red or Colors.gold, 2) })
+	}, { Theme.corner(14), Theme.stroke(locked and Colors.red or rarity.color, 2.5) })
 	local key = Theme.create("Frame", {
 		Position = UDim2.fromOffset(8, 8),
 		Size = UDim2.fromOffset(48, 48),

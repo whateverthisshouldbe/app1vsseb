@@ -146,6 +146,59 @@ PitchData.Archetypes = {
 	},
 }
 
+PitchData.Archetypes.crypto = {
+	name = "Crypto Kid",
+	budget = 1,
+	likes = { "hype", "urgency" },
+	dislikes = { "honest", "authority" },
+	skin = Color3.fromRGB(245, 205, 170),
+	shirt = Color3.fromRGB(40, 40, 40),
+	pants = Color3.fromRGB(90, 90, 100),
+	greeting = { "Can I pay in PenCoin?", "Wen moon, ser?", "Is this pen on the blockchain?" },
+}
+PitchData.Archetypes.influencer = {
+	name = "Influencer",
+	budget = 1,
+	likes = { "hype", "rapport" },
+	dislikes = { "question", "authority" },
+	skin = Color3.fromRGB(240, 195, 160),
+	shirt = Color3.fromRGB(255, 170, 210),
+	pants = Color3.fromRGB(240, 240, 245),
+	greeting = { "Hold on, I'm live right now.", "Will this pen look good on camera?" },
+}
+PitchData.Archetypes.rockstar = {
+	name = "Rock Star",
+	budget = 1,
+	likes = { "hype", "pressure" },
+	dislikes = { "authority", "question" },
+	skin = Color3.fromRGB(230, 190, 160),
+	shirt = Color3.fromRGB(20, 20, 20),
+	pants = Color3.fromRGB(30, 30, 60),
+	greeting = { "I only sign autographs with the best, man.", "Make it LOUD, dude." },
+}
+PitchData.Archetypes.prince = {
+	name = "Royal",
+	budget = 1,
+	likes = { "authority", "rapport" },
+	dislikes = { "pressure", "hype" },
+	skin = Color3.fromRGB(250, 220, 195),
+	shirt = Color3.fromRGB(120, 30, 60),
+	pants = Color3.fromRGB(240, 235, 220),
+	greeting = { "One does not usually buy one's own pens.", "You may approach." },
+}
+-- The Ultra Exotic. He invented this pitch, so only his own answer works:
+-- qualify first, then build real certainty.
+PitchData.Archetypes.wolf = {
+	name = "The Wolf",
+	budget = 1,
+	likes = { "question", "authority" },
+	dislikes = { "hype", "pressure", "honest" },
+	skin = Color3.fromRGB(245, 200, 165),
+	shirt = Color3.fromRGB(15, 15, 15),
+	pants = Color3.fromRGB(15, 15, 15),
+	greeting = { "Sell me this pen.", "Go ahead, kid. Sell me this pen.", "I've heard this pitch before. From myself." },
+}
+
 -- Effects are { pen, you, firm }.
 PitchData.Lines = {
 	-- Rapport

@@ -34,6 +34,14 @@ function Format.cash(n)
 	return "$" .. Format.short(n)
 end
 
+-- Like cash, but keeps cents for small per-second rates ($0.42/s).
+function Format.rate(n)
+	if n > 0 and n < 10 then
+		return string.format("$%.2f", n)
+	end
+	return Format.cash(n)
+end
+
 function Format.time(seconds)
 	seconds = math.max(0, math.floor(seconds))
 	local h = seconds // 3600

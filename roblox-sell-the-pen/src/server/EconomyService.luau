@@ -7,6 +7,7 @@ local Workspace = game:GetService("Workspace")
 
 local Config = require(ReplicatedStorage.Shared.Config)
 local Format = require(ReplicatedStorage.Shared.Format)
+local Visitors = require(ReplicatedStorage.Shared.Visitors)
 local DataService = require(script.Parent.DataService)
 
 local Remotes = ReplicatedStorage.Remotes
@@ -50,10 +51,27 @@ function EconomyService.passiveIncome(profile)
 	if phone then
 		income += phone.income
 	end
-	for _, broker in Config.Brokers do
-		income += (profile.brokers[broker.id] or 0) * broker.income
+	for _, visitorId in profile.brokers do
+		local visitor = Visitors.byId[visitorId]
+		if visitor then
+			income += Config.brokerIncome(visitor.rarity)
+		end
 	end
 	return income * EconomyService.ipoMult(profile)
+end
+
+function EconomyService.indexCount(profile)
+	local count = 0
+	for id in profile.index do
+		if Visitors.byId[id] then
+			count += 1
+		end
+	end
+	return count
+end
+
+function EconomyService.indexMult(profile)
+	return 1 + EconomyService.indexCount(profile) * Config.IndexBonusPerVisitor
 end
 
 local function isOnTradingFloor(player)
@@ -69,7 +87,7 @@ end
 
 -- Everything that boosts a single sale, as one number plus a breakdown.
 function EconomyService.saleMult(player, profile)
-	local mult = EconomyService.ipoMult(profile)
+	local mult = EconomyService.ipoMult(profile) * EconomyService.indexMult(profile)
 	local suit = Config.findById(Config.Suits, profile.suit)
 	if suit then
 		mult *= suit.cashMult
@@ -95,13 +113,16 @@ local function sync(player, profile)
 		income = EconomyService.passiveIncome(profile),
 		ipoMult = EconomyService.ipoMult(profile),
 		nextIpoMult = 1 + (profile.ipos + 1) * Config.IPO.multPerIPO,
+		rebirthCost = Config.rebirthCost(profile.ipos),
+		indexCount = EconomyService.indexCount(profile),
+		indexMult = EconomyService.indexMult(profile),
 	})
 
 	local stats = player:FindFirstChild("leaderstats")
 	if stats then
 		stats.Cash.Value = Format.cash(profile.cash)
 		stats["Pens Sold"].Value = profile.pensSold
-		stats.IPOs.Value = profile.ipos
+		stats.Rebirths.Value = profile.ipos
 	end
 
 	local rank = EconomyService.getRank(profile.lifetime)
@@ -121,7 +142,7 @@ local function createLeaderstats(player)
 	sold.Name = "Pens Sold"
 	sold.Parent = stats
 	local ipos = Instance.new("IntValue")
-	ipos.Name = "IPOs"
+	ipos.Name = "Rebirths"
 	ipos.Parent = stats
 	stats.Parent = player
 end
@@ -155,7 +176,7 @@ function EconomyService.updateTitle(player)
 	end
 	local text = rank.title
 	if profile.ipos > 0 then
-		text ..= string.format("  ·  IPO x%d", profile.ipos)
+		text ..= string.format("  ·  Rebirth %d", profile.ipos)
 	end
 	gui.Label.Text = text
 	gui.Label.TextColor3 = rank.color
@@ -258,78 +279,124 @@ function EconomyService.purchase(player, category, id)
 			EconomyService.givePen(player)
 		end
 		return true, "Bought " .. item.name .. "!"
-	elseif category == "broker" then
-		local broker = Config.findById(Config.Brokers, id)
-		if not broker then
-			return false, "Unknown broker."
-		end
-		local owned = profile.brokers[id] or 0
-		local cost = Config.brokerCost(broker, owned)
-		if profile.cash < cost then
-			return false, "Not enough cash to hire."
-		end
-		profile.cash -= cost
-		profile.brokers[id] = owned + 1
-		DataService.changed(player)
-		return true, "Hired " .. broker.name .. "!"
-	elseif category == "zone" then
-		local zone = Config.getZone(id)
-		if not zone then
-			return false, "Unknown zone."
-		end
-		if profile.zones[id] then
-			return false, "Already unlocked."
-		end
-		for index, other in Config.Zones do
-			if other.id == id and index > 1 and not profile.zones[Config.Zones[index - 1].id] then
-				return false, "Unlock " .. Config.Zones[index - 1].name .. " first."
-			end
-		end
-		if profile.cash < zone.cost then
-			return false, "You need " .. Format.cash(zone.cost) .. " to unlock " .. zone.name .. "."
-		end
-		profile.cash -= zone.cost
-		profile.zones[id] = true
-		DataService.changed(player)
-		EconomyService.notifyAll(player.DisplayName .. " just unlocked " .. zone.name .. "!", "big")
-		return true, "Welcome to " .. zone.name .. "!"
 	end
 	return false, "Unknown category."
 end
 
-local function ipo(player)
+local function teleportTo(player, position)
+	local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+	if root then
+		root.AssemblyLinearVelocity = Vector3.zero
+		root.CFrame = CFrame.new(position)
+	end
+end
+
+function EconomyService.teleport(player, zoneId)
+	local profile = DataService.get(player)
+	local zone = type(zoneId) == "string" and Config.getZone(zoneId)
+	if not profile or not zone then
+		return false, "Unknown zone."
+	end
+	if player:GetAttribute("InPitch") then
+		return false, "Finish your pitch first."
+	end
+	if not Config.zoneUnlocked(profile, zone.id) then
+		return false, string.format("%s needs %d rebirths.", zone.name, zone.rebirths)
+	end
+	teleportTo(player, zone.tp)
+	return true, "Welcome to " .. zone.name .. "."
+end
+
+local function rebirth(player)
 	local profile = DataService.get(player)
 	if not profile then
 		return false, "Not ready yet."
 	end
-	if not profile.zones[Config.IPO.requiresZone] then
-		return false, "Unlock the Yacht before going public."
+	local cost = Config.rebirthCost(profile.ipos)
+	if profile.cash < cost then
+		return false, "You need " .. Format.cash(cost) .. " to rebirth."
 	end
-	if profile.cash < Config.IPO.cashRequired then
-		return false, "You need " .. Format.cash(Config.IPO.cashRequired) .. " to IPO."
+	local before = {}
+	for _, zone in Config.Zones do
+		before[zone.id] = Config.zoneUnlocked(profile, zone.id)
 	end
+
 	profile.ipos += 1
 	profile.cash = Config.StartingCash
 	profile.pen = "bic"
 	profile.suit = "thrift"
 	profile.phone = "none"
-	profile.brokers = {}
-	profile.zones = { strip = true }
 	DataService.changed(player)
 	EconomyService.givePen(player)
 	EconomyService.updateTitle(player)
 
-	-- Back to the strip mall where it all began.
-	local spawn = Workspace:FindFirstChild("Map") and Workspace.Map:FindFirstChild("Spawn", true)
-	local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-	if spawn and root then
-		root.CFrame = spawn.CFrame + Vector3.new(0, 4, 0)
-	end
 	EconomyService.notifyAll(
-		string.format("%s just took the firm public! (IPO #%d)", player.DisplayName, profile.ipos),
+		string.format("%s just took the firm public! (Rebirth %d)", player.DisplayName, profile.ipos),
 		"big"
 	)
-	return true, string.format("IPO complete! Permanent x%.1f multiplier.", EconomyService.ipoMult(profile))
+	-- New zone? Take them straight there.
+	for _, zone in Config.Zones do
+		if not before[zone.id] and Config.zoneUnlocked(profile, zone.id) then
+			teleportTo(player, zone.tp)
+			task.delay(1, EconomyService.notify, player, "NEW ZONE UNLOCKED: " .. zone.name .. "!", "big")
+		end
+	end
+	return true, string.format("Rebirth complete! Permanent x%.1f multiplier.", EconomyService.ipoMult(profile))
+end
+
+-- A visitor joins your firm. When the firm is full the weakest broker is
+-- replaced (only if the new one earns more).
+function EconomyService.recruit(player, visitorId)
+	local profile = DataService.get(player)
+	local visitor = Visitors.byId[visitorId]
+	if not profile or not visitor then
+		return false
+	end
+	if #profile.brokers >= Config.MaxBrokers then
+		local weakestIndex, weakestIncome = nil, math.huge
+		for index, id in profile.brokers do
+			local other = Visitors.byId[id]
+			local income = other and Config.brokerIncome(other.rarity) or 0
+			if income < weakestIncome then
+				weakestIndex, weakestIncome = index, income
+			end
+		end
+		if not weakestIndex or weakestIncome >= Config.brokerIncome(visitor.rarity) then
+			return false
+		end
+		table.remove(profile.brokers, weakestIndex)
+	end
+	table.insert(profile.brokers, visitorId)
+	DataService.changed(player)
+	return true
+end
+
+-- The weakest broker a new recruit would replace, if the firm is full.
+function EconomyService.weakestBroker(profile)
+	if #profile.brokers < Config.MaxBrokers then
+		return nil
+	end
+	local weakest, weakestIncome = nil, math.huge
+	for _, id in profile.brokers do
+		local visitor = Visitors.byId[id]
+		local income = visitor and Config.brokerIncome(visitor.rarity) or 0
+		if income < weakestIncome then
+			weakest, weakestIncome = visitor, income
+		end
+	end
+	return weakest
+end
+
+local function fireBroker(player, slot)
+	local profile = DataService.get(player)
+	slot = tonumber(slot)
+	if not profile or not slot or not profile.brokers[slot] then
+		return false, "No broker in that seat."
+	end
+	local visitor = Visitors.byId[profile.brokers[slot]]
+	table.remove(profile.brokers, slot)
+	DataService.changed(player)
+	return true, (visitor and visitor.name or "Broker") .. " cleared out their desk."
 end
 
 function EconomyService.onPlayerLoaded(player, profile)
@@ -374,7 +441,9 @@ function EconomyService.start()
 		local ok, message = EconomyService.purchase(player, category, id)
 		return ok, message
 	end
-	Remotes.IPO.OnServerInvoke = ipo
+	Remotes.IPO.OnServerInvoke = rebirth
+	Remotes.Teleport.OnServerInvoke = EconomyService.teleport
+	Remotes.FireBroker.OnServerInvoke = fireBroker
 	-- The client asks for a snapshot once its UI is listening.
 	Remotes.DataSync.OnServerEvent:Connect(function(player)
 		local profile = DataService.get(player)

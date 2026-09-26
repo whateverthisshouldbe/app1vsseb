@@ -11,7 +11,9 @@ local SoundService = game:GetService("SoundService")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 
+local Config = require(ReplicatedStorage.Shared.Config)
 local Format = require(ReplicatedStorage.Shared.Format)
+local Visitors = require(ReplicatedStorage.Shared.Visitors)
 local Theme = require(script.Parent.Theme)
 local Modal = require(script.Parent.Modal)
 local Store = require(script.Parent.Parent.Store)
@@ -198,7 +200,7 @@ local function build()
 		Parent = ui.root,
 	}, { Theme.corner(14), Theme.stroke(Colors.gold, 2), Theme.padding(14) })
 	ui.name = Theme.label({
-		Size = UDim2.new(1, 0, 0, 30),
+		Size = UDim2.new(1, -116, 0, 30),
 		Font = Theme.FontBlack,
 		TextColor3 = Colors.gold,
 		TextXAlignment = Enum.TextXAlignment.Left,
@@ -207,7 +209,8 @@ local function build()
 	ui.zone = Theme.label({
 		Position = UDim2.fromOffset(0, 32),
 		Size = UDim2.new(1, 0, 0, 18),
-		Font = Theme.Font,
+		Font = Theme.FontBold,
+		RichText = true,
 		TextColor3 = Colors.muted,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Parent = card,
@@ -699,8 +702,10 @@ local function onStart(data)
 	session = data
 	revealedDislikes = {}
 	Store.inPitch = true
+	local rarity = Config.getRarity(data.customer.rarity)
 	ui.name.Text = data.customer.name
-	ui.zone.Text = data.customer.zone .. "  ·  selling: " .. data.pen
+	ui.name.TextColor3 = rarity.color
+	ui.zone.Text = string.format('<font color="#%s">%s x%s</font>  ·  %s  ·  %s', rarity.color:ToHex(), string.upper(rarity.name), Format.short(rarity.mult), data.customer.personality, data.customer.zone)
 	ui.estimate.Text = "Sale value: ~" .. Format.cash(data.estimate) .. " (more with certainty)"
 	renderTags()
 	renderMeters()
@@ -731,17 +736,165 @@ local function onUpdate(data)
 	setPhase("choose")
 end
 
+-- Cash or recruit ----------------------------------------------------------------
+
+local deal -- the open offer, if any
+
+local function celebrate()
+	confetti()
+	playDing(1)
+	task.delay(0.15, playDing, 1.25)
+	task.delay(0.3, playDing, 1.5)
+end
+
+local function closeDeal()
+	deal = nil
+	ui.deal.Visible = false
+end
+
+function PitchUI.chooseDeal(choice)
+	if not deal then
+		return
+	end
+	if choice == "recruit" and not deal.canRecruit then
+		return
+	end
+	Remotes.Deal:FireServer(choice)
+	closeDeal()
+end
+
+local function buildDeal()
+	ui.deal = Theme.create("Frame", {
+		Name = "Deal",
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.fromScale(0.5, 0.55),
+		Size = UDim2.new(0.92, 0, 0, 300),
+		BackgroundColor3 = Colors.bg,
+		Visible = false,
+		ZIndex = 25,
+		Parent = screen,
+	}, {
+		Theme.corner(18),
+		Theme.create("UISizeConstraint", { MaxSize = Vector2.new(620, 300) }),
+		Theme.padding(16),
+	})
+	ui.dealStroke = Theme.stroke(Colors.gold, 3)
+	ui.dealStroke.Parent = ui.deal
+	ui.dealTitle = Theme.label({
+		Size = UDim2.new(1, 0, 0, 30),
+		Font = Theme.FontBlack,
+		Text = "DEAL CLOSED!",
+		TextColor3 = Colors.gold,
+		Parent = ui.deal,
+	})
+	ui.dealWho = Theme.label({
+		Position = UDim2.fromOffset(0, 34),
+		Size = UDim2.new(1, 0, 0, 44),
+		Font = Theme.FontBold,
+		RichText = true,
+		TextScaled = true,
+		Parent = ui.deal,
+	})
+	ui.dealCash = Theme.button({
+		Position = UDim2.new(0, 0, 0, 92),
+		Size = UDim2.new(0.5, -8, 0, 120),
+		BackgroundColor3 = Color3.fromRGB(35, 130, 70),
+		Font = Theme.FontBlack,
+		Parent = ui.deal,
+	}, function()
+		PitchUI.chooseDeal("cash")
+	end)
+	Theme.corner(14).Parent = ui.dealCash
+	ui.dealRecruit = Theme.button({
+		AnchorPoint = Vector2.new(1, 0),
+		Position = UDim2.new(1, 0, 0, 92),
+		Size = UDim2.new(0.5, -8, 0, 120),
+		BackgroundColor3 = Color3.fromRGB(110, 60, 200),
+		Font = Theme.FontBlack,
+		Parent = ui.deal,
+	}, function()
+		PitchUI.chooseDeal("recruit")
+	end)
+	Theme.corner(14).Parent = ui.dealRecruit
+	ui.dealNote = Theme.label({
+		Position = UDim2.new(0, 0, 0, 220),
+		Size = UDim2.new(1, 0, 0, 20),
+		Font = Theme.Font,
+		TextColor3 = Colors.muted,
+		Parent = ui.deal,
+	})
+	local track = Theme.create("Frame", {
+		AnchorPoint = Vector2.new(0, 1),
+		Position = UDim2.fromScale(0, 1),
+		Size = UDim2.new(1, 0, 0, 8),
+		BackgroundColor3 = Colors.panelLight,
+		Parent = ui.deal,
+	}, { Theme.corner(4) })
+	ui.dealTimer = Theme.create("Frame", {
+		Size = UDim2.fromScale(1, 1),
+		BackgroundColor3 = Colors.gold,
+		Parent = track,
+	}, { Theme.corner(4) })
+end
+
+local function openDeal(data)
+	local visitor = Visitors.byId[data.visitorId]
+	local rarity = Config.getRarity(visitor.rarity)
+	deal = data
+	ui.deal.Visible = true
+	ui.dealStroke.Color = rarity.color
+	ui.dealTitle.Text = data.perfect and "PERFECT CLOSE!" or (data.napkin and "SUPPLY & DEMAND!" or "DEAL CLOSED!")
+	ui.dealWho.Text = string.format(
+		'<font color="#%s">%s</font>  %s%s',
+		rarity.color:ToHex(),
+		string.upper(rarity.name),
+		visitor.name,
+		data.isNew and '  <font color="#FFC846">NEW IN INDEX!</font>' or ""
+	)
+	ui.dealCash.Text = "TAKE THE CASH\n+" .. Format.cash(data.amount) .. "\n[1]"
+	if data.canRecruit then
+		ui.dealRecruit.Text = "RECRUIT\n+" .. Format.cash(data.daily) .. "/day\n[2]"
+		ui.dealRecruit.BackgroundColor3 = Color3.fromRGB(110, 60, 200)
+	else
+		ui.dealRecruit.Text = "FIRM FULL\nall brokers are better"
+		ui.dealRecruit.BackgroundColor3 = Colors.panelLight
+	end
+	local replaced = data.replaces and Visitors.byId[data.replaces]
+	if replaced and data.canRecruit then
+		ui.dealNote.Text = "Recruiting replaces your weakest broker: " .. replaced.name
+	else
+		ui.dealNote.Text = string.format("Brokers: %d/%d  ·  no choice in %ds = cash", data.brokerCount, Config.MaxBrokers, data.timeout)
+	end
+	Theme.pop(ui.deal, 0.35)
+	ui.dealTimer.Size = UDim2.fromScale(1, 1)
+	Theme.tween(ui.dealTimer, data.timeout, { Size = UDim2.fromScale(0, 1) }, Enum.EasingStyle.Linear)
+	task.delay(data.timeout + 0.5, function()
+		if deal == data then
+			closeDeal()
+		end
+	end)
+	celebrate()
+end
+
 local function onEnd(data)
+	-- These arrive after the pitch screen is gone.
+	if data.result == "sold" then
+		closeDeal()
+		showStamp("SOLD!", Colors.gold, "+" .. Format.cash(data.amount), Colors.money, nil)
+		playDing(1.5)
+		return
+	elseif data.result == "recruited" then
+		closeDeal()
+		local visitor = Visitors.byId[data.visitorId]
+		showStamp("RECRUITED!", Colors.purple, visitor and visitor.name or "", Colors.text, "Welcome to the firm.")
+		playDing(1.2)
+		return
+	end
 	if not session then
 		return
 	end
-	if data.result == "sold" then
-		local title = data.perfect and "PERFECT CLOSE!" or (data.napkin and "SUPPLY & DEMAND!" or "SOLD!")
-		showStamp(title, Colors.gold, "+" .. Format.cash(data.amount), Colors.money, data.line and ('"' .. data.line .. '"'))
-		confetti()
-		playDing(1)
-		task.delay(0.15, playDing, 1.25)
-		task.delay(0.3, playDing, 1.5)
+	if data.result == "deal" then
+		openDeal(data)
 	elseif data.result == "busted" then
 		showStamp("BUSTED!", Colors.red, Format.cash(data.amount), Colors.red, data.line)
 	elseif data.result == "walked" then
@@ -754,6 +907,7 @@ end
 function PitchUI.mount(screenGui)
 	screen = screenGui
 	build()
+	buildDeal()
 
 	Remotes.PitchStart.OnClientEvent:Connect(onStart)
 	Remotes.PitchUpdate.OnClientEvent:Connect(function(data)
@@ -782,6 +936,14 @@ function PitchUI.mount(screenGui)
 	end)
 
 	UserInputService.InputBegan:Connect(function(input, processed)
+		if deal and not processed then
+			if input.KeyCode == Enum.KeyCode.One then
+				PitchUI.chooseDeal("cash")
+			elseif input.KeyCode == Enum.KeyCode.Two then
+				PitchUI.chooseDeal("recruit")
+			end
+			return
+		end
 		if phase == "idle" or phase == "ended" then
 			return
 		end

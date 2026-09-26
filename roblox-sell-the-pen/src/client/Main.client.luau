@@ -11,8 +11,10 @@ local Theme = require(script.Parent.UI.Theme)
 local Notifier = require(script.Parent.UI.Notifier)
 local Hud = require(script.Parent.UI.Hud)
 local Shop = require(script.Parent.UI.Shop)
+local Collection = require(script.Parent.UI.Collection)
 local PitchUI = require(script.Parent.UI.PitchUI)
 local World = require(script.Parent.World)
+local Movement = require(script.Parent.Movement)
 
 local Remotes = ReplicatedStorage:WaitForChild("Remotes")
 local player = Players.LocalPlayer
@@ -35,12 +37,17 @@ Hud.mount(screen, {
 		Shop.toggleShop()
 	end,
 	hum = hum,
+	openFirm = Collection.toggleFirm,
+	openIndex = Collection.toggleIndex,
+	openTeleport = Collection.toggleTeleport,
 	openIPO = Shop.openIPO,
 	openHelp = Shop.openHelp,
 })
 Shop.mount(screen)
+Collection.mount(screen)
 PitchUI.mount(screen)
 World.start()
+Movement.start(screen)
 
 pcall(function()
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Health, false)
@@ -54,6 +61,12 @@ UserInputService.InputBegan:Connect(function(input, processed)
 		Shop.toggleShop()
 	elseif input.KeyCode == Enum.KeyCode.H then
 		hum()
+	elseif input.KeyCode == Enum.KeyCode.F then
+		Collection.toggleFirm()
+	elseif input.KeyCode == Enum.KeyCode.I then
+		Collection.toggleIndex()
+	elseif input.KeyCode == Enum.KeyCode.T then
+		Collection.toggleTeleport()
 	end
 end)
 

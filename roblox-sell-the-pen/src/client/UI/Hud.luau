@@ -23,7 +23,7 @@ local root
 local function sideButton(text, subtitle, color, order, onClick)
 	local button = Theme.button({
 		LayoutOrder = order,
-		Size = UDim2.fromOffset(92, 74),
+		Size = UDim2.fromOffset(84, 62),
 		BackgroundColor3 = Colors.panel,
 		Text = "",
 	}, onClick)
@@ -169,21 +169,25 @@ function Hud.mount(screen, actions)
 		Name = "Side",
 		AnchorPoint = Vector2.new(0, 0.5),
 		Position = UDim2.new(0, 12, 0.5, 0),
-		Size = UDim2.fromOffset(92, 330),
+		Size = UDim2.fromOffset(176, 280),
 		BackgroundTransparency = 1,
 		Parent = screen,
 	}, {
-		Theme.create("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder }),
+		Theme.create("UIGridLayout", {
+			CellSize = UDim2.fromOffset(84, 62),
+			CellPadding = UDim2.fromOffset(8, 8),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
 	})
-	local shop = sideButton("SHOP", "[B]", Colors.money, 1, actions.openShop)
-	shop.Parent = side
-	local hum, humSub = sideButton("HUM", "[H]", Colors.gold, 2, actions.hum)
+	sideButton("SHOP", "[B]", Colors.money, 1, actions.openShop).Parent = side
+	sideButton("FIRM", "[F] brokers", Colors.firm, 2, actions.openFirm).Parent = side
+	sideButton("INDEX", "[I]", Colors.gold, 3, actions.openIndex).Parent = side
+	sideButton("TP", "[T] zones", Colors.blue, 4, actions.openTeleport).Parent = side
+	local hum, humSub = sideButton("HUM", "[H]", Colors.gold, 5, actions.hum)
 	hum.Parent = side
 	humButton = { button = hum, sub = humSub }
-	local ipo = sideButton("IPO", "Rebirth", Colors.purple, 3, actions.openIPO)
-	ipo.Parent = side
-	local help = sideButton("HOW?", "Tutorial", Colors.blue, 4, actions.openHelp)
-	help.Parent = side
+	sideButton("REBIRTH", "IPO", Colors.purple, 6, actions.openIPO).Parent = side
+	sideButton("HOW?", "Tutorial", Colors.blue, 7, actions.openHelp).Parent = side
 
 	-- Speech countdown --------------------------------------------------------
 	local speech = Theme.create("Frame", {
@@ -247,8 +251,8 @@ function Hud.mount(screen, actions)
 
 	Store.Changed:Connect(function(data, previous)
 		local profile = data.profile
-		incomeLabel.Text = "+" .. Format.cash(data.income) .. "/s"
-		multLabel.Text = string.format("x%.1f IPO", data.ipoMult)
+		incomeLabel.Text = "+" .. Format.rate(data.income) .. "/s"
+		multLabel.Text = string.format("x%.1f rebirth  ·  x%.2f index", data.ipoMult, data.indexMult)
 		local pen = Config.findById(Config.Pens, profile.pen)
 		soldLabel.Text = string.format("%s pens sold  ·  holding: %s", Format.commas(profile.pensSold), pen and pen.name or "?")
 		if not previous then

@@ -2,9 +2,9 @@
 
 Een Roblox-tycoon rond de beroemde *"Sell me this pen"*-scène uit **The Wolf of Wall Street**.
 Je begint met een Bic-pen in een armoedig Investor Center in een strip mall op Long Island. Je pitcht
-voorbijgangers, koopt betere pennen en pakken, huurt brokers in en werkt je op via Pen Street en de
-Stratton Oakpen-tradingvloer naar een jacht in de haven. Daarna ga je naar de beurs (IPO) voor een
-permanente multiplier.
+150 unieke visitors met rarities van Common tot Ultra Exotic, recruit de beste als brokers en rebirth
+je een weg via Pen Street, de tradingvloer, het jacht en de penthouse naar een Zwitserse kluis en je
+eigen eiland.
 
 ## Snel spelen
 
@@ -26,23 +26,64 @@ alleen wordt je voortgang dan niet opgeslagen.
 
 | Wat | Hoe |
 |---|---|
-| **Pitchen** | Loop naar een klant en druk op **E** (of tik op de prompt). |
+| **Pitchen** | Loop naar een visitor en druk op **E** (of tik op de prompt). |
 | **Straight Line-meters** | Elke koper moet zeker zijn van de **PEN**, van **JOU** en van je **FIRMA** (Jordan Belforts echte verkoopmethode). |
 | **Lines kiezen** | Kies 1 van 3 zinnen (**1/2/3**). Elke zin heeft een type: Rapport, Qualify, Product, Urgency, Authority, Hype, Pressure of Honest. |
 | **Tonality** | Stop de naald in het groen (**Spatie**/klik). Goede timing geeft een groter effect. |
-| **Klanten lezen** | Elk type klant heeft likes en hates. Een Hedge Fund Bro houdt van Pressure, een Duchess haat het. Hates worden pas zichtbaar als je ze raakt. |
-| **Closen** | **C** of de gouden knop. De kans hangt af van je laagste meter. Alle drie op 10 = **PERFECT CLOSE** (×1,5). |
-| **Winkel** | **B**: pennen (waarde per verkoop), pakken (startzekerheid + grotere sweet spot), telefoons en brokers (passief inkomen, ook offline). |
-| **Zones** | Strip Mall → Pen Street ($2,5K) → Trading Floor ($60K) → Yacht ($1,5M). Een gouden krachtveld blokkeert elke zone tot je hem koopt. |
-| **IPO** | Met $10M en de Yacht: alles resetten voor een permanente +×0,5 multiplier. |
+| **Klanten lezen** | Elke visitor heeft een persoonlijkheid met likes en hates. Hates worden pas zichtbaar als je ze raakt. |
+| **Closen** | **C** of de gouden knop. Alle drie de meters op 10 = **PERFECT CLOSE** (×1,5). |
+| **Cash of recruit** | Na elke sale kies je: **[1] het geld pakken** of **[2] de visitor recruiten als broker**. |
+| **Firm** (**F**) | Maximaal 8 brokers. Ze verdienen hun dagloon per werkdag van 10 minuten, en offline ×0,5. Bij een volle firma vervangt een nieuwe broker je zwakste (alleen als de nieuwe beter is). |
+| **Index** (**I**) | 150 unieke visitors om te verzamelen. Elke visitor aan wie je verkoopt geeft **+0,5% op al je sales**. |
+| **Winkel** (**B**) | Pennen (waarde per verkoop), pakken (startzekerheid + grotere sweet spot), telefoons (passief inkomen). |
+| **Teleport** (**T**) | Reis naar elke zone die je hebt vrijgespeeld. |
+| **Rebirth** | Kost geld (×5 per rebirth, eerste = $25K). Reset cash, pen, pak en telefoon. **Brokers en Index blijven.** Elke rebirth geeft een permanente +×0,5. |
+
+### Bewegen
+- **Sprinten**: houd **Left Shift** ingedrukt (op mobiel: de RUN-knop). Je camera zoomt iets uit.
+- **Flips**: bij ongeveer 1 op 3 sprongen doe je een backflip, frontflip, sideflip of kurkentrekker. Andere spelers zien hem ook.
+- **Loopstijl per pak**: Thrift = Cartoony, Off-the-Rack = Toy, Tailored = Ninja, Italian Silk = Stylish,
+  Wolf Suit = Superhero (officiële Roblox-animatiepakketten).
+- **Visitors** lopen volgens hun persoonlijkheid: interns als zombies, accountants als robots, royals
+  en Exotics zweven, FBI-agenten sluipen als ninja's, en Beldan Jolfort loopt als een superheld.
+
+### Rarities
+
+| Rarity | Kans | Sale | Dagloon (als broker) |
+|---|---|---|---|
+| Common | 1 op 2 | 3× | $250 |
+| Rare | 1 op 4 | 7× | $1.2K |
+| Super Rare | 1 op 11 | 15× | $6K |
+| Epic | 1 op 38 | 34× | $32K |
+| Mythic | 1 op 143 | 85× | $180K |
+| Legendary | 1 op 606 | 220× | $1.1M |
+| Exotic | 1 op 3.753 | 650× | $7.5M |
+| **Beldan Jolfort** (Ultra Exotic) | 1 op 49.252 | 6000× | $90M |
+
+Zeldzamere visitors zijn moeilijker te overtuigen (ze beginnen met lagere meters) en zijn te herkennen aan
+hun gekleurde naam, hoed, gouden ketting, kroon, aura of gloed. Vanaf Mythic krijgt de hele server een
+melding. Duurdere zones hebben meer **luck** (kans op alles boven Common, ×1 tot ×4).
+
+### Zones
+
+| Zone | Rebirths | Betaalt | Luck |
+|---|---|---|---|
+| The Strip Mall | 0-1 | ×1 | ×1 |
+| Pen Street | 1-3 | ×2,5 | ×1,25 |
+| The Trading Floor | 3-5 | ×6 | ×1,6 |
+| The Yacht | 5-8 | ×15 | ×2 |
+| **The Penthouse**: visitors bellen aan en wachten bij de deur | 8-10 | ×40 | ×2,6 |
+| **The Swiss Vault**: goudkluis op een besneeuwd eiland | 10-14 | ×100 | ×3,2 |
+| **Private Island**: villa, palmbomen, watervliegtuig | 14+ | ×250 | ×4 |
+
+De Penthouse bereik je ook met de gouden lift aan Pen Street (onder aan de blauwe toren).
 
 ### Easter eggs en events
 - **Het servet**: soms verschijnt een gouden line: *"Write your name on this napkin for me."* Supply and demand.
 - **The Wolf Speech**: elke 7 minuten sales ×2 voor iedereen en ×3 op de tradingvloer, met confetti en geldregen.
 - **The Hum** (**H**): de borstklop-hum. Sales ×1,1 en ×1,25 als 3+ spelers tegelijk hummen.
-- **Undercover FBI Agent**: gebruik je Pressure, Hype of Urgency, dan krijg je een boete. Blijf eerlijk en hij betaalt ×3.
-- Een goudvis in de lobby, de Charging Pen Bull en het **Statue of Pen-erty** in de haven.
-- Het leaderboard boven de avenue toont de rijkste spelers aller tijden (globaal, via OrderedDataStore).
+- **Undercover FBI Agents**: gebruik je Pressure, Hype of Urgency, dan krijg je een boete. Blijf eerlijk en ze betalen ×3.
+- **Beldan Jolfort** trapt niet in hype. Hij wil dat je eerst vragen stelt, net als in zijn eigen verkooptraining.
 
 ## De map
 Alles staat in `map/Map.model.json`, gegenereerd door `tools/build_map.py` (ongeveer 3.400 parts):
@@ -55,19 +96,25 @@ Alles staat in `map/Map.model.json`, gegenereerd door `tools/build_map.py` (onge
 - **Stratton Oakpen**: glazen toren van 290 studs met een tradingvloer vol bureaus, monitoren en
   stoelen waarop je kunt zitten, een podium voor de speech en het glazen hoekkantoor van The Wolf.
 - **Haven**: promenade, pier, speedboten en het jacht **NAOMI** met helikopter, bar, DJ-booth en hot tub.
+- **Penthouse**: bovenop de blauwe toren aan Pen Street, met liftlobby, bar, vleugel en een terras met infinity pool.
+- **Swiss Vault**: besneeuwd eiland met bergen, dennen, sneeuwval en een bank met kluisdeur, goudstaven en kluisjes.
+- **Private Island**: tropisch eiland met Villa Jolfort, zwembad, tiki-bar, kampvuur, steiger en watervliegtuig.
 - **Achtergrond**: skyline rondom, water (Terrain, gevuld bij het starten) en een zonsondergang met Future lighting.
 
+Visitors aanpassen? Bewerk de namenlijst in `tools/build_visitors.py` en draai `python3 tools/build_visitors.py`.
 De map aanpassen? Pas `tools/build_map.py` aan en draai `python3 tools/build_map.py`, of bewerk de map
 gewoon in Studio. Houd de klantgebieden (`area`) in `src/shared/Config.luau` gelijk aan de map.
 
 ## Code-structuur
 
 ```
-src/shared/   Config (alle getallen), PitchData (klanttypes + lines), Format
-src/server/   DataService (opslag), EconomyService (geld, winkel, IPO, leaderstats),
+src/shared/   Config (alle getallen), PitchData (persoonlijkheden + lines), Visitors (150, gegenereerd),
+              Animations (animatiepakketten), Format
+src/server/   DataService (opslag), EconomyService (geld, winkel, rebirth, brokers, teleport),
+              AnimationService (loopstijlen, NPC-animaties, flips),
               CustomerService (NPC's), PitchService (minigame, server-authoritative),
               WorldService (water, gates, speech, hum, leaderboard)
-src/client/   Store, World (gates, prompts, tickers), UI/ (Theme, Hud, Shop, Modal, PitchUI, Notifier)
+src/client/   Store, World (gates, prompts, tickers), Movement (sprint + flips), UI/ (Theme, Hud, Shop, Collection, Modal, PitchUI, Notifier)
 ```
 
 De server bepaalt alles: de client kiest alleen een line-index plus hoe goed de tonality was (0–1,
