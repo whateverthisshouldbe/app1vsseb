@@ -1,0 +1,6250 @@
+<roblox version="4">
+  <Item class="Lighting" referent="0">
+    <Properties>
+      <string name="Name">Lighting</string>
+      <token name="Technology">4</token>
+    </Properties>
+  </Item>
+  <Item class="ReplicatedStorage" referent="1">
+    <Properties>
+      <string name="Name">ReplicatedStorage</string>
+    </Properties>
+    <Item class="Folder" referent="2">
+      <Properties>
+        <string name="Name">Shared</string>
+      </Properties>
+      <Item class="ModuleScript" referent="3">
+        <Properties>
+          <string name="Name">Config</string>
+          <string name="Source"><![CDATA[--!strict
+-- Alle getallen waar je aan wilt draaien staan hier. Kleuren zijn {r, g, b}
+-- zodat deze module ook buiten Roblox (in de tests) te laden is.
+
+-- Beloningen en events hebben niet allemaal dezelfde velden
+export type Reward = {
+	kind: string,
+	minutes: number?,
+	incomeSeconds: number?,
+	min: number?,
+	rarity: string?,
+}
+
+export type EventDef = {
+	id: string,
+	name: string,
+	icon: string,
+	desc: string,
+	color: { number },
+	mutationMult: number?,
+	spawnMult: number?,
+	luck: number?,
+	incomeMult: number?,
+	night: boolean?,
+}
+
+export type Rarity = {
+	name: string,
+	color: { number },
+	weight: number,
+	pricePerStream: number,
+	announce: boolean?,
+	rainbow: boolean?,
+}
+
+export type Mutation = {
+	name: string,
+	mult: number,
+	chance: number,
+	color: { number },
+	rainbow: boolean?,
+}
+
+local Config = {}
+
+Config.GameName = "Steal A Song"
+
+-- Economie. Een song verdient per seconde IncomePerStream per stream, dus een
+-- song met 1M streams brengt $1K/s op. Meer streams = betere song.
+Config.StartingCash = 100
+Config.IncomePerStream = 0.001
+Config.SellFraction = 0.5
+Config.TickSeconds = 1
+
+-- Streams groeien zolang een song in je studio staat, tot een plafond
+Config.GrowthPerSecond = 0.0005 -- deel van de start-streams per seconde (3% per minuut)
+Config.MaxGrowth = 3 -- zonder upgrades groeit een song tot 3x zijn start-streams
+
+-- Speler
+Config.WalkSpeed = 20
+Config.CarrySpeedMultiplier = 0.8
+
+-- Studio
+Config.StartSlots = 8
+Config.SlotsPerRebirth = 2
+Config.MaxSlots = 20
+Config.LockSeconds = 60
+
+-- Rode loper
+Config.SpawnInterval = 2.2
+Config.ConveyorSpeed = 7
+
+-- Stelen en slaan
+Config.StealHoldSeconds = 0.6
+Config.SellHoldSeconds = 2
+Config.StealTimeout = 90
+Config.HitCooldown = 0.8
+Config.HitRange = 9
+Config.HitStunSeconds = 1.2
+
+-- Rebirth
+Config.RebirthBaseCost = 1_000_000
+Config.RebirthCostGrowth = 8
+Config.RebirthIncomeBonus = 0.5
+
+-- Boosts
+Config.FriendBoostPer = 0.1
+Config.FriendBoostMax = 0.5
+Config.IndexBonusPerRarity = 0.1
+
+-- Geld dat je songs verdienen terwijl je offline bent
+Config.OfflineRate = 0.2
+Config.OfflineMaxSeconds = 4 * 3600
+
+-- Zeldzaamheid. weight bepaalt hoe vaak hij op de loper komt, pricePerStream
+-- hoe duur hij is (prijs / inkomen = terugverdientijd in seconden).
+local rarities: { Rarity } = {
+	{ name = "Common", color = { 200, 200, 200 }, weight = 55, pricePerStream = 0.02 },
+	{ name = "Rare", color = { 70, 160, 255 }, weight = 28, pricePerStream = 0.03 },
+	{ name = "Epic", color = { 180, 90, 255 }, weight = 12, pricePerStream = 0.045 },
+	{ name = "Legendary", color = { 255, 196, 40 }, weight = 4, pricePerStream = 0.06, announce = true },
+	{ name = "Mythic", color = { 255, 60, 90 }, weight = 0.85, pricePerStream = 0.08, announce = true },
+	{
+		name = "Chart God",
+		color = { 255, 255, 255 },
+		weight = 0.14,
+		pricePerStream = 0.1,
+		announce = true,
+		rainbow = true,
+	},
+	{ name = "Secret", color = { 30, 30, 36 }, weight = 0.012, pricePerStream = 0.15, announce = true },
+}
+Config.Rarities = rarities
+
+-- Luck-boosts gelden vanaf deze zeldzaamheid
+Config.LuckFromRarity = "Epic"
+
+-- Mutaties vermenigvuldigen de streams (en dus inkomen en prijs)
+local mutations: { Mutation } = {
+	{ name = "Gold", mult = 2, chance = 0.06, color = { 255, 200, 50 } },
+	{ name = "Platinum", mult = 3, chance = 0.025, color = { 225, 235, 250 } },
+	{ name = "Diamond", mult = 5, chance = 0.01, color = { 110, 235, 255 } },
+	{ name = "Viral", mult = 10, chance = 0.003, color = { 255, 90, 210 }, rainbow = true },
+}
+Config.Mutations = mutations
+
+-- Upgrades blijven na een rebirth
+Config.Upgrades = {
+	{
+		id = "Speed",
+		name = "Sneakers",
+		icon = "👟",
+		desc = "+2 walk speed per level",
+		per = 2,
+		costs = { 1_000, 15_000, 200_000, 3_000_000, 40_000_000 },
+	},
+	{
+		id = "Lock",
+		name = "Laser Lock",
+		icon = "🔒",
+		desc = "+10s studio lock per level",
+		per = 10,
+		costs = { 2_500, 30_000, 400_000, 5_000_000, 60_000_000 },
+	},
+	{
+		id = "Hype",
+		name = "Promo Team",
+		icon = "📣",
+		desc = "Songs gain streams 25% faster and peak 0.5x higher",
+		per = 0.25,
+		costs = { 5_000, 75_000, 1_000_000, 12_000_000, 150_000_000 },
+	},
+}
+
+-- Cadeaus voor speeltijd in deze sessie
+local gifts: { Reward } = {
+	{ minutes = 1, kind = "cash", incomeSeconds = 30, min = 150 },
+	{ minutes = 3, kind = "cash", incomeSeconds = 60, min = 400 },
+	{ minutes = 5, kind = "song", rarity = "Rare" },
+	{ minutes = 10, kind = "cash", incomeSeconds = 120, min = 2_500 },
+	{ minutes = 15, kind = "song", rarity = "Epic" },
+	{ minutes = 25, kind = "cash", incomeSeconds = 300, min = 15_000 },
+	{ minutes = 40, kind = "song", rarity = "Legendary" },
+	{ minutes = 60, kind = "song", rarity = "Mythic" },
+}
+Config.Gifts = gifts
+
+-- Dagelijkse beloning, 7 dagen op rij en dan weer van voren af aan
+local daily: { Reward } = {
+	{ kind = "cash", incomeSeconds = 60, min = 500 },
+	{ kind = "cash", incomeSeconds = 120, min = 1_500 },
+	{ kind = "song", rarity = "Rare" },
+	{ kind = "cash", incomeSeconds = 300, min = 5_000 },
+	{ kind = "song", rarity = "Epic" },
+	{ kind = "cash", incomeSeconds = 600, min = 25_000 },
+	{ kind = "song", rarity = "Legendary" },
+}
+Config.Daily = daily
+
+-- Server-events die om de paar minuten beginnen
+Config.EventMinGap = 6 * 60
+Config.EventMaxGap = 9 * 60
+Config.EventDuration = 150
+local events: { EventDef } = {
+	{
+		id = "ConcertNight",
+		name = "Concert Night",
+		icon = "🌙",
+		desc = "Mutations are 4x more likely!",
+		mutationMult = 4,
+		night = true,
+		color = { 150, 90, 255 },
+	},
+	{
+		id = "LabelFrenzy",
+		name = "Label Frenzy",
+		icon = "💿",
+		desc = "Songs drop 2x faster!",
+		spawnMult = 2,
+		color = { 60, 200, 255 },
+	},
+	{
+		id = "ViralHour",
+		name = "Viral Hour",
+		icon = "🔥",
+		desc = "Epic+ songs are 3x more likely!",
+		luck = 3,
+		color = { 255, 120, 40 },
+	},
+	{
+		id = "DoubleRoyalties",
+		name = "Double Royalties",
+		icon = "💸",
+		desc = "Every studio earns 2x!",
+		incomeMult = 2,
+		color = { 80, 230, 120 },
+	},
+}
+Config.Events = events
+
+-- Accentkleur per studio
+Config.StudioColors = {
+	{ 255, 80, 170 },
+	{ 60, 200, 255 },
+	{ 140, 230, 60 },
+	{ 255, 150, 40 },
+	{ 170, 100, 255 },
+	{ 255, 220, 60 },
+	{ 60, 120, 255 },
+	{ 255, 70, 70 },
+}
+
+-- Ingebouwde Roblox-geluiden. Vervang ze gerust door rbxassetid://... uit de
+-- Creator Store; een geluid dat niet laadt geeft alleen een waarschuwing.
+Config.Sounds = {
+	Click = "rbxasset://sounds/clickfast.wav",
+	Buy = "rbxasset://sounds/electronicpingshort.wav",
+	Collect = "rbxasset://sounds/electronicpingshort.wav",
+	Swing = "rbxasset://sounds/swordslash.wav",
+	Hit = "rbxasset://sounds/collide.wav",
+	Alarm = "rbxasset://sounds/electronicpingshort.wav",
+	Rebirth = "rbxasset://sounds/victory.wav",
+	Announce = "rbxasset://sounds/electronicpingshort.wav",
+}
+
+-- Achtergrondmuziek: zet hier een rbxassetid://... van een track met licentie
+-- (Creator Store, filter op Music). Leeg = geen muziek.
+Config.MusicId = ""
+
+-- Game passes: vul het ID in nadat je de pass op create.roblox.com hebt
+-- aangemaakt. 0 = uit, dan verschijnt hij ook niet in de winkel.
+Config.GamePasses = {
+	{ id = 0, key = "DoubleCash", name = "2x Royalties", icon = "💰", desc = "Earn double royalties forever" },
+	{ id = 0, key = "VIP", name = "VIP", icon = "⭐", desc = "+50% royalties and +4 walk speed" },
+}
+
+return Config
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="4">
+        <Properties>
+          <string name="Name">Economy</string>
+          <string name="Source"><![CDATA[--!strict
+-- Alle rekenregels op één plek, zonder Roblox-afhankelijkheden, zodat server
+-- en client hetzelfde rekenen en de tests ze los kunnen draaien.
+
+local Config = require(script.Parent.Config)
+local Songs = require(script.Parent.Songs)
+
+export type Song = {
+	id: string,
+	mut: string?,
+	base: number, -- streams bij het droppen, inclusief mutatie
+	streams: number,
+	slot: number?,
+}
+
+type Rng = () -> number
+
+local Economy = {}
+
+local rarityIndex: { [string]: number } = {}
+local rarityByName: { [string]: any } = {}
+for i, rarity in Config.Rarities do
+	rarityIndex[rarity.name] = i
+	rarityByName[rarity.name] = rarity
+end
+
+local mutationByName: { [string]: any } = {}
+for _, mutation in Config.Mutations do
+	mutationByName[mutation.name] = mutation
+end
+
+local upgradeById: { [string]: any } = {}
+for _, upgrade in Config.Upgrades do
+	upgradeById[upgrade.id] = upgrade
+end
+
+local function defaultRng(): number
+	return math.random()
+end
+
+function Economy.rarityIndex(name: string): number
+	return rarityIndex[name] or 1
+end
+
+function Economy.rarity(name: string): any
+	return rarityByName[name] or Config.Rarities[1]
+end
+
+function Economy.mutation(name: string?): any
+	return if name then mutationByName[name] else nil
+end
+
+function Economy.def(song: Song): Songs.SongDef
+	return Songs.byId[song.id]
+end
+
+function Economy.isValidSong(song: any): boolean
+	return type(song) == "table"
+		and type(song.id) == "string"
+		and Songs.byId[song.id] ~= nil
+		and type(song.base) == "number"
+		and type(song.streams) == "number"
+		and (song.mut == nil or mutationByName[song.mut] ~= nil)
+end
+
+-- Inkomen per seconde, vóór multipliers
+function Economy.income(streams: number): number
+	return streams * Config.IncomePerStream
+end
+
+function Economy.price(song: Song): number
+	local def = Songs.byId[song.id]
+	local rarity = Economy.rarity(def.rarity)
+	return math.max(1, math.floor(song.streams * rarity.pricePerStream + 0.5))
+end
+
+function Economy.sellPrice(song: Song): number
+	return math.floor(Economy.price(song) * Config.SellFraction)
+end
+
+function Economy.rebirthCost(rebirths: number): number
+	return Config.RebirthBaseCost * Config.RebirthCostGrowth ^ rebirths
+end
+
+function Economy.rebirthMultiplier(rebirths: number): number
+	return 1 + rebirths * Config.RebirthIncomeBonus
+end
+
+function Economy.slotCount(rebirths: number): number
+	return math.min(Config.MaxSlots, Config.StartSlots + rebirths * Config.SlotsPerRebirth)
+end
+
+function Economy.upgrade(id: string): any
+	return upgradeById[id]
+end
+
+-- nil als de upgrade al op het maximum staat
+function Economy.upgradeCost(id: string, level: number): number?
+	local upgrade = upgradeById[id]
+	if not upgrade then
+		return nil
+	end
+	return upgrade.costs[level + 1]
+end
+
+function Economy.walkSpeed(speedLevel: number, vip: boolean): number
+	return Config.WalkSpeed + speedLevel * upgradeById.Speed.per + (if vip then 4 else 0)
+end
+
+function Economy.lockSeconds(lockLevel: number): number
+	return Config.LockSeconds + lockLevel * upgradeById.Lock.per
+end
+
+function Economy.growthRate(hypeLevel: number): number
+	return Config.GrowthPerSecond * (1 + hypeLevel * upgradeById.Hype.per)
+end
+
+function Economy.maxGrowth(hypeLevel: number): number
+	return Config.MaxGrowth + hypeLevel * 0.5
+end
+
+-- Laat een song in een studio doorgroeien; geeft true als hij net zijn piek haalt
+function Economy.grow(song: Song, dt: number, hypeLevel: number): boolean
+	local cap = song.base * Economy.maxGrowth(hypeLevel)
+	if song.streams >= cap then
+		return false
+	end
+	song.streams = math.min(cap, song.streams + song.base * Economy.growthRate(hypeLevel) * dt)
+	return song.streams >= cap
+end
+
+function Economy.atPeak(song: Song, hypeLevel: number): boolean
+	return song.streams >= song.base * Economy.maxGrowth(hypeLevel)
+end
+
+function Economy.rollRarity(luck: number?, rng: Rng?): string
+	local roll = rng or defaultRng
+	local luckFrom = rarityIndex[Config.LuckFromRarity]
+	local weights = {}
+	local total = 0
+	for i, rarity in Config.Rarities do
+		local w = rarity.weight
+		if luck and i >= luckFrom then
+			w *= luck
+		end
+		weights[i] = w
+		total += w
+	end
+	local pick = roll() * total
+	for i, rarity in Config.Rarities do
+		pick -= weights[i]
+		if pick < 0 then
+			return rarity.name
+		end
+	end
+	return Config.Rarities[1].name
+end
+
+function Economy.rollDef(rarityName: string, rng: Rng?): Songs.SongDef
+	local roll = rng or defaultRng
+	local group: { Songs.SongDef } = Songs.byRarity[rarityName] or Songs.byRarity[Config.Rarities[1].name]
+	local i = math.clamp(math.floor(roll() * #group) + 1, 1, #group)
+	return group[i]
+end
+
+function Economy.rollMutation(mult: number?, rng: Rng?): string?
+	local roll = rng or defaultRng
+	local pick = roll()
+	for _, mutation in Config.Mutations do
+		pick -= mutation.chance * (mult or 1)
+		if pick < 0 then
+			return mutation.name
+		end
+	end
+	return nil
+end
+
+-- Log-uniform tussen min en max, zodat hoge aantallen zeldzamer zijn
+function Economy.rollStreams(def: Songs.SongDef, rng: Rng?): number
+	local roll = rng or defaultRng
+	local lo, hi = math.log(def.min), math.log(def.max)
+	return math.floor(math.exp(lo + (hi - lo) * roll()) + 0.5)
+end
+
+function Economy.makeSong(def: Songs.SongDef, mut: string?, rng: Rng?): Song
+	local streams = Economy.rollStreams(def, rng)
+	local mutation = Economy.mutation(mut)
+	if mutation then
+		streams *= mutation.mult
+	end
+	return { id = def.id, mut = mut, base = streams, streams = streams }
+end
+
+function Economy.rollSong(luck: number?, mutationMult: number?, rng: Rng?): Song
+	local rarity = Economy.rollRarity(luck, rng)
+	local def = Economy.rollDef(rarity, rng)
+	return Economy.makeSong(def, Economy.rollMutation(mutationMult, rng), rng)
+end
+
+-- Hoeveel songs per zeldzaamheid ontdekt zijn, en de bonus voor volle rijen
+function Economy.indexProgress(discovered: { [string]: boolean }): ({ [string]: { found: number, total: number } }, number)
+	local progress = {}
+	local complete = 0
+	for _, rarity in Config.Rarities do
+		local group: { Songs.SongDef } = Songs.byRarity[rarity.name] or {}
+		local found = 0
+		for _, def in group do
+			if discovered[def.id] then
+				found += 1
+			end
+		end
+		progress[rarity.name] = { found = found, total = #group }
+		if #group > 0 and found == #group then
+			complete += 1
+		end
+	end
+	return progress, complete * Config.IndexBonusPerRarity
+end
+
+function Economy.rewardCash(income: number, reward: any): number
+	return math.floor(math.max(reward.min or 0, income * (reward.incomeSeconds or 0)))
+end
+
+function Economy.friendBoost(friends: number): number
+	return math.min(Config.FriendBoostMax, friends * Config.FriendBoostPer)
+end
+
+return Economy
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="5">
+        <Properties>
+          <string name="Name">Format</string>
+          <string name="Source"><![CDATA[--!strict
+-- Getallen leesbaar maken: 1234567 -> "1.23M", 95 -> "95", 90 sec -> "1:30".
+
+local Format = {}
+
+local SUFFIXES = { "", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc" }
+
+local function trimZeros(text: string): string
+	if string.find(text, ".", 1, true) then
+		text = (string.gsub(text, "0+$", ""))
+		text = (string.gsub(text, "%.$", ""))
+	end
+	return text
+end
+
+-- Drie significante cijfers, altijd naar beneden afgerond zodat je nooit
+-- meer ziet dan je hebt.
+function Format.short(n: number): string
+	if n ~= n or n == math.huge or n == -math.huge then
+		return "0"
+	end
+	local sign = if n < 0 then "-" else ""
+	n = math.abs(n)
+
+	if n < 1000 then
+		if n < 10 and math.floor(n) ~= n then
+			return sign .. trimZeros(string.format("%.1f", math.floor(n * 10) / 10))
+		end
+		return sign .. tostring(math.floor(n))
+	end
+
+	local tier = math.floor(math.log10(n) / 3)
+	local scaled = n / 10 ^ (tier * 3)
+	-- log10 kan net onder of boven een macht van 10 uitkomen
+	if scaled >= 1000 then
+		tier += 1
+		scaled /= 1000
+	elseif scaled < 1 then
+		tier -= 1
+		scaled *= 1000
+	end
+	if tier >= #SUFFIXES then
+		return sign .. string.format("%.2e", n)
+	end
+
+	local text
+	if scaled >= 100 then
+		text = tostring(math.floor(scaled))
+	elseif scaled >= 10 then
+		text = trimZeros(string.format("%.1f", math.floor(scaled * 10) / 10))
+	else
+		text = trimZeros(string.format("%.2f", math.floor(scaled * 100) / 100))
+	end
+	return sign .. text .. SUFFIXES[tier + 1]
+end
+
+function Format.cash(n: number): string
+	return "$" .. Format.short(n)
+end
+
+function Format.streams(n: number): string
+	return Format.short(n) .. " streams"
+end
+
+function Format.perSecond(n: number): string
+	return "$" .. Format.short(n) .. "/s"
+end
+
+function Format.time(seconds: number): string
+	seconds = math.max(0, math.floor(seconds))
+	local h = seconds // 3600
+	local m = (seconds % 3600) // 60
+	local s = seconds % 60
+	if h > 0 then
+		return string.format("%d:%02d:%02d", h, m, s)
+	end
+	return string.format("%d:%02d", m, s)
+end
+
+-- "2h 5m" voor de offline-melding
+function Format.duration(seconds: number): string
+	seconds = math.max(0, math.floor(seconds))
+	local h = seconds // 3600
+	local m = (seconds % 3600) // 60
+	if h > 0 then
+		return string.format("%dh %dm", h, m)
+	elseif m > 0 then
+		return string.format("%dm", m)
+	end
+	return string.format("%ds", seconds)
+end
+
+function Format.multiplier(x: number): string
+	return "x" .. trimZeros(string.format("%.2f", x))
+end
+
+return Format
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="6">
+        <Properties>
+          <string name="Name">Songs</string>
+          <string name="Source"><![CDATA[--!strict
+-- Alle songs in de game. min/max zijn de start-streams zonder mutatie; een
+-- song die op de loper verschijnt krijgt een willekeurig aantal daartussen.
+-- color is de kleur van het label midden op de plaat.
+
+export type SongDef = {
+	id: string,
+	name: string,
+	rarity: string,
+	genre: string,
+	min: number,
+	max: number,
+	color: { number },
+}
+
+local list: { SongDef } = {
+	-- Common
+	{ id = "shower_singer", name = "Shower Singer", rarity = "Common", genre = "Pop", min = 1_000, max = 2_000, color = { 120, 200, 255 } },
+	{ id = "kazoo_solo", name = "Kazoo Solo", rarity = "Common", genre = "Jazz", min = 1_500, max = 3_000, color = { 255, 150, 60 } },
+	{ id = "ringtone_remix", name = "Ringtone Remix", rarity = "Common", genre = "EDM", min = 2_000, max = 4_000, color = { 90, 255, 160 } },
+	{ id = "elevator_muzak", name = "Elevator Muzak", rarity = "Common", genre = "Lounge", min = 3_000, max = 5_500, color = { 220, 200, 150 } },
+	{ id = "garage_demo", name = "Garage Demo", rarity = "Common", genre = "Rock", min = 4_000, max = 8_000, color = { 255, 90, 90 } },
+
+	-- Rare
+	{ id = "lofi_homework", name = "Lo-Fi Homework", rarity = "Rare", genre = "Lo-Fi", min = 20_000, max = 40_000, color = { 170, 150, 255 } },
+	{ id = "cat_piano", name = "Cat Piano Concerto", rarity = "Rare", genre = "Classical", min = 30_000, max = 60_000, color = { 255, 210, 230 } },
+	{ id = "bedroom_pop", name = "Bedroom Pop Crush", rarity = "Rare", genre = "Pop", min = 45_000, max = 90_000, color = { 255, 120, 200 } },
+	{ id = "boombox_bop", name = "Boombox Bop", rarity = "Rare", genre = "Hip-Hop", min = 70_000, max = 150_000, color = { 255, 230, 60 } },
+
+	-- Epic
+	{ id = "summer_anthem", name = "Summer Anthem", rarity = "Epic", genre = "Pop", min = 300_000, max = 600_000, color = { 255, 170, 40 } },
+	{ id = "banjo_breakdown", name = "Banjo Breakdown", rarity = "Epic", genre = "Country", min = 450_000, max = 900_000, color = { 200, 130, 70 } },
+	{ id = "disco_llama", name = "Disco Llama", rarity = "Epic", genre = "Disco", min = 700_000, max = 1_400_000, color = { 255, 80, 255 } },
+	{ id = "bass_drop_baby", name = "Bass Drop Baby", rarity = "Epic", genre = "Dubstep", min = 1_000_000, max = 2_000_000, color = { 60, 255, 255 } },
+
+	-- Legendary
+	{ id = "neon_nights", name = "Neon Nights", rarity = "Legendary", genre = "Synthwave", min = 5_000_000, max = 9_000_000, color = { 255, 60, 200 } },
+	{ id = "trap_goblin", name = "Trap Goblin", rarity = "Legendary", genre = "Trap", min = 7_000_000, max = 14_000_000, color = { 120, 255, 60 } },
+	{ id = "kpop_supernova", name = "K-Pop Supernova", rarity = "Legendary", genre = "K-Pop", min = 10_000_000, max = 18_000_000, color = { 255, 140, 220 } },
+	{ id = "viral_dance", name = "Viral Dance Craze", rarity = "Legendary", genre = "Dance", min = 14_000_000, max = 25_000_000, color = { 255, 230, 90 } },
+
+	-- Mythic
+	{ id = "galaxy_opera", name = "Galaxy Opera", rarity = "Mythic", genre = "Space Opera", min = 60_000_000, max = 110_000_000, color = { 90, 110, 255 } },
+	{ id = "dragon_metal", name = "Dragon Metal", rarity = "Mythic", genre = "Metal", min = 90_000_000, max = 160_000_000, color = { 255, 80, 30 } },
+	{ id = "stadium_anthem", name = "Stadium Anthem", rarity = "Mythic", genre = "Arena Rock", min = 130_000_000, max = 250_000_000, color = { 255, 255, 255 } },
+
+	-- Chart God
+	{ id = "billion_banger", name = "Billion Stream Banger", rarity = "Chart God", genre = "Pop", min = 800_000_000, max = 1_500_000_000, color = { 255, 215, 0 } },
+	{ id = "internet_anthem", name = "Anthem Of The Internet", rarity = "Chart God", genre = "Meme", min = 1_200_000_000, max = 2_200_000_000, color = { 0, 255, 170 } },
+	{ id = "eternal_number_one", name = "Eternal #1", rarity = "Chart God", genre = "Legend", min = 1_600_000_000, max = 3_000_000_000, color = { 255, 50, 120 } },
+
+	-- Secret
+	{ id = "lost_tape", name = "The Lost Tape", rarity = "Secret", genre = "???", min = 8_000_000_000, max = 12_000_000_000, color = { 10, 10, 10 } },
+	{ id = "song_of_century", name = "Song Of The Century", rarity = "Secret", genre = "???", min = 12_000_000_000, max = 20_000_000_000, color = { 255, 255, 255 } },
+}
+
+local byId: { [string]: SongDef } = {}
+local byRarity: { [string]: { SongDef } } = {}
+for _, def in list do
+	assert(byId[def.id] == nil, "dubbel song-id: " .. def.id)
+	byId[def.id] = def
+	local group = byRarity[def.rarity]
+	if not group then
+		group = {}
+		byRarity[def.rarity] = group
+	end
+	table.insert(group, def)
+end
+
+return {
+	list = list,
+	byId = byId,
+	byRarity = byRarity,
+}
+]]></string>
+        </Properties>
+      </Item>
+    </Item>
+  </Item>
+  <Item class="ServerScriptService" referent="7">
+    <Properties>
+      <string name="Name">ServerScriptService</string>
+    </Properties>
+    <Item class="Script" referent="8">
+      <Properties>
+        <string name="Name">Server</string>
+        <token name="RunContext">0</token>
+        <string name="Source"><![CDATA[--!strict
+-- Opstarten van de server: wereld bouwen, modules starten en spelers
+-- door hun levenscyclus leiden (laden, studio krijgen, spawnen, opslaan).
+
+local Players = game:GetService("Players")
+
+local Remotes = require(script.Remotes)
+Remotes.init()
+
+local MapBuilder = require(script.MapBuilder)
+local map = MapBuilder.build()
+
+local PlayerData = require(script.PlayerData)
+local Events = require(script.Events)
+local Plots = require(script.Plots)
+local Conveyor = require(script.Conveyor)
+local Stealing = require(script.Stealing)
+local Combat = require(script.Combat)
+local Progression = require(script.Progression)
+local Rewards = require(script.Rewards)
+local Boards = require(script.Boards)
+local Monetization = require(script.Monetization)
+local DevCommands = require(script.DevCommands)
+
+local Config = require(game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Config"))
+
+PlayerData.init()
+Events.init()
+Plots.init(map)
+Conveyor.init(map)
+Stealing.init()
+Combat.init()
+Progression.init()
+Rewards.init()
+Boards.init(map)
+Monetization.init()
+DevCommands.init()
+
+Remotes.handle("Ready", function(player)
+	PlayerData.markDirty(player)
+	Remotes.fire("EventState", player, Events.state())
+	return true
+end)
+
+local function onCharacter(player: Player, character: Model)
+	local humanoid = character:WaitForChild("Humanoid", 10)
+	local root = character:WaitForChild("HumanoidRootPart", 10)
+	if not humanoid or not root or not humanoid:IsA("Humanoid") then
+		return
+	end
+	humanoid.WalkSpeed = PlayerData.walkSpeed(player)
+	task.spawn(Combat.giveTool, player)
+	Plots.onCharacter(player, character)
+end
+
+local function onPlayerAdded(player: Player)
+	PlayerData.load(player)
+	if player.Parent ~= Players then
+		PlayerData.release(player)
+		return
+	end
+	Monetization.onJoin(player)
+	local plot = Plots.assign(player)
+	if not plot then
+		Remotes.toast(player, "No free studio in this server, sorry!", "bad")
+	end
+	Rewards.onJoin(player)
+	task.spawn(PlayerData.refreshFriends, player)
+
+	player.CharacterAdded:Connect(function(character)
+		onCharacter(player, character)
+	end)
+	if player.Character then
+		task.spawn(onCharacter, player, player.Character)
+	end
+
+	if not PlayerData.canSave(player) then
+		Remotes.toast(player, "⚠ Saving is off (enable API access in Studio to save progress)", "info")
+	end
+	PlayerData.markDirty(player)
+end
+
+local function onPlayerRemoving(player: Player)
+	Stealing.onPlayerRemoving(player)
+	Plots.release(player)
+	Rewards.onLeave(player)
+	PlayerData.release(player)
+end
+
+Players.PlayerAdded:Connect(onPlayerAdded)
+Players.PlayerRemoving:Connect(onPlayerRemoving)
+for _, player in Players:GetPlayers() do
+	task.spawn(onPlayerAdded, player)
+end
+
+-- De economie tikt één keer per seconde
+task.spawn(function()
+	local last = os.clock()
+	while true do
+		task.wait(Config.TickSeconds)
+		local now = os.clock()
+		local dt = math.min(now - last, 5)
+		last = now
+		xpcall(Plots.tick, function(err)
+			warn("[StealASong] tick failed: " .. tostring(err))
+		end, dt)
+	end
+end)
+]]></string>
+      </Properties>
+      <Item class="ModuleScript" referent="9">
+        <Properties>
+          <string name="Name">Boards</string>
+          <string name="Source"><![CDATA[--!strict
+-- Twee borden: de LIVE CHART boven de loper (de 10 songs met de meeste
+-- streams in deze server, met eigenaar: een doelwittenlijst voor dieven) en
+-- het all-time leaderboard op basis van alles wat spelers ooit verdienden.
+
+local DataStoreService = game:GetService("DataStoreService")
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Economy = require(Shared:WaitForChild("Economy"))
+local Format = require(Shared:WaitForChild("Format"))
+local Songs = require(Shared:WaitForChild("Songs"))
+
+local MapBuilder = require(script.Parent.MapBuilder)
+local Plots = require(script.Parent.Plots)
+
+local Boards = {}
+
+local ROWS = 10
+local FONT = Enum.Font.FredokaOne
+
+type Row = { rank: TextLabel, name: TextLabel, detail: TextLabel }
+
+local function rgb(c: { number }): Color3
+	return Color3.fromRGB(c[1], c[2], c[3])
+end
+
+local function text(parent: Instance, props: { [string]: any }): TextLabel
+	local label = Instance.new("TextLabel")
+	label.BackgroundTransparency = 1
+	label.Font = FONT
+	label.TextScaled = true
+	label.TextColor3 = Color3.new(1, 1, 1)
+	for key, value in props do
+		(label :: any)[key] = value
+	end
+	local stroke = Instance.new("UIStroke")
+	stroke.Thickness = 2
+	stroke.Color = Color3.fromRGB(10, 5, 20)
+	stroke.Parent = label
+	label.Parent = parent
+	return label
+end
+
+-- Bouwt een bord met titel en ROWS regels op één kant van een part
+local function buildList(board: BasePart, face: Enum.NormalId, title: string, titleColor: Color3): { Row }
+	local gui = Instance.new("SurfaceGui")
+	gui.Face = face
+	gui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	gui.PixelsPerStud = 30
+	gui.LightInfluence = 0
+	gui.Parent = board
+
+	text(gui, {
+		Name = "Title",
+		Text = title,
+		TextColor3 = titleColor,
+		Size = UDim2.new(1, -30, 0.14, 0),
+		Position = UDim2.new(0, 15, 0.02, 0),
+	})
+
+	local rows: { Row } = {}
+	local top = 0.18
+	local height = (1 - top - 0.03) / ROWS
+	for i = 1, ROWS do
+		local y = top + (i - 1) * height
+		local rank = text(gui, {
+			Text = "#" .. i,
+			TextColor3 = if i == 1 then Color3.fromRGB(255, 215, 60) else Color3.fromRGB(200, 190, 230),
+			Size = UDim2.new(0.1, 0, height * 0.9, 0),
+			Position = UDim2.new(0.02, 0, y, 0),
+		})
+		local name = text(gui, {
+			Text = "",
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Size = UDim2.new(0.5, 0, height * 0.9, 0),
+			Position = UDim2.new(0.13, 0, y, 0),
+		})
+		local detail = text(gui, {
+			Text = "",
+			TextXAlignment = Enum.TextXAlignment.Right,
+			TextColor3 = Color3.fromRGB(170, 225, 255),
+			Size = UDim2.new(0.34, 0, height * 0.9, 0),
+			Position = UDim2.new(0.64, 0, y, 0),
+		})
+		rows[i] = { rank = rank, name = name, detail = detail }
+	end
+	return rows
+end
+
+local function updateChart(sides: { { Row } })
+	local entries = {}
+	for _, plot in Plots.all() do
+		local owner = plot.owner
+		if owner then
+			for _, slot in plot.slots do
+				local song = slot.song
+				if song and not slot.thief then
+					table.insert(entries, { song = song, owner = owner })
+				end
+			end
+		end
+	end
+	table.sort(entries, function(a, b)
+		return a.song.streams > b.song.streams
+	end)
+
+	for _, rows in sides do
+		for i, row in rows do
+			local entry = entries[i]
+			if entry then
+				local def = Songs.byId[entry.song.id]
+				local rarity = Economy.rarity(def.rarity)
+				local mutation = if entry.song.mut then entry.song.mut .. " " else ""
+				row.name.Text = mutation .. def.name .. "  ·  " .. entry.owner.DisplayName
+				row.name.TextColor3 = if def.rarity == "Secret" then Color3.fromRGB(245, 245, 255) else rgb(rarity.color)
+				row.detail.Text = "🎧 " .. Format.short(entry.song.streams)
+			else
+				row.name.Text = if i == 1 then "No songs yet. Go buy one!" else ""
+				row.name.TextColor3 = Color3.new(1, 1, 1)
+				row.detail.Text = ""
+			end
+		end
+	end
+end
+
+local nameCache: { [number]: string } = {}
+
+local function nameFor(userId: number): string
+	local cached = nameCache[userId]
+	if cached then
+		return cached
+	end
+	local player = Players:GetPlayerByUserId(userId)
+	local name = if player then player.DisplayName else nil
+	if not name then
+		local ok, result = pcall(function()
+			return Players:GetNameFromUserIdAsync(userId)
+		end)
+		name = if ok then result else "Player " .. userId
+	end
+	nameCache[userId] = name :: string
+	return name :: string
+end
+
+local function updateLeaderboard(rows: { Row })
+	local ok, pages = pcall(function()
+		local store = DataStoreService:GetOrderedDataStore("StealASong_Lifetime_v1")
+		return store:GetSortedAsync(false, ROWS)
+	end)
+	if not ok then
+		rows[1].name.Text = "Leaderboard offline"
+		rows[1].detail.Text = ""
+		return
+	end
+	local list = (pages :: DataStorePages):GetCurrentPage()
+	for i, row in rows do
+		local entry = list[i]
+		if entry then
+			row.name.Text = nameFor(tonumber(entry.key) or 0)
+			row.detail.Text = Format.cash(entry.value)
+			row.detail.TextColor3 = Color3.fromRGB(110, 255, 130)
+		else
+			row.name.Text = ""
+			row.detail.Text = ""
+		end
+	end
+end
+
+function Boards.init(map: MapBuilder.MapInfo)
+	local chartTitle = "🔥 LIVE CHART · MOST STREAMED IN THIS SERVER"
+	local chartColor = Color3.fromRGB(255, 90, 200)
+	local chartSides = {
+		buildList(map.chartBoard, Enum.NormalId.Front, chartTitle, chartColor),
+		buildList(map.chartBoard, Enum.NormalId.Back, chartTitle, chartColor),
+	}
+	local leaderRows = buildList(map.leaderboard, Enum.NormalId.Front, "💰 ALL-TIME TOP ARTISTS", Color3.fromRGB(255, 215, 60))
+
+	task.spawn(function()
+		while true do
+			updateChart(chartSides)
+			task.wait(3)
+		end
+	end)
+
+	task.spawn(function()
+		while true do
+			updateLeaderboard(leaderRows)
+			task.wait(120)
+		end
+	end)
+end
+
+return Boards
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="10">
+        <Properties>
+          <string name="Name">Combat</string>
+          <string name="Source"><![CDATA[--!strict
+-- De gitaar: iedereen krijgt er een. Een klap duwt de ander weg en een dief
+-- laat zijn gestolen song vallen. Geen schade, alleen chaos.
+
+local Debris = game:GetService("Debris")
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Config"))
+
+local Remotes = require(script.Parent.Remotes)
+local Stealing = require(script.Parent.Stealing)
+
+local Combat = {}
+
+local lastSwing: { [Player]: number } = {}
+local rng = Random.new()
+
+local BONK_WORDS = { "BONK!", "SMACK!", "TWANG!", "WHAM!", "POW!" }
+
+local function rootOf(player: Player): BasePart?
+	local character = player.Character
+	local root = character and character:FindFirstChild("HumanoidRootPart")
+	if root and root:IsA("BasePart") then
+		return root
+	end
+	return nil
+end
+
+local function humanoidOf(player: Player): Humanoid?
+	local character = player.Character
+	return character and character:FindFirstChildOfClass("Humanoid")
+end
+
+local function playSound(parent: Instance, soundId: string, speed: number?)
+	local sound = Instance.new("Sound")
+	sound.SoundId = soundId
+	sound.Volume = 0.8
+	sound.PlaybackSpeed = speed or 1
+	sound.RollOffMaxDistance = 80
+	sound.Parent = parent
+	sound:Play()
+	Debris:AddItem(sound, 3)
+end
+
+local function weldedPart(handle: BasePart, props: { [string]: any }, offset: CFrame): Part
+	local p = Instance.new("Part")
+	p.CanCollide = false
+	p.Massless = true
+	p.TopSurface = Enum.SurfaceType.Smooth
+	p.BottomSurface = Enum.SurfaceType.Smooth
+	p.Material = Enum.Material.SmoothPlastic
+	if props.Shape then
+		p.Shape = props.Shape
+	end
+	for key, value in props do
+		if key ~= "Shape" then
+			(p :: any)[key] = value
+		end
+	end
+	p.CFrame = handle.CFrame * offset
+	local weld = Instance.new("WeldConstraint")
+	weld.Part0 = handle
+	weld.Part1 = p
+	weld.Parent = p
+	p.Parent = handle.Parent
+	return p
+end
+
+local function buildGuitar(): Tool
+	local tool = Instance.new("Tool")
+	tool.Name = "Guitar"
+	tool.ToolTip = "Smack thieves!"
+	tool.CanBeDropped = false
+	tool.RequiresHandle = true
+	tool.GripPos = Vector3.new(0, 0, -1.3)
+	tool.GripForward = Vector3.new(-1, 0, 0)
+	tool.GripRight = Vector3.new(0, 1, 0)
+	tool.GripUp = Vector3.new(0, 0, 1)
+
+	-- De hals is de Handle; de body zit aan het +Z eind, ver van de hand
+	local handle = Instance.new("Part")
+	handle.Name = "Handle"
+	handle.Size = Vector3.new(0.35, 0.35, 3.6)
+	handle.Color = Color3.fromRGB(120, 72, 40)
+	handle.Material = Enum.Material.Wood
+	handle.CanCollide = false
+	handle.Massless = true
+	handle.CFrame = CFrame.new()
+	handle.Parent = tool
+
+	local red = Color3.fromRGB(230, 40, 80)
+	weldedPart(handle, {
+		Name = "BodyLower",
+		Shape = Enum.PartType.Cylinder,
+		Size = Vector3.new(0.5, 2.6, 2.6),
+		Color = red,
+	}, CFrame.new(0, 0, 2.6))
+	weldedPart(handle, {
+		Name = "BodyUpper",
+		Shape = Enum.PartType.Cylinder,
+		Size = Vector3.new(0.5, 2, 2),
+		Color = red,
+	}, CFrame.new(0, 0, 1.3))
+	weldedPart(handle, {
+		Name = "Pickup",
+		Shape = Enum.PartType.Cylinder,
+		Size = Vector3.new(0.55, 0.8, 0.8),
+		Color = Color3.fromRGB(20, 20, 24),
+	}, CFrame.new(0, 0, 2.2))
+	weldedPart(handle, {
+		Name = "Headstock",
+		Size = Vector3.new(0.3, 0.6, 0.9),
+		Color = Color3.fromRGB(30, 26, 34),
+	}, CFrame.new(0, 0, -2.1))
+	weldedPart(handle, {
+		Name = "Strings",
+		Size = Vector3.new(0.05, 0.12, 4.6),
+		Color = Color3.fromRGB(255, 240, 200),
+		Material = Enum.Material.Neon,
+	}, CFrame.new(0.22, 0, 0.6))
+
+	return tool
+end
+
+local function bonk(root: BasePart)
+	local gui = Instance.new("BillboardGui")
+	gui.Size = UDim2.fromScale(5, 2)
+	gui.StudsOffset = Vector3.new(0, 3.5, 0)
+	gui.LightInfluence = 0
+	gui.AlwaysOnTop = true
+	gui.MaxDistance = 80
+	local label = Instance.new("TextLabel")
+	label.BackgroundTransparency = 1
+	label.Size = UDim2.fromScale(1, 1)
+	label.Font = Enum.Font.FredokaOne
+	label.TextScaled = true
+	label.Text = BONK_WORDS[rng:NextInteger(1, #BONK_WORDS)]
+	label.TextColor3 = Color3.fromHSV(rng:NextNumber(), 0.7, 1)
+	label.Rotation = rng:NextNumber(-15, 15)
+	local stroke = Instance.new("UIStroke")
+	stroke.Thickness = 3
+	stroke.Parent = label
+	label.Parent = gui
+	gui.Parent = root
+	Debris:AddItem(gui, 0.8)
+end
+
+local function hit(attacker: Player, victim: Player, direction: Vector3)
+	local root = rootOf(victim)
+	if not root then
+		return
+	end
+	Remotes.fire("Knockback", victim, {
+		velocity = direction * 60 + Vector3.new(0, 35, 0),
+		stun = Config.HitStunSeconds,
+	})
+	playSound(root, Config.Sounds.Hit, rng:NextNumber(0.9, 1.2))
+	bonk(root)
+	Stealing.onHit(victim, attacker)
+end
+
+function Combat.swing(player: Player, tool: Tool)
+	local now = os.clock()
+	if (lastSwing[player] or 0) + Config.HitCooldown > now then
+		return
+	end
+	lastSwing[player] = now
+
+	local root = rootOf(player)
+	local humanoid = humanoidOf(player)
+	if not root or not humanoid or humanoid.Health <= 0 or tool.Parent ~= player.Character then
+		return
+	end
+
+	-- Het standaard Animate-script speelt hierop de slash-animatie af
+	local anim = Instance.new("StringValue")
+	anim.Name = "toolanim"
+	anim.Value = "Slash"
+	anim.Parent = tool
+	Debris:AddItem(anim, 1)
+
+	local handle = tool:FindFirstChild("Handle")
+	if handle then
+		playSound(handle, Config.Sounds.Swing, rng:NextNumber(0.95, 1.1))
+	end
+
+	local look = root.CFrame.LookVector
+	for _, other in Players:GetPlayers() do
+		if other ~= player then
+			local otherRoot = rootOf(other)
+			local otherHumanoid = humanoidOf(other)
+			if otherRoot and otherHumanoid and otherHumanoid.Health > 0 then
+				local offset = otherRoot.Position - root.Position
+				local flat = Vector3.new(offset.X, 0, offset.Z)
+				local distance = flat.Magnitude
+				if distance <= Config.HitRange and math.abs(offset.Y) < 7 then
+					local direction = if distance > 0.1 then flat.Unit else look
+					if distance < 3 or direction:Dot(look) > 0.2 then
+						hit(player, other, direction)
+					end
+				end
+			end
+		end
+	end
+end
+
+function Combat.giveTool(player: Player)
+	local backpack = player:WaitForChild("Backpack", 10)
+	if not backpack then
+		return
+	end
+	local existing = backpack:FindFirstChild("Guitar")
+	if existing then
+		existing:Destroy()
+	end
+	local tool = buildGuitar()
+	tool.Activated:Connect(function()
+		Combat.swing(player, tool)
+	end)
+	tool.Parent = backpack
+end
+
+function Combat.init()
+	Players.PlayerRemoving:Connect(function(player)
+		lastSwing[player] = nil
+	end)
+end
+
+return Combat
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="11">
+        <Properties>
+          <string name="Name">Conveyor</string>
+          <string name="Source"><![CDATA[--!strict
+-- De rode loper: songs verschijnen bij NEW DROPS, zweven langzaam naar het
+-- andere eind en verdwijnen daar. Wie er als eerste op drukt en genoeg geld
+-- heeft, krijgt hem.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Config = require(Shared:WaitForChild("Config"))
+local Economy = require(Shared:WaitForChild("Economy"))
+local Format = require(Shared:WaitForChild("Format"))
+local Songs = require(Shared:WaitForChild("Songs"))
+
+local Events = require(script.Parent.Events)
+local MapBuilder = require(script.Parent.MapBuilder)
+local PlayerData = require(script.Parent.PlayerData)
+local Plots = require(script.Parent.Plots)
+local Remotes = require(script.Parent.Remotes)
+local SongModel = require(script.Parent.SongModel)
+
+type Entry = {
+	song: Economy.Song,
+	model: Model,
+	root: BasePart,
+	bought: boolean,
+	spawnedAt: number,
+}
+
+local Conveyor = {}
+
+local map: MapBuilder.MapInfo
+local active: { [Model]: Entry } = {}
+local maxLifetime = 0
+
+local function rarityText(rarityName: string): string
+	return string.upper(rarityName)
+end
+
+function Conveyor.buy(player: Player, entry: Entry)
+	if entry.bought or not entry.model.Parent then
+		return
+	end
+	local plot = Plots.get(player)
+	if not plot then
+		Remotes.toast(player, "You don't have a studio yet", "bad")
+		return
+	end
+	if not Plots.freeSlot(plot) then
+		Remotes.toast(player, "Your studio is full! Sell a song (hold F) or rebirth.", "bad")
+		return
+	end
+	local song = entry.song
+	local price = Economy.price(song)
+	if not PlayerData.spend(player, price) then
+		local data = PlayerData.get(player)
+		local short = price - (if data then data.cash else 0)
+		Remotes.toast(player, "Not enough cash! You need " .. Format.cash(short) .. " more", "bad")
+		return
+	end
+
+	entry.bought = true
+	local from = entry.root.Position
+	active[entry.model] = nil
+	entry.model:Destroy()
+	Plots.place(player, song, from)
+
+	local def = Songs.byId[song.id]
+	local rarity = Economy.rarity(def.rarity)
+	local isNew = PlayerData.discover(player, song)
+	Remotes.toast(player, "You bought " .. def.name .. "!" .. (if isNew then "  📖 NEW IN INDEX" else ""), "buy")
+	if rarity.announce then
+		local mutation = if song.mut then string.upper(song.mut) .. " " else ""
+		Remotes.announce(
+			player.DisplayName .. " bought " .. mutation .. rarityText(def.rarity) .. " " .. def.name .. "!",
+			rarity.color,
+			false
+		)
+	end
+end
+
+function Conveyor.spawn(song: Economy.Song?, startX: number?, quiet: boolean?)
+	local newSong = song or Economy.rollSong(Events.luck(), Events.mutationMult())
+	local def = Songs.byId[newSong.id]
+	local rarity = Economy.rarity(def.rarity)
+
+	local model = SongModel.build(newSong, { physics = true, price = true })
+	local root = model.PrimaryPart :: BasePart
+	model:PivotTo(CFrame.new(startX or map.songStart.X, map.songStart.Y, map.songStart.Z))
+
+	local mover = Instance.new("Attachment")
+	mover.Name = "Mover"
+	mover.Parent = root
+
+	local velocity = Instance.new("LinearVelocity")
+	velocity.Attachment0 = mover
+	velocity.RelativeTo = Enum.ActuatorRelativeTo.World
+	velocity.VelocityConstraintMode = Enum.VelocityConstraintMode.Vector
+	velocity.VectorVelocity = Vector3.new(Config.ConveyorSpeed, 0, 0)
+	velocity.MaxForce = math.huge
+	velocity.Parent = root
+
+	local spin = Instance.new("AngularVelocity")
+	spin.Attachment0 = mover
+	spin.RelativeTo = Enum.ActuatorRelativeTo.World
+	spin.AngularVelocity = Vector3.new(0, 1.2, 0)
+	spin.MaxTorque = math.huge
+	spin.Parent = root
+
+	local entry: Entry = {
+		song = newSong,
+		model = model,
+		root = root,
+		bought = false,
+		spawnedAt = os.clock(),
+	}
+
+	local prompt = Instance.new("ProximityPrompt")
+	prompt.Name = "BuyPrompt"
+	prompt.ActionText = "Buy " .. Format.cash(Economy.price(newSong))
+	prompt.ObjectText = def.name
+	prompt.HoldDuration = 0
+	prompt.MaxActivationDistance = 13
+	prompt.RequiresLineOfSight = false
+	prompt.Triggered:Connect(function(player)
+		Conveyor.buy(player, entry)
+	end)
+	prompt.Parent = root:FindFirstChild("PromptAttachment")
+
+	model.Parent = map.conveyorFolder
+	root:SetNetworkOwner(nil)
+	active[model] = entry
+
+	if rarity.announce and not quiet then
+		local mutation = if newSong.mut then string.upper(newSong.mut) .. " " else ""
+		Remotes.announce(
+			"⚡ " .. mutation .. rarityText(def.rarity) .. " DROP: " .. def.name .. " (" .. Format.streams(newSong.streams) .. ")",
+			rarity.color,
+			Economy.rarityIndex(def.rarity) >= Economy.rarityIndex("Mythic")
+		)
+	end
+end
+
+-- Songs die aan het eind zijn (of vastlopen) opruimen
+local function cleanup()
+	local now = os.clock()
+	for model, entry in active do
+		local root = entry.root
+		if not model.Parent or not root.Parent then
+			active[model] = nil
+		elseif root.Position.X >= map.songEnd.X or now - entry.spawnedAt > maxLifetime or root.Position.Y < -20 then
+			active[model] = nil
+			model:Destroy()
+		end
+	end
+end
+
+function Conveyor.init(mapInfo: MapBuilder.MapInfo)
+	map = mapInfo
+	local length = map.songEnd.X - map.songStart.X
+	maxLifetime = length / Config.ConveyorSpeed * 1.5 + 10
+
+	-- Meteen een volle loper, zodat de eerste speler niet hoeft te wachten
+	local spacing = Config.SpawnInterval * Config.ConveyorSpeed
+	local x = map.songEnd.X - spacing
+	while x > map.songStart.X do
+		Conveyor.spawn(nil, x, true)
+		x -= spacing
+	end
+
+	task.spawn(function()
+		while true do
+			task.wait(Config.SpawnInterval / Events.spawnMult())
+			xpcall(Conveyor.spawn, function(err)
+				warn("[StealASong] spawn failed: " .. tostring(err))
+			end)
+		end
+	end)
+
+	task.spawn(function()
+		while true do
+			task.wait(0.25)
+			cleanup()
+		end
+	end)
+end
+
+return Conveyor
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="12">
+        <Properties>
+          <string name="Name">DevCommands</string>
+          <string name="Source"><![CDATA[--!strict
+-- Testcommando's in de chat, alleen in Studio of voor de maker van de game:
+--   !cash 1e9            geld erbij
+--   !event [ConcertNight] event starten (zonder naam: willekeurig)
+--   !drop legendary gold een song op de loper zetten
+--   !give mythic         een song direct in je studio
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Config = require(Shared:WaitForChild("Config"))
+local Economy = require(Shared:WaitForChild("Economy"))
+
+local Conveyor = require(script.Parent.Conveyor)
+local Events = require(script.Parent.Events)
+local PlayerData = require(script.Parent.PlayerData)
+local Remotes = require(script.Parent.Remotes)
+local Rewards = require(script.Parent.Rewards)
+
+local DevCommands = {}
+
+local function normalize(text: string): string
+	return (string.gsub(string.lower(text), "[%s_%-]", ""))
+end
+
+local function findRarity(word: string?): string?
+	if not word then
+		return nil
+	end
+	local wanted = normalize(word)
+	if wanted == "god" then
+		wanted = "chartgod"
+	end
+	for _, rarity in Config.Rarities do
+		if normalize(rarity.name) == wanted then
+			return rarity.name
+		end
+	end
+	return nil
+end
+
+local function findMutation(word: string?): string?
+	if not word then
+		return nil
+	end
+	for _, mutation in Config.Mutations do
+		if normalize(mutation.name) == normalize(word) then
+			return mutation.name
+		end
+	end
+	return nil
+end
+
+local function isAllowed(player: Player): boolean
+	return RunService:IsStudio() or (game.CreatorType == Enum.CreatorType.User and player.UserId == game.CreatorId)
+end
+
+local function run(player: Player, message: string)
+	local words = string.split(message, " ")
+	local command = string.lower(words[1] or "")
+	if command == "!cash" then
+		local amount = tonumber(words[2]) or 1e6
+		PlayerData.addCash(player, amount, false)
+		Remotes.toast(player, "Dev: +$" .. amount, "info")
+	elseif command == "!event" then
+		Events.start(words[2])
+	elseif command == "!drop" then
+		local rarity = findRarity(words[2]) or "Legendary"
+		local song = Economy.makeSong(Economy.rollDef(rarity), findMutation(words[3]))
+		Conveyor.spawn(song)
+	elseif command == "!give" then
+		local rarity = findRarity(words[2]) or "Legendary"
+		Remotes.toast(player, "Dev: " .. Rewards.grant(player, { kind = "song", rarity = rarity }), "info")
+	elseif command == "!help" then
+		Remotes.toast(player, "!cash 1e9 · !event [id] · !drop legendary gold · !give mythic", "info")
+	end
+end
+
+function DevCommands.init()
+	local function hook(player: Player)
+		player.Chatted:Connect(function(message)
+			if string.sub(message, 1, 1) == "!" and isAllowed(player) then
+				xpcall(run, function(err)
+					warn("[StealASong] dev command failed: " .. tostring(err))
+				end, player, message)
+			end
+		end)
+	end
+	Players.PlayerAdded:Connect(hook)
+	for _, player in Players:GetPlayers() do
+		hook(player)
+	end
+end
+
+return DevCommands
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="13">
+        <Properties>
+          <string name="Name">Events</string>
+          <string name="Source"><![CDATA[--!strict
+-- Server-events die om de paar minuten beginnen: meer mutaties, snellere
+-- drops, meer geluk of dubbel inkomen. Iedereen ziet een aftelklok, dus er
+-- is altijd een reden om nog even te blijven.
+
+local Lighting = game:GetService("Lighting")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Config"))
+local Remotes = require(script.Parent.Remotes)
+
+local Events = {}
+
+local DAY_CLOCK = 15.5
+local NIGHT_CLOCK = 0.2
+
+local current: any = nil
+local endsAt = 0
+local nextAt = 0
+local rng = Random.new()
+
+local function now(): number
+	return Workspace:GetServerTimeNow()
+end
+
+-- Schuift de klok altijd vooruit, zodat de zon niet achteruit draait
+local function shiftClock(target: number, seconds: number)
+	task.spawn(function()
+		local from = Lighting.ClockTime
+		local delta = (target - from) % 24
+		local elapsed = 0
+		while elapsed < seconds do
+			elapsed += RunService.Heartbeat:Wait()
+			local alpha = math.min(1, elapsed / seconds)
+			Lighting.ClockTime = (from + delta * alpha) % 24
+		end
+	end)
+end
+
+function Events.state(): any
+	local info = nil
+	if current then
+		info = {
+			id = current.id,
+			name = current.name,
+			icon = current.icon,
+			desc = current.desc,
+			color = current.color,
+			endsAt = endsAt,
+		}
+	end
+	return { current = info, nextAt = nextAt }
+end
+
+local function broadcast()
+	Remotes.fireAll("EventState", Events.state())
+end
+
+function Events.start(id: string?)
+	if current then
+		Events.stop()
+	end
+	local def = Config.Events[rng:NextInteger(1, #Config.Events)]
+	if id then
+		for _, candidate in Config.Events do
+			if string.lower(candidate.id) == string.lower(id) then
+				def = candidate
+			end
+		end
+	end
+	current = def
+	endsAt = now() + Config.EventDuration
+	if def.night then
+		shiftClock(NIGHT_CLOCK, 5)
+	end
+	broadcast()
+	Remotes.announce(def.icon .. " " .. string.upper(def.name) .. "! " .. def.desc, def.color, true)
+end
+
+function Events.stop()
+	if not current then
+		return
+	end
+	local ended = current
+	current = nil
+	if ended.night then
+		shiftClock(DAY_CLOCK, 6)
+	end
+	nextAt = now() + rng:NextNumber(Config.EventMinGap, Config.EventMaxGap)
+	broadcast()
+	Remotes.announce(ended.icon .. " " .. ended.name .. " is over. Next event soon!", { 200, 200, 220 }, false)
+end
+
+function Events.current(): any
+	return current
+end
+
+function Events.luck(): number
+	return if current and current.luck then current.luck else 1
+end
+
+function Events.mutationMult(): number
+	return if current and current.mutationMult then current.mutationMult else 1
+end
+
+function Events.spawnMult(): number
+	return if current and current.spawnMult then current.spawnMult else 1
+end
+
+function Events.incomeMult(): number
+	return if current and current.incomeMult then current.incomeMult else 1
+end
+
+function Events.init()
+	nextAt = now() + rng:NextNumber(Config.EventMinGap, Config.EventMaxGap)
+	task.spawn(function()
+		while true do
+			task.wait(1)
+			local t = now()
+			if current and t >= endsAt then
+				Events.stop()
+			elseif not current and t >= nextAt then
+				Events.start()
+			end
+		end
+	end)
+end
+
+return Events
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="14">
+        <Properties>
+          <string name="Name">MapBuilder</string>
+          <string name="Source"><![CDATA[--!strict
+-- Bouwt de hele wereld uit code: de rode loper, acht studio's, het live
+-- chart-bord, het leaderboard en de belichting. Zo werkt de place zonder
+-- losse modellen en kun je alles in deze module bijstellen.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local Lighting = game:GetService("Lighting")
+
+local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Config"))
+
+local MapBuilder = {}
+
+export type SlotInfo = {
+	index: number,
+	pedestal: BasePart,
+	plate: BasePart,
+	pad: BasePart,
+	padLabel: TextLabel,
+	lockLabel: TextLabel,
+	songCFrame: CFrame,
+}
+
+export type PlotInfo = {
+	index: number,
+	cframe: CFrame,
+	model: Model,
+	color: Color3,
+	spawn: CFrame,
+	outside: CFrame,
+	barrier: BasePart,
+	lockButton: BasePart,
+	lockPrompt: ProximityPrompt,
+	lockLabel: TextLabel,
+	signLabel: TextLabel,
+	slots: { SlotInfo },
+}
+
+export type MapInfo = {
+	songStart: Vector3,
+	songEnd: Vector3,
+	conveyorFolder: Folder,
+	plots: { PlotInfo },
+	chartBoard: BasePart,
+	leaderboard: BasePart,
+}
+
+-- Afmetingen van een studio in zijn eigen assenstelsel: de ingang ligt aan
+-- de -Z kant, richting de loper.
+MapBuilder.PLOT_WIDTH = 48
+MapBuilder.PLOT_DEPTH = 60
+local WALL_HEIGHT = 16
+local FLOOR_TOP = 0.6
+local PEDESTAL_TOP = 2.0
+local SONG_HEIGHT = 2.6 -- hart van de plaat boven de pedestal
+
+local PLOT_X = { -99, -33, 33, 99 }
+local PLOT_Z = 50
+local CARPET_LENGTH = 270
+local CARPET_WIDTH = 12
+
+local SLOT_COLUMNS = { -16.5, -5.5, 5.5, 16.5 }
+local SLOT_ROWS = { -10, -1, 8, 17, 26 }
+
+local FONT = Enum.Font.FredokaOne
+
+local function rgb(c: { number }): Color3
+	return Color3.fromRGB(c[1], c[2], c[3])
+end
+
+local function part(props: { [string]: any }): Part
+	local p = Instance.new("Part")
+	p.Anchored = true
+	p.TopSurface = Enum.SurfaceType.Smooth
+	p.BottomSurface = Enum.SurfaceType.Smooth
+	p.Material = Enum.Material.SmoothPlastic
+	if props.Shape then
+		p.Shape = props.Shape
+	end
+	for key, value in props do
+		if key ~= "Parent" and key ~= "Shape" then
+			(p :: any)[key] = value
+		end
+	end
+	p.Parent = props.Parent
+	return p
+end
+
+local function textLabel(parent: Instance, props: { [string]: any }): TextLabel
+	local label = Instance.new("TextLabel")
+	label.BackgroundTransparency = 1
+	label.Font = FONT
+	label.TextScaled = true
+	label.TextColor3 = Color3.new(1, 1, 1)
+	label.Size = UDim2.fromScale(1, 1)
+	for key, value in props do
+		(label :: any)[key] = value
+	end
+	local stroke = Instance.new("UIStroke")
+	stroke.Thickness = 2
+	stroke.Color = Color3.fromRGB(20, 10, 30)
+	stroke.Parent = label
+	label.Parent = parent
+	return label
+end
+
+local function surfaceGui(target: BasePart, face: Enum.NormalId, pixelsPerStud: number?): SurfaceGui
+	local gui = Instance.new("SurfaceGui")
+	gui.Face = face
+	gui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	gui.PixelsPerStud = pixelsPerStud or 40
+	gui.LightInfluence = 0
+	gui.Parent = target
+	return gui
+end
+
+local function billboard(target: Instance, size: UDim2, offset: Vector3, maxDistance: number): BillboardGui
+	local gui = Instance.new("BillboardGui")
+	gui.Size = size
+	gui.StudsOffset = offset
+	gui.MaxDistance = maxDistance
+	gui.LightInfluence = 0
+	gui.AlwaysOnTop = false
+	gui.Parent = target
+	return gui
+end
+
+local function buildLighting()
+	Lighting.ClockTime = 15.5
+	Lighting.Brightness = 2.2
+	Lighting.Ambient = Color3.fromRGB(70, 60, 95)
+	Lighting.OutdoorAmbient = Color3.fromRGB(140, 128, 165)
+	Lighting.EnvironmentDiffuseScale = 1
+	Lighting.EnvironmentSpecularScale = 1
+	Lighting.GlobalShadows = true
+
+	for _, child in Lighting:GetChildren() do
+		if child:IsA("PostEffect") or child:IsA("Atmosphere") or child:IsA("Sky") then
+			child:Destroy()
+		end
+	end
+
+	local sky = Instance.new("Sky")
+	sky.SunAngularSize = 14
+	sky.Parent = Lighting
+
+	local atmosphere = Instance.new("Atmosphere")
+	atmosphere.Density = 0.3
+	atmosphere.Offset = 0.15
+	atmosphere.Color = Color3.fromRGB(215, 185, 240)
+	atmosphere.Decay = Color3.fromRGB(110, 95, 140)
+	atmosphere.Glare = 0.25
+	atmosphere.Haze = 1.2
+	atmosphere.Parent = Lighting
+
+	local bloom = Instance.new("BloomEffect")
+	bloom.Intensity = 0.7
+	bloom.Size = 28
+	bloom.Threshold = 1.6
+	bloom.Parent = Lighting
+
+	local color = Instance.new("ColorCorrectionEffect")
+	color.Saturation = 0.2
+	color.Contrast = 0.08
+	color.Brightness = 0.02
+	color.Parent = Lighting
+
+	local rays = Instance.new("SunRaysEffect")
+	rays.Intensity = 0.05
+	rays.Spread = 0.8
+	rays.Parent = Lighting
+end
+
+local function buildGround(parent: Instance)
+	part({
+		Name = "Ground",
+		Size = Vector3.new(460, 2, 460),
+		CFrame = CFrame.new(0, -1, 0),
+		Color = Color3.fromRGB(98, 178, 90),
+		Material = Enum.Material.Grass,
+		Parent = parent,
+	})
+
+	-- Onzichtbare randen zodat niemand van de map loopt
+	local bounds = { { 175, 0, 0, 2, 120, 240 }, { -175, 0, 0, 2, 120, 240 }, { 0, 0, 105, 360, 120, 2 }, { 0, 0, -105, 360, 120, 2 } }
+	for _, b in bounds do
+		part({
+			Name = "Boundary",
+			Size = Vector3.new(b[4], b[5], b[6]),
+			CFrame = CFrame.new(b[1], 60, b[3]),
+			Transparency = 1,
+			Parent = parent,
+		})
+	end
+
+	local lobbySpawn = Instance.new("SpawnLocation")
+	lobbySpawn.Name = "LobbySpawn"
+	lobbySpawn.Anchored = true
+	lobbySpawn.Size = Vector3.new(6, 1, 6)
+	lobbySpawn.CFrame = CFrame.new(0, 0.5, 14)
+	lobbySpawn.Transparency = 1
+	lobbySpawn.CanCollide = false
+	lobbySpawn.Neutral = true
+	lobbySpawn.Duration = 0
+	lobbySpawn.Parent = parent
+end
+
+local function buildArch(parent: Instance, x: number, facing: number, text: string, color: Color3)
+	local model = Instance.new("Model")
+	model.Name = "Arch"
+	for _, z in { -9, 9 } do
+		part({
+			Name = "Pillar",
+			Size = Vector3.new(3, 22, 3),
+			CFrame = CFrame.new(x, 11, z),
+			Color = Color3.fromRGB(40, 30, 55),
+			Parent = model,
+		})
+		part({
+			Name = "Glow",
+			Size = Vector3.new(3.2, 0.5, 3.2),
+			CFrame = CFrame.new(x, 21.5, z),
+			Color = color,
+			Material = Enum.Material.Neon,
+			Parent = model,
+		})
+	end
+	local sign = part({
+		Name = "Sign",
+		Size = Vector3.new(21, 5, 1.5),
+		CFrame = CFrame.new(x, 24, 0) * CFrame.Angles(0, facing, 0),
+		Color = Color3.fromRGB(25, 18, 35),
+		Parent = model,
+	})
+	for _, face in { Enum.NormalId.Front, Enum.NormalId.Back } do
+		local gui = surfaceGui(sign, face, 30)
+		textLabel(gui, { Text = text, TextColor3 = color })
+	end
+	model.Parent = parent
+end
+
+local function buildCarpet(parent: Instance)
+	local model = Instance.new("Model")
+	model.Name = "RedCarpet"
+	part({
+		Name = "Carpet",
+		Size = Vector3.new(CARPET_LENGTH, 0.4, CARPET_WIDTH),
+		CFrame = CFrame.new(0, 0.2, 0),
+		Color = Color3.fromRGB(190, 20, 45),
+		Material = Enum.Material.Fabric,
+		Parent = model,
+	})
+	for _, z in { -1, 1 } do
+		part({
+			Name = "Rail",
+			Size = Vector3.new(CARPET_LENGTH, 0.5, 0.5),
+			CFrame = CFrame.new(0, 0.45, z * (CARPET_WIDTH / 2 + 0.25)),
+			Color = Color3.fromRGB(255, 200, 60),
+			Material = Enum.Material.Neon,
+			Parent = model,
+		})
+	end
+	-- Spots langs de loper die omhoog schijnen
+	for x = -120, 120, 40 do
+		for _, z in { -8.5, 8.5 } do
+			local lamp = part({
+				Name = "Spot",
+				Size = Vector3.new(1.6, 1.2, 1.6),
+				CFrame = CFrame.new(x, 0.6, z),
+				Color = Color3.fromRGB(255, 240, 200),
+				Material = Enum.Material.Neon,
+				CanCollide = false,
+				Parent = model,
+			})
+			local light = Instance.new("SpotLight")
+			light.Face = Enum.NormalId.Top
+			light.Angle = 40
+			light.Range = 30
+			light.Brightness = 3
+			light.Color = Color3.fromRGB(255, 220, 170)
+			light.Parent = lamp
+		end
+	end
+	model.Parent = parent
+
+	buildArch(parent, -CARPET_LENGTH / 2 - 3, -math.pi / 2, "🎤 NEW DROPS", Color3.fromRGB(255, 90, 200))
+	buildArch(parent, CARPET_LENGTH / 2 + 3, math.pi / 2, "📼 OLD NEWS", Color3.fromRGB(90, 200, 255))
+end
+
+local function buildBoard(parent: Instance, name: string, size: Vector3, cframe: CFrame, legs: boolean): Part
+	local board = part({
+		Name = name,
+		Size = size,
+		CFrame = cframe,
+		Color = Color3.fromRGB(18, 12, 28),
+		Parent = parent,
+	})
+	part({
+		Name = name .. "Frame",
+		Size = size + Vector3.new(1, 1, -0.2),
+		CFrame = cframe,
+		Color = Color3.fromRGB(255, 70, 170),
+		Material = Enum.Material.Neon,
+		Parent = parent,
+	})
+	if legs then
+		local bottom = cframe.Position.Y - size.Y / 2
+		for _, side in { -1, 1 } do
+			local offset = cframe.RightVector * side * (size.X / 2 - 2)
+			part({
+				Name = "Leg",
+				Size = Vector3.new(1.5, bottom, 1.5),
+				CFrame = CFrame.new(cframe.Position.X + offset.X, bottom / 2, cframe.Position.Z + offset.Z),
+				Color = Color3.fromRGB(40, 30, 55),
+				Parent = parent,
+			})
+		end
+	end
+	return board
+end
+
+local function buildHowToPlay(board: BasePart)
+	local gui = surfaceGui(board, Enum.NormalId.Front, 25)
+	local frame = Instance.new("Frame")
+	frame.BackgroundTransparency = 1
+	frame.Size = UDim2.new(1, -40, 1, -40)
+	frame.Position = UDim2.fromOffset(20, 20)
+	frame.Parent = gui
+	local layout = Instance.new("UIListLayout")
+	layout.Padding = UDim.new(0, 8)
+	layout.SortOrder = Enum.SortOrder.LayoutOrder
+	layout.Parent = frame
+
+	local lines: { { any } } = {
+		{ "🎵 HOW TO PLAY", Color3.fromRGB(255, 200, 60), 0.16 },
+		{ "1. Buy songs on the red carpet", Color3.new(1, 1, 1), 0.1 },
+		{ "2. More streams = more $$$ every second", Color3.new(1, 1, 1), 0.1 },
+		{ "3. Walk over the green pads to collect", Color3.new(1, 1, 1), 0.1 },
+		{ "4. Hold E on someone else's song to STEAL it", Color3.fromRGB(255, 110, 110), 0.1 },
+		{ "5. Bring it to your studio before you get hit!", Color3.new(1, 1, 1), 0.1 },
+		{ "6. Press the red button to lock your studio", Color3.new(1, 1, 1), 0.1 },
+		{ "7. Smack thieves with your guitar 🎸", Color3.new(1, 1, 1), 0.1 },
+	}
+	for i, line in lines do
+		textLabel(frame, {
+			Text = line[1],
+			TextColor3 = line[2],
+			Size = UDim2.fromScale(1, line[3]),
+			LayoutOrder = i,
+			TextXAlignment = Enum.TextXAlignment.Left,
+		})
+	end
+end
+
+local function buildCenterpiece(parent: Instance): Part
+	local model = Instance.new("Model")
+	model.Name = "LiveChart"
+	for _, z in { -11, 11 } do
+		part({
+			Name = "Pillar",
+			Size = Vector3.new(2, 33, 2),
+			CFrame = CFrame.new(0, 16.5, z),
+			Color = Color3.fromRGB(40, 30, 55),
+			Parent = model,
+		})
+	end
+	part({
+		Name = "Beam",
+		Size = Vector3.new(2, 2, 24),
+		CFrame = CFrame.new(0, 33, 0),
+		Color = Color3.fromRGB(40, 30, 55),
+		Parent = model,
+	})
+	local board = buildBoard(model, "ChartBoard", Vector3.new(34, 18, 0.8), CFrame.new(0, 22.5, 0), false)
+	model.Parent = parent
+	return board
+end
+
+-- Laag genoeg (7) dat je er niet vanaf over een muur van 16 kunt springen
+local function buildSpeaker(parent: Instance, cframe: CFrame, color: Color3)
+	part({
+		Name = "Speaker",
+		Size = Vector3.new(4.5, 7, 4),
+		CFrame = cframe * CFrame.new(0, 3.5, 0),
+		Color = Color3.fromRGB(22, 20, 28),
+		Parent = parent,
+	})
+	for _, y in { 1.9, 5.1 } do
+		part({
+			Name = "Woofer",
+			Shape = Enum.PartType.Cylinder,
+			Size = Vector3.new(0.4, 2.8, 2.8),
+			CFrame = cframe * CFrame.new(0, y, -2.1) * CFrame.Angles(0, math.pi / 2, 0),
+			Color = color,
+			Material = Enum.Material.Neon,
+			CanCollide = false,
+			Parent = parent,
+		})
+	end
+end
+
+local function buildPlot(parent: Instance, index: number, cframe: CFrame): PlotInfo
+	local color = rgb(Config.StudioColors[index])
+	local model = Instance.new("Model")
+	model.Name = "Studio" .. index
+	model:SetAttribute("PlotIndex", index)
+
+	local function at(x: number, y: number, z: number): CFrame
+		return cframe * CFrame.new(x, y, z)
+	end
+
+	local w, d = MapBuilder.PLOT_WIDTH, MapBuilder.PLOT_DEPTH
+	part({
+		Name = "Floor",
+		Size = Vector3.new(w, FLOOR_TOP, d),
+		CFrame = at(0, FLOOR_TOP / 2, 0),
+		Color = Color3.fromRGB(38, 34, 50),
+		Parent = model,
+	})
+	part({
+		Name = "Doormat",
+		Size = Vector3.new(w, 0.1, 0.8),
+		CFrame = at(0, FLOOR_TOP + 0.05, -d / 2 + 0.4),
+		Color = color,
+		Material = Enum.Material.Neon,
+		Parent = model,
+	})
+	part({
+		Name = "Path",
+		Size = Vector3.new(14, 0.2, 14),
+		CFrame = at(0, 0.1, -d / 2 - 7),
+		Color = Color3.fromRGB(205, 200, 215),
+		Material = Enum.Material.Concrete,
+		Parent = model,
+	})
+
+	-- Muren, met de voorkant open voor de laserpoort
+	local wallColor = Color3.fromRGB(58, 48, 78)
+	part({ Name = "WallLeft", Size = Vector3.new(1, WALL_HEIGHT, d + 1), CFrame = at(-w / 2 - 0.5, WALL_HEIGHT / 2, 0), Color = wallColor, Parent = model })
+	part({ Name = "WallRight", Size = Vector3.new(1, WALL_HEIGHT, d + 1), CFrame = at(w / 2 + 0.5, WALL_HEIGHT / 2, 0), Color = wallColor, Parent = model })
+	part({ Name = "WallBack", Size = Vector3.new(w + 2, WALL_HEIGHT, 1), CFrame = at(0, WALL_HEIGHT / 2, d / 2 + 0.5), Color = wallColor, Parent = model })
+	for _, x in { -w / 2 - 0.5, w / 2 + 0.5 } do
+		part({
+			Name = "Trim",
+			Size = Vector3.new(1.2, 0.4, d + 1),
+			CFrame = at(x, WALL_HEIGHT + 0.2, 0),
+			Color = color,
+			Material = Enum.Material.Neon,
+			Parent = model,
+		})
+		part({
+			Name = "FrontPillar",
+			Size = Vector3.new(1.8, WALL_HEIGHT + 1, 1.8),
+			CFrame = at(x, (WALL_HEIGHT + 1) / 2, -d / 2 - 0.5),
+			Color = Color3.fromRGB(30, 26, 40),
+			Parent = model,
+		})
+	end
+	part({
+		Name = "TrimBack",
+		Size = Vector3.new(w + 2, 0.4, 1.2),
+		CFrame = at(0, WALL_HEIGHT + 0.2, d / 2 + 0.5),
+		Color = color,
+		Material = Enum.Material.Neon,
+		Parent = model,
+	})
+	part({
+		Name = "Header",
+		Size = Vector3.new(w + 2, 2, 1.2),
+		CFrame = at(0, WALL_HEIGHT, -d / 2 - 0.5),
+		Color = Color3.fromRGB(30, 26, 40),
+		Parent = model,
+	})
+
+	local sign = part({
+		Name = "Sign",
+		Size = Vector3.new(32, 5, 1),
+		CFrame = at(0, WALL_HEIGHT + 3.5, -d / 2 - 0.5),
+		Color = Color3.fromRGB(20, 16, 28),
+		Parent = model,
+	})
+	part({
+		Name = "SignGlow",
+		Size = Vector3.new(33, 6, 0.8),
+		CFrame = at(0, WALL_HEIGHT + 3.5, -d / 2 - 0.4),
+		Color = color,
+		Material = Enum.Material.Neon,
+		Parent = model,
+	})
+	local signLabel = textLabel(surfaceGui(sign, Enum.NormalId.Front, 30), { Text = "EMPTY STUDIO", TextColor3 = color })
+
+	local barrierHeight = WALL_HEIGHT - 1 - FLOOR_TOP
+	local barrier = part({
+		Name = "Barrier",
+		Size = Vector3.new(w, barrierHeight, 0.6),
+		CFrame = at(0, FLOOR_TOP + barrierHeight / 2, -d / 2 - 0.3),
+		Color = Color3.fromRGB(255, 40, 60),
+		Material = Enum.Material.ForceField,
+		Transparency = 1,
+		CanCollide = false,
+		CastShadow = false,
+		Parent = model,
+	})
+
+	-- Lock-knop net binnen de ingang
+	local buttonBase = part({
+		Name = "LockBase",
+		Size = Vector3.new(3, 2.4, 3),
+		CFrame = at(19, FLOOR_TOP + 1.2, -24),
+		Color = Color3.fromRGB(30, 26, 40),
+		Parent = model,
+	})
+	local lockButton = part({
+		Name = "LockButton",
+		Shape = Enum.PartType.Cylinder,
+		Size = Vector3.new(0.8, 2.6, 2.6),
+		CFrame = buttonBase.CFrame * CFrame.new(0, 1.6, 0) * CFrame.Angles(0, 0, math.pi / 2),
+		Color = Color3.fromRGB(255, 40, 60),
+		Material = Enum.Material.Neon,
+		Parent = model,
+	})
+	local lockPrompt = Instance.new("ProximityPrompt")
+	lockPrompt.Name = "LockPrompt"
+	lockPrompt.ActionText = "Lock Studio"
+	lockPrompt.ObjectText = "Laser Lock"
+	lockPrompt.HoldDuration = 0
+	lockPrompt.MaxActivationDistance = 10
+	lockPrompt.RequiresLineOfSight = false
+	lockPrompt:SetAttribute("Role", "Owner")
+	lockPrompt:SetAttribute("OwnerId", 0)
+	lockPrompt:AddTag("RolePrompt")
+	lockPrompt.Parent = lockButton
+	local lockGui = billboard(buttonBase, UDim2.fromScale(7, 2), Vector3.new(0, 4.5, 0), 80)
+	local lockLabel = textLabel(lockGui, { Text = "🔓 OPEN", TextColor3 = Color3.fromRGB(120, 255, 140) })
+
+	-- Pedestals met een ophaalpad ervoor
+	local slots: { SlotInfo } = {}
+	for row, z in SLOT_ROWS do
+		for column, x in SLOT_COLUMNS do
+			local slotIndex = (row - 1) * #SLOT_COLUMNS + column
+			local pedestal = part({
+				Name = "Pedestal" .. slotIndex,
+				Size = Vector3.new(6, PEDESTAL_TOP - FLOOR_TOP, 6),
+				CFrame = at(x, (PEDESTAL_TOP + FLOOR_TOP) / 2, z),
+				Color = Color3.fromRGB(28, 24, 36),
+				Parent = model,
+			})
+			local plate = part({
+				Name = "Plate" .. slotIndex,
+				Size = Vector3.new(5, 0.1, 5),
+				CFrame = at(x, PEDESTAL_TOP + 0.05, z),
+				Color = color,
+				Material = Enum.Material.Neon,
+				CanCollide = false,
+				Parent = model,
+			})
+			local pad = part({
+				Name = "Pad" .. slotIndex,
+				Size = Vector3.new(4.5, 0.3, 2.4),
+				CFrame = at(x, FLOOR_TOP + 0.15, z - 4.5),
+				Color = Color3.fromRGB(40, 90, 50),
+				Material = Enum.Material.Neon,
+				Parent = model,
+			})
+			local padGui = billboard(pad, UDim2.fromScale(6, 1.4), Vector3.new(0, 1.3, 0), 60)
+			local padLabel = textLabel(padGui, { Text = "", TextColor3 = Color3.fromRGB(120, 255, 140) })
+			local lockGuiSlot = billboard(pedestal, UDim2.fromScale(6, 1.4), Vector3.new(0, 2, 0), 60)
+			local slotLockLabel = textLabel(lockGuiSlot, { Text = "🔒 Rebirth", TextColor3 = Color3.fromRGB(200, 200, 210) })
+
+			slots[slotIndex] = {
+				index = slotIndex,
+				pedestal = pedestal,
+				plate = plate,
+				pad = pad,
+				padLabel = padLabel,
+				lockLabel = slotLockLabel,
+				songCFrame = at(x, PEDESTAL_TOP + SONG_HEIGHT, z),
+			}
+		end
+	end
+
+	for _, side in { -1, 1 } do
+		buildSpeaker(model, at(side * (w / 2 + 3.5), 0, -d / 2 + 2), color)
+	end
+
+	model.Parent = parent
+
+	return {
+		index = index,
+		cframe = cframe,
+		model = model,
+		color = color,
+		spawn = at(0, FLOOR_TOP + 3, -22),
+		outside = at(0, 3, -d / 2 - 8),
+		barrier = barrier,
+		lockButton = lockButton,
+		lockPrompt = lockPrompt,
+		lockLabel = lockLabel,
+		signLabel = signLabel,
+		slots = slots,
+	}
+end
+
+function MapBuilder.build(): MapInfo
+	buildLighting()
+
+	local mapFolder = Instance.new("Folder")
+	mapFolder.Name = "Map"
+	mapFolder.Parent = Workspace
+
+	buildGround(mapFolder)
+	buildCarpet(mapFolder)
+	local chartBoard = buildCenterpiece(mapFolder)
+
+	local leaderboard = buildBoard(
+		mapFolder,
+		"Leaderboard",
+		Vector3.new(26, 22, 1),
+		CFrame.new(155, 16, 0) * CFrame.Angles(0, math.pi / 2, 0),
+		true
+	)
+	local howTo = buildBoard(
+		mapFolder,
+		"HowToPlay",
+		Vector3.new(26, 22, 1),
+		CFrame.new(-155, 16, 0) * CFrame.Angles(0, -math.pi / 2, 0),
+		true
+	)
+	buildHowToPlay(howTo)
+
+	local studios = Instance.new("Folder")
+	studios.Name = "Studios"
+	studios.Parent = Workspace
+
+	local plots: { PlotInfo } = {}
+	for i, x in PLOT_X do
+		plots[i] = buildPlot(studios, i, CFrame.new(x, 0, PLOT_Z))
+	end
+	for i, x in PLOT_X do
+		local index = #PLOT_X + i
+		plots[index] = buildPlot(studios, index, CFrame.new(-x, 0, -PLOT_Z) * CFrame.Angles(0, math.pi, 0))
+	end
+
+	local conveyorFolder = Instance.new("Folder")
+	conveyorFolder.Name = "ConveyorSongs"
+	conveyorFolder.Parent = Workspace
+
+	local songY = 0.4 + 4.2
+	return {
+		songStart = Vector3.new(-CARPET_LENGTH / 2 + 5, songY, 0),
+		songEnd = Vector3.new(CARPET_LENGTH / 2 - 5, songY, 0),
+		conveyorFolder = conveyorFolder,
+		plots = plots,
+		chartBoard = chartBoard,
+		leaderboard = leaderboard,
+	}
+end
+
+-- Staat een wereldpositie binnen de muren van een studio?
+function MapBuilder.isInside(plot: PlotInfo, position: Vector3): boolean
+	local localPos = plot.cframe:PointToObjectSpace(position)
+	return math.abs(localPos.X) <= MapBuilder.PLOT_WIDTH / 2
+		and localPos.Z >= -MapBuilder.PLOT_DEPTH / 2
+		and localPos.Z <= MapBuilder.PLOT_DEPTH / 2
+		and localPos.Y > -3
+		and localPos.Y < 40
+end
+
+return MapBuilder
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="15">
+        <Properties>
+          <string name="Name">Monetization</string>
+          <string name="Source"><![CDATA[--!strict
+-- Game passes uit Config.GamePasses. Een pass met id 0 staat uit.
+
+local MarketplaceService = game:GetService("MarketplaceService")
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Config"))
+
+local PlayerData = require(script.Parent.PlayerData)
+local Progression = require(script.Parent.Progression)
+local Remotes = require(script.Parent.Remotes)
+
+local Monetization = {}
+
+local function passById(id: number): any
+	for _, pass in Config.GamePasses do
+		if pass.id == id and id ~= 0 then
+			return pass
+		end
+	end
+	return nil
+end
+
+function Monetization.onJoin(player: Player)
+	for _, pass in Config.GamePasses do
+		if pass.id ~= 0 then
+			local ok, owns = pcall(function()
+				return MarketplaceService:UserOwnsGamePassAsync(player.UserId, pass.id)
+			end)
+			if ok and owns then
+				PlayerData.setPass(player, pass.key, true)
+			end
+		end
+	end
+end
+
+function Monetization.init()
+	MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(player, passId, purchased)
+		local pass = passById(passId)
+		if purchased and pass and player.Parent == Players then
+			PlayerData.setPass(player, pass.key, true)
+			Progression.applySpeed(player)
+			Remotes.toast(player, pass.icon .. " Thanks! " .. pass.name .. " is active!", "rare")
+		end
+	end)
+end
+
+return Monetization
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="16">
+        <Properties>
+          <string name="Name">PlayerData</string>
+          <string name="Source"><![CDATA[--!strict
+-- Spelersdata: laden en opslaan in een DataStore, geld, multipliers en de
+-- status die naar de client gaat. Werkt ook zonder DataStore (Studio zonder
+-- API-toegang); de voortgang wordt dan alleen niet bewaard.
+
+local DataStoreService = game:GetService("DataStoreService")
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Config = require(Shared:WaitForChild("Config"))
+local Economy = require(Shared:WaitForChild("Economy"))
+local Format = require(Shared:WaitForChild("Format"))
+
+local Events = require(script.Parent.Events)
+local Remotes = require(script.Parent.Remotes)
+
+local STORE_NAME = "StealASong_v1"
+local LEADERBOARD_NAME = "StealASong_Lifetime_v1"
+local AUTOSAVE_SECONDS = 60
+
+export type Data = {
+	cash: number,
+	lifetime: number,
+	rebirths: number,
+	steals: number,
+	songs: { Economy.Song },
+	upgrades: { [string]: number },
+	discovered: { [string]: boolean },
+	discoveredMut: { [string]: boolean },
+	dailyDay: number,
+	dailyStreak: number,
+	lastSeen: number,
+}
+
+export type Session = {
+	player: Player,
+	data: Data,
+	canSave: boolean,
+	income: number,
+	friends: { [number]: boolean },
+	friendCount: number,
+	passes: { [string]: boolean },
+	joinedAt: number,
+	dirty: boolean,
+	cashValue: StringValue,
+	stealsValue: IntValue,
+	rebirthsValue: IntValue,
+}
+
+local PlayerData = {}
+
+local sessions: { [Player]: Session } = {}
+local providers: { (Player, any) -> () } = {}
+local activeSaves = 0
+
+local store: DataStore? = nil
+local leaderboardStore: OrderedDataStore? = nil
+do
+	local ok, result = pcall(function()
+		return DataStoreService:GetDataStore(STORE_NAME)
+	end)
+	if ok then
+		store = result
+	else
+		warn("[StealASong] DataStore unavailable, progress will not be saved: " .. tostring(result))
+	end
+	local okBoard, board = pcall(function()
+		return DataStoreService:GetOrderedDataStore(LEADERBOARD_NAME)
+	end)
+	if okBoard then
+		leaderboardStore = board
+	end
+end
+
+local function defaultData(): Data
+	return {
+		cash = Config.StartingCash,
+		lifetime = 0,
+		rebirths = 0,
+		steals = 0,
+		songs = {},
+		upgrades = {},
+		discovered = {},
+		discoveredMut = {},
+		dailyDay = 0,
+		dailyStreak = 0,
+		lastSeen = 0,
+	}
+end
+
+-- Vult ontbrekende velden aan en gooit ongeldige songs weg, zodat oude of
+-- kapotte saves nooit een fout geven.
+local function reconcile(raw: any): Data
+	local data = defaultData()
+	if type(raw) ~= "table" then
+		return data
+	end
+	for key, value in data :: any do
+		if type(raw[key]) == type(value) then
+			(data :: any)[key] = raw[key]
+		end
+	end
+	local songs = {}
+	for _, song in data.songs do
+		if Economy.isValidSong(song) then
+			table.insert(songs, { id = song.id, mut = song.mut, base = song.base, streams = song.streams, slot = song.slot })
+		end
+	end
+	data.songs = songs
+	return data
+end
+
+local function serialize(data: Data): any
+	local songs = {}
+	for _, song in data.songs do
+		table.insert(songs, {
+			id = song.id,
+			mut = song.mut,
+			base = math.floor(song.base),
+			streams = math.floor(song.streams),
+			slot = song.slot,
+		})
+	end
+	return {
+		cash = data.cash,
+		lifetime = data.lifetime,
+		rebirths = data.rebirths,
+		steals = data.steals,
+		songs = songs,
+		upgrades = data.upgrades,
+		discovered = data.discovered,
+		discoveredMut = data.discoveredMut,
+		dailyDay = data.dailyDay,
+		dailyStreak = data.dailyStreak,
+		lastSeen = data.lastSeen,
+	}
+end
+
+local function key(player: Player): string
+	return "player_" .. player.UserId
+end
+
+local function makeLeaderstats(player: Player): (StringValue, IntValue, IntValue)
+	local folder = Instance.new("Folder")
+	folder.Name = "leaderstats"
+	local cash = Instance.new("StringValue")
+	cash.Name = "Cash"
+	cash.Parent = folder
+	local steals = Instance.new("IntValue")
+	steals.Name = "Steals"
+	steals.Parent = folder
+	local rebirths = Instance.new("IntValue")
+	rebirths.Name = "Rebirths"
+	rebirths.Parent = folder
+	folder.Parent = player
+	return cash, steals, rebirths
+end
+
+function PlayerData.load(player: Player): Session
+	local raw = nil
+	local loaded = false
+	if store then
+		for attempt = 1, 3 do
+			local ok, result = pcall(function()
+				return (store :: DataStore):GetAsync(key(player))
+			end)
+			if ok then
+				raw = result
+				loaded = true
+				break
+			end
+			warn("[StealASong] load failed for " .. player.Name .. " (" .. attempt .. "/3): " .. tostring(result))
+			-- In Studio zonder API-toegang heeft opnieuw proberen geen zin
+			local message = tostring(result)
+			if string.find(message, "StudioAccessToApisNotAllowed", 1, true) or string.find(message, "publish", 1, true) then
+				break
+			end
+			if attempt < 3 then
+				task.wait(attempt)
+			end
+		end
+	end
+
+	local cashValue, stealsValue, rebirthsValue = makeLeaderstats(player)
+	local session: Session = {
+		player = player,
+		data = reconcile(raw),
+		canSave = loaded,
+		income = 0,
+		friends = {},
+		friendCount = 0,
+		passes = {},
+		joinedAt = os.clock(),
+		dirty = true,
+		cashValue = cashValue,
+		stealsValue = stealsValue,
+		rebirthsValue = rebirthsValue,
+	}
+	sessions[player] = session
+	return session
+end
+
+function PlayerData.save(player: Player)
+	local session = sessions[player]
+	if not session or not session.canSave or not store then
+		return
+	end
+	local data = session.data
+	data.lastSeen = os.time()
+	local payload = serialize(data)
+	activeSaves += 1
+	for attempt = 1, 3 do
+		local ok, err = pcall(function()
+			(store :: DataStore):UpdateAsync(key(player), function()
+				return payload
+			end)
+		end)
+		if ok then
+			break
+		end
+		warn("[StealASong] save failed for " .. player.Name .. " (" .. attempt .. "/3): " .. tostring(err))
+		if attempt < 3 then
+			task.wait(attempt)
+		end
+	end
+	activeSaves -= 1
+
+	if leaderboardStore then
+		local score = math.floor(math.min(data.lifetime, 2 ^ 53))
+		pcall(function()
+			(leaderboardStore :: OrderedDataStore):SetAsync(tostring(player.UserId), score)
+		end)
+	end
+end
+
+function PlayerData.session(player: Player): Session?
+	return sessions[player]
+end
+
+function PlayerData.get(player: Player): Data?
+	local session = sessions[player]
+	return if session then session.data else nil
+end
+
+function PlayerData.canSave(player: Player): boolean
+	local session = sessions[player]
+	return session ~= nil and session.canSave
+end
+
+function PlayerData.markDirty(player: Player)
+	local session = sessions[player]
+	if session then
+		session.dirty = true
+	end
+end
+
+function PlayerData.addCash(player: Player, amount: number, earned: boolean?)
+	local session = sessions[player]
+	if not session or amount ~= amount then
+		return
+	end
+	session.data.cash += amount
+	if earned then
+		session.data.lifetime += amount
+	end
+	session.dirty = true
+end
+
+function PlayerData.spend(player: Player, amount: number): boolean
+	local session = sessions[player]
+	if not session or session.data.cash < amount then
+		return false
+	end
+	session.data.cash -= amount
+	session.dirty = true
+	return true
+end
+
+function PlayerData.setIncome(player: Player, income: number)
+	local session = sessions[player]
+	if session and session.income ~= income then
+		session.income = income
+		session.dirty = true
+	end
+end
+
+function PlayerData.income(player: Player): number
+	local session = sessions[player]
+	return if session then session.income else 0
+end
+
+-- Geeft true als het een nieuwe song voor de Index is
+function PlayerData.discover(player: Player, song: Economy.Song): boolean
+	local session = sessions[player]
+	if not session then
+		return false
+	end
+	local data = session.data
+	local isNew = not data.discovered[song.id]
+	data.discovered[song.id] = true
+	if song.mut then
+		data.discoveredMut[song.id .. "|" .. song.mut] = true
+	end
+	session.dirty = true
+	return isNew
+end
+
+function PlayerData.setPass(player: Player, passKey: string, owned: boolean)
+	local session = sessions[player]
+	if session then
+		session.passes[passKey] = owned
+		session.dirty = true
+	end
+end
+
+function PlayerData.multiplier(player: Player): (number, { [string]: number })
+	local session = sessions[player]
+	if not session then
+		return 1, {}
+	end
+	local data = session.data
+	local rebirth = Economy.rebirthMultiplier(data.rebirths)
+	local _, indexBonus = Economy.indexProgress(data.discovered)
+	local friends = Economy.friendBoost(session.friendCount)
+	local pass = (if session.passes.DoubleCash then 2 else 1) * (if session.passes.VIP then 1.5 else 1)
+	local event = Events.incomeMult()
+	local total = rebirth * (1 + indexBonus) * (1 + friends) * pass * event
+	return total, {
+		rebirth = rebirth,
+		index = 1 + indexBonus,
+		friends = 1 + friends,
+		pass = pass,
+		event = event,
+	}
+end
+
+function PlayerData.walkSpeed(player: Player): number
+	local session = sessions[player]
+	if not session then
+		return Config.WalkSpeed
+	end
+	return Economy.walkSpeed(session.data.upgrades.Speed or 0, session.passes.VIP == true)
+end
+
+-- Vriendenbonus: telt vrienden die in dezelfde server zitten
+local function recountFriends()
+	for _, session in sessions do
+		local count = 0
+		for userId in session.friends do
+			local other = Players:GetPlayerByUserId(userId)
+			if other and sessions[other] then
+				count += 1
+			end
+		end
+		if count ~= session.friendCount then
+			session.friendCount = count
+			session.dirty = true
+			if count > 0 then
+				Remotes.toast(session.player, "👯 Friend boost: +" .. math.floor(Economy.friendBoost(count) * 100) .. "% royalties", "good")
+			end
+		end
+	end
+end
+
+function PlayerData.refreshFriends(player: Player)
+	local session = sessions[player]
+	if not session then
+		return
+	end
+	for other, otherSession in sessions do
+		if other ~= player then
+			local ok, isFriend = pcall(function()
+				return player:IsFriendsWith(other.UserId)
+			end)
+			if ok and isFriend then
+				session.friends[other.UserId] = true
+				otherSession.friends[player.UserId] = true
+			end
+		end
+	end
+	recountFriends()
+end
+
+function PlayerData.addStateProvider(provider: (Player, any) -> ())
+	table.insert(providers, provider)
+end
+
+function PlayerData.push(player: Player)
+	local session = sessions[player]
+	if not session then
+		return
+	end
+	session.dirty = false
+	local data = session.data
+	local multiplier, boosts = PlayerData.multiplier(player)
+	local state = {
+		cash = data.cash,
+		lifetime = data.lifetime,
+		rebirths = data.rebirths,
+		steals = data.steals,
+		income = session.income,
+		multiplier = multiplier,
+		boosts = boosts,
+		friendCount = session.friendCount,
+		upgrades = data.upgrades,
+		discovered = data.discovered,
+		discoveredMut = data.discoveredMut,
+		songCount = #data.songs,
+		slots = Economy.slotCount(data.rebirths),
+		rebirthCost = Economy.rebirthCost(data.rebirths),
+		passes = session.passes,
+		canSave = session.canSave,
+	}
+	for _, provider in providers do
+		provider(player, state)
+	end
+	Remotes.fire("State", player, state)
+
+	session.cashValue.Value = Format.cash(data.cash)
+	session.stealsValue.Value = data.steals
+	session.rebirthsValue.Value = data.rebirths
+end
+
+function PlayerData.release(player: Player)
+	if not sessions[player] then
+		return
+	end
+	PlayerData.save(player)
+	sessions[player] = nil
+	recountFriends()
+end
+
+function PlayerData.all(): { [Player]: Session }
+	return sessions
+end
+
+function PlayerData.init()
+	-- Status bundelen: hooguit vijf keer per seconde naar de client
+	task.spawn(function()
+		while true do
+			task.wait(0.2)
+			for player, session in sessions do
+				if session.dirty then
+					PlayerData.push(player)
+				end
+			end
+		end
+	end)
+
+	task.spawn(function()
+		while true do
+			task.wait(AUTOSAVE_SECONDS)
+			for player in sessions do
+				task.spawn(PlayerData.save, player)
+			end
+		end
+	end)
+
+	game:BindToClose(function()
+		for player in sessions do
+			task.spawn(PlayerData.save, player)
+		end
+		local started = os.clock()
+		task.wait(0.5)
+		while activeSaves > 0 and os.clock() - started < 25 do
+			task.wait(0.5)
+		end
+	end)
+end
+
+return PlayerData
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="17">
+        <Properties>
+          <string name="Name">Plots</string>
+          <string name="Source"><![CDATA[--!strict
+-- De studio's: toewijzen aan spelers, songs op pedestals zetten, inkomen en
+-- streams laten oplopen, geld ophalen via de pads, verkopen en op slot doen.
+
+local Players = game:GetService("Players")
+local PhysicsService = game:GetService("PhysicsService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ServerStorage = game:GetService("ServerStorage")
+local Workspace = game:GetService("Workspace")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Config = require(Shared:WaitForChild("Config"))
+local Economy = require(Shared:WaitForChild("Economy"))
+local Format = require(Shared:WaitForChild("Format"))
+local Songs = require(Shared:WaitForChild("Songs"))
+
+local MapBuilder = require(script.Parent.MapBuilder)
+local PlayerData = require(script.Parent.PlayerData)
+local Remotes = require(script.Parent.Remotes)
+local SongModel = require(script.Parent.SongModel)
+
+export type Slot = {
+	index: number,
+	info: MapBuilder.SlotInfo,
+	song: Economy.Song?,
+	model: Model?,
+	pending: number,
+	thief: Player?,
+	lastCollect: number,
+}
+
+export type Plot = {
+	index: number,
+	info: MapBuilder.PlotInfo,
+	owner: Player?,
+	slots: { Slot },
+	unlocked: number,
+	lockedUntil: number,
+}
+
+local Plots = {}
+
+-- Worden ingevuld door Stealing, zo hoeven de modules elkaar niet in een
+-- kringetje te requiren.
+Plots.onSteal = nil :: ((Player, Plot, number, Economy.Song) -> ())?
+Plots.onEjected = nil :: ((Plot, Player) -> ())?
+
+local plots: { Plot } = {}
+local byPlayer: { [Player]: Plot } = {}
+local characterConnections: { [Player]: RBXScriptConnection } = {}
+
+local hiddenFolder = Instance.new("Folder")
+hiddenFolder.Name = "SongsBeingStolen"
+hiddenFolder.Parent = ServerStorage
+
+local GREEN = Color3.fromRGB(110, 255, 130)
+local RED = Color3.fromRGB(255, 80, 90)
+local DIM_PAD = Color3.fromRGB(40, 90, 50)
+local BRIGHT_PAD = Color3.fromRGB(70, 255, 110)
+local LOCKED_PLATE = Color3.fromRGB(70, 66, 80)
+
+local function songName(song: Economy.Song): string
+	return Songs.byId[song.id].name
+end
+
+local function ownerGroup(plot: Plot): string
+	return "Owner" .. plot.index
+end
+
+local function barrierGroup(plot: Plot): string
+	return "Barrier" .. plot.index
+end
+
+local function registerGroup(name: string)
+	if not PhysicsService:IsCollisionGroupRegistered(name) then
+		PhysicsService:RegisterCollisionGroup(name)
+	end
+end
+
+local function setCharacterGroup(character: Model, group: string)
+	for _, descendant in character:GetDescendants() do
+		if descendant:IsA("BasePart") then
+			descendant.CollisionGroup = group
+		end
+	end
+end
+
+local function updatePad(slot: Slot)
+	local label = slot.info.padLabel
+	local pad = slot.info.pad
+	local text, color, padColor
+	if slot.thief then
+		text, color, padColor = "⚠ STOLEN!", RED, Color3.fromRGB(150, 30, 40)
+	elseif slot.pending >= 1 then
+		text, color, padColor = Format.cash(slot.pending), GREEN, BRIGHT_PAD
+	else
+		text, color, padColor = "", GREEN, DIM_PAD
+	end
+	if label.Text ~= text then
+		label.Text = text
+	end
+	label.TextColor3 = color
+	pad.Color = padColor
+end
+
+local function refreshVisuals(plot: Plot)
+	local owned = plot.owner ~= nil
+	for i, slot in plot.slots do
+		local open = owned and i <= plot.unlocked
+		slot.info.plate.Color = if open then plot.info.color else LOCKED_PLATE
+		slot.info.plate.Transparency = if open then 0 else 0.5
+		slot.info.pad.Transparency = if open then 0 else 0.8
+		slot.info.lockLabel.Text = if owned and not open then "🔒 Rebirth" else ""
+		updatePad(slot)
+	end
+end
+
+local function setBarrier(plot: Plot, locked: boolean)
+	local barrier = plot.info.barrier
+	barrier.CanCollide = locked
+	barrier.Transparency = if locked then 0.35 else 1
+end
+
+local function updateLockLabel(plot: Plot)
+	local label = plot.info.lockLabel
+	local remaining = plot.lockedUntil - os.clock()
+	if not plot.owner then
+		label.Text = ""
+	elseif remaining > 0 then
+		label.Text = "🔒 LOCKED " .. math.ceil(remaining) .. "s"
+		label.TextColor3 = RED
+	else
+		label.Text = "🔓 OPEN - PRESS TO LOCK"
+		label.TextColor3 = GREEN
+	end
+end
+
+function Plots.get(player: Player): Plot?
+	return byPlayer[player]
+end
+
+function Plots.all(): { Plot }
+	return plots
+end
+
+function Plots.isLocked(plot: Plot): boolean
+	return plot.lockedUntil > os.clock()
+end
+
+function Plots.isInside(plot: Plot, position: Vector3): boolean
+	return MapBuilder.isInside(plot.info, position)
+end
+
+function Plots.freeSlot(plot: Plot): number?
+	for i = 1, plot.unlocked do
+		local slot = plot.slots[i]
+		if not slot.song and not slot.thief then
+			return i
+		end
+	end
+	return nil
+end
+
+function Plots.collect(plot: Plot, slot: Slot)
+	local owner = plot.owner
+	if not owner or slot.pending < 1 then
+		return
+	end
+	local t = os.clock()
+	if t - slot.lastCollect < 0.2 then
+		return
+	end
+	slot.lastCollect = t
+	local amount = math.floor(slot.pending)
+	slot.pending -= amount
+	PlayerData.addCash(owner, amount, true)
+	Remotes.fire("Collected", owner, { amount = amount, position = slot.info.pad.Position })
+	updatePad(slot)
+end
+
+local function buildPlacedModel(plot: Plot, slot: Slot, song: Economy.Song, flyFrom: Vector3?): Model
+	local owner = plot.owner :: Player
+	local model = SongModel.build(song, {})
+	model:PivotTo(slot.info.songCFrame)
+	model:SetAttribute("OwnerId", owner.UserId)
+	if flyFrom then
+		model:SetAttribute("FlyFrom", flyFrom)
+		model:SetAttribute("FlyAt", Workspace:GetServerTimeNow())
+	end
+	model:AddTag("SpinSong")
+
+	local attachment = (model.PrimaryPart :: BasePart):FindFirstChild("PromptAttachment")
+	local name = songName(song)
+
+	local steal = Instance.new("ProximityPrompt")
+	steal.Name = "StealPrompt"
+	steal.ActionText = "Steal"
+	steal.ObjectText = name
+	steal.HoldDuration = Config.StealHoldSeconds
+	steal.MaxActivationDistance = 10
+	steal.RequiresLineOfSight = false
+	steal:SetAttribute("Role", "Other")
+	steal:SetAttribute("OwnerId", owner.UserId)
+	steal:AddTag("RolePrompt")
+	steal.Triggered:Connect(function(thief)
+		if Plots.onSteal and slot.song == song then
+			Plots.onSteal(thief, plot, slot.index, song)
+		end
+	end)
+	steal.Parent = attachment
+
+	local sell = Instance.new("ProximityPrompt")
+	sell.Name = "SellPrompt"
+	sell.ActionText = "Sell " .. Format.cash(Economy.sellPrice(song))
+	sell.ObjectText = name
+	sell.HoldDuration = Config.SellHoldSeconds
+	sell.MaxActivationDistance = 8
+	sell.KeyboardKeyCode = Enum.KeyCode.F
+	sell.GamepadKeyCode = Enum.KeyCode.ButtonY
+	sell.RequiresLineOfSight = false
+	sell:SetAttribute("Role", "Owner")
+	sell:SetAttribute("OwnerId", owner.UserId)
+	sell:AddTag("RolePrompt")
+	sell.Triggered:Connect(function(player)
+		Plots.sell(player, plot, slot.index, song)
+	end)
+	sell.Parent = attachment
+
+	local mult = PlayerData.multiplier(owner)
+	SongModel.updateLabels(model, song, mult)
+	model.Parent = plot.info.model
+	return model
+end
+
+-- Zet een song in een studio. Zonder slotIndex kiest hij de eerste vrije plek.
+-- flyFrom laat de song vanaf die plek naar binnen vliegen.
+function Plots.place(player: Player, song: Economy.Song, flyFrom: Vector3?, slotIndex: number?): boolean
+	local plot = byPlayer[player]
+	local data = PlayerData.get(player)
+	if not plot or not data then
+		return false
+	end
+	local index = slotIndex or Plots.freeSlot(plot)
+	if not index then
+		return false
+	end
+	local slot = plot.slots[index]
+	if slot.song or slot.thief then
+		return false
+	end
+	song.slot = index
+	slot.song = song
+	if not table.find(data.songs, song) then
+		table.insert(data.songs, song)
+	end
+	slot.model = buildPlacedModel(plot, slot, song, flyFrom)
+	updatePad(slot)
+	PlayerData.markDirty(player)
+	return true
+end
+
+-- Haalt een song uit een studio (en uit de data van de eigenaar)
+function Plots.removeSong(plot: Plot, index: number): Economy.Song?
+	local slot = plot.slots[index]
+	local song = slot.song
+	if slot.model then
+		slot.model:Destroy()
+	end
+	slot.model = nil
+	slot.song = nil
+	slot.thief = nil
+	if song and plot.owner then
+		local data = PlayerData.get(plot.owner)
+		if data then
+			local at = table.find(data.songs, song)
+			if at then
+				table.remove(data.songs, at)
+			end
+		end
+		song.slot = nil
+		PlayerData.markDirty(plot.owner)
+	end
+	updatePad(slot)
+	return song
+end
+
+-- Verbergt de song op de pedestal zolang een dief hem draagt, of zet hem terug
+function Plots.setStolen(plot: Plot, index: number, thief: Player?)
+	local slot = plot.slots[index]
+	slot.thief = thief
+	if slot.model then
+		slot.model.Parent = if thief then hiddenFolder else plot.info.model
+	end
+	updatePad(slot)
+end
+
+function Plots.sell(player: Player, plot: Plot, index: number, song: Economy.Song)
+	local slot = plot.slots[index]
+	if plot.owner ~= player or slot.song ~= song or slot.thief then
+		return
+	end
+	local price = Economy.sellPrice(song)
+	Plots.removeSong(plot, index)
+	PlayerData.addCash(player, price, false)
+	Remotes.toast(player, "Sold " .. songName(song) .. " for " .. Format.cash(price), "buy")
+end
+
+function Plots.lock(player: Player, plot: Plot)
+	if plot.owner ~= player then
+		return
+	end
+	if Plots.isLocked(plot) then
+		Remotes.toast(player, "Your studio is already locked", "info")
+		return
+	end
+	local data = PlayerData.get(player)
+	local seconds = Economy.lockSeconds(if data then data.upgrades.Lock or 0 else 0)
+	plot.lockedUntil = os.clock() + seconds
+	setBarrier(plot, true)
+	updateLockLabel(plot)
+	Remotes.toast(player, "🔒 Studio locked for " .. seconds .. "s", "good")
+
+	-- Wie nog binnen staat wordt eruit gezet, en een dief laat zijn buit vallen
+	for _, other in Players:GetPlayers() do
+		if other ~= player then
+			local character = other.Character
+			local root = character and character:FindFirstChild("HumanoidRootPart")
+			if character and root and root:IsA("BasePart") and Plots.isInside(plot, root.Position) then
+				if Plots.onEjected then
+					Plots.onEjected(plot, other)
+				end
+				character:PivotTo(plot.info.outside)
+				Remotes.toast(other, "The laser lock kicked you out!", "bad")
+			end
+		end
+	end
+end
+
+function Plots.assign(player: Player): Plot?
+	if byPlayer[player] then
+		return byPlayer[player]
+	end
+	local data = PlayerData.get(player)
+	if not data then
+		return nil
+	end
+	for _, plot in plots do
+		if not plot.owner then
+			plot.owner = player
+			byPlayer[player] = plot
+			plot.unlocked = Economy.slotCount(data.rebirths)
+			plot.lockedUntil = 0
+			setBarrier(plot, false)
+			plot.info.signLabel.Text = string.upper(player.DisplayName) .. "'S STUDIO"
+			plot.info.lockPrompt:SetAttribute("OwnerId", player.UserId)
+			player:SetAttribute("PlotIndex", plot.index)
+
+			-- Opgeslagen songs terugzetten op hun eigen plek
+			local saved = data.songs
+			data.songs = {}
+			table.sort(saved, function(a, b)
+				return (a.slot or 99) < (b.slot or 99)
+			end)
+			local overflow = 0
+			for _, song in saved do
+				local index = song.slot
+				if
+					type(index) ~= "number"
+					or index < 1
+					or index % 1 ~= 0
+					or index > plot.unlocked
+					or plot.slots[index].song
+				then
+					index = Plots.freeSlot(plot)
+				end
+				if not index or not Plots.place(player, song, nil, index) then
+					overflow += Economy.sellPrice(song)
+				end
+			end
+			if overflow > 0 then
+				PlayerData.addCash(player, overflow, false)
+			end
+
+			refreshVisuals(plot)
+			updateLockLabel(plot)
+			return plot
+		end
+	end
+	return nil
+end
+
+function Plots.release(player: Player)
+	local plot = byPlayer[player]
+	if not plot then
+		return
+	end
+	local total = 0
+	for _, slot in plot.slots do
+		total += slot.pending
+		slot.pending = 0
+		if slot.model then
+			slot.model:Destroy()
+		end
+		slot.model = nil
+		slot.song = nil
+		slot.thief = nil
+	end
+	if total >= 1 then
+		PlayerData.addCash(player, math.floor(total), true)
+	end
+	plot.owner = nil
+	plot.lockedUntil = 0
+	byPlayer[player] = nil
+	setBarrier(plot, false)
+	plot.info.signLabel.Text = "EMPTY STUDIO"
+	plot.info.lockPrompt:SetAttribute("OwnerId", 0)
+	refreshVisuals(plot)
+	updateLockLabel(plot)
+	local connection = characterConnections[player]
+	if connection then
+		connection:Disconnect()
+		characterConnections[player] = nil
+	end
+end
+
+-- Na een rebirth: meer plekken, en alle songs weg behalve keep
+function Plots.resetForRebirth(player: Player, keep: Economy.Song?)
+	local plot = byPlayer[player]
+	local data = PlayerData.get(player)
+	if not plot or not data then
+		return
+	end
+	for index, slot in plot.slots do
+		slot.pending = 0
+		if slot.song and slot.song ~= keep then
+			Plots.removeSong(plot, index)
+		end
+	end
+	plot.unlocked = Economy.slotCount(data.rebirths)
+	refreshVisuals(plot)
+end
+
+function Plots.refreshSlots(player: Player)
+	local plot = byPlayer[player]
+	local data = PlayerData.get(player)
+	if plot and data then
+		plot.unlocked = Economy.slotCount(data.rebirths)
+		refreshVisuals(plot)
+	end
+end
+
+function Plots.onCharacter(player: Player, character: Model)
+	local plot = byPlayer[player]
+	local group = if plot then ownerGroup(plot) else "Default"
+	setCharacterGroup(character, group)
+	local old = characterConnections[player]
+	if old then
+		old:Disconnect()
+	end
+	characterConnections[player] = character.DescendantAdded:Connect(function(descendant)
+		local current = byPlayer[player]
+		if descendant:IsA("BasePart") then
+			descendant.CollisionGroup = if current then ownerGroup(current) else "Default"
+		end
+	end)
+
+	if plot then
+		local started = os.clock()
+		while not character:IsDescendantOf(Workspace) and os.clock() - started < 5 do
+			task.wait()
+		end
+		task.wait(0.1)
+		if character.Parent and byPlayer[player] == plot then
+			character:PivotTo(plot.info.spawn)
+		end
+	end
+end
+
+-- Eén tik van de economie: streams groeien, inkomen loopt op de pads op
+function Plots.tick(dt: number)
+	for _, plot in plots do
+		local owner = plot.owner
+		local data = owner and PlayerData.get(owner)
+		if owner and data then
+			local mult = PlayerData.multiplier(owner)
+			local hype = data.upgrades.Hype or 0
+			local total = 0
+			for _, slot in plot.slots do
+				local song = slot.song
+				if song and not slot.thief then
+					local justPeaked = Economy.grow(song, dt, hype)
+					local income = Economy.income(song.streams) * mult
+					slot.pending += income * dt
+					total += income
+					local model = slot.model
+					if model then
+						SongModel.updateLabels(model, song, mult, Economy.atPeak(song, hype))
+						local root = model.PrimaryPart
+						local attachment = root and root:FindFirstChild("PromptAttachment")
+						local sell = attachment and attachment:FindFirstChild("SellPrompt")
+						if sell and sell:IsA("ProximityPrompt") then
+							local text = "Sell " .. Format.cash(Economy.sellPrice(song))
+							if sell.ActionText ~= text then
+								sell.ActionText = text
+							end
+						end
+					end
+					if justPeaked then
+						Remotes.toast(owner, "🔥 " .. songName(song) .. " peaked at " .. Format.streams(song.streams) .. "!", "rare")
+					end
+				end
+				updatePad(slot)
+			end
+			PlayerData.setIncome(owner, total)
+		end
+		if plot.lockedUntil > 0 and not Plots.isLocked(plot) then
+			plot.lockedUntil = 0
+			setBarrier(plot, false)
+			if owner then
+				Remotes.toast(owner, "🔓 Your studio is open again!", "bad")
+			end
+		end
+		updateLockLabel(plot)
+	end
+end
+
+function Plots.init(map: MapBuilder.MapInfo)
+	for i, info in map.plots do
+		local plot: Plot = {
+			index = i,
+			info = info,
+			owner = nil,
+			slots = {},
+			unlocked = 0,
+			lockedUntil = 0,
+		}
+		for index, slotInfo in info.slots do
+			local slot: Slot = {
+				index = index,
+				info = slotInfo,
+				song = nil,
+				model = nil,
+				pending = 0,
+				thief = nil,
+				lastCollect = 0,
+			}
+			plot.slots[index] = slot
+			slotInfo.pad.Touched:Connect(function(hit)
+				local owner = plot.owner
+				local character = owner and owner.Character
+				if character and hit:IsDescendantOf(character) then
+					Plots.collect(plot, slot)
+				end
+			end)
+		end
+
+		registerGroup(ownerGroup(plot))
+		registerGroup(barrierGroup(plot))
+		PhysicsService:CollisionGroupSetCollidable(ownerGroup(plot), barrierGroup(plot), false)
+		info.barrier.CollisionGroup = barrierGroup(plot)
+
+		info.lockPrompt.Triggered:Connect(function(player)
+			Plots.lock(player, plot)
+		end)
+
+		plots[i] = plot
+		refreshVisuals(plot)
+		updateLockLabel(plot)
+	end
+
+	PlayerData.addStateProvider(function(player, state)
+		local plot = byPlayer[player]
+		state.plotIndex = if plot then plot.index else nil
+		local uncollected = 0
+		local free = 0
+		if plot then
+			for i, slot in plot.slots do
+				uncollected += slot.pending
+				if i <= plot.unlocked and not slot.song and not slot.thief then
+					free += 1
+				end
+			end
+		end
+		state.uncollected = uncollected
+		state.freeSlots = free
+	end)
+end
+
+return Plots
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="18">
+        <Properties>
+          <string name="Name">Progression</string>
+          <string name="Source"><![CDATA[--!strict
+-- Upgrades kopen en rebirthen.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Config = require(Shared:WaitForChild("Config"))
+local Economy = require(Shared:WaitForChild("Economy"))
+local Format = require(Shared:WaitForChild("Format"))
+local Songs = require(Shared:WaitForChild("Songs"))
+
+local PlayerData = require(script.Parent.PlayerData)
+local Plots = require(script.Parent.Plots)
+local Remotes = require(script.Parent.Remotes)
+local Stealing = require(script.Parent.Stealing)
+
+local Progression = {}
+
+function Progression.applySpeed(player: Player)
+	local character = player.Character
+	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+	if humanoid then
+		local speed = PlayerData.walkSpeed(player)
+		if Stealing.isCarrying(player) then
+			speed *= Config.CarrySpeedMultiplier
+		end
+		humanoid.WalkSpeed = speed
+	end
+end
+
+local function buyUpgrade(player: Player, id: any): (boolean, string?)
+	local data = PlayerData.get(player)
+	if type(id) ~= "string" or not data or not Economy.upgrade(id) then
+		return false, "Unknown upgrade"
+	end
+	local level = data.upgrades[id] or 0
+	local cost = Economy.upgradeCost(id, level)
+	if not cost then
+		return false, "Already maxed!"
+	end
+	if not PlayerData.spend(player, cost) then
+		return false, "Not enough cash!"
+	end
+	data.upgrades[id] = level + 1
+	if id == "Speed" then
+		Progression.applySpeed(player)
+	end
+	local upgrade = Economy.upgrade(id)
+	Remotes.toast(player, upgrade.icon .. " " .. upgrade.name .. " is now level " .. (level + 1) .. "!", "good")
+	PlayerData.markDirty(player)
+	return true
+end
+
+local function rebirth(player: Player): (boolean, string?)
+	local data = PlayerData.get(player)
+	if not data then
+		return false, "Not loaded yet"
+	end
+	local cost = Economy.rebirthCost(data.rebirths)
+	if data.cash < cost then
+		return false, "You need " .. Format.cash(cost) .. " to rebirth"
+	end
+	if Stealing.hasActiveTheftOf(player) then
+		return false, "Someone is stealing your song! Deal with the thief first."
+	end
+	if Stealing.isCarrying(player) then
+		return false, "Bring your stolen song home first!"
+	end
+
+	-- De beste song mag blijven
+	local best: Economy.Song? = nil
+	for _, song in data.songs do
+		if not best or song.streams > best.streams then
+			best = song
+		end
+	end
+
+	data.rebirths += 1
+	data.cash = Config.StartingCash
+	Plots.resetForRebirth(player, best)
+
+	local keptText = if best then " You kept " .. Songs.byId[best.id].name .. "!" else ""
+	Remotes.toast(
+		player,
+		"🔁 REBIRTH " .. data.rebirths .. "! Royalties " .. Format.multiplier(Economy.rebirthMultiplier(data.rebirths)) .. keptText,
+		"rare"
+	)
+	Remotes.announce("🔁 " .. player.DisplayName .. " reached Rebirth " .. data.rebirths .. "!", { 120, 255, 200 }, false)
+	PlayerData.markDirty(player)
+	task.spawn(PlayerData.save, player)
+	return true
+end
+
+function Progression.init()
+	Remotes.handle("BuyUpgrade", buyUpgrade)
+	Remotes.handle("Rebirth", rebirth)
+end
+
+return Progression
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="19">
+        <Properties>
+          <string name="Name">Remotes</string>
+          <string name="Source"><![CDATA[--!strict
+-- Maakt de RemoteEvents aan en verdeelt de acties die de client mag vragen.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+
+local Remotes = {}
+
+local EVENT_NAMES = {
+	"State", -- volledige spelerstatus
+	"Toast", -- korte melding
+	"Announce", -- grote melding voor iedereen
+	"Collected", -- geld opgehaald bij een pedestal
+	"Knockback", -- geraakt door een gitaar
+	"StealAlert", -- iemand steelt jouw song
+	"Carry", -- jij draagt een gestolen song
+	"EventState", -- huidig server-event
+	"Popup", -- offline-inkomen en andere vensters
+}
+
+local events: { [string]: RemoteEvent } = {}
+local handlers: { [string]: (Player, ...any) -> (any, any) } = {}
+
+function Remotes.init()
+	local folder = Instance.new("Folder")
+	folder.Name = "Remotes"
+	for _, name in EVENT_NAMES do
+		local remote = Instance.new("RemoteEvent")
+		remote.Name = name
+		remote.Parent = folder
+		events[name] = remote
+	end
+
+	local action = Instance.new("RemoteFunction")
+	action.Name = "Action"
+	action.OnServerInvoke = function(player: Player, name: any, ...: any)
+		if type(name) ~= "string" then
+			return false, "Unknown action"
+		end
+		local handler = handlers[name]
+		if not handler then
+			return false, "Unknown action"
+		end
+		local ok, result, message = pcall(handler, player, ...)
+		if not ok then
+			warn("[StealASong] action " .. name .. " failed: " .. tostring(result))
+			return false, "Something went wrong"
+		end
+		return result, message
+	end
+	action.Parent = folder
+
+	folder.Parent = ReplicatedStorage
+end
+
+function Remotes.handle(name: string, handler: (Player, ...any) -> (any, any))
+	handlers[name] = handler
+end
+
+function Remotes.fire(name: string, player: Player, ...: any)
+	if player.Parent == Players then
+		events[name]:FireClient(player, ...)
+	end
+end
+
+function Remotes.fireAll(name: string, ...: any)
+	events[name]:FireAllClients(...)
+end
+
+-- kind: "good" | "bad" | "info" | "buy" | "rare"
+function Remotes.toast(player: Player, text: string, kind: string?)
+	Remotes.fire("Toast", player, { text = text, kind = kind or "info" })
+end
+
+function Remotes.announce(text: string, color: { number }?, big: boolean?)
+	Remotes.fireAll("Announce", { text = text, color = color, big = big == true })
+end
+
+return Remotes
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="20">
+        <Properties>
+          <string name="Name">Rewards</string>
+          <string name="Source"><![CDATA[--!strict
+-- Beloningen om terug te komen en te blijven: cadeaus voor speeltijd, een
+-- dagelijkse streak van 7 dagen en geld dat je songs offline verdienden.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Config = require(Shared:WaitForChild("Config"))
+local Economy = require(Shared:WaitForChild("Economy"))
+local Format = require(Shared:WaitForChild("Format"))
+
+local PlayerData = require(script.Parent.PlayerData)
+local Plots = require(script.Parent.Plots)
+local Remotes = require(script.Parent.Remotes)
+
+local Rewards = {}
+
+local claimedGifts: { [Player]: { [number]: boolean } } = {}
+
+local function today(): number
+	return os.time() // 86400
+end
+
+local function elapsedMinutes(player: Player): number
+	local session = PlayerData.session(player)
+	return if session then (os.clock() - session.joinedAt) / 60 else 0
+end
+
+-- Geeft een beloning (cash of een song) en een tekst voor de melding
+local function grant(player: Player, reward: any): string
+	if reward.kind == "song" then
+		local def = Economy.rollDef(reward.rarity)
+		local song = Economy.makeSong(def, nil)
+		local plot = Plots.get(player)
+		local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+		local from = if root and root:IsA("BasePart") then root.Position else nil
+		if plot and Plots.place(player, song, from) then
+			PlayerData.discover(player, song)
+			return string.upper(def.rarity) .. " " .. def.name .. " (" .. Format.streams(song.streams) .. ")"
+		end
+		local value = Economy.price(song)
+		PlayerData.addCash(player, value, false)
+		return Format.cash(value) .. " (studio full, " .. def.name .. " sold)"
+	end
+	local amount = Economy.rewardCash(PlayerData.income(player), reward)
+	PlayerData.addCash(player, amount, false)
+	return Format.cash(amount)
+end
+
+local function claimGift(player: Player, index: any): (boolean, string?)
+	local gift = Config.Gifts[index]
+	local claimed = claimedGifts[player]
+	if type(index) ~= "number" or not gift or not claimed then
+		return false, "Unknown gift"
+	end
+	if claimed[index] then
+		return false, "Already claimed"
+	end
+	if elapsedMinutes(player) < (gift.minutes or 0) then
+		return false, "Not ready yet"
+	end
+	claimed[index] = true
+	local text = grant(player, gift)
+	Remotes.toast(player, "🎁 Gift: " .. text, if gift.kind == "song" then "rare" else "good")
+	PlayerData.markDirty(player)
+	return true, text
+end
+
+local function dailyInfo(player: Player): (boolean, number)
+	local data = PlayerData.get(player)
+	if not data then
+		return false, 1
+	end
+	local canClaim = data.dailyDay < today()
+	local streak = if data.dailyDay == today() - 1 then data.dailyStreak + 1 else 1
+	if not canClaim then
+		streak = data.dailyStreak
+	end
+	return canClaim, streak
+end
+
+local function claimDaily(player: Player): (boolean, string?)
+	local data = PlayerData.get(player)
+	local canClaim, streak = dailyInfo(player)
+	if not data or not canClaim then
+		return false, "Come back tomorrow!"
+	end
+	data.dailyDay = today()
+	data.dailyStreak = streak
+	local reward = Config.Daily[(streak - 1) % #Config.Daily + 1]
+	local text = grant(player, reward)
+	Remotes.toast(player, "📅 Day " .. streak .. " reward: " .. text, "rare")
+	PlayerData.markDirty(player)
+	return true, text
+end
+
+function Rewards.onJoin(player: Player)
+	claimedGifts[player] = {}
+
+	-- Offline verdiend: een deel van het inkomen, met een maximum aan tijd
+	local data = PlayerData.get(player)
+	if data and data.lastSeen > 0 then
+		local away = math.clamp(os.time() - data.lastSeen, 0, Config.OfflineMaxSeconds)
+		local income = 0
+		for _, song in data.songs do
+			income += Economy.income(song.streams)
+		end
+		income *= Economy.rebirthMultiplier(data.rebirths)
+		local amount = math.floor(income * away * Config.OfflineRate)
+		if away >= 60 and amount >= 1 then
+			PlayerData.addCash(player, amount, true)
+			Remotes.fire("Popup", player, {
+				kind = "offline",
+				amount = amount,
+				seconds = away,
+			})
+		end
+	end
+end
+
+function Rewards.onLeave(player: Player)
+	claimedGifts[player] = nil
+end
+
+function Rewards.init()
+	Remotes.handle("ClaimGift", claimGift)
+	Remotes.handle("ClaimDaily", claimDaily)
+
+	PlayerData.addStateProvider(function(player, state)
+		local claimed = claimedGifts[player] or {}
+		local list = {}
+		for i in Config.Gifts do
+			list[i] = claimed[i] == true
+		end
+		state.giftsClaimed = list
+		state.playMinutes = elapsedMinutes(player)
+		local canClaim, streak = dailyInfo(player)
+		state.daily = { canClaim = canClaim, streak = streak, nextIn = (today() + 1) * 86400 - os.time() }
+	end)
+end
+
+-- Voor DevCommands
+Rewards.grant = grant
+
+return Rewards
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="21">
+        <Properties>
+          <string name="Name">SongModel</string>
+          <string name="Source"><![CDATA[--!strict
+-- Bouwt het 3D-model van een song: een vinylplaat met een zwevende muzieknoot
+-- en een label erboven met naam, zeldzaamheid, streams en inkomen.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Economy = require(Shared:WaitForChild("Economy"))
+local Format = require(Shared:WaitForChild("Format"))
+local Songs = require(Shared:WaitForChild("Songs"))
+
+local SongModel = {}
+
+export type Options = {
+	scale: number?,
+	physics: boolean?, -- los, beweegt via constraints (de loper)
+	carried: boolean?, -- vastgelast aan een speler
+	price: boolean?, -- prijs tonen (de loper)
+}
+
+local FONT = Enum.Font.FredokaOne
+local DISC_TURN = CFrame.Angles(0, math.pi / 2, 0)
+
+local function rgb(c: { number }): Color3
+	return Color3.fromRGB(c[1], c[2], c[3])
+end
+
+local function newPart(model: Model, props: { [string]: any }): Part
+	local p = Instance.new("Part")
+	p.Anchored = true
+	p.CanCollide = false
+	p.CanTouch = false
+	p.CanQuery = false
+	p.CastShadow = false
+	p.TopSurface = Enum.SurfaceType.Smooth
+	p.BottomSurface = Enum.SurfaceType.Smooth
+	p.Material = Enum.Material.SmoothPlastic
+	if props.Shape then
+		p.Shape = props.Shape
+	end
+	for key, value in props do
+		if key ~= "Shape" then
+			(p :: any)[key] = value
+		end
+	end
+	p.Parent = model
+	return p
+end
+
+local function label(parent: Instance, name: string, text: string, color: Color3, height: number, order: number): TextLabel
+	local l = Instance.new("TextLabel")
+	l.Name = name
+	l.BackgroundTransparency = 1
+	l.Size = UDim2.fromScale(1, height)
+	l.Font = FONT
+	l.TextScaled = true
+	l.Text = text
+	l.TextColor3 = color
+	l.LayoutOrder = order
+	local stroke = Instance.new("UIStroke")
+	stroke.Thickness = 2
+	stroke.Color = Color3.fromRGB(15, 8, 25)
+	stroke.Parent = l
+	l.Parent = parent
+	return l
+end
+
+local function rainbowGradient(parent: Instance)
+	local gradient = Instance.new("UIGradient")
+	gradient.Color = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 80, 80)),
+		ColorSequenceKeypoint.new(0.2, Color3.fromRGB(255, 200, 60)),
+		ColorSequenceKeypoint.new(0.4, Color3.fromRGB(90, 255, 110)),
+		ColorSequenceKeypoint.new(0.6, Color3.fromRGB(70, 200, 255)),
+		ColorSequenceKeypoint.new(0.8, Color3.fromRGB(170, 90, 255)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 80, 200)),
+	})
+	gradient:AddTag("RainbowGradient")
+	gradient.Parent = parent
+end
+
+function SongModel.build(song: Economy.Song, options: Options?): Model
+	local opts: Options = options or {}
+	local s = opts.scale or 1
+	local def = Songs.byId[song.id]
+	local rarity = Economy.rarity(def.rarity)
+	local rarityRank = Economy.rarityIndex(def.rarity)
+	local mutation = Economy.mutation(song.mut)
+	local rarityColor = rgb(rarity.color)
+
+	local model = Instance.new("Model")
+	model.Name = def.name
+	model:SetAttribute("SongId", def.id)
+
+	local root = newPart(model, {
+		Name = "Root",
+		Size = Vector3.new(1, 1, 1) * s,
+		Transparency = 1,
+		CFrame = CFrame.new(),
+	})
+	model.PrimaryPart = root
+
+	-- De plaat zelf
+	local discColor = Color3.fromRGB(22, 20, 26)
+	local discMaterial = Enum.Material.SmoothPlastic
+	local discTransparency = 0
+	if mutation then
+		discColor = rgb(mutation.color)
+		if mutation.name == "Gold" then
+			discMaterial = Enum.Material.Foil
+		elseif mutation.name == "Platinum" then
+			discMaterial = Enum.Material.Metal
+		elseif mutation.name == "Diamond" then
+			discMaterial = Enum.Material.Glass
+			discTransparency = 0.2
+		else
+			discMaterial = Enum.Material.Neon
+		end
+	end
+	local disc = newPart(model, {
+		Name = "Disc",
+		Shape = Enum.PartType.Cylinder,
+		Size = Vector3.new(0.45, 4.4, 4.4) * s,
+		CFrame = DISC_TURN,
+		Color = discColor,
+		Material = discMaterial,
+		Transparency = discTransparency,
+		Reflectance = if mutation then 0.1 else 0.25,
+	})
+	if mutation and mutation.rainbow then
+		disc:AddTag("Rainbow")
+	end
+	newPart(model, {
+		Name = "Grooves",
+		Shape = Enum.PartType.Cylinder,
+		Size = Vector3.new(0.5, 3.3, 3.3) * s,
+		CFrame = DISC_TURN,
+		Color = discColor:Lerp(Color3.new(0, 0, 0), 0.35),
+		Material = discMaterial,
+		Transparency = discTransparency,
+	})
+	newPart(model, {
+		Name = "Label",
+		Shape = Enum.PartType.Cylinder,
+		Size = Vector3.new(0.56, 1.8, 1.8) * s,
+		CFrame = DISC_TURN,
+		Color = rgb(def.color),
+		Material = if rarityRank >= 4 then Enum.Material.Neon else Enum.Material.SmoothPlastic,
+	})
+	newPart(model, {
+		Name = "Hole",
+		Shape = Enum.PartType.Cylinder,
+		Size = Vector3.new(0.6, 0.35, 0.35) * s,
+		CFrame = DISC_TURN,
+		Color = Color3.fromRGB(10, 10, 10),
+	})
+
+	-- Zwevende muzieknoot in de kleur van de zeldzaamheid
+	local noteColor = if def.rarity == "Secret" then Color3.fromRGB(245, 245, 255) else rarityColor
+	local notes = {
+		newPart(model, {
+			Name = "NoteHead",
+			Shape = Enum.PartType.Ball,
+			Size = Vector3.new(1, 1, 1) * s,
+			CFrame = CFrame.new(Vector3.new(-0.45, 3.4, 0) * s),
+			Color = noteColor,
+			Material = Enum.Material.Neon,
+		}),
+		newPart(model, {
+			Name = "NoteStem",
+			Size = Vector3.new(0.22, 1.9, 0.22) * s,
+			CFrame = CFrame.new(Vector3.new(0.1, 4.3, 0) * s),
+			Color = noteColor,
+			Material = Enum.Material.Neon,
+		}),
+		newPart(model, {
+			Name = "NoteFlag",
+			Size = Vector3.new(0.9, 0.3, 0.22) * s,
+			CFrame = CFrame.new(Vector3.new(0.5, 5.05, 0) * s) * CFrame.Angles(0, 0, -0.35),
+			Color = noteColor,
+			Material = Enum.Material.Neon,
+		}),
+	}
+	if rarity.rainbow then
+		for _, note in notes do
+			note:AddTag("Rainbow")
+		end
+	end
+
+	-- Licht en glitters voor de betere songs
+	if rarityRank >= 3 then
+		local light = Instance.new("PointLight")
+		light.Color = noteColor
+		light.Range = 6 + rarityRank * 2
+		light.Brightness = 1.5
+		light.Shadows = false
+		light.Parent = root
+	end
+	if rarityRank >= 4 or mutation then
+		local sparkles = Instance.new("ParticleEmitter")
+		sparkles.Name = "Sparkles"
+		sparkles.Texture = "rbxasset://textures/particles/sparkles_main.dds"
+		sparkles.Color = ColorSequence.new(if mutation then rgb(mutation.color) else noteColor)
+		sparkles.LightEmission = 1
+		sparkles.Rate = 4 + rarityRank * 2
+		sparkles.Lifetime = NumberRange.new(0.8, 1.6)
+		sparkles.Speed = NumberRange.new(1, 3)
+		sparkles.SpreadAngle = Vector2.new(180, 180)
+		sparkles.Size = NumberSequence.new({
+			NumberSequenceKeypoint.new(0, 0.5 * s),
+			NumberSequenceKeypoint.new(1, 0),
+		})
+		sparkles.Parent = root
+	end
+
+	-- Label boven de song
+	local gui = Instance.new("BillboardGui")
+	gui.Name = "Info"
+	gui.LightInfluence = 0
+	gui.AlwaysOnTop = false
+	gui.MaxDistance = if opts.price then 110 else 75
+	if opts.carried then
+		gui.Size = UDim2.fromScale(6, 1.2)
+		gui.StudsOffset = Vector3.new(0, 3.2, 0)
+		local name = label(gui, "Name", def.name, rarityColor, 1, 1)
+		if rarity.rainbow then
+			rainbowGradient(name)
+		end
+	else
+		local lines = 4 + (if mutation then 1 else 0) + (if opts.price then 1 else 0)
+		gui.Size = UDim2.fromScale(10, lines * 0.95)
+		gui.StudsOffset = Vector3.new(0, 5.6 * s + lines * 0.5, 0)
+		local list = Instance.new("UIListLayout")
+		list.SortOrder = Enum.SortOrder.LayoutOrder
+		list.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		list.VerticalAlignment = Enum.VerticalAlignment.Bottom
+		list.Parent = gui
+		local h = 1 / lines
+		if mutation then
+			local mutLabel = label(gui, "Mutation", string.upper(mutation.name), rgb(mutation.color), h, 1)
+			if mutation.rainbow then
+				mutLabel.TextColor3 = Color3.new(1, 1, 1)
+				rainbowGradient(mutLabel)
+			end
+		end
+		label(gui, "Name", def.name, Color3.new(1, 1, 1), h * 1.1, 2)
+		local rarityLabel = label(gui, "Rarity", def.rarity, rarityColor, h * 0.9, 3)
+		if rarity.rainbow then
+			rainbowGradient(rarityLabel)
+		elseif def.rarity == "Secret" then
+			rarityLabel.TextColor3 = Color3.fromRGB(245, 245, 255)
+			local stroke = rarityLabel:FindFirstChildOfClass("UIStroke")
+			if stroke then
+				stroke.Color = Color3.fromRGB(0, 0, 0)
+				stroke.Thickness = 3
+			end
+		end
+		label(gui, "Streams", "🎧 " .. Format.streams(song.streams), Color3.fromRGB(170, 225, 255), h, 4)
+		label(gui, "Income", Format.perSecond(Economy.income(song.streams)), Color3.fromRGB(110, 255, 130), h, 5)
+		if opts.price then
+			label(gui, "Price", Format.cash(Economy.price(song)), Color3.fromRGB(255, 225, 80), h * 1.1, 6)
+		end
+	end
+	gui.Parent = root
+
+	local attachment = Instance.new("Attachment")
+	attachment.Name = "PromptAttachment"
+	attachment.Parent = root
+
+	if opts.physics or opts.carried then
+		for _, child in model:GetChildren() do
+			if child:IsA("BasePart") then
+				child.Anchored = false
+				if child ~= root then
+					child.Massless = true
+					local weld = Instance.new("WeldConstraint")
+					weld.Part0 = root
+					weld.Part1 = child
+					weld.Parent = child
+				end
+			end
+		end
+		if opts.carried then
+			root.Massless = true
+		end
+	end
+
+	return model
+end
+
+-- Werkt streams en inkomen in het label bij. multiplier is die van de eigenaar.
+function SongModel.updateLabels(model: Model, song: Economy.Song, multiplier: number, peaked: boolean?)
+	local root = model.PrimaryPart
+	local gui = root and root:FindFirstChild("Info")
+	if not gui then
+		return
+	end
+	local streams = gui:FindFirstChild("Streams")
+	if streams and streams:IsA("TextLabel") then
+		local text = "🎧 " .. Format.streams(song.streams) .. (if peaked then " 🔥" else "")
+		if streams.Text ~= text then
+			streams.Text = text
+		end
+	end
+	local income = gui:FindFirstChild("Income")
+	if income and income:IsA("TextLabel") then
+		local text = Format.perSecond(Economy.income(song.streams) * multiplier)
+		if income.Text ~= text then
+			income.Text = text
+		end
+	end
+end
+
+return SongModel
+]]></string>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="22">
+        <Properties>
+          <string name="Name">Stealing</string>
+          <string name="Source"><![CDATA[--!strict
+-- Stelen: een dief pakt een song van een pedestal, draagt hem boven zijn hoofd
+-- (langzamer lopend) en moet zijn eigen studio halen. Wordt hij geraakt, gaat
+-- hij dood, duurt het te lang of gaat de studio op slot terwijl hij binnen
+-- staat, dan vliegt de song terug naar de eigenaar.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Config = require(Shared:WaitForChild("Config"))
+local Economy = require(Shared:WaitForChild("Economy"))
+local Format = require(Shared:WaitForChild("Format"))
+local Songs = require(Shared:WaitForChild("Songs"))
+
+local PlayerData = require(script.Parent.PlayerData)
+local Plots = require(script.Parent.Plots)
+local Remotes = require(script.Parent.Remotes)
+local SongModel = require(script.Parent.SongModel)
+
+type Theft = {
+	owner: Player,
+	plot: Plots.Plot,
+	slotIndex: number,
+	song: Economy.Song,
+	carried: Model,
+	startedAt: number,
+}
+
+local Stealing = {}
+
+local thefts: { [Player]: Theft } = {}
+
+local function songName(song: Economy.Song): string
+	return Songs.byId[song.id].name
+end
+
+local function humanoidOf(player: Player): Humanoid?
+	local character = player.Character
+	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+	return humanoid
+end
+
+local function rootOf(player: Player): BasePart?
+	local character = player.Character
+	local root = character and character:FindFirstChild("HumanoidRootPart")
+	if root and root:IsA("BasePart") then
+		return root
+	end
+	return nil
+end
+
+local function finish(thief: Player, theft: Theft)
+	thefts[thief] = nil
+	thief:SetAttribute("Carrying", nil)
+	if theft.carried.Parent then
+		theft.carried:Destroy()
+	end
+	local humanoid = humanoidOf(thief)
+	if humanoid and humanoid.Health > 0 then
+		humanoid.WalkSpeed = PlayerData.walkSpeed(thief)
+	end
+	Remotes.fire("Carry", thief, { active = false })
+end
+
+function Stealing.isCarrying(player: Player): boolean
+	return thefts[player] ~= nil
+end
+
+-- De song gaat terug naar de eigenaar
+function Stealing.fail(thief: Player, reason: string?)
+	local theft = thefts[thief]
+	if not theft then
+		return
+	end
+	finish(thief, theft)
+	local plot = theft.plot
+	local slot = plot.slots[theft.slotIndex]
+	if plot.owner == theft.owner and slot.song == theft.song then
+		Plots.setStolen(plot, theft.slotIndex, nil)
+	end
+	local name = songName(theft.song)
+	if thief.Parent then
+		Remotes.toast(thief, reason or ("You dropped " .. name .. "!"), "bad")
+	end
+	if theft.owner.Parent then
+		Remotes.fire("StealAlert", theft.owner, { active = false, saved = true, song = name })
+		Remotes.toast(theft.owner, "🛡️ " .. name .. " is back in your studio!", "good")
+	end
+end
+
+local function succeed(thief: Player)
+	local theft = thefts[thief]
+	if not theft then
+		return
+	end
+	finish(thief, theft)
+	local song = theft.song
+	local name = songName(song)
+	local plot = theft.plot
+	local slot = plot.slots[theft.slotIndex]
+	if plot.owner ~= theft.owner or slot.song ~= song then
+		return
+	end
+
+	local root = rootOf(thief)
+	Plots.removeSong(plot, theft.slotIndex)
+	local placed = Plots.place(thief, song, if root then root.Position else nil)
+	if not placed then
+		-- Studio intussen vol: de dief krijgt de verkoopwaarde
+		local value = Economy.sellPrice(song)
+		PlayerData.addCash(thief, value, false)
+		Remotes.toast(thief, "Your studio was full, so you sold " .. name .. " for " .. Format.cash(value), "info")
+	end
+
+	local data = PlayerData.get(thief)
+	if data then
+		data.steals += 1
+	end
+	local isNew = PlayerData.discover(thief, song)
+	Remotes.toast(thief, "😈 You stole " .. name .. "!" .. (if isNew then "  📖 NEW IN INDEX" else ""), "rare")
+	if theft.owner.Parent then
+		Remotes.fire("StealAlert", theft.owner, { active = false, saved = false, song = name, thief = thief.DisplayName })
+		Remotes.toast(theft.owner, "💔 " .. thief.DisplayName .. " stole " .. name .. "! Steal it back!", "bad")
+	end
+
+	local def = Songs.byId[song.id]
+	local rarity = Economy.rarity(def.rarity)
+	if rarity.announce then
+		Remotes.announce(
+			"🚨 " .. thief.DisplayName .. " stole " .. string.upper(def.rarity) .. " " .. name .. " from " .. theft.owner.DisplayName .. "!",
+			rarity.color,
+			false
+		)
+	end
+end
+
+local function begin(thief: Player, plot: Plots.Plot, slotIndex: number, song: Economy.Song)
+	local owner = plot.owner
+	local slot = plot.slots[slotIndex]
+	if not owner or owner == thief or slot.song ~= song or slot.thief then
+		return
+	end
+	if thefts[thief] then
+		Remotes.toast(thief, "You're already carrying a song!", "bad")
+		return
+	end
+	if Plots.isLocked(plot) then
+		Remotes.toast(thief, "🔒 This studio is locked!", "bad")
+		return
+	end
+	local thiefPlot = Plots.get(thief)
+	if not thiefPlot then
+		Remotes.toast(thief, "You need a studio to steal!", "bad")
+		return
+	end
+	if not Plots.freeSlot(thiefPlot) then
+		Remotes.toast(thief, "Your studio is full! Make room before stealing.", "bad")
+		return
+	end
+	local humanoid = humanoidOf(thief)
+	local root = rootOf(thief)
+	if not humanoid or humanoid.Health <= 0 or not root then
+		return
+	end
+
+	Plots.setStolen(plot, slotIndex, thief)
+
+	local carried = SongModel.build(song, { scale = 0.55, carried = true })
+	local carriedRoot = carried.PrimaryPart :: BasePart
+	carried.Name = "CarriedSong"
+	carried:PivotTo(root.CFrame * CFrame.new(0, 4.2, 0))
+	local weld = Instance.new("WeldConstraint")
+	weld.Part0 = root
+	weld.Part1 = carriedRoot
+	weld.Parent = carriedRoot
+	carried.Parent = thief.Character
+
+	humanoid.WalkSpeed = PlayerData.walkSpeed(thief) * Config.CarrySpeedMultiplier
+	thief:SetAttribute("Carrying", true)
+
+	thefts[thief] = {
+		owner = owner,
+		plot = plot,
+		slotIndex = slotIndex,
+		song = song,
+		carried = carried,
+		startedAt = os.clock(),
+	}
+
+	local name = songName(song)
+	Remotes.fire("Carry", thief, { active = true, song = name, plotIndex = thiefPlot.index })
+	Remotes.toast(thief, "Run! Bring " .. name .. " to your studio!", "rare")
+	Remotes.fire("StealAlert", owner, { active = true, song = name, thief = thief.DisplayName })
+end
+
+-- Door een gitaar geraakt
+function Stealing.onHit(victim: Player, attacker: Player)
+	local theft = thefts[victim]
+	if theft then
+		Stealing.fail(victim, "💥 " .. attacker.DisplayName .. " made you drop " .. songName(theft.song) .. "!")
+		if attacker ~= theft.owner then
+			Remotes.toast(attacker, "You made " .. victim.DisplayName .. " drop their loot!", "good")
+		else
+			Remotes.toast(attacker, "💥 Got it back!", "good")
+		end
+	end
+end
+
+function Stealing.onPlayerRemoving(player: Player)
+	if thefts[player] then
+		Stealing.fail(player)
+	end
+	for thief, theft in thefts do
+		if theft.owner == player then
+			Stealing.fail(thief, "The owner left, the song vanished!")
+		end
+	end
+end
+
+-- Laat een dief vallen als de studio waar hij in staat op slot gaat
+local function onEjected(plot: Plots.Plot, player: Player)
+	local theft = thefts[player]
+	if theft and theft.plot == plot then
+		Stealing.fail(player, "🔒 The laser lock made you drop it!")
+	end
+end
+
+function Stealing.hasActiveTheftOf(owner: Player): boolean
+	for _, theft in thefts do
+		if theft.owner == owner then
+			return true
+		end
+	end
+	return false
+end
+
+function Stealing.init()
+	Plots.onSteal = begin
+	Plots.onEjected = onEjected
+
+	local elapsed = 0
+	RunService.Heartbeat:Connect(function(dt)
+		elapsed += dt
+		if elapsed < 0.1 then
+			return
+		end
+		elapsed = 0
+		for thief, theft in thefts do
+			local humanoid = humanoidOf(thief)
+			local root = rootOf(thief)
+			local home = Plots.get(thief)
+			if not thief.Parent or not humanoid or humanoid.Health <= 0 or not root or not theft.carried.Parent then
+				Stealing.fail(thief)
+			elseif os.clock() - theft.startedAt > Config.StealTimeout then
+				Stealing.fail(thief, "Too slow! The song went back home.")
+			elseif home and Plots.isInside(home, root.Position) then
+				succeed(thief)
+			end
+		end
+	end)
+end
+
+return Stealing
+]]></string>
+        </Properties>
+      </Item>
+    </Item>
+  </Item>
+  <Item class="StarterPlayer" referent="23">
+    <Properties>
+      <string name="Name">StarterPlayer</string>
+    </Properties>
+    <Item class="StarterPlayerScripts" referent="24">
+      <Properties>
+        <string name="Name">StarterPlayerScripts</string>
+      </Properties>
+      <Item class="LocalScript" referent="25">
+        <Properties>
+          <string name="Name">Client</string>
+          <string name="Source"><![CDATA[--!strict
+-- Opstarten van de client: interface bouwen en de server-berichten koppelen.
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local Store = require(script.Store)
+local UI = require(script.UI)
+local Hud = require(script.Hud)
+local Windows = require(script.Windows)
+local World = require(script.World)
+
+local player = Players.LocalPlayer
+
+local screen = UI.new("ScreenGui", {
+	Name = "StealASongUI",
+	ResetOnSpawn = false,
+	ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+	Parent = player:WaitForChild("PlayerGui"),
+})
+
+-- Eén schaal voor alles: het root-frame wordt 1/s groot en dan met s
+-- verkleind, zodat het precies het scherm vult op elke telefoon of monitor.
+local root = UI.new("Frame", {
+	Name = "Root",
+	BackgroundTransparency = 1,
+	Size = UDim2.fromScale(1, 1),
+	Parent = screen,
+})
+local rootScale = UI.new("UIScale", { Parent = root })
+
+local function rescale()
+	local camera = Workspace.CurrentCamera
+	if not camera then
+		return
+	end
+	local size = camera.ViewportSize
+	local s = math.clamp(math.min(size.X / 1280, size.Y / 760), 0.5, 1.2)
+	rootScale.Scale = s
+	root.Size = UDim2.fromScale(1 / s, 1 / s)
+end
+rescale()
+if Workspace.CurrentCamera then
+	Workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(rescale)
+end
+
+Hud.build(root, Windows.open)
+Windows.build(root, Hud.toast)
+World.init()
+
+Store.onChange(function(state)
+	Hud.setState(state)
+	Windows.setState(state)
+end)
+
+Store.remote("State").OnClientEvent:Connect(Store.set)
+Store.remote("Toast").OnClientEvent:Connect(function(info)
+	Hud.toast(info.text, info.kind)
+end)
+Store.remote("Announce").OnClientEvent:Connect(function(info)
+	Hud.announce(info.text, info.color, info.big)
+end)
+Store.remote("Collected").OnClientEvent:Connect(World.collected)
+Store.remote("Knockback").OnClientEvent:Connect(World.knockback)
+Store.remote("StealAlert").OnClientEvent:Connect(Hud.setAlarm)
+Store.remote("Carry").OnClientEvent:Connect(function(info)
+	Hud.setCarry(info)
+	World.setCarry(info)
+end)
+Store.remote("EventState").OnClientEvent:Connect(function(info)
+	Store.event = info
+end)
+Store.remote("Popup").OnClientEvent:Connect(function(info)
+	if info.kind == "offline" then
+		Windows.showOffline(info.amount, info.seconds)
+	end
+end)
+
+RunService.RenderStepped:Connect(function(dt)
+	Hud.update(dt)
+	World.update(dt)
+end)
+
+task.spawn(function()
+	while true do
+		task.wait(1)
+		Windows.tick()
+	end
+end)
+
+-- Dagelijkse beloning één keer vanzelf laten zien
+local dailyShown = false
+Store.onChange(function(state)
+	if dailyShown or not (state.daily and state.daily.canClaim) then
+		return
+	end
+	dailyShown = true
+	task.delay(2.5, function()
+		if not Windows.isOpen() then
+			Windows.open("Daily")
+		end
+	end)
+end)
+
+Store.call("Ready")
+]]></string>
+        </Properties>
+        <Item class="ModuleScript" referent="26">
+          <Properties>
+            <string name="Name">Hud</string>
+            <string name="Source"><![CDATA[--!strict
+-- Alles wat altijd in beeld is: geld, inkomen, het event, de menuknoppen,
+-- meldingen, aankondigingen, tips en het alarm als iemand jou besteelt.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TextChatService = game:GetService("TextChatService")
+local Workspace = game:GetService("Workspace")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Config = require(Shared:WaitForChild("Config"))
+local Economy = require(Shared:WaitForChild("Economy"))
+local Format = require(Shared:WaitForChild("Format"))
+
+local Store = require(script.Parent.Store)
+local UI = require(script.Parent.UI)
+
+local Hud = {}
+
+local refs: any = { badges = {} }
+local displayedCash = 0
+local lastCash: number? = nil
+local lastRebirths: number? = nil
+local carry: any = nil
+local alarm: any = nil
+local alarmSoundAt = 0
+local announceToken = 0
+local toastCount = 0
+local badgeTimer = 0
+local eventTimer = 0
+
+local KIND_COLORS = {
+	good = UI.colors.green,
+	bad = UI.colors.red,
+	info = UI.colors.blue,
+	buy = UI.colors.yellow,
+	rare = UI.colors.accent,
+}
+
+local function escapeRich(text: string): string
+	text = string.gsub(text, "&", "&amp;")
+	text = string.gsub(text, "<", "&lt;")
+	text = string.gsub(text, ">", "&gt;")
+	return text
+end
+
+local function chat(text: string, color: Color3)
+	local channels = TextChatService:FindFirstChild("TextChannels")
+	local general = channels and channels:FindFirstChild("RBXGeneral")
+	if general and general:IsA("TextChannel") then
+		pcall(function()
+			general:DisplaySystemMessage(string.format('<font color="#%s">%s</font>', color:ToHex(), escapeRich(text)))
+		end)
+	end
+end
+
+local function menuButton(parent: Instance, name: string, icon: string, caption: string, color: Color3, onClick: () -> ())
+	local button = UI.button({
+		Name = name,
+		Size = UDim2.fromOffset(78, 78),
+		color = color,
+		radius = 18,
+		Parent = parent,
+	}, onClick)
+	UI.text({ Text = icon, Size = UDim2.new(1, 0, 0.6, 0), Position = UDim2.fromScale(0, 0.06), Parent = button })
+	UI.text({ Text = caption, Size = UDim2.new(1, -8, 0.24, 0), Position = UDim2.new(0, 4, 0.7, 0), Parent = button })
+	local badge = UI.new("Frame", {
+		Name = "Badge",
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(1, -6, 0, 6),
+		Size = UDim2.fromOffset(28, 28),
+		BackgroundColor3 = UI.colors.red,
+		Visible = false,
+		ZIndex = 3,
+		Parent = button,
+	}, { UI.round(), UI.border(UI.colors.text, 2) })
+	local label = UI.text({ Text = "!", ZIndex = 4, Size = UDim2.fromScale(0.8, 0.8), Position = UDim2.fromScale(0.1, 0.1), Parent = badge })
+	refs.badges[name] = { frame = badge, label = label }
+end
+
+local function setBadge(name: string, value: number | string | nil)
+	local badge = refs.badges[name]
+	if not badge then
+		return
+	end
+	local show = value ~= nil and value ~= 0
+	badge.frame.Visible = show
+	if show then
+		badge.label.Text = tostring(value)
+	end
+end
+
+local function edge(parent: Instance, size: UDim2, position: UDim2, rotation: number): Frame
+	return UI.new("Frame", {
+		Size = size,
+		Position = position,
+		BackgroundColor3 = UI.colors.red,
+		BorderSizePixel = 0,
+		Parent = parent,
+	}, {
+		UI.new("UIGradient", {
+			Rotation = rotation,
+			Transparency = NumberSequence.new({
+				NumberSequenceKeypoint.new(0, 0.2),
+				NumberSequenceKeypoint.new(1, 1),
+			}),
+		}),
+	})
+end
+
+function Hud.build(screen: GuiObject, openWindow: (string) -> ())
+	-- Geld en inkomen, bovenin het midden
+	local cashPanel = UI.new("Frame", {
+		Name = "CashPanel",
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.new(0.5, 0, 0, 6),
+		Size = UDim2.fromOffset(330, 88),
+		BackgroundColor3 = UI.colors.bg,
+		BackgroundTransparency = 0.15,
+		Parent = screen,
+	}, { UI.corner(20), UI.border(UI.colors.green, 3) })
+	refs.cashScale = UI.new("UIScale", { Parent = cashPanel })
+	refs.cash = UI.text({
+		Text = "$0",
+		TextColor3 = UI.colors.green,
+		Size = UDim2.new(1, -24, 0.6, 0),
+		Position = UDim2.fromOffset(12, 4),
+		strokeThickness = 3,
+		Parent = cashPanel,
+	})
+	refs.income = UI.text({
+		Text = "+$0/s",
+		Size = UDim2.new(0.58, 0, 0.3, 0),
+		Position = UDim2.new(0.04, 0, 0.64, 0),
+		TextXAlignment = Enum.TextXAlignment.Right,
+		Parent = cashPanel,
+	})
+	refs.boostPanel = UI.new("Frame", {
+		Name = "Boosts",
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.new(0.5, 0, 0, 142),
+		Size = UDim2.fromOffset(260, 150),
+		BackgroundColor3 = UI.colors.bg,
+		BackgroundTransparency = 0.1,
+		Visible = false,
+		ZIndex = 5,
+		Parent = screen,
+	}, { UI.corner(14), UI.border(UI.colors.accent, 2), UI.padding(8) })
+	refs.boostText = UI.text({
+		Text = "",
+		RichText = true,
+		ZIndex = 6,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top,
+		TextScaled = false,
+		TextSize = 20,
+		Parent = refs.boostPanel,
+	})
+	refs.multiplier = UI.button({
+		Text = "x1",
+		Size = UDim2.new(0.3, 0, 0.3, 0),
+		Position = UDim2.new(0.66, 0, 0.63, 0),
+		color = UI.colors.accent,
+		radius = 8,
+		Parent = cashPanel,
+	}, function()
+		refs.boostPanel.Visible = not refs.boostPanel.Visible
+	end)
+
+	-- Eventbalk onder het geld
+	local eventBar = UI.new("Frame", {
+		Name = "EventBar",
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.new(0.5, 0, 0, 100),
+		Size = UDim2.fromOffset(420, 34),
+		BackgroundColor3 = UI.colors.bg,
+		BackgroundTransparency = 0.2,
+		Parent = screen,
+	}, { UI.corner(12) })
+	refs.eventStroke = UI.border(UI.colors.muted, 2)
+	refs.eventStroke.Parent = eventBar
+	refs.eventLabel = UI.text({
+		Text = "",
+		Size = UDim2.new(1, -16, 1, -6),
+		Position = UDim2.fromOffset(8, 3),
+		Parent = eventBar,
+	})
+
+	-- Menuknoppen links
+	local menu = UI.new("Frame", {
+		Name = "Menu",
+		AnchorPoint = Vector2.new(0, 0.5),
+		Position = UDim2.new(0, 10, 0.5, 0),
+		Size = UDim2.fromOffset(84, 540),
+		BackgroundTransparency = 1,
+		Parent = screen,
+	}, {
+		UI.new("UIListLayout", {
+			Padding = UDim.new(0, 8),
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+	})
+	local buttons: { { any } } = {
+		{ "Gifts", "🎁", "Gifts", UI.colors.yellow },
+		{ "Upgrades", "⚡", "Upgrades", UI.colors.blue },
+		{ "Rebirth", "🔁", "Rebirth", UI.colors.green },
+		{ "Index", "📖", "Index", UI.colors.purple },
+		{ "Daily", "📅", "Daily", UI.colors.accent },
+	}
+	local hasPasses = false
+	for _, pass in Config.GamePasses do
+		if pass.id ~= 0 then
+			hasPasses = true
+		end
+	end
+	if hasPasses then
+		local store: { any } = { "Store", "💎", "Store", Color3.fromRGB(255, 120, 200) }
+		table.insert(buttons, store)
+	end
+	for i, b in buttons do
+		menuButton(menu, b[1], b[2], b[3], b[4], function()
+			openWindow(b[1])
+		end)
+		refs.badges[b[1]].frame.Parent.LayoutOrder = i
+	end
+
+	-- Meldingen
+	refs.toasts = UI.new("Frame", {
+		Name = "Toasts",
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.new(0.5, 0, 0, 142),
+		Size = UDim2.fromOffset(560, 260),
+		BackgroundTransparency = 1,
+		Parent = screen,
+	}, {
+		UI.new("UIListLayout", {
+			Padding = UDim.new(0, 6),
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+	})
+
+	refs.announce = UI.text({
+		Name = "Announcement",
+		Text = "",
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0.34, 0),
+		Size = UDim2.new(0.8, 0, 0, 56),
+		Visible = false,
+		strokeThickness = 4,
+		Parent = screen,
+	})
+	refs.announceScale = UI.new("UIScale", { Parent = refs.announce })
+
+	-- Tip onderin, boven de toolbar
+	refs.hint = UI.new("Frame", {
+		Name = "Hint",
+		AnchorPoint = Vector2.new(0.5, 1),
+		Position = UDim2.new(0.5, 0, 1, -100),
+		Size = UDim2.fromOffset(620, 46),
+		BackgroundColor3 = UI.colors.bg,
+		BackgroundTransparency = 0.2,
+		Visible = false,
+		Parent = screen,
+	}, { UI.corner(14) })
+	refs.hintStroke = UI.border(UI.colors.yellow, 2.5)
+	refs.hintStroke.Parent = refs.hint
+	refs.hintLabel = UI.text({
+		Text = "",
+		Size = UDim2.new(1, -20, 1, -8),
+		Position = UDim2.fromOffset(10, 4),
+		Parent = refs.hint,
+	})
+	refs.hintScale = UI.new("UIScale", { Parent = refs.hint })
+
+	-- Alarm: rode randen en een banner
+	refs.alarm = UI.new("Frame", {
+		Name = "Alarm",
+		Size = UDim2.fromScale(1, 1),
+		BackgroundTransparency = 1,
+		Visible = false,
+		Parent = screen,
+	})
+	refs.alarmEdges = {
+		edge(refs.alarm, UDim2.fromScale(1, 0.2), UDim2.fromScale(0, 0), 90),
+		edge(refs.alarm, UDim2.fromScale(1, 0.2), UDim2.fromScale(0, 0.8), 270),
+		edge(refs.alarm, UDim2.fromScale(0.12, 1), UDim2.fromScale(0, 0), 0),
+		edge(refs.alarm, UDim2.fromScale(0.12, 1), UDim2.fromScale(0.88, 0), 180),
+	}
+	refs.alarmBanner = UI.new("Frame", {
+		AnchorPoint = Vector2.new(0.5, 1),
+		Position = UDim2.new(0.5, 0, 1, -156),
+		Size = UDim2.fromOffset(640, 52),
+		BackgroundColor3 = UI.colors.red,
+		Parent = refs.alarm,
+	}, { UI.corner(14), UI.border(UI.colors.text, 3) })
+	refs.alarmLabel = UI.text({
+		Text = "",
+		Size = UDim2.new(1, -20, 1, -8),
+		Position = UDim2.fromOffset(10, 4),
+		Parent = refs.alarmBanner,
+	})
+end
+
+function Hud.toast(text: string, kind: string?)
+	local color = KIND_COLORS[kind or "info"] or UI.colors.blue
+	toastCount += 1
+	local frame = UI.new("Frame", {
+		Size = UDim2.fromOffset(540, 40),
+		BackgroundColor3 = UI.colors.bg,
+		BackgroundTransparency = 0.1,
+		LayoutOrder = toastCount,
+		Parent = refs.toasts,
+	}, { UI.corner(12) })
+	local stroke = UI.border(color, 2.5)
+	stroke.Parent = frame
+	local label = UI.text({
+		Text = text,
+		TextColor3 = if kind == "info" then UI.colors.text else color,
+		Size = UDim2.new(1, -20, 1, -8),
+		Position = UDim2.fromOffset(10, 4),
+		Parent = frame,
+	})
+	local scale = UI.new("UIScale", { Parent = frame })
+	UI.pop(scale, 0.15)
+
+	if kind == "buy" then
+		UI.sound("Buy", 1.2)
+	elseif kind == "rare" then
+		UI.sound("Announce", 1.4)
+	elseif kind == "bad" then
+		UI.sound("Click", 0.6)
+	end
+
+	-- Oudste weg als er te veel staan
+	local frames = {}
+	for _, child in refs.toasts:GetChildren() do
+		if child:IsA("Frame") then
+			table.insert(frames, child)
+		end
+	end
+	if #frames > 5 then
+		table.sort(frames, function(a, b)
+			return a.LayoutOrder < b.LayoutOrder
+		end)
+		frames[1]:Destroy()
+	end
+
+	task.delay(3.5, function()
+		if not frame.Parent then
+			return
+		end
+		UI.tween(frame, 0.4, { BackgroundTransparency = 1 })
+		UI.tween(label, 0.4, { TextTransparency = 1 })
+		UI.tween(stroke, 0.4, { Transparency = 1 })
+		local textStroke = label:FindFirstChildOfClass("UIStroke")
+		if textStroke then
+			UI.tween(textStroke, 0.4, { Transparency = 1 })
+		end
+		task.wait(0.45)
+		frame:Destroy()
+	end)
+end
+
+function Hud.announce(text: string, color: { number }?, big: boolean?)
+	local c = if color then UI.rgb(color) else UI.colors.text
+	if color and color[1] < 60 and color[2] < 60 and color[3] < 60 then
+		c = Color3.fromRGB(230, 230, 245) -- Secret is bijna zwart, dat lees je niet
+	end
+	local label = refs.announce
+	label.Text = text
+	label.TextColor3 = c
+	label.TextTransparency = 0
+	label.Size = UDim2.new(0.8, 0, 0, if big then 70 else 48)
+	label.Visible = true
+	UI.pop(refs.announceScale, if big then 0.35 else 0.2)
+	UI.sound("Announce", if big then 0.8 else 1)
+	chat(text, c)
+
+	announceToken += 1
+	local token = announceToken
+	task.delay(if big then 5 else 3.5, function()
+		if token ~= announceToken then
+			return
+		end
+		UI.tween(label, 0.5, { TextTransparency = 1 })
+		task.wait(0.5)
+		if token == announceToken then
+			label.Visible = false
+		end
+	end)
+end
+
+function Hud.setCarry(info: any)
+	carry = if info and info.active then info else nil
+end
+
+function Hud.setAlarm(info: any)
+	if info and info.active then
+		alarm = info
+		refs.alarmLabel.Text = "🚨 " .. tostring(info.thief) .. " is stealing " .. tostring(info.song) .. "! Smack them with your guitar! 🎸"
+		refs.alarm.Visible = true
+		alarmSoundAt = 0
+	else
+		alarm = nil
+		refs.alarm.Visible = false
+	end
+end
+
+local function refreshBoosts(state: any)
+	local b = state.boosts or {}
+	local lines = {
+		string.format("🔁 Rebirth <b>%s</b>", Format.multiplier(b.rebirth or 1)),
+		string.format("📖 Index <b>%s</b>", Format.multiplier(b.index or 1)),
+		string.format("👯 Friends <b>%s</b>", Format.multiplier(b.friends or 1)),
+		string.format("💎 Passes <b>%s</b>", Format.multiplier(b.pass or 1)),
+		string.format("🎉 Event <b>%s</b>", Format.multiplier(b.event or 1)),
+	}
+	refs.boostText.Text = table.concat(lines, "\n")
+end
+
+local function refreshBadges(state: any)
+	local claimable = 0
+	local minutes = Store.playMinutes()
+	for i, gift in Config.Gifts do
+		if not (state.giftsClaimed and state.giftsClaimed[i]) and minutes >= (gift.minutes or 0) then
+			claimable += 1
+		end
+	end
+	setBadge("Gifts", claimable)
+	setBadge("Daily", if state.daily and state.daily.canClaim then "!" else nil)
+	setBadge("Rebirth", if state.cash >= state.rebirthCost then "!" else nil)
+	local affordable = 0
+	for _, upgrade in Config.Upgrades do
+		local cost = Economy.upgradeCost(upgrade.id, state.upgrades[upgrade.id] or 0)
+		if cost and state.cash >= cost then
+			affordable += 1
+		end
+	end
+	setBadge("Upgrades", affordable)
+end
+
+local function currentHint(state: any): (string?, Color3)
+	if carry then
+		return "🏃 Bring " .. tostring(carry.song) .. " to YOUR studio! Don't get hit!", UI.colors.green
+	end
+	if not state then
+		return nil, UI.colors.yellow
+	end
+	if state.songCount == 0 then
+		return "👉 Buy your first song on the red carpet! Walk up to it and press E", UI.colors.yellow
+	end
+	if (state.uncollected or 0) >= math.max(25, state.income * 15) then
+		return "💰 Walk over the green pads in your studio to collect " .. Format.cash(state.uncollected), UI.colors.green
+	end
+	if state.freeSlots == 0 then
+		return "📦 Studio full! Sell a song (hold F) or Rebirth for more room", UI.colors.accent
+	end
+	return nil, UI.colors.yellow
+end
+
+function Hud.setState(state: any)
+	if lastCash and state.cash > lastCash + 0.5 then
+		UI.pop(refs.cashScale, 0.08)
+	end
+	if lastCash == nil then
+		displayedCash = state.cash
+		refs.cash.Text = Format.cash(displayedCash)
+	end
+	lastCash = state.cash
+
+	if lastRebirths and state.rebirths > lastRebirths then
+		UI.sound("Rebirth")
+		Hud.announce("🔁 REBIRTH " .. state.rebirths .. "!", { 120, 255, 200 }, true)
+	end
+	lastRebirths = state.rebirths
+
+	refs.income.Text = "+" .. Format.perSecond(state.income or 0)
+	refs.multiplier.Text = "🚀 " .. Format.multiplier(state.multiplier or 1)
+	refreshBoosts(state)
+	refreshBadges(state)
+end
+
+function Hud.update(dt: number)
+	local state = Store.state
+	if state then
+		local target = state.cash
+		if displayedCash ~= target then
+			local diff = target - displayedCash
+			if math.abs(diff) < 1 or math.abs(diff) < math.abs(target) * 0.0005 then
+				displayedCash = target
+			else
+				displayedCash += diff * math.min(1, dt * 8)
+			end
+			refs.cash.Text = Format.cash(displayedCash)
+		end
+
+		badgeTimer += dt
+		if badgeTimer >= 1 then
+			badgeTimer = 0
+			refreshBadges(state)
+		end
+	end
+
+	-- Hint
+	local hint, color = currentHint(state)
+	refs.hint.Visible = hint ~= nil
+	if hint then
+		if refs.hintLabel.Text ~= hint then
+			refs.hintLabel.Text = hint
+			UI.pop(refs.hintScale, 0.1)
+		end
+		refs.hintLabel.TextColor3 = color
+		refs.hintStroke.Color = color
+		if carry then
+			refs.hintScale.Scale = 1 + math.sin(os.clock() * 8) * 0.03
+		end
+	end
+
+	-- Event-aftelling, vier keer per seconde is genoeg
+	eventTimer += dt
+	if eventTimer >= 0.25 then
+		eventTimer = 0
+		local info = Store.event
+		local now = Workspace:GetServerTimeNow()
+		if info and info.current then
+			local e = info.current
+			refs.eventLabel.Text = e.icon .. " " .. string.upper(e.name) .. " · " .. e.desc .. " · " .. Format.time(e.endsAt - now)
+			local c = UI.rgb(e.color)
+			refs.eventLabel.TextColor3 = c
+			refs.eventStroke.Color = c
+		elseif info then
+			refs.eventLabel.Text = "⏳ Next event in " .. Format.time(info.nextAt - now)
+			refs.eventLabel.TextColor3 = UI.colors.muted
+			refs.eventStroke.Color = UI.colors.muted
+		end
+	end
+
+	-- Alarm laten knipperen en piepen
+	if alarm then
+		local pulse = 0.5 + 0.5 * math.sin(os.clock() * 10)
+		for _, frame in refs.alarmEdges do
+			frame.BackgroundTransparency = 0.1 + pulse * 0.5
+		end
+		refs.alarmBanner.BackgroundTransparency = pulse * 0.3
+		if os.clock() - alarmSoundAt > 0.7 then
+			alarmSoundAt = os.clock()
+			UI.sound("Alarm", 0.6, 0.7)
+		end
+	end
+end
+
+return Hud
+]]></string>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="27">
+          <Properties>
+            <string name="Name">Store</string>
+            <string name="Source"><![CDATA[--!strict
+-- De laatste status van de server, plus een manier om acties te vragen.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Store = {}
+
+Store.state = nil :: any
+Store.receivedAt = 0
+Store.event = nil :: any
+
+local listeners: { (any) -> () } = {}
+local remotes = ReplicatedStorage:WaitForChild("Remotes")
+local action = remotes:WaitForChild("Action") :: RemoteFunction
+
+function Store.set(state: any)
+	Store.state = state
+	Store.receivedAt = os.clock()
+	for _, listener in listeners do
+		task.spawn(listener, state)
+	end
+end
+
+function Store.onChange(listener: (any) -> ())
+	table.insert(listeners, listener)
+	if Store.state then
+		task.spawn(listener, Store.state)
+	end
+end
+
+-- Minuten speeltijd deze sessie, doorgeteld sinds de laatste status
+function Store.playMinutes(): number
+	local state = Store.state
+	if not state then
+		return 0
+	end
+	return (state.playMinutes or 0) + (os.clock() - Store.receivedAt) / 60
+end
+
+function Store.call(name: string, ...: any): (boolean, string?)
+	local ok, result, message = pcall(action.InvokeServer, action, name, ...)
+	if not ok then
+		return false, "Connection problem, try again"
+	end
+	return result == true, message
+end
+
+function Store.remote(name: string): RemoteEvent
+	return remotes:WaitForChild(name) :: RemoteEvent
+end
+
+return Store
+]]></string>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="28">
+          <Properties>
+            <string name="Name">UI</string>
+            <string name="Source"><![CDATA[--!strict
+-- Kleine bouwstenen voor de interface, zodat HUD en vensters dezelfde stijl
+-- hebben: ronde hoeken, dikke randen en het FredokaOne-lettertype.
+
+local SoundService = game:GetService("SoundService")
+local TweenService = game:GetService("TweenService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Config"))
+
+local UI = {}
+
+UI.FONT = Enum.Font.FredokaOne
+
+UI.colors = {
+	bg = Color3.fromRGB(22, 14, 36),
+	panel = Color3.fromRGB(38, 26, 60),
+	panelLight = Color3.fromRGB(56, 40, 86),
+	accent = Color3.fromRGB(255, 80, 170),
+	green = Color3.fromRGB(80, 220, 110),
+	yellow = Color3.fromRGB(255, 205, 60),
+	red = Color3.fromRGB(255, 70, 90),
+	blue = Color3.fromRGB(70, 170, 255),
+	purple = Color3.fromRGB(170, 100, 255),
+	text = Color3.fromRGB(255, 255, 255),
+	muted = Color3.fromRGB(190, 178, 220),
+	dark = Color3.fromRGB(12, 6, 22),
+	grey = Color3.fromRGB(90, 84, 104),
+}
+
+function UI.rgb(c: { number }): Color3
+	return Color3.fromRGB(c[1], c[2], c[3])
+end
+
+-- Maakt een instance met eigenschappen; Parent wordt als laatste gezet
+function UI.new(className: string, props: { [string]: any }?, children: { any }?): any
+	local inst: any = Instance.new(className)
+	local parent = nil
+	local properties: { [string]: any } = props or {}
+	local childList: { any } = children or {}
+	for key, value in properties do
+		if key == "Parent" then
+			parent = value
+		else
+			inst[key] = value
+		end
+	end
+	for _, child in childList do
+		child.Parent = inst
+	end
+	if parent then
+		inst.Parent = parent
+	end
+	return inst
+end
+
+function UI.corner(radius: number?): any
+	return UI.new("UICorner", { CornerRadius = UDim.new(0, radius or 12) })
+end
+
+function UI.round(): any
+	return UI.new("UICorner", { CornerRadius = UDim.new(1, 0) })
+end
+
+function UI.border(color: Color3?, thickness: number?): any
+	return UI.new("UIStroke", {
+		Color = color or UI.colors.dark,
+		Thickness = thickness or 3,
+		ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+	})
+end
+
+function UI.textStroke(thickness: number?): any
+	return UI.new("UIStroke", {
+		Color = UI.colors.dark,
+		Thickness = thickness or 2,
+		ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual,
+	})
+end
+
+function UI.gradient(top: Color3, bottom: Color3): any
+	return UI.new("UIGradient", {
+		Color = ColorSequence.new(top, bottom),
+		Rotation = 90,
+	})
+end
+
+function UI.padding(pixels: number): any
+	local p = UDim.new(0, pixels)
+	return UI.new("UIPadding", { PaddingTop = p, PaddingBottom = p, PaddingLeft = p, PaddingRight = p })
+end
+
+-- Eigen opties die geen Roblox-eigenschap zijn
+local CUSTOM_KEYS = { Parent = true, color = true, radius = true, strokeThickness = true }
+
+function UI.text(props: { [string]: any }): TextLabel
+	local label = UI.new("TextLabel", {
+		BackgroundTransparency = 1,
+		Font = UI.FONT,
+		TextScaled = true,
+		TextColor3 = UI.colors.text,
+		Size = UDim2.fromScale(1, 1),
+	})
+	for key, value in props do
+		if not CUSTOM_KEYS[key] then
+			label[key] = value
+		end
+	end
+	UI.textStroke(props.strokeThickness).Parent = label
+	label.Parent = props.Parent
+	return label
+end
+
+local soundCache: { [string]: Sound } = {}
+
+function UI.sound(name: string, speed: number?, volume: number?)
+	local id = (Config.Sounds :: any)[name]
+	if not id or id == "" then
+		return
+	end
+	local template = soundCache[name]
+	if not template then
+		template = UI.new("Sound", { SoundId = id, Volume = 0.5, Name = name })
+		soundCache[name] = template
+	end
+	local sound = template:Clone()
+	sound.PlaybackSpeed = speed or 1
+	sound.Volume = volume or 0.5
+	sound.Parent = SoundService
+	sound:Play()
+	task.delay(4, function()
+		sound:Destroy()
+	end)
+end
+
+function UI.tween(inst: Instance, seconds: number, props: { [string]: any }, style: Enum.EasingStyle?, direction: Enum.EasingDirection?): Tween
+	local tween = TweenService:Create(
+		inst,
+		TweenInfo.new(seconds, style or Enum.EasingStyle.Quad, direction or Enum.EasingDirection.Out),
+		props
+	)
+	tween:Play()
+	return tween
+end
+
+-- Kort opveren, voor knoppen en het geldbedrag
+function UI.pop(scale: UIScale, amount: number?)
+	scale.Scale = 1 + (amount or 0.12)
+	UI.tween(scale, 0.25, { Scale = 1 }, Enum.EasingStyle.Back)
+end
+
+-- Knop met hover- en klik-effect
+function UI.button(props: { [string]: any }, onClick: () -> ()): TextButton
+	local color = props.color or UI.colors.green
+	local button = UI.new("TextButton", {
+		AutoButtonColor = false,
+		BackgroundColor3 = color,
+		Font = UI.FONT,
+		TextScaled = true,
+		TextColor3 = UI.colors.text,
+		Text = "",
+	})
+	for key, value in props do
+		if not CUSTOM_KEYS[key] then
+			button[key] = value
+		end
+	end
+	UI.corner(props.radius or 12).Parent = button
+	UI.border(UI.colors.dark, 3).Parent = button
+	UI.gradient(Color3.new(1, 1, 1), Color3.fromRGB(200, 200, 200)).Parent = button
+	UI.textStroke(2).Parent = button
+	local scale = UI.new("UIScale", { Parent = button })
+
+	button.MouseEnter:Connect(function()
+		UI.tween(scale, 0.12, { Scale = 1.06 })
+	end)
+	button.MouseLeave:Connect(function()
+		UI.tween(scale, 0.12, { Scale = 1 })
+	end)
+	button.Activated:Connect(function()
+		UI.pop(scale, -0.08)
+		UI.sound("Click", 1.1, 0.4)
+		onClick()
+	end)
+	button.Parent = props.Parent
+	return button
+end
+
+return UI
+]]></string>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="29">
+          <Properties>
+            <string name="Name">Windows</string>
+            <string name="Source"><![CDATA[--!strict
+-- De vensters achter de menuknoppen: Upgrades, Rebirth, Index, Gifts, Daily,
+-- Store en de welkom-terug-melding. Er is steeds maar één venster open.
+
+local MarketplaceService = game:GetService("MarketplaceService")
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Config = require(Shared:WaitForChild("Config"))
+local Economy = require(Shared:WaitForChild("Economy"))
+local Format = require(Shared:WaitForChild("Format"))
+local Songs = require(Shared:WaitForChild("Songs"))
+
+local Store = require(script.Parent.Store)
+local UI = require(script.Parent.UI)
+
+type Page = { frame: Frame, title: string, color: Color3, refresh: (any) -> () }
+
+local Windows = {}
+
+local refs: any = {}
+local pages: { [string]: Page } = {}
+local current: string? = nil
+local toast: (string, string?) -> () = function() end
+
+local function card(props: { [string]: any }): Frame
+	local frame = UI.new("Frame", {
+		BackgroundColor3 = UI.colors.panelLight,
+		BorderSizePixel = 0,
+	}, { UI.corner(14), UI.border(UI.colors.dark, 2) })
+	for key, value in props do
+		frame[key] = value
+	end
+	return frame
+end
+
+local function page(name: string, title: string, color: Color3): Frame
+	local frame = UI.new("Frame", {
+		Name = name,
+		Size = UDim2.fromScale(1, 1),
+		BackgroundTransparency = 1,
+		Visible = false,
+		Parent = refs.content,
+	})
+	pages[name] = { frame = frame, title = title, color = color, refresh = function() end }
+	return frame
+end
+
+local function call(name: string, ...: any)
+	local ok, message = Store.call(name, ...)
+	if not ok and message then
+		toast(message, "bad")
+	end
+end
+
+local function setButton(button: TextButton, text: string, enabled: boolean, color: Color3?)
+	button.Text = text
+	button.BackgroundColor3 = if enabled then color or UI.colors.green else UI.colors.grey
+end
+
+local function rewardText(reward: any, income: number): (string, string)
+	if reward.kind == "song" then
+		return "💿", string.upper(reward.rarity) .. " song"
+	end
+	return "💵", Format.cash(Economy.rewardCash(income, reward))
+end
+
+-- Upgrades ----------------------------------------------------------------
+
+local function buildUpgrades()
+	local frame = page("Upgrades", "⚡ UPGRADES", UI.colors.blue)
+	UI.new("UIListLayout", { Padding = UDim.new(0, 10), Parent = frame })
+	local rows = {}
+	for i, upgrade in Config.Upgrades do
+		local row = card({ Size = UDim2.new(1, 0, 0, 104), LayoutOrder = i, Parent = frame })
+		UI.text({ Text = upgrade.icon, Size = UDim2.fromOffset(76, 76), Position = UDim2.fromOffset(12, 14), Parent = row })
+		local name = UI.text({
+			Text = upgrade.name,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Size = UDim2.new(1, -290, 0, 34),
+			Position = UDim2.fromOffset(98, 12),
+			Parent = row,
+		})
+		UI.text({
+			Text = upgrade.desc,
+			TextColor3 = UI.colors.muted,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Size = UDim2.new(1, -290, 0, 40),
+			Position = UDim2.fromOffset(98, 50),
+			Parent = row,
+		})
+		local button = UI.button({
+			AnchorPoint = Vector2.new(1, 0.5),
+			Position = UDim2.new(1, -14, 0.5, 0),
+			Size = UDim2.fromOffset(170, 60),
+			Parent = row,
+		}, function()
+			call("BuyUpgrade", upgrade.id)
+		end)
+		rows[upgrade.id] = { name = name, button = button }
+	end
+	pages.Upgrades.refresh = function(state)
+		for _, upgrade in Config.Upgrades do
+			local row = rows[upgrade.id]
+			local level = state.upgrades[upgrade.id] or 0
+			row.name.Text = upgrade.name .. "  Lv " .. level .. "/" .. #upgrade.costs
+			local cost = Economy.upgradeCost(upgrade.id, level)
+			if cost then
+				setButton(row.button, Format.cash(cost), state.cash >= cost)
+			else
+				setButton(row.button, "MAX", false)
+			end
+		end
+	end
+end
+
+-- Rebirth -----------------------------------------------------------------
+
+local function buildRebirth()
+	local frame = page("Rebirth", "🔁 REBIRTH", UI.colors.green)
+	local title = UI.text({ Text = "", Size = UDim2.new(1, 0, 0, 44), Parent = frame })
+	local bar = UI.new("Frame", {
+		Size = UDim2.new(1, -40, 0, 34),
+		Position = UDim2.fromOffset(20, 56),
+		BackgroundColor3 = UI.colors.dark,
+		Parent = frame,
+	}, { UI.corner(12) })
+	local fill = UI.new("Frame", {
+		Size = UDim2.fromScale(0, 1),
+		BackgroundColor3 = UI.colors.green,
+		Parent = bar,
+	}, { UI.corner(12), UI.gradient(Color3.fromRGB(150, 255, 170), UI.colors.green) })
+	local barText = UI.text({ Text = "", ZIndex = 3, Size = UDim2.new(1, -16, 1, -6), Position = UDim2.fromOffset(8, 3), Parent = bar })
+	local rewards = UI.text({
+		Text = "",
+		RichText = true,
+		TextScaled = false,
+		TextSize = 24,
+		TextWrapped = true,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top,
+		Size = UDim2.new(1, -40, 0, 170),
+		Position = UDim2.fromOffset(20, 104),
+		Parent = frame,
+	})
+	local button = UI.button({
+		AnchorPoint = Vector2.new(0.5, 1),
+		Position = UDim2.new(0.5, 0, 1, -6),
+		Size = UDim2.fromOffset(300, 64),
+		Parent = frame,
+	}, function()
+		call("Rebirth")
+	end)
+
+	pages.Rebirth.refresh = function(state)
+		local r = state.rebirths
+		local cost = state.rebirthCost
+		title.Text = "Rebirth " .. r .. "  →  " .. (r + 1)
+		fill.Size = UDim2.fromScale(math.clamp(state.cash / cost, 0, 1), 1)
+		barText.Text = Format.cash(state.cash) .. " / " .. Format.cash(cost)
+		rewards.Text = table.concat({
+			"✅ Royalties <b>" .. Format.multiplier(Economy.rebirthMultiplier(r)) .. " → " .. Format.multiplier(
+				Economy.rebirthMultiplier(r + 1)
+			) .. "</b> forever",
+			"✅ Studio slots <b>" .. Economy.slotCount(r) .. " → " .. Economy.slotCount(r + 1) .. "</b>",
+			"✅ You <b>keep your best song</b>",
+			"✅ Upgrades and Index stay",
+			'<font color="#ff8090">❌ Cash and your other songs reset</font>',
+		}, "\n")
+		if state.cash >= cost then
+			setButton(button, "REBIRTH!", true)
+		else
+			setButton(button, "Need " .. Format.cash(cost - state.cash) .. " more", false)
+		end
+	end
+end
+
+-- Index -------------------------------------------------------------------
+
+local function buildIndex()
+	local frame = page("Index", "📖 SONG INDEX", UI.colors.purple)
+	local summary = UI.text({ Text = "", Size = UDim2.new(1, 0, 0, 30), Parent = frame })
+	local scroll = UI.new("ScrollingFrame", {
+		Size = UDim2.new(1, 0, 1, -38),
+		Position = UDim2.fromOffset(0, 38),
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ScrollBarThickness = 8,
+		ScrollingDirection = Enum.ScrollingDirection.Y,
+		AutomaticCanvasSize = Enum.AutomaticSize.Y,
+		CanvasSize = UDim2.new(),
+		Parent = frame,
+	}, { UI.new("UIListLayout", { Padding = UDim.new(0, 12), SortOrder = Enum.SortOrder.LayoutOrder }) })
+
+	local headers = {}
+	local cards = {}
+	for i, rarity in Config.Rarities do
+		local section = UI.new("Frame", {
+			Size = UDim2.new(1, -14, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			LayoutOrder = i,
+			Parent = scroll,
+		}, { UI.new("UIListLayout", { Padding = UDim.new(0, 6), SortOrder = Enum.SortOrder.LayoutOrder }) })
+		headers[rarity.name] = UI.text({
+			Text = rarity.name,
+			TextColor3 = if rarity.name == "Secret" then UI.colors.text else UI.rgb(rarity.color),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Size = UDim2.new(1, 0, 0, 28),
+			LayoutOrder = 1,
+			Parent = section,
+		})
+		local grid = UI.new("Frame", {
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			LayoutOrder = 2,
+			Parent = section,
+		}, {
+			UI.new("UIGridLayout", {
+				CellSize = UDim2.fromOffset(104, 122),
+				CellPadding = UDim2.fromOffset(8, 8),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+		})
+		local group: { Songs.SongDef } = Songs.byRarity[rarity.name] or {}
+		for j, def in group do
+			local cell = card({ LayoutOrder = j, Parent = grid })
+			local disc = UI.new("Frame", {
+				AnchorPoint = Vector2.new(0.5, 0),
+				Position = UDim2.new(0.5, 0, 0, 12),
+				Size = UDim2.fromOffset(56, 56),
+				Parent = cell,
+			}, { UI.round(), UI.border(Color3.fromRGB(20, 18, 26), 8) })
+			UI.new("Frame", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				Size = UDim2.fromOffset(10, 10),
+				BackgroundColor3 = UI.colors.dark,
+				Parent = disc,
+			}, { UI.round() })
+			local question = UI.text({ Text = "?", Size = UDim2.fromScale(0.8, 0.8), Position = UDim2.fromScale(0.1, 0.1), ZIndex = 3, Parent = disc })
+			local name = UI.text({ Text = "???", Size = UDim2.new(1, -8, 0, 22), Position = UDim2.fromOffset(4, 78), Parent = cell })
+			local dotsFrame = UI.new("Frame", {
+				Size = UDim2.new(1, 0, 0, 12),
+				Position = UDim2.fromOffset(0, 104),
+				BackgroundTransparency = 1,
+				Parent = cell,
+			}, {
+				UI.new("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					Padding = UDim.new(0, 5),
+				}),
+			})
+			local dots = {}
+			for k, mutation in Config.Mutations do
+				dots[mutation.name] = UI.new("Frame", {
+					Size = UDim2.fromOffset(12, 12),
+					LayoutOrder = k,
+					Parent = dotsFrame,
+				}, { UI.round() })
+			end
+			cards[def.id] = { def = def, disc = disc, question = question, name = name, dots = dots }
+		end
+	end
+
+	pages.Index.refresh = function(state)
+		local discovered = state.discovered or {}
+		local mutations = state.discoveredMut or {}
+		local progress, bonus = Economy.indexProgress(discovered)
+		local found = 0
+		for _, entry in cards do
+			local def = entry.def
+			local known = discovered[def.id] == true
+			if known then
+				found += 1
+			end
+			entry.disc.BackgroundColor3 = if known then UI.rgb(def.color) else Color3.fromRGB(70, 64, 84)
+			entry.question.Visible = not known
+			entry.name.Text = if known then def.name else "???"
+			for _, mutation in Config.Mutations do
+				local dot = entry.dots[mutation.name]
+				local has = mutations[def.id .. "|" .. mutation.name] == true
+				dot.BackgroundColor3 = if has then UI.rgb(mutation.color) else UI.colors.dark
+				dot.BackgroundTransparency = if has then 0 else 0.5
+			end
+		end
+		for _, rarity in Config.Rarities do
+			local p = progress[rarity.name]
+			local done = p.total > 0 and p.found == p.total
+			headers[rarity.name].Text = string.upper(rarity.name)
+				.. "  "
+				.. p.found
+				.. "/"
+				.. p.total
+				.. (if done then "  ✅ +" .. math.floor(Config.IndexBonusPerRarity * 100) .. "%" else "  (complete: +" .. math.floor(
+					Config.IndexBonusPerRarity * 100
+				) .. "% royalties)")
+		end
+		summary.Text = "Discovered " .. found .. "/" .. #Songs.list .. "  ·  Index bonus +" .. math.floor(bonus * 100 + 0.5) .. "%"
+	end
+end
+
+-- Gifts -------------------------------------------------------------------
+
+local function buildGifts()
+	local frame = page("Gifts", "🎁 PLAYTIME GIFTS", UI.colors.yellow)
+	UI.text({ Text = "Stay in the game to unlock free gifts!", TextColor3 = UI.colors.muted, Size = UDim2.new(1, 0, 0, 26), Parent = frame })
+	local grid = UI.new("Frame", {
+		Size = UDim2.new(1, 0, 1, -34),
+		Position = UDim2.fromOffset(0, 34),
+		BackgroundTransparency = 1,
+		Parent = frame,
+	}, {
+		UI.new("UIGridLayout", {
+			CellSize = UDim2.fromOffset(132, 150),
+			CellPadding = UDim2.fromOffset(10, 10),
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+	})
+	local cells = {}
+	for i, gift in Config.Gifts do
+		local cell = card({ LayoutOrder = i, Parent = grid })
+		local icon = UI.text({ Text = "🎁", Size = UDim2.new(1, 0, 0, 44), Position = UDim2.fromOffset(0, 8), Parent = cell })
+		local reward = UI.text({ Text = "", Size = UDim2.new(1, -10, 0, 26), Position = UDim2.fromOffset(5, 56), Parent = cell })
+		local button = UI.button({
+			AnchorPoint = Vector2.new(0.5, 1),
+			Position = UDim2.new(0.5, 0, 1, -8),
+			Size = UDim2.new(1, -16, 0, 46),
+			Parent = cell,
+		}, function()
+			call("ClaimGift", i)
+		end)
+		cells[i] = { gift = gift, icon = icon, reward = reward, button = button }
+	end
+	pages.Gifts.refresh = function(state)
+		local minutes = Store.playMinutes()
+		for i, cell in cells do
+			local gift = cell.gift
+			local needed = gift.minutes or 0
+			local icon, text = rewardText(gift, state.income or 0)
+			cell.icon.Text = icon
+			cell.reward.Text = text
+			local claimed = state.giftsClaimed and state.giftsClaimed[i]
+			if claimed then
+				setButton(cell.button, "✓ Claimed", false)
+			elseif minutes >= needed then
+				setButton(cell.button, "CLAIM!", true)
+			else
+				setButton(cell.button, Format.time((needed - minutes) * 60), false, UI.colors.blue)
+			end
+		end
+	end
+end
+
+-- Daily -------------------------------------------------------------------
+
+local function buildDaily()
+	local frame = page("Daily", "📅 DAILY REWARDS", UI.colors.accent)
+	UI.text({ Text = "Come back every day! Day 7 is a LEGENDARY song.", TextColor3 = UI.colors.muted, Size = UDim2.new(1, 0, 0, 26), Parent = frame })
+	local row = UI.new("Frame", {
+		Size = UDim2.new(1, 0, 0, 150),
+		Position = UDim2.fromOffset(0, 40),
+		BackgroundTransparency = 1,
+		Parent = frame,
+	}, {
+		UI.new("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			Padding = UDim.new(0, 6),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+	})
+	local cells = {}
+	for i, reward in Config.Daily do
+		local cell = card({ Size = UDim2.fromOffset(74, 150), LayoutOrder = i, Parent = row })
+		UI.text({ Text = "Day " .. i, Size = UDim2.new(1, -8, 0, 24), Position = UDim2.fromOffset(4, 8), Parent = cell })
+		local icon = UI.text({ Text = "", Size = UDim2.new(1, 0, 0, 40), Position = UDim2.fromOffset(0, 40), Parent = cell })
+		local text = UI.text({ Text = "", Size = UDim2.new(1, -8, 0, 36), Position = UDim2.fromOffset(4, 88), TextWrapped = true, Parent = cell })
+		local stroke = cell:FindFirstChildOfClass("UIStroke")
+		cells[i] = { reward = reward, cell = cell, icon = icon, text = text, stroke = stroke }
+	end
+	local button = UI.button({
+		AnchorPoint = Vector2.new(0.5, 1),
+		Position = UDim2.new(0.5, 0, 1, -6),
+		Size = UDim2.fromOffset(320, 64),
+		Parent = frame,
+	}, function()
+		call("ClaimDaily")
+	end)
+
+	pages.Daily.refresh = function(state)
+		local daily = state.daily or { canClaim = false, streak = 0, nextIn = 0 }
+		local streak = daily.streak or 0
+		-- Welke dag van de week van 7 is nu aan de beurt?
+		local nextDay = if daily.canClaim then streak else streak + 1
+		local cycleDay = (math.max(nextDay, 1) - 1) % #Config.Daily + 1
+		for i, cell in cells do
+			local icon, text = rewardText(cell.reward, state.income or 0)
+			cell.icon.Text = if i < cycleDay then "✅" else icon
+			cell.text.Text = text
+			cell.cell.BackgroundColor3 = if i == cycleDay then UI.colors.accent else UI.colors.panelLight
+			if cell.stroke then
+				cell.stroke.Color = if i == cycleDay then UI.colors.text else UI.colors.dark
+			end
+		end
+		if daily.canClaim then
+			setButton(button, "CLAIM DAY " .. cycleDay .. "!", true)
+		else
+			local waited = os.clock() - Store.receivedAt
+			setButton(button, "Next in " .. Format.time((daily.nextIn or 0) - waited), false, UI.colors.blue)
+		end
+	end
+end
+
+-- Store -------------------------------------------------------------------
+
+local function buildStore()
+	local frame = page("Store", "💎 STORE", Color3.fromRGB(255, 120, 200))
+	UI.new("UIListLayout", { Padding = UDim.new(0, 10), Parent = frame })
+	local rows = {}
+	for i, pass in Config.GamePasses do
+		if pass.id ~= 0 then
+			local row = card({ Size = UDim2.new(1, 0, 0, 100), LayoutOrder = i, Parent = frame })
+			UI.text({ Text = pass.icon, Size = UDim2.fromOffset(72, 72), Position = UDim2.fromOffset(12, 14), Parent = row })
+			UI.text({
+				Text = pass.name,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Size = UDim2.new(1, -280, 0, 36),
+				Position = UDim2.fromOffset(96, 12),
+				Parent = row,
+			})
+			UI.text({
+				Text = pass.desc,
+				TextColor3 = UI.colors.muted,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Size = UDim2.new(1, -280, 0, 30),
+				Position = UDim2.fromOffset(96, 54),
+				Parent = row,
+			})
+			local button = UI.button({
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(1, -14, 0.5, 0),
+				Size = UDim2.fromOffset(160, 58),
+				Parent = row,
+			}, function()
+				MarketplaceService:PromptGamePassPurchase(Players.LocalPlayer, pass.id)
+			end)
+			rows[pass.key] = button
+		end
+	end
+	pages.Store.refresh = function(state)
+		for key, button in rows do
+			local owned = state.passes and state.passes[key]
+			setButton(button, if owned then "Owned ✓" else "Buy", not owned, UI.colors.yellow)
+		end
+	end
+end
+
+-- Welkom terug ------------------------------------------------------------
+
+local function buildOffline()
+	local frame = page("Offline", "👋 WELCOME BACK!", UI.colors.green)
+	refs.offlineText = UI.text({
+		Text = "",
+		RichText = true,
+		TextWrapped = true,
+		Size = UDim2.new(1, -40, 0, 180),
+		Position = UDim2.fromOffset(20, 40),
+		Parent = frame,
+	})
+	UI.button({
+		AnchorPoint = Vector2.new(0.5, 1),
+		Position = UDim2.new(0.5, 0, 1, -10),
+		Size = UDim2.fromOffset(260, 64),
+		Text = "AWESOME!",
+		Parent = frame,
+	}, function()
+		Windows.close()
+	end)
+end
+
+function Windows.build(screen: GuiObject, toastFn: (string, string?) -> ())
+	toast = toastFn
+	local window = UI.new("Frame", {
+		Name = "Window",
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.fromScale(0.5, 0.54),
+		Size = UDim2.fromOffset(620, 460),
+		BackgroundColor3 = UI.colors.panel,
+		Visible = false,
+		ZIndex = 10,
+		Parent = screen,
+	}, { UI.corner(22), UI.border(UI.colors.dark, 4) })
+	refs.window = window
+	refs.scale = UI.new("UIScale", { Parent = window })
+
+	local titleBar = UI.new("Frame", {
+		Size = UDim2.new(1, 0, 0, 58),
+		BackgroundColor3 = UI.colors.accent,
+		Parent = window,
+	}, { UI.corner(22) })
+	refs.titleBar = titleBar
+	refs.title = UI.text({
+		Text = "",
+		Size = UDim2.new(1, -120, 1, -12),
+		Position = UDim2.fromOffset(20, 6),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		strokeThickness = 3,
+		Parent = titleBar,
+	})
+	UI.button({
+		AnchorPoint = Vector2.new(1, 0.5),
+		Position = UDim2.new(1, -10, 0.5, 0),
+		Size = UDim2.fromOffset(46, 46),
+		Text = "X",
+		color = UI.colors.red,
+		Parent = titleBar,
+	}, function()
+		Windows.close()
+	end)
+
+	refs.content = UI.new("Frame", {
+		Name = "Content",
+		Size = UDim2.new(1, -32, 1, -84),
+		Position = UDim2.fromOffset(16, 70),
+		BackgroundTransparency = 1,
+		Parent = window,
+	})
+
+	buildUpgrades()
+	buildRebirth()
+	buildIndex()
+	buildGifts()
+	buildDaily()
+	buildStore()
+	buildOffline()
+end
+
+function Windows.open(name: string)
+	if current == name then
+		Windows.close()
+		return
+	end
+	local target = pages[name]
+	if not target then
+		return
+	end
+	for pageName, p in pages do
+		p.frame.Visible = pageName == name
+	end
+	current = name
+	refs.title.Text = target.title
+	refs.titleBar.BackgroundColor3 = target.color
+	refs.window.Visible = true
+	refs.scale.Scale = 0.85
+	UI.tween(refs.scale, 0.25, { Scale = 1 }, Enum.EasingStyle.Back)
+	if Store.state then
+		target.refresh(Store.state)
+	end
+end
+
+function Windows.close()
+	current = nil
+	refs.window.Visible = false
+end
+
+function Windows.isOpen(): boolean
+	return current ~= nil
+end
+
+function Windows.setState(state: any)
+	if current and pages[current] then
+		pages[current].refresh(state)
+	end
+end
+
+-- Timers in Gifts en Daily laten doorlopen
+function Windows.tick()
+	if (current == "Gifts" or current == "Daily") and Store.state then
+		pages[current].refresh(Store.state)
+	end
+end
+
+function Windows.showOffline(amount: number, seconds: number)
+	refs.offlineText.Text = "While you were away for <b>"
+		.. Format.duration(seconds)
+		.. "</b>, your songs kept streaming!\n\n"
+		.. '<font color="#6eff82"><b>+'
+		.. Format.cash(amount)
+		.. "</b></font>"
+	Windows.open("Offline")
+	UI.sound("Rebirth", 1.2, 0.5)
+end
+
+return Windows
+]]></string>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="30">
+          <Properties>
+            <string name="Name">World</string>
+            <string name="Source"><![CDATA[--!strict
+-- Effecten in de wereld die alleen de client tekent: platen die draaien en
+-- zweven, songs die je studio in vliegen, regenboogkleuren, de lichtstraal
+-- naar huis als je steelt, knockback en de +$ bij het ophalen.
+
+local CollectionService = game:GetService("CollectionService")
+local Debris = game:GetService("Debris")
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local SoundService = game:GetService("SoundService")
+local Workspace = game:GetService("Workspace")
+
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Config = require(Shared:WaitForChild("Config"))
+local Format = require(Shared:WaitForChild("Format"))
+
+local UI = require(script.Parent.UI)
+
+local World = {}
+
+type Spinner = {
+	base: CFrame,
+	flyFrom: Vector3?,
+	flyAt: number?,
+	phase: number,
+}
+
+local player = Players.LocalPlayer
+local spinners: { [Model]: Spinner } = {}
+local rainbowParts: { [BasePart]: number } = {}
+local rainbowGradients: { [UIGradient]: boolean } = {}
+local carryBeam: { Instance } = {}
+
+local FLY_TIME = 0.9
+local SPIN_DISTANCE = 120
+
+local function addSpinner(instance: Instance)
+	if not instance:IsA("Model") then
+		return
+	end
+	local flyFrom = instance:GetAttribute("FlyFrom")
+	local flyAt = instance:GetAttribute("FlyAt")
+	spinners[instance] = {
+		base = instance:GetPivot(),
+		flyFrom = if typeof(flyFrom) == "Vector3" then flyFrom else nil,
+		flyAt = if type(flyAt) == "number" then flyAt else nil,
+		phase = math.random() * math.pi * 2,
+	}
+end
+
+local function applyRole(prompt: Instance)
+	if not prompt:IsA("ProximityPrompt") then
+		return
+	end
+	local owner = prompt:GetAttribute("OwnerId")
+	local mine = owner == player.UserId
+	local role = prompt:GetAttribute("Role")
+	if role == "Owner" then
+		prompt.Enabled = mine
+	elseif role == "Other" then
+		prompt.Enabled = not mine and owner ~= 0
+	end
+end
+
+local function watchTag(tag: string, added: (Instance) -> (), removed: ((Instance) -> ())?)
+	CollectionService:GetInstanceAddedSignal(tag):Connect(added)
+	if removed then
+		CollectionService:GetInstanceRemovedSignal(tag):Connect(removed)
+	end
+	for _, instance in CollectionService:GetTagged(tag) do
+		added(instance)
+	end
+end
+
+function World.init()
+	watchTag("SpinSong", addSpinner, function(instance)
+		if instance:IsA("Model") then
+			spinners[instance] = nil
+		end
+	end)
+	watchTag("Rainbow", function(instance)
+		if instance:IsA("BasePart") then
+			rainbowParts[instance] = math.random()
+		end
+	end, function(instance)
+		if instance:IsA("BasePart") then
+			rainbowParts[instance] = nil
+		end
+	end)
+	watchTag("RainbowGradient", function(instance)
+		if instance:IsA("UIGradient") then
+			rainbowGradients[instance] = true
+		end
+	end, function(instance)
+		if instance:IsA("UIGradient") then
+			rainbowGradients[instance] = nil
+		end
+	end)
+	watchTag("RolePrompt", function(instance)
+		applyRole(instance)
+		instance:GetAttributeChangedSignal("OwnerId"):Connect(function()
+			applyRole(instance)
+		end)
+	end)
+
+	if Config.MusicId ~= "" then
+		local music = Instance.new("Sound")
+		music.Name = "Music"
+		music.SoundId = Config.MusicId
+		music.Looped = true
+		music.Volume = 0.25
+		music.Parent = SoundService
+		music:Play()
+	end
+end
+
+function World.update(_dt: number)
+	local t = os.clock()
+	local now = Workspace:GetServerTimeNow()
+	local camera = Workspace.CurrentCamera
+	local cameraPos = if camera then camera.CFrame.Position else Vector3.zero
+
+	for model, spinner in spinners do
+		if not model.Parent then
+			spinners[model] = nil
+			continue
+		end
+		local base = spinner.base
+		if (base.Position - cameraPos).Magnitude > SPIN_DISTANCE then
+			continue
+		end
+		local flyFrom, flyAt = spinner.flyFrom, spinner.flyAt
+		local cframe
+		if flyFrom and flyAt and now - flyAt < FLY_TIME then
+			-- In een boog de studio in vliegen
+			local alpha = math.clamp((now - flyAt) / FLY_TIME, 0, 1)
+			local eased = 1 - (1 - alpha) ^ 3
+			local position = flyFrom:Lerp(base.Position, eased) + Vector3.new(0, math.sin(alpha * math.pi) * 10, 0)
+			cframe = CFrame.new(position) * base.Rotation * CFrame.Angles(0, alpha * math.pi * 6, 0)
+		else
+			cframe = base
+				* CFrame.new(0, math.sin(t * 2 + spinner.phase) * 0.3, 0)
+				* CFrame.Angles(0, t * 1.1 + spinner.phase, 0)
+		end
+		model:PivotTo(cframe)
+	end
+
+	for part, offset in rainbowParts do
+		if part.Parent then
+			part.Color = Color3.fromHSV((t * 0.3 + offset) % 1, 0.75, 1)
+		else
+			rainbowParts[part] = nil
+		end
+	end
+
+	local slide = math.sin(t * 1.5) * 0.5
+	for gradient in rainbowGradients do
+		gradient.Offset = Vector2.new(slide, 0)
+	end
+end
+
+local function clearBeam()
+	for _, instance in carryBeam do
+		instance:Destroy()
+	end
+	table.clear(carryBeam)
+end
+
+-- Een lichtstraal van jou naar je eigen studio zolang je een song draagt
+function World.setCarry(info: any)
+	clearBeam()
+	if not (info and info.active) then
+		return
+	end
+	local character = player.Character
+	local root = character and character:FindFirstChild("HumanoidRootPart")
+	local studios = Workspace:FindFirstChild("Studios")
+	local studio = studios and studios:FindFirstChild("Studio" .. tostring(info.plotIndex))
+	local floor = studio and studio:FindFirstChild("Floor")
+	if not root or not floor then
+		return
+	end
+	local from = Instance.new("Attachment")
+	from.CFrame = CFrame.fromMatrix(Vector3.zero, Vector3.new(0, 1, 0), Vector3.new(-1, 0, 0))
+	from.Parent = root
+	local to = Instance.new("Attachment")
+	to.CFrame = CFrame.fromMatrix(Vector3.new(0, 3, 0), Vector3.new(0, -1, 0), Vector3.new(1, 0, 0))
+	to.Parent = floor
+	local beam = Instance.new("Beam")
+	beam.Attachment0 = from
+	beam.Attachment1 = to
+	beam.Color = ColorSequence.new(Color3.fromRGB(90, 255, 120), Color3.fromRGB(255, 255, 255))
+	beam.Transparency = NumberSequence.new(0.25)
+	beam.LightEmission = 1
+	beam.FaceCamera = true
+	beam.Width0 = 1.4
+	beam.Width1 = 2.5
+	beam.CurveSize0 = 18
+	beam.CurveSize1 = 18
+	beam.Segments = 24
+	beam.Texture = "rbxasset://textures/particles/sparkles_main.dds"
+	beam.TextureMode = Enum.TextureMode.Wrap
+	beam.TextureLength = 3
+	beam.TextureSpeed = 2
+	beam.Parent = floor
+	carryBeam = { from, to, beam }
+end
+
+-- Geraakt door een gitaar: wegvliegen en even omvallen
+function World.knockback(info: any)
+	local character = player.Character
+	local root = character and character:FindFirstChild("HumanoidRootPart")
+	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+	if not root or not root:IsA("BasePart") or not humanoid then
+		return
+	end
+	humanoid.PlatformStand = true
+	root.AssemblyLinearVelocity = info.velocity
+	UI.sound("Hit", 0.9 + math.random() * 0.3, 0.7)
+
+	task.spawn(function()
+		local started = os.clock()
+		while os.clock() - started < 0.35 do
+			humanoid.CameraOffset = Vector3.new(math.random() - 0.5, math.random() - 0.5, 0) * 0.8
+			task.wait()
+		end
+		humanoid.CameraOffset = Vector3.zero
+	end)
+
+	task.delay(info.stun or 1, function()
+		if humanoid.Parent then
+			humanoid.PlatformStand = false
+			humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+		end
+	end)
+end
+
+-- "+$123" dat omhoog zweeft boven het pad
+function World.collected(info: any)
+	UI.sound("Collect", 1 + math.random() * 0.3, 0.45)
+	local anchor = Instance.new("Part")
+	anchor.Anchored = true
+	anchor.CanCollide = false
+	anchor.CanQuery = false
+	anchor.CanTouch = false
+	anchor.Transparency = 1
+	anchor.Size = Vector3.new(0.2, 0.2, 0.2)
+	anchor.Position = info.position + Vector3.new(0, 2, 0)
+	anchor.Parent = Workspace
+
+	local gui = Instance.new("BillboardGui")
+	gui.Size = UDim2.fromOffset(200, 56)
+	gui.AlwaysOnTop = true
+	gui.LightInfluence = 0
+	gui.Parent = anchor
+	local label = UI.text({
+		Text = "+" .. Format.cash(info.amount),
+		TextColor3 = UI.colors.green,
+		strokeThickness = 3,
+		Parent = gui,
+	})
+
+	UI.tween(anchor, 1.1, { Position = anchor.Position + Vector3.new(0, 5, 0) })
+	task.delay(0.6, function()
+		UI.tween(label, 0.5, { TextTransparency = 1 })
+	end)
+	Debris:AddItem(anchor, 1.3)
+end
+
+return World
+]]></string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+  </Item>
+  <Item class="TextChatService" referent="31">
+    <Properties>
+      <string name="Name">TextChatService</string>
+      <token name="ChatVersion">1</token>
+    </Properties>
+  </Item>
+  <Item class="Workspace" referent="32">
+    <Properties>
+      <string name="Name">Workspace</string>
+      <bool name="NeedsPivotMigration">false</bool>
+      <bool name="StreamingEnabled">false</bool>
+    </Properties>
+  </Item>
+</roblox>
