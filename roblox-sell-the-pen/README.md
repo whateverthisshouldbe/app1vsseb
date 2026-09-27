@@ -50,8 +50,9 @@ zien, en een pijl wijst naar de juiste knop. **Beloning: 15 minuten ×2 geld** (
 - **Double jump + flip**: druk in de lucht nog een keer op springen voor een tweede sprong met een backflip
   of frontflip. Bij ongeveer 1 op 3 gewone sprongen flip je ook (backflip, frontflip, sideflip of
   kurkentrekker). Andere spelers zien je flips.
-- **Je pak op je avatar**: koop je een pak, dan draag je het echt: colbert in de juiste kleur, revers,
-  overhemd, das of strik, pochet, en bij de Wolf Suit ook goud, een horloge en een zonnebril. Met het
+- **Je pak op je avatar**: koop je een pak, dan draag je het echt, als catalogusitem: Off-the-Rack =
+  grijs pak, Tailored = crimson pak, Italian Silk = wit pak, Wolf Suit = tuxedo met Golden Aviators,
+  een gouden ketting en een horloge. Met het
   Thrift-pak (en na een rebirth) houd je je eigen avatar-kleding.
 - **Loopstijl per pak**: Thrift = Cartoony, Off-the-Rack = Toy, Tailored = Ninja, Italian Silk = Stylish,
   Wolf Suit = Superhero (officiële Roblox-animatiepakketten).
@@ -65,11 +66,23 @@ levelbalk (level uit je totale verdiensten) onderin, teleport- en hum-knoppen re
 boosts rechts. De standaard Roblox-spelerslijst staat uit, zodat de HUD de hoek rechtsboven heeft.
 
 ### Visitors
-Elke visitor heeft een vaste, eigen look: colberts met revers en das, overalls, doktersjassen, hoodies,
-jurken, capes, kapsels, petten, cowboyhoeden, zonnebrillen, monocles, kettingen, horloges, koffertjes
-en zelfs een gitaar. Zeldzamere visitors krijgen kronen, halo's, aura's en gloed. Een deel draagt echte
-catalogusitems (Pal Hair, Man Face). In de **Index** zie je van elke visitor een 3D-preview, en een
-zwart silhouet zolang je hem nog niet hebt verkocht.
+Visitors dragen **echte Roblox-catalogusitems**, allemaal gecontroleerd via de Roblox-catalogus-API:
+- **pakken:** grijs, wit, crimson, rood, paars, roze, oranje en een tuxedo
+- **gewone kleding:** Roblox-shirts en -jeans
+- **haar:** Pal Hair, Brown Charmer, Lavender Updo, Flaming Mohawk en meer
+- **hoeden:** fedora, Business Hat, cowboyhoeden, petten, Golden Crown, Royal Crown
+- **brillen:** Stylish en Golden Aviators, Bling Shades, Monocle
+- **nek en rug:** dassen, kettingen, dog tags, lanyard en een Axe Guitar
+- **gezichten:** klassieke gezichten, zoals *Suspicious* voor de FBI
+
+Elke persoonlijkheid heeft een eigen garderobe en elke visitor ziet er altijd hetzelfde uit. Daar
+bovenop komen props (koffertjes, koffie, capes, jurken) en rarity-effecten (kronen, halo's, aura's).
+Laadt een item ooit niet, dan krijgt de visitor een outfit van parts als vangnet. In de **Index** zie
+je van elke visitor een 3D-preview, en een zwart silhouet zolang je hem nog niet hebt verkocht.
+
+Visitors **stromen door**: na 35 tot 75 seconden lopen ze verder en verdwijnen, en er lopen nieuwe
+binnen vanaf de rand van de zone. Na een sale of een "nee" lopen ze ook weg. In de Penthouse vertrekken
+ze weer via de voordeur.
 
 ### Rarities
 
@@ -122,6 +135,10 @@ Alles staat in `map/Map.model.json`, gegenereerd door `tools/build_map.py` (onge
   stoelen waarop je kunt zitten, een podium voor de speech en het glazen hoekkantoor van The Wolf.
 - **Haven**: promenade, pier, speedboten en het jacht **NAOMI** met helikopter, bar, DJ-booth en hot tub.
 - **Penthouse**: bovenop de blauwe toren aan Pen Street, met liftlobby, bar, vleugel en een terras met infinity pool.
+- **Leven**: auto's en taxi's rijden over Pen Street, er zijn wolken, huizen met tuinhekjes op Long
+  Island, een seminar-billboard, een foodtruck, een bushokje, een kiosk en een vuurtoren met boeien.
+- **Swiss Vault** en **Private Island** liggen ver weg op zee (alleen per teleport). Door de mist zie
+  je ze niet vanaf de rest van de wereld.
 - **Swiss Vault**: besneeuwd eiland met bergen, dennen, sneeuwval en een bank met kluisdeur, goudstaven en kluisjes.
 - **Private Island**: tropisch eiland met Villa Jolfort, zwembad, tiki-bar, kampvuur, steiger en watervliegtuig.
 - **Achtergrond**: skyline rondom, water (Terrain, gevuld bij het starten) en een zonsondergang met Future lighting.

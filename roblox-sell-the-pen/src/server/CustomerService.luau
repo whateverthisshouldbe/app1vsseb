@@ -28,6 +28,23 @@ local function randomPoint(area)
 	return Vector3.new(rng:NextNumber(area.minX, area.maxX), area.y + 3, rng:NextNumber(area.minZ, area.maxZ))
 end
 
+-- A point on the rim of the area: where visitors walk in from and out to.
+local function edgePoint(area)
+	local side = rng:NextInteger(1, 4)
+	local x = rng:NextNumber(area.minX, area.maxX)
+	local z = rng:NextNumber(area.minZ, area.maxZ)
+	if side == 1 then
+		x = area.minX
+	elseif side == 2 then
+		x = area.maxX
+	elseif side == 3 then
+		z = area.minZ
+	else
+		z = area.maxZ
+	end
+	return Vector3.new(x, area.y + 3, z)
+end
+
 local function makeSpeechBubble(head)
 	local gui = Instance.new("BillboardGui")
 	gui.Name = "Speech"
@@ -110,7 +127,7 @@ end
 
 local slotOwners = {} -- door zones: [zoneId] = { [slot] = state }
 
-local function buildCustomer(visitor, zone)
+local function buildCustomer(visitor, zone, fromEdge)
 	local archetypeKey = visitor.archetype
 	local rarity = Config.getRarity(visitor.rarity)
 	local model = OutfitService.buildVisitor(visitor)
@@ -148,7 +165,14 @@ local function buildCustomer(visitor, zone)
 	model:SetAttribute("Archetype", archetypeKey)
 	model:SetAttribute("Rarity", rarity.id)
 	prompt:SetAttribute("Rarity", rarity.id)
-	local spawnAt = zone.mode == "door" and (zone.door + Vector3.new(rng:NextNumber(-2, 2), 3, 0)) or randomPoint(zone.area)
+	local spawnAt
+	if zone.mode == "door" then
+		spawnAt = zone.door + Vector3.new(rng:NextNumber(-2, 2), 3, 0)
+	elseif fromEdge then
+		spawnAt = edgePoint(zone.area)
+	else
+		spawnAt = randomPoint(zone.area)
+	end
 	model:PivotTo(CFrame.new(spawnAt) * CFrame.Angles(0, rng:NextNumber(0, math.pi * 2), 0))
 	model.Parent = folder
 	-- Animations can only load once the rig is in the workspace.
@@ -166,6 +190,9 @@ local function buildCustomer(visitor, zone)
 		archetypeKey = archetypeKey,
 		visitor = visitor,
 		busy = false,
+		leaving = false,
+		-- Visitors don't hang around forever: after a while they move on.
+		expiresAt = os.clock() + rng:NextNumber(Config.VisitorStay.min, Config.VisitorStay.max),
 		cooldowns = {}, -- [Player] = os.clock() until they'll listen again
 	}
 	customers[model] = state
@@ -201,12 +228,25 @@ local function buildCustomer(visitor, zone)
 				break
 			end
 		end
+		-- Leave once their time is up (unless someone is pitching them).
+		task.spawn(function()
+			while model.Parent and not state.leaving do
+				task.wait(1)
+				if not state.busy and os.clock() > state.expiresAt then
+					CustomerService.leave(state, 0)
+				end
+			end
+		end)
 		return state
 	end
 
 	-- Wander.
 	task.spawn(function()
-		while model.Parent do
+		while model.Parent and not state.leaving do
+			if not state.busy and os.clock() > state.expiresAt then
+				CustomerService.leave(state, 0)
+				break
+			end
 			if not state.busy then
 				humanoid:MoveTo(randomPoint(zone.area))
 				local finished = false
@@ -235,10 +275,10 @@ local function buildCustomer(visitor, zone)
 	return state
 end
 
-local function spawnFor(zone)
+local function spawnFor(zone, fromEdge)
 	local rarity = Config.rollRarity(zone.luck, rng)
 	local visitor = pick(Visitors.byRarity[rarity.id])
-	local state = buildCustomer(visitor, zone)
+	local state = buildCustomer(visitor, zone, fromEdge)
 	local _, rarityIndex = Config.findById(Config.Rarities, rarity.id)
 	local _, announceIndex = Config.findById(Config.Rarities, Config.AnnounceRarity)
 	if state and rarityIndex >= announceIndex then
@@ -284,20 +324,63 @@ function CustomerService.setBusy(state, busy, facePlayer)
 end
 
 -- The customer bought (or got arrested): they leave and someone new shows up.
-function CustomerService.replace(state, delaySeconds)
+-- The visitor walks off (to the rim of the zone, or back out the front
+-- door), fades away, and someone new walks in a moment later.
+function CustomerService.leave(state, delaySeconds)
+	if state.leaving then
+		return
+	end
+	state.leaving = true
 	state.busy = true
 	state.prompt.Enabled = false
 	customers[state.model] = nil
 	if state.slot and slotOwners[state.zone.id] then
 		slotOwners[state.zone.id][state.slot] = nil
 	end
-	task.delay(delaySeconds or 3, function()
-		if state.model.Parent then
-			state.model:Destroy()
+	task.delay(delaySeconds or 0, function()
+		local model, humanoid, zone = state.model, state.humanoid, state.zone
+		if model.Parent and humanoid.Parent then
+			local route = zone.mode == "door" and { zone.entry, zone.door } or { edgePoint(zone.area) }
+			for _, point in route do
+				if point then
+					humanoid:MoveTo(point)
+					local finished = false
+					local connection = humanoid.MoveToFinished:Once(function()
+						finished = true
+					end)
+					local started = os.clock()
+					while not finished and os.clock() - started < 8 and model.Parent do
+						task.wait(0.2)
+					end
+					connection:Disconnect()
+				end
+			end
+			-- Fade out.
+			for _, gui in model:GetDescendants() do
+				if gui:IsA("BillboardGui") then
+					gui.Enabled = false
+				end
+			end
+			for step = 1, 10 do
+				for _, part in model:GetDescendants() do
+					if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+						part.Transparency = math.max(part.Transparency, step / 10)
+					elseif part:IsA("Decal") then
+						part.Transparency = step / 10
+					end
+				end
+				task.wait(0.05)
+			end
+			model:Destroy()
 		end
-		task.wait(rng:NextNumber(2, 5))
-		spawnFor(state.zone)
+		task.wait(rng:NextNumber(1, 3))
+		spawnFor(zone, true)
 	end)
+end
+
+-- Kept for callers: a sale or a bust sends the visitor on their way.
+function CustomerService.replace(state, delaySeconds)
+	CustomerService.leave(state, delaySeconds or 3)
 end
 
 function CustomerService.start(onPrompt)

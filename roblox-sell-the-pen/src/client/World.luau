@@ -278,6 +278,46 @@ local function setupSpeech()
 	apply()
 end
 
+-- Traffic -----------------------------------------------------------------------------
+
+-- Cars in Map.Traffic drive along the avenue. Each client moves them
+-- locally (smooth, and they never collide with anything).
+local function setupTraffic()
+	local folder = map:WaitForChild("Traffic", 10)
+	if not folder then
+		return
+	end
+	local cars = {}
+	for _, model in folder:GetChildren() do
+		if model:IsA("Model") and model:GetAttribute("Speed") then
+			table.insert(cars, {
+				model = model,
+				base = model:GetPivot(),
+				startX = model:GetPivot().Position.X,
+				offset = 0,
+				speed = model:GetAttribute("Speed"),
+				direction = model:GetAttribute("Direction") or 1,
+				minX = model:GetAttribute("MinX") or -100,
+				maxX = model:GetAttribute("MaxX") or 200,
+			})
+		end
+	end
+	RunService.Heartbeat:Connect(function(dt)
+		for _, car in cars do
+			car.offset += car.speed * car.direction * dt
+			local x = car.startX + car.offset
+			local span = car.maxX - car.minX
+			-- Wrap around at the end of the avenue.
+			if x > car.maxX then
+				car.offset -= span
+			elseif x < car.minX then
+				car.offset += span
+			end
+			car.model:PivotTo(car.base + Vector3.new(car.offset, 0, 0))
+		end
+	end)
+end
+
 function World.start()
 	task.spawn(function()
 		setupGates()
@@ -287,6 +327,7 @@ function World.start()
 	setupPrompts()
 	setupTickers()
 	setupSpeech()
+	task.spawn(setupTraffic)
 	task.spawn(trackZones)
 end
 

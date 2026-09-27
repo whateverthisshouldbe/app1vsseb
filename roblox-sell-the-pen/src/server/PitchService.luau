@@ -119,7 +119,8 @@ local function finish(player, result, amount, line, extra)
 	end
 	Remotes.PitchEnd:FireClient(player, payload)
 
-	if result == "deal" or result == "busted" then
+	if result == "deal" or result == "busted" or result == "walked" then
+		-- Sold, busted or not interested: they say their piece and walk on.
 		if line then
 			CustomerService.say(customer, line, 3)
 		end

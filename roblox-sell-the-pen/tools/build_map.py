@@ -116,6 +116,7 @@ class Group:
     def __init__(self, name, origin=(0, 0, 0), yaw=0, cls="Model"):
         self.name = name
         self.cls = cls
+        self.attributes = {}
         self.origin = origin
         self.matrix = rot(0, yaw, 0)
         self.children = []
@@ -160,7 +161,10 @@ class Group:
 
     def to_json(self):
         kids = [c.to_json() if isinstance(c, Group) else c for c in self.children]
-        return inst(self.cls, self.name, None, kids)
+        node = inst(self.cls, self.name, None, kids)
+        if self.attributes:
+            node["attributes"] = self.attributes
+        return node
 
 
 def surface_text(text, color, font="GothamBlack", bg=None, ppu=20, face="Front", stroke=None):
@@ -285,6 +289,7 @@ def car(g, x, z, yaw, color, taxi=False, y=0):
         c.box("Checker", (13.05, 0.5, 6.25), (0, 2.8, 0), BLACK)
         c.box("RoofSign", (2.4, 1, 1.2), (-0.8, 6.2, 0), (255, 245, 180), "Neon",
               children=[surface_text("TAXI", BLACK, ppu=30, face="Front"), surface_text("TAXI", BLACK, ppu=30, face="Back")])
+    return c
 
 
 def bench(g, x, z, yaw=0, y=0.5):
@@ -636,9 +641,9 @@ hot_dog_cart(ps, 0, 27, 180)
 hot_dog_cart(ps, 140, -27, 0)
 # Parked taxis along the curb.
 for x in (-20, 30, 95, 150, 185):
-    car(ps, x, 14.5, 0, TAXI, taxi=True, y=0.2)
+    car(ps, x, 14.8, 0, TAXI, taxi=True, y=0.2)
 for x in (-60, 60, 125):
-    car(ps, x, -14.5, 180, TAXI, taxi=True, y=0.2)
+    car(ps, x, -14.8, 180, TAXI, taxi=True, y=0.2)
 # Subway entrance.
 sub = ps.sub("Subway", (175, 0.5, 24))
 sub.box("RailL", (10, 3, 0.4), (0, 1.5, -2.2), (40, 90, 50), "Metal")
@@ -971,7 +976,9 @@ ps.box("ElevatorAwning", (14, 0.6, 5), (-80, 15, 31), (30, 30, 35), "Metal")
 # ===========================================================================
 # 8. THE SWISS VAULT (rebirth 10): a snowy island and a bank full of gold.
 # ===========================================================================
-sv = root.sub("SwissVault")
+# Far away (teleport only), so you can't see it from the rest of the world.
+VAULT_OFFSET = (-1980, 0, 1020)
+sv = root.sub("SwissVault", VAULT_OFFSET)
 VX, VZ = -620, 380
 SNOW = (245, 248, 252)
 sv.box("Island", (190, 6, 170), (VX, -3, VZ), SNOW, "Snow")
@@ -1049,7 +1056,8 @@ sv.box("Snowfall", (190, 1, 170), (VX, 70, VZ), WHITE, "SmoothPlastic", Transpar
 # ===========================================================================
 # 9. PRIVATE ISLAND (rebirth 14): the retirement plan.
 # ===========================================================================
-pi = root.sub("PrivateIsland")
+ISLAND_OFFSET = (1840, 0, 1440)
+pi = root.sub("PrivateIsland", ISLAND_OFFSET)
 IX, IZ = 560, 560
 SAND = (238, 214, 160)
 pi.box("Sand", (8, 200, 200), (IX, -4, IZ), SAND, "Sand", Shape="Cylinder", r=(0, 0, 90))
@@ -1118,9 +1126,110 @@ for dz in (-4, 4):
 plane.box("Propeller", (0.2, 5, 0.5), (9.7, 3, 0), BLACK, "Metal")
 
 # Teleport arrival markers (purely decorative rings).
-for x, y, z in ((-315, 0.25, -58), (-30, 0.55, 25), (290, 0.45, 0), (560, 0.1, 502), (-620, 0.45, 352)):
+for x, y, z in ((-315, 0.25, -58), (-30, 0.55, 25), (290, 0.45, 0), (2400, 0.1, 1942), (-2600, 0.45, 1372)):
     root.add(part("TeleportPad", (0.2, 7, 7), (x, y, z), NEON_BLUE, "Neon", rot(0, 0, 90), Shape="Cylinder",
                   CanCollide=False, Transparency=0.4, CastShadow=False))
+
+# ===========================================================================
+# 10. LIFE: traffic, suburbs, street furniture, a lighthouse
+# ===========================================================================
+
+def no_collide(node):
+    """Traffic is visual only: nothing should bump into it."""
+    props = node.get("properties")
+    if props is not None and node.get("className") in ("Part", "WedgePart", "Seat"):
+        props["CanCollide"] = False
+        props["CanQuery"] = False
+        props["CanTouch"] = False
+    for child in node.get("children", []):
+        no_collide(child)
+
+
+# Cars driving up and down Pen Street. The client moves them (see World.luau).
+traffic = Group("Traffic", cls="Folder")
+lanes = [(-9.5, 1), (9.5, -1)]  # (z, direction)
+car_paint = [TAXI, TAXI, TAXI, (150, 30, 30), (30, 60, 130), (230, 230, 235), (25, 25, 28), (60, 110, 70)]
+for lane_z, direction in lanes:
+    for i in range(5):
+        x = -100 + i * 60 + random.uniform(0, 20)
+        color = random.choice(car_paint)
+        c = car(traffic, x, lane_z, 0 if direction > 0 else 180, color, taxi=color == TAXI, y=0.2)
+        c.attributes = {"Direction": direction, "Speed": round(random.uniform(24, 34), 1), "MinX": -104, "MaxX": 200}
+traffic_json = traffic.to_json()
+no_collide(traffic_json)
+root.add(traffic_json)
+
+# Suburbs on the west side of Long Island.
+def house(g, x, z, wall, roof):
+    h = g.sub("House", (x, 0, z), yaw=-90)
+    h.box("Walls", (18, 11, 14), (0, 5.5, 0), wall, "WoodPlanks")
+    h.wedge("RoofA", (19, 6, 8), (0, 14, -3.75), roof, "Slate", r=(0, 180, 0))
+    h.wedge("RoofB", (19, 6, 8), (0, 14, 3.75), roof, "Slate")
+    h.box("Door", (3.4, 6.5, 0.4), (0, 3.3, -7.1), (110, 60, 40), "Wood")
+    for wx in (-5.5, 5.5):
+        h.box("Window", (3.6, 3.2, 0.3), (wx, 6, -7.05), WARM_WINDOW, "Neon", CastShadow=False)
+        h.box("Shutter", (0.6, 3.6, 0.4), (wx - 2.2, 6, -7.1), (40, 60, 90))
+        h.box("Shutter", (0.6, 3.6, 0.4), (wx + 2.2, 6, -7.1), (40, 60, 90))
+    h.box("Chimney", (2, 5, 2), (5, 16, 2), (150, 70, 55), "Brick")
+    h.box("Path", (3, 0.2, 8), (0, 0.1, -11), (160, 150, 140), "Cobblestone", CanCollide=False)
+    h.cyl("MailPost", 3.2, 0.3, (4, 1.6, -14), (80, 60, 40), "Wood")
+    h.box("Mailbox", (1, 1, 1.8), (4, 3.5, -14), (40, 70, 150), "Metal")
+    for fx in range(-9, 10, 2):
+        h.box("Picket", (0.4, 2.6, 0.3), (fx, 1.3, -15.5), WHITE, "Wood")
+    h.box("FenceRail", (19, 0.4, 0.3), (0, 2, -15.5), WHITE, "Wood")
+    tree(h, -8, 4, 0, 1.1)
+
+
+for i, (z, wall, roof) in enumerate(((-85, (235, 225, 200), (110, 50, 45)), (-25, (170, 205, 225), (60, 60, 70)), (40, (240, 210, 160), (90, 60, 40)), (100, (200, 225, 190), (120, 45, 40)))):
+    house(li, -420, z, wall, roof)
+
+# Seminar billboard over the parking lot.
+bb = li.sub("SeminarBillboard", (-382, 0, 80))
+for bx in (-8, 8):
+    bb.box("Pole", (1.2, 22, 1.2), (bx, 11, 0), (70, 70, 75), "Metal")
+sign(bb, "Board", "LEARN THE STRAIGHT LINE\nFREE SEMINAR TONIGHT", (0, 24, 0), 30, 9, "+x", WHITE, bg=(20, 60, 140), part_color=(20, 60, 140), ppu=12)
+bb.box("BoardLights", (0.6, 0.6, 30), (1.5, 19, 0), WARM_WINDOW, "Neon", CastShadow=False)
+
+# A food truck at the lot entrance.
+ft = li.sub("FoodTruck", (-222, 0.2, 32), yaw=90)
+ft.box("Body", (16, 8, 7), (0, 5, 0), (240, 200, 60), "SmoothPlastic")
+ft.box("Cab", (5, 5, 7), (10, 3.5, 0), (240, 200, 60), "SmoothPlastic")
+ft.box("Windshield", (0.3, 2.4, 6), (12.4, 4.6, 0), (40, 60, 80), "Glass", Transparency=0.3)
+ft.box("Window", (9, 3.4, 0.3), (-1, 5.5, -3.55), (30, 30, 35), "SmoothPlastic")
+ft.box("Awning", (10, 0.3, 3), (-1, 7.6, -4.8), (220, 60, 60), "Fabric", r=(-15, 0, 0))
+for wx in (-5, 9):
+    for wz in (-3.4, 3.4):
+        ft.box("Wheel", (2.8, 2.8, 1), (wx, 1.4, wz), BLACK, Shape="Cylinder", r=(0, 90, 0))
+sign(ft, "Menu", "WOLF DOGS", (-1, 9.2, -3.55), 10, 1.6, "-z", (220, 30, 30), bg=WHITE, part_color=WHITE, ppu=24)
+for x in (-240, -250, -262):
+    li.box("CartBody", (2.2, 1.6, 3.2), (x, 2.2, -69), (180, 180, 190), "DiamondPlate")
+    li.box("CartHandle", (2.2, 0.2, 0.2), (x, 3.4, -67.4), (200, 40, 40), "Metal")
+
+# Pen Street: bus stop, newsstand, extra planters.
+bus = ps.sub("BusStop", (112, 0.5, -28))
+bus.box("Roof", (12, 0.4, 5), (0, 8, 0), (40, 45, 55), "Metal")
+bus.box("Back", (12, 7, 0.3), (0, 4, -2.3), (170, 210, 230), "Glass", Transparency=0.5)
+for bx in (-5.8, 5.8):
+    bus.box("Post", (0.4, 8, 0.4), (bx, 4, -2.2), (40, 45, 55), "Metal")
+bus.box("Bench", (9, 0.5, 1.6), (0, 1.8, -1.2), WOOD, "Wood", cls="Seat")
+sign(bus, "Ad", "PEN STREET  ·  ALL LINES", (0, 9, 0), 11, 1.3, "+z", WHITE, bg=(30, 110, 60), part_color=(30, 110, 60), ppu=24)
+news = ps.sub("Newsstand", (150, 0.5, 29))
+news.box("Kiosk", (8, 7, 5), (0, 3.5, 0), (30, 90, 50), "Metal")
+news.box("Roof", (9, 0.5, 6), (0, 7.3, -0.5), (20, 60, 35), "Metal")
+news.box("Papers", (7, 1.8, 1.2), (0, 2.5, -3), (230, 225, 210), "SmoothPlastic")
+sign(news, "Headline", "WOLF SELLS 1,000,000 PENS", (0, 5.5, -2.6), 7.5, 1.2, "-z", BLACK, bg=WHITE, part_color=WHITE, ppu=30)
+
+# Harbor: a lighthouse on a rock, and buoys.
+lh = hb.sub("Lighthouse", (415, 0, 285))
+lh.box("Rock", (26, 10, 26), (0, -3, 0), (100, 100, 105), "Rock", r=(0, 20, 0))
+for i in range(6):
+    lh.cyl("Tower", 6, 9 - i * 0.6, (0, 5 + i * 6, 0), (230, 40, 40) if i % 2 == 0 else WHITE, "SmoothPlastic")
+lh.cyl("Gallery", 1, 10, (0, 37, 0), BLACK, "Metal")
+lh.cyl("Lantern", 5, 5, (0, 40, 0), (255, 240, 170), "Neon", children=[light("PointLight", (255, 235, 170), 4, 60)])
+lh.box("Cap", (6, 3, 6), (0, 44, 0), (230, 40, 40), "Metal", r=(0, 45, 0))
+for bx, bz in ((300, 360), (360, 170), (250, 330)):
+    hb.cyl("Buoy", 3, 2, (bx, -1.5, bz), (240, 90, 30), "SmoothPlastic")
+    hb.ball("BuoyLight", 0.8, (bx, 0.6, bz), NEON_RED, "Neon")
 
 # ---------------------------------------------------------------------------
 # Write

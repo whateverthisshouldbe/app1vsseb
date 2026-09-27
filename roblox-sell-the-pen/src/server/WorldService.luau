@@ -23,14 +23,29 @@ local function fillWater()
 	terrain.WaterReflectance = 0.6
 	terrain.WaterWaveSize = 0.12
 	terrain.WaterWaveSpeed = 8
-	-- East river + harbor + the sound around Long Island, in chunks.
-	for x = -760, 760, 190 do
-		for z = -560, 760, 190 do
-			terrain:FillBlock(CFrame.new(x, -18, z), Vector3.new(190, 30, 190), Enum.Material.Water)
-			terrain:FillBlock(CFrame.new(x, -36, z), Vector3.new(190, 6, 190), Enum.Material.Sand)
+	-- The main bay, plus open sea around the far-away Swiss Vault and
+	-- Private Island. Filled in chunks so the server doesn't hitch.
+	local regions = {
+		{ minX = -760, maxX = 760, minZ = -560, maxZ = 760 },
+		{ minX = -2950, maxX = -2250, minZ = 1050, maxZ = 1750 },
+		{ minX = 2050, maxX = 2750, minZ = 1650, maxZ = 2350 },
+	}
+	for _, region in regions do
+		for x = region.minX, region.maxX, 190 do
+			for z = region.minZ, region.maxZ, 190 do
+				terrain:FillBlock(CFrame.new(x, -18, z), Vector3.new(190, 30, 190), Enum.Material.Water)
+				terrain:FillBlock(CFrame.new(x, -36, z), Vector3.new(190, 6, 190), Enum.Material.Sand)
+			end
+			task.wait()
 		end
-		task.wait()
 	end
+
+	-- Soft moving clouds.
+	local clouds = terrain:FindFirstChildOfClass("Clouds") or Instance.new("Clouds")
+	clouds.Cover = 0.55
+	clouds.Density = 0.6
+	clouds.Color = Color3.fromRGB(255, 250, 245)
+	clouds.Parent = terrain
 end
 
 -- Parts named "Elevator_<zoneId>" take you to that zone.

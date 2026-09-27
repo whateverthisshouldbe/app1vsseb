@@ -2,9 +2,11 @@
 -- rarity (the same visitor always looks the same, in the world and in the
 -- Index preview), and players wear the suit they bought.
 --
--- Outfits are built from welded parts so they always work. A few real
--- catalog items (verified ids) are layered on top; if one ever fails to
--- load, the visitor is simply built without it.
+-- Visitors wear real Roblox catalog items (clothing, hair, hats, glasses,
+-- necklaces, faces), every id checked against the Roblox catalog API. A
+-- few welded props (briefcases, coffee, capes...) go on top. If catalog
+-- items ever fail to load, the visitor falls back to an outfit built
+-- entirely from welded parts, so nobody spawns naked.
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -16,10 +18,119 @@ local Remotes = ReplicatedStorage.Remotes
 
 local OutfitService = {}
 
--- Real catalog items, ids verified by hand.
-local CATALOG = {
-	palHair = 63690008, -- "Pal Hair", the famous bacon hair
-	manFace = 86487700, -- "Man Face"
+-- Real catalog items (verified via economy.roblox.com asset details).
+local C = {
+	-- Classic shirts
+	greySuit = 6554200369, -- Grey Suit w/ Black Vest
+	whiteSuit = 6553589977, -- White Suit w/ Black Vest
+	crimsonSuit = 6554202849, -- Crimson Suit w/ Black Vest
+	redSuit = 7152018398, -- Red Suit w/ Black Vest
+	purpleSuit = 6554199135, -- Purple Suit w/ Black Vest
+	pinkSuit = 6554219952, -- Pink Suit w/ Black Vest
+	orangeSuit = 6554208237, -- Orange Suit w/ Black Vest
+	tuxedo = 88519549662877, -- Tuxedo
+	motorcycle = 144076358, -- Blue and Black Motorcycle Shirt (Roblox)
+	robloxJacket = 607785314, -- ROBLOX Jacket (Roblox)
+	denimHoodie = 398633584, -- Denim Jacket with White Hoodie (Roblox)
+	stripedDenim = 144076436, -- Grey Striped Shirt with Denim Jacket (Roblox)
+	bluePlaid = 398635081, -- Blue Plaid Shirt (Roblox)
+	tealShirt = 382537702, -- Teal Shirt (Roblox)
+	pizzaShirt = 382537085, -- I <3 Pizza Shirt (Roblox)
+	guitarTee = 382538295, -- Guitar Tee with Black Jacket (Roblox)
+	greenJersey = 382538059, -- Green Jersey (Roblox)
+	pastelTop = 398634295, -- Pastel Starburst Top with Gray Jacket (Roblox)
+	-- Classic pants
+	blackSlacks = 129459077, -- Black Slacks (Roblox)
+	greySuitPants = 6555797786, -- Grey Suit w/ Black Vest [-]
+	whiteSuitPants = 6555794614, -- White Suit 'n' Black Vest [-]
+	darkGreenJeans = 144076760, -- (Roblox)
+	beautifulJeans = 398634487, -- Beautiful You Jeans (Roblox)
+	blackJeansShoes = 398633812, -- Black Jeans with White Shoes (Roblox)
+	skaterPants = 398635338, -- Ripped Skater Pants (Roblox)
+	jeanShorts = 382537806, -- Jean Shorts (Roblox)
+	blackJeans = 382537569, -- Black Jeans (Roblox)
+	jeans = 129458426, -- Jeans (Roblox)
+	-- Hair
+	palHair = 63690008,
+	trueBlue = 451221329,
+	brownCharmer = 376548738,
+	blondeSpiked = 376524487,
+	straightBlonde = 376526888,
+	blackPonytail = 376527350,
+	lavenderUpdo = 451220849,
+	beautifulHair = 16630147,
+	belleRed = 2956239660,
+	flamingMohawk = 191101707,
+	mangaHero = 398672920,
+	goldenHair = 13476917,
+	longBlack = 1772372988,
+	pigtails = 11913660,
+	shaggy2 = 417457139,
+	-- Hats
+	fedora = 1029025, -- The Classic ROBLOX Fedora
+	businessHat = 19027209, -- Perfectly Legitimate Business Hat
+	blackCowboy = 425117435, -- Fancy Black Cowboy Hat
+	brownCowboy = 1029597,
+	robloxCap = 607702162,
+	redCap = 48474313,
+	blueTopHat = 1016145591,
+	goldenCrown = 1081300,
+	royalCrown = 10159600649, -- 8-Bit Royal Crown
+	robotBeanie = 215724779,
+	moneyHeadphones = 283751750,
+	extremeHeadphones = 96079043,
+	-- Face accessories
+	stylishAviators = 376526673,
+	goldenAviators = 63247316,
+	silverAviators = 134823161,
+	orangeShades = 376527500,
+	midnightShades = 30331986,
+	blingShades = 44114585,
+	shutterShades = 15318115,
+	monocle = 30390853,
+	-- Neck / back
+	businessTie = 30111567, -- BC Business Tie
+	blueTie = 28503039,
+	jadeNecklace = 376527115,
+	dogTags = 31312480,
+	lanyard = 30200246,
+	scarf = 99860652,
+	axeGuitar = 1230404580, -- Back Axe Guitar
+	-- Faces
+	smile = 144075659,
+	manFace = 86487700,
+	womanFace = 86487766,
+	sillyFun = 7699174,
+	stare = 8560971,
+	err = 20418658,
+	freckles = 12145366,
+	surprised = 7317773,
+	suspicious = 209994929,
+}
+OutfitService.Catalog = C
+
+-- What each personality wears. Every visitor picks one item per slot from
+-- their pool, seeded by their number (so the same visitor always looks the
+-- same). hatChance / faceAccChance: odds of wearing one at all. `props` are
+-- welded extras that still get added on top of the catalog outfit.
+local WARDROBE = {
+	tourist = { shirt = { C.tealShirt, C.pizzaShirt, C.bluePlaid, C.greenJersey }, pants = { C.jeanShorts, C.jeans }, hair = { C.palHair, C.blondeSpiked, C.straightBlonde, C.brownCharmer }, hat = { C.robloxCap, C.redCap }, hatChance = 0.6, faceAcc = { C.orangeShades }, faceAccChance = 0.5, faces = { C.smile, C.sillyFun, C.surprised }, props = { "camera" } },
+	plumber = { shirt = { C.bluePlaid }, pants = { C.jeans, C.darkGreenJeans }, hair = { C.palHair, C.shaggy2 }, hat = { C.redCap }, hatChance = 1, faces = { C.manFace, C.err }, props = { "toolbelt", "mustache" } },
+	dentist = { shirt = { C.tealShirt, C.stripedDenim }, pants = { C.blackSlacks }, hair = { C.brownCharmer, C.shaggy2, C.beautifulHair }, faces = { C.smile, C.stare }, props = { "coat", "headmirror", "glasses" } },
+	mom = { shirt = { C.pastelTop, C.tealShirt }, pants = { C.beautifulJeans }, hair = { C.lavenderUpdo, C.blackPonytail, C.belleRed, C.straightBlonde }, neck = { C.jadeNecklace }, neckChance = 0.5, faces = { C.womanFace, C.freckles }, props = { "purse" } },
+	intern = { shirt = { C.denimHoodie, C.stripedDenim }, pants = { C.blackJeans, C.skaterPants }, hair = { C.palHair, C.shaggy2, C.mangaHero }, neck = { C.lanyard }, neckChance = 1, faces = { C.err, C.surprised, C.smile }, props = { "coffee" } },
+	accountant = { shirt = { C.greySuit }, pants = { C.greySuitPants }, hair = { C.brownCharmer, C.palHair }, neck = { C.businessTie }, neckChance = 0.6, faces = { C.stare, C.manFace }, props = { "glasses", "briefcase" } },
+	shoes = { shirt = { C.purpleSuit, C.pinkSuit, C.orangeSuit }, pants = { C.blackSlacks, C.whiteSuitPants }, hair = { C.flamingMohawk, C.goldenHair }, faceAcc = { C.blingShades, C.shutterShades }, faceAccChance = 0.8, faces = { C.sillyFun, C.smile }, props = { "platforms" } },
+	bro = { shirt = { C.greySuit, C.crimsonSuit, C.redSuit }, pants = { C.blackSlacks, C.greySuitPants }, hair = { C.brownCharmer, C.blondeSpiked, C.mangaHero }, faceAcc = { C.stylishAviators, C.silverAviators }, faceAccChance = 0.7, faces = { C.manFace, C.smile }, props = { "watch" } },
+	swiss = { shirt = { C.tuxedo, C.greySuit }, pants = { C.blackSlacks }, hair = { C.brownCharmer, C.straightBlonde }, hat = { C.businessHat, C.fedora }, hatChance = 0.35, faceAcc = { C.monocle }, faceAccChance = 0.6, faces = { C.stare, C.manFace }, props = { "briefcase" } },
+	duchess = { shirt = { C.pastelTop, C.pinkSuit }, pants = { C.beautifulJeans }, hair = { C.lavenderUpdo, C.beautifulHair, C.belleRed }, hat = { C.blueTopHat }, hatChance = 0.3, neck = { C.jadeNecklace }, neckChance = 0.7, faces = { C.womanFace }, props = { "dress", "pearls" } },
+	oil = { shirt = { C.whiteSuit }, pants = { C.whiteSuitPants }, hair = { C.palHair }, hat = { C.blackCowboy, C.brownCowboy }, hatChance = 1, faceAcc = { C.goldenAviators }, faceAccChance = 0.6, faces = { C.manFace }, props = { "bolo", "watch", "mustache" } },
+	fbi = { shirt = { C.tuxedo, C.greySuit }, pants = { C.blackSlacks }, hair = { C.brownCharmer, C.palHair }, faceAcc = { C.midnightShades }, faceAccChance = 1, faces = { C.suspicious }, props = { "earpiece" } },
+	crypto = { shirt = { C.denimHoodie, C.robloxJacket, C.motorcycle }, pants = { C.blackJeansShoes, C.skaterPants }, hair = { C.mangaHero, C.palHair }, hat = { C.robotBeanie, C.moneyHeadphones }, hatChance = 0.8, faceAcc = { C.shutterShades }, faceAccChance = 0.6, faces = { C.sillyFun, C.surprised }, props = { "chain" } },
+	influencer = { shirt = { C.pastelTop, C.pinkSuit }, pants = { C.beautifulJeans }, hair = { C.straightBlonde, C.belleRed, C.longBlack, C.pigtails }, faceAcc = { C.orangeShades }, faceAccChance = 0.5, faces = { C.womanFace, C.smile }, props = { "phone" } },
+	rockstar = { shirt = { C.guitarTee, C.motorcycle }, pants = { C.skaterPants, C.blackJeans }, hair = { C.flamingMohawk, C.mangaHero, C.shaggy2 }, hat = { C.extremeHeadphones }, hatChance = 0.2, neck = { C.dogTags }, neckChance = 0.7, back = { C.axeGuitar }, backChance = 1, faces = { C.sillyFun, C.err } },
+	prince = { shirt = { C.crimsonSuit, C.purpleSuit }, pants = { C.whiteSuitPants }, hair = { C.goldenHair, C.brownCharmer }, hat = { C.royalCrown }, hatChance = 1, faces = { C.smile, C.stare }, props = { "cape", "sash" } },
+	wolf = { shirt = { C.tuxedo }, pants = { C.blackSlacks }, hair = { C.brownCharmer }, faceAcc = { C.goldenAviators }, faceAccChance = 1, neck = { C.businessTie }, neckChance = 1, faces = { C.manFace }, props = { "watch", "chain" } },
 }
 
 local SKIN_TONES = {
@@ -65,11 +176,13 @@ local LOOKS = {
 }
 
 -- Player suits (see Config.Suits). The thrift suit leaves your own avatar alone.
+-- `shirt`/`pants` are real catalog clothing; the colors are the fallback
+-- look if the clothing can't be loaded.
 OutfitService.SuitStyles = {
-	rack = { jacket = Color3.fromRGB(110, 110, 118), pants = Color3.fromRGB(95, 95, 102), shirt = WHITE, tie = Color3.fromRGB(40, 60, 140) },
-	tailored = { jacket = Color3.fromRGB(28, 38, 80), pants = Color3.fromRGB(26, 34, 72), shirt = Color3.fromRGB(190, 215, 245), tie = Color3.fromRGB(190, 30, 40), pocket = WHITE },
-	silk = { jacket = Color3.fromRGB(22, 22, 26), pants = Color3.fromRGB(22, 22, 26), shirt = Color3.fromRGB(35, 35, 40), tie = GOLD, pocket = GOLD, sheen = true },
-	wolfsuit = { jacket = Color3.fromRGB(12, 12, 14), pants = Color3.fromRGB(12, 12, 14), shirt = WHITE, bowtie = BLACK, lapelTrim = GOLD, pocket = GOLD, extras = { "watch", "chain", "aviators" } },
+	rack = { shirtId = 6554200369, pantsId = 6555797786, jacket = Color3.fromRGB(110, 110, 118), pants = Color3.fromRGB(95, 95, 102), shirt = WHITE, tie = Color3.fromRGB(40, 60, 140) },
+	tailored = { shirtId = 6554202849, pantsId = 129459077, jacket = Color3.fromRGB(120, 20, 35), pants = Color3.fromRGB(20, 20, 24), shirt = WHITE, tie = Color3.fromRGB(20, 20, 24), pocket = WHITE },
+	silk = { shirtId = 6553589977, pantsId = 6555794614, jacket = Color3.fromRGB(235, 235, 230), pants = Color3.fromRGB(235, 235, 230), shirt = Color3.fromRGB(30, 30, 35), tie = GOLD, pocket = GOLD, sheen = true },
+	wolfsuit = { shirtId = 88519549662877, pantsId = 129459077, faceAccId = 63247316, jacket = Color3.fromRGB(12, 12, 14), pants = Color3.fromRGB(12, 12, 14), shirt = WHITE, bowtie = BLACK, lapelTrim = GOLD, pocket = GOLD, extras = { "watch", "chain" } },
 }
 
 -- Building blocks -------------------------------------------------------------
@@ -293,7 +406,7 @@ local function decorate(model, rarity)
 	if id == "mythic" or id == "legendary" or id == "exotic" or id == "ultra" then
 		extra(model, "chain", {})
 	end
-	if id == "legendary" or id == "exotic" then
+	if id == "exotic" then
 		local h = head.Size
 		local crown = piece(model, "Head", Vector3.new(h.X * 0.9, 0.45, h.Z * 0.9), CFrame.new(0, h.Y / 2 + 0.45, 0), id == "exotic" and rarity.color or GOLD, Enum.Material.Foil)
 		if crown then
@@ -356,10 +469,30 @@ function OutfitService.lookFor(visitor)
 		extras = base.extras,
 		shorts = base.shorts,
 		hatColor = base.hatColor,
-		manFace = seeded:NextNumber() < 0.4,
 		height = seeded:NextNumber(0.92, 1.08),
 		width = seeded:NextNumber(0.9, 1.12),
 	}
+	-- Catalog outfit.
+	local wardrobe = WARDROBE[visitor.archetype] or WARDROBE.tourist
+	local function slot(pool, chance)
+		local wear = pool and seeded:NextNumber() < (chance or 1)
+		return wear and pick(seeded, pool) or nil
+	end
+	look.catalog = {
+		shirt = slot(wardrobe.shirt),
+		pants = slot(wardrobe.pants),
+		hair = slot(wardrobe.hair),
+		hat = slot(wardrobe.hat, wardrobe.hatChance),
+		faceAcc = slot(wardrobe.faceAcc, wardrobe.faceAccChance),
+		neck = slot(wardrobe.neck, wardrobe.neckChance),
+		back = slot(wardrobe.back, wardrobe.backChance),
+		face = slot(wardrobe.faces),
+	}
+	look.props = wardrobe.props or {}
+	-- Legendary visitors wear a real gold crown.
+	if visitor.rarity == "legendary" then
+		look.catalog.hat = C.goldenCrown
+	end
 	return look
 end
 
@@ -379,12 +512,15 @@ function OutfitService.buildVisitor(visitor)
 		description.HeightScale = look.height
 		description.WidthScale = look.width
 		if withCatalog then
-			if look.hair == "pal" then
-				description.HairAccessory = tostring(CATALOG.palHair)
-			end
-			if look.manFace then
-				description.Face = CATALOG.manFace
-			end
+			local c = look.catalog
+			description.Shirt = c.shirt or 0
+			description.Pants = c.pants or 0
+			description.Face = c.face or 0
+			description.HairAccessory = c.hair and tostring(c.hair) or ""
+			description.HatAccessory = c.hat and tostring(c.hat) or ""
+			description.FaceAccessory = c.faceAcc and tostring(c.faceAcc) or ""
+			description.NeckAccessory = c.neck and tostring(c.neck) or ""
+			description.BackAccessory = c.back and tostring(c.back) or ""
 		end
 		return description
 	end
@@ -392,6 +528,7 @@ function OutfitService.buildVisitor(visitor)
 	local ok, model = pcall(function()
 		return Players:CreateHumanoidModelFromDescription(describe(true), Enum.HumanoidRigType.R15)
 	end)
+	local dressed = ok and model ~= nil
 	if not ok or not model then
 		-- A catalog item failed to load: build without them.
 		ok, model = pcall(function()
@@ -428,11 +565,17 @@ function OutfitService.buildVisitor(visitor)
 			foot.Color = Color3.fromRGB(30, 25, 22)
 		end
 	end
-	if look.hair ~= "pal" or not model:FindFirstChildWhichIsA("Accessory", true) then
+	if dressed then
+		-- Real clothes on: just the props on top.
+		for _, name in look.props do
+			extra(model, name, look)
+		end
+	else
+		-- Fallback: the all-parts outfit.
 		hair(model, look.hair == "pal" and "messy" or look.hair, look.hatColor or look.hairColor)
-	end
-	for _, name in look.extras do
-		extra(model, name, look)
+		for _, name in look.extras do
+			extra(model, name, look)
+		end
 	end
 	decorate(model, rarity)
 	return model
@@ -478,16 +621,9 @@ function OutfitService.dressPlayer(player, suitId)
 		old:Destroy()
 	end
 	local style = OutfitService.SuitStyles[suitId]
-	local description = original:Clone()
-	if style then
-		description.Shirt = 0
-		description.Pants = 0
-		description.GraphicTShirt = 0
-		description.TorsoColor = style.jacket
-		description.LeftArmColor = style.jacket
-		description.RightArmColor = style.jacket
-		description.LeftLegColor = style.pants
-		description.RightLegColor = style.pants
+
+	-- Strip layered clothing (it would sit on top of the suit).
+	local function withoutClothingLayers(description)
 		local ok, accessories = pcall(function()
 			return description:GetAccessories(true)
 		end)
@@ -503,33 +639,69 @@ function OutfitService.dressPlayer(player, suitId)
 			end)
 		end
 	end
-	local applied = pcall(function()
-		humanoid:ApplyDescription(description)
-	end)
-	if not applied or not style then
+
+	local function tryApply(description)
+		return pcall(function()
+			humanoid:ApplyDescription(description)
+		end)
+	end
+
+	if not style then
+		tryApply(original:Clone())
 		return
+	end
+
+	-- First choice: the real suit from the catalog.
+	local description = original:Clone()
+	withoutClothingLayers(description)
+	description.Shirt = style.shirtId or 0
+	description.Pants = style.pantsId or 0
+	description.GraphicTShirt = 0
+	if style.faceAccId then
+		local current = description.FaceAccessory
+		description.FaceAccessory = current ~= "" and (current .. "," .. style.faceAccId) or tostring(style.faceAccId)
+	end
+	local realClothes = style.shirtId ~= nil and tryApply(description)
+
+	if not realClothes then
+		-- Fallback: color the body like a suit and build the details from parts.
+		description = original:Clone()
+		withoutClothingLayers(description)
+		description.Shirt = 0
+		description.Pants = 0
+		description.GraphicTShirt = 0
+		description.TorsoColor = style.jacket
+		description.LeftArmColor = style.jacket
+		description.RightArmColor = style.jacket
+		description.LeftLegColor = style.pants
+		description.RightLegColor = style.pants
+		if not tryApply(description) then
+			return
+		end
 	end
 
 	local pieces = Instance.new("Folder")
 	pieces.Name = "OutfitPieces"
 	pieces.Parent = character
-	for _, name in { "LeftHand", "RightHand" } do
-		local hand = character:FindFirstChild(name)
-		if hand then
-			hand.Color = original.HeadColor
-		end
-	end
-	suit(character, style)
-	for _, name in style.extras or {} do
-		extra(character, name, {})
-	end
-	if style.sheen then
-		for _, name in { "UpperTorso", "LowerTorso", "LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm" } do
-			local part = character:FindFirstChild(name)
-			if part then
-				part.Reflectance = 0.12
+	if not realClothes then
+		for _, name in { "LeftHand", "RightHand" } do
+			local hand = character:FindFirstChild(name)
+			if hand then
+				hand.Color = original.HeadColor
 			end
 		end
+		suit(character, style)
+		if style.sheen then
+			for _, name in { "UpperTorso", "LowerTorso", "LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm" } do
+				local part = character:FindFirstChild(name)
+				if part then
+					part.Reflectance = 0.12
+				end
+			end
+		end
+	end
+	for _, name in style.extras or {} do
+		extra(character, name, {})
 	end
 end
 

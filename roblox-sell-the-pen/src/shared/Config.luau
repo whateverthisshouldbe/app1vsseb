@@ -59,6 +59,9 @@ Config.Rarities = {
 -- Rarities from here up get announced to the whole server when they show up.
 Config.AnnounceRarity = "mythic"
 
+-- How long (seconds) a visitor hangs around before walking on.
+Config.VisitorStay = { min = 35, max = 75 }
+
 -- Brokers are visitors you recruited instead of taking their money.
 Config.MaxBrokers = 8
 Config.WorkdayLength = 10 * 60 -- seconds; "daily" is paid out over this
@@ -144,8 +147,9 @@ Config.Zones = {
 		budgetMult = 100,
 		luck = 3.2,
 		customers = 6,
-		area = { minX = -645, maxX = -595, minZ = 360, maxZ = 405, y = 0 },
-		tp = Vector3.new(-620, 4, 352),
+		-- Far out at sea (teleport only), out of sight from the rest of the world.
+		area = { minX = -2625, maxX = -2575, minZ = 1380, maxZ = 1425, y = 0 },
+		tp = Vector3.new(-2600, 4, 1372),
 	},
 	{
 		id = "island",
@@ -155,8 +159,8 @@ Config.Zones = {
 		budgetMult = 250,
 		luck = 4,
 		customers = 6,
-		area = { minX = 520, maxX = 600, minZ = 510, maxZ = 572, y = 0.5 },
-		tp = Vector3.new(560, 5, 502),
+		area = { minX = 2360, maxX = 2440, minZ = 1950, maxZ = 2012, y = 0.5 },
+		tp = Vector3.new(2400, 5, 1942),
 	},
 }
 
