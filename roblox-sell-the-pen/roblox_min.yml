@@ -48,3 +48,15 @@ globals:
     any: true
   typeof:
     any: true
+  NumberSequenceKeypoint:
+    any: true
+  PhysicalProperties:
+    any: true
+  Ray:
+    any: true
+  Region3:
+    any: true
+  Rect:
+    any: true
+  Font:
+    any: true

@@ -21,7 +21,9 @@
         "Teleport": { "$className": "RemoteFunction" },
         "FireBroker": { "$className": "RemoteFunction" },
         "Deal": { "$className": "RemoteEvent" },
-        "Flip": { "$className": "RemoteEvent" }
+        "Flip": { "$className": "RemoteEvent" },
+        "GetPreview": { "$className": "RemoteFunction" },
+        "Tutorial": { "$className": "RemoteEvent" }
       }
     },
 

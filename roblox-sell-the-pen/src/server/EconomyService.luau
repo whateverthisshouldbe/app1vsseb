@@ -8,20 +8,14 @@ local Workspace = game:GetService("Workspace")
 local Config = require(ReplicatedStorage.Shared.Config)
 local Format = require(ReplicatedStorage.Shared.Format)
 local Visitors = require(ReplicatedStorage.Shared.Visitors)
+local Tutorial = require(ReplicatedStorage.Shared.Tutorial)
 local DataService = require(script.Parent.DataService)
 
 local Remotes = ReplicatedStorage.Remotes
 
 local EconomyService = {}
 
-EconomyService.Ranks = {
-	{ min = 0, title = "Pen Pusher", color = Color3.fromRGB(200, 200, 200) },
-	{ min = 1_000, title = "Cold Caller", color = Color3.fromRGB(140, 220, 140) },
-	{ min = 25_000, title = "Stockbroker", color = Color3.fromRGB(110, 190, 255) },
-	{ min = 500_000, title = "Big Swinging Pen", color = Color3.fromRGB(200, 140, 255) },
-	{ min = 10_000_000, title = "The Wolf", color = Color3.fromRGB(255, 200, 60) },
-	{ min = 1_000_000_000, title = "Wolf of Pen Street", color = Color3.fromRGB(255, 110, 40) },
-}
+EconomyService.Ranks = Config.Ranks
 
 function EconomyService.notify(player, text, kind)
 	Remotes.Notify:FireClient(player, text, kind or "info")
@@ -57,7 +51,12 @@ function EconomyService.passiveIncome(profile)
 			income += Config.brokerIncome(visitor.rarity)
 		end
 	end
-	return income * EconomyService.ipoMult(profile)
+	return income * EconomyService.ipoMult(profile) * EconomyService.boostMult(profile)
+end
+
+-- The tutorial reward: temporary x2 money.
+function EconomyService.boostMult(profile)
+	return (profile.boostUntil or 0) > os.time() and Tutorial.RewardMult or 1
 end
 
 function EconomyService.indexCount(profile)
@@ -74,26 +73,15 @@ function EconomyService.indexMult(profile)
 	return 1 + EconomyService.indexCount(profile) * Config.IndexBonusPerVisitor
 end
 
-local function isOnTradingFloor(player)
-	local character = player.Character
-	local root = character and character:FindFirstChild("HumanoidRootPart")
-	if not root then
-		return false
-	end
-	local area = Config.getZone("floor").area
-	local p = root.Position
-	return p.X >= area.minX - 10 and p.X <= area.maxX + 10 and p.Z >= area.minZ - 10 and p.Z <= area.maxZ + 10
-end
-
 -- Everything that boosts a single sale, as one number plus a breakdown.
 function EconomyService.saleMult(player, profile)
-	local mult = EconomyService.ipoMult(profile) * EconomyService.indexMult(profile)
+	local mult = EconomyService.ipoMult(profile) * EconomyService.indexMult(profile) * EconomyService.boostMult(profile)
 	local suit = Config.findById(Config.Suits, profile.suit)
 	if suit then
 		mult *= suit.cashMult
 	end
 	if Workspace:GetAttribute("SpeechActive") then
-		mult *= isOnTradingFloor(player) and Config.Speech.floorMult or Config.Speech.globalMult
+		mult *= Config.Speech.mult
 	end
 	if (player:GetAttribute("HumUntil") or 0) > os.clock() then
 		local humming = 0
@@ -399,6 +387,50 @@ local function fireBroker(player, slot)
 	return true, (visitor and visitor.name or "Broker") .. " cleared out their desk."
 end
 
+-- Tutorial progress. The client reports each finished step in order; the
+-- server saves it and pays the reward at the end.
+local function onTutorial(player, stepId)
+	local profile = DataService.get(player)
+	if not profile or profile.tutorialDone or type(stepId) ~= "string" then
+		return
+	end
+	if stepId == "reset" then
+		-- A pitch fell through before the deal: start the pitch part again.
+		if profile.tutorialStep < Tutorial.byId.deal.index then
+			profile.tutorialStep = 0
+			DataService.changed(player)
+		end
+		return
+	end
+	local step = Tutorial.byId[stepId]
+	if not step or step.index ~= profile.tutorialStep + 1 then
+		return
+	end
+	if step.id == "shop" and profile.pen == "bic" then
+		return
+	end
+	profile.tutorialStep = step.index
+
+	local nextStep = Tutorial.Steps[step.index + 1]
+	if nextStep and nextStep.id == "shop" and profile.pen == "bic" then
+		-- Make sure they can afford the pen the tutorial asks for.
+		local pen = Config.findById(Config.Pens, Tutorial.ShopTarget)
+		if profile.cash < pen.cost then
+			profile.cash = pen.cost
+		end
+	end
+	if step.index == #Tutorial.Steps then
+		profile.tutorialDone = true
+		profile.boostUntil = os.time() + Tutorial.RewardDuration
+		EconomyService.notify(
+			player,
+			string.format("TUTORIAL COMPLETE! x%d money for %d minutes. Go get rich.", Tutorial.RewardMult, Tutorial.RewardDuration / 60),
+			"big"
+		)
+	end
+	DataService.changed(player)
+end
+
 function EconomyService.onPlayerLoaded(player, profile)
 	createLeaderstats(player)
 
@@ -444,6 +476,7 @@ function EconomyService.start()
 	Remotes.IPO.OnServerInvoke = rebirth
 	Remotes.Teleport.OnServerInvoke = EconomyService.teleport
 	Remotes.FireBroker.OnServerInvoke = fireBroker
+	Remotes.Tutorial.OnServerEvent:Connect(onTutorial)
 	-- The client asks for a snapshot once its UI is listening.
 	Remotes.DataSync.OnServerEvent:Connect(function(player)
 		local profile = DataService.get(player)

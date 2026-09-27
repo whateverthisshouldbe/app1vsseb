@@ -146,6 +146,7 @@ end
 
 local function buildFirm(screen)
 	firmModal = Modal.new(screen, "YOUR FIRM", Colors.firm, Vector2.new(640, 640))
+	firmModal.key = "firm"
 	firmHeader = Theme.label({
 		Size = UDim2.new(1, 0, 0, 24),
 		Font = Theme.FontBold,
@@ -165,6 +166,71 @@ end
 -- Index ----------------------------------------------------------------------------
 
 local indexGrid, indexHeader, indexSignature
+local viewports = {} -- [visitorId] = { viewport, sold } for the cards on screen
+local previews = {} -- [visitorId] = preview model from the server
+local loading = false
+
+-- Put a visitor's model in their card: full color if you've sold to them,
+-- a black silhouette if not.
+local function showPreview(visitorId, model)
+	local entry = viewports[visitorId]
+	if not entry or entry.viewport:FindFirstChild("Model") then
+		return
+	end
+	local copy = model:Clone()
+	copy.Name = "Model"
+	for _, descendant in copy:GetDescendants() do
+		if descendant:IsA("Humanoid") then
+			descendant.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+		elseif not entry.sold then
+			if descendant:IsA("BasePart") then
+				descendant.Color = Color3.new(0, 0, 0)
+				descendant.Material = Enum.Material.SmoothPlastic
+				descendant.Reflectance = 0
+				if descendant:IsA("MeshPart") then
+					descendant.TextureID = ""
+				end
+			elseif descendant:IsA("SpecialMesh") then
+				descendant.TextureId = ""
+			elseif descendant:IsA("Decal") or descendant:IsA("Texture") or descendant:IsA("SurfaceAppearance") then
+				descendant:Destroy()
+			end
+		end
+	end
+	copy.Parent = entry.viewport
+	local camera = entry.viewport:FindFirstChildOfClass("Camera") or Instance.new("Camera")
+	camera.FieldOfView = 32
+	camera.CFrame = CFrame.lookAt(Vector3.new(2.2, 1.4, -10), Vector3.new(0, 0.3, 0))
+	camera.Parent = entry.viewport
+	entry.viewport.CurrentCamera = camera
+end
+
+-- Fetch previews one at a time in the background (the server builds them on demand).
+local function loadPreviews()
+	if loading then
+		return
+	end
+	loading = true
+	task.spawn(function()
+		for _, visitor in ipairs(Visitors) do
+			if not indexModal.frame.Visible then
+				break
+			end
+			if not previews[visitor.id] then
+				local ok, model = pcall(function()
+					return Remotes.GetPreview:InvokeServer(visitor.id)
+				end)
+				if ok and model then
+					previews[visitor.id] = model
+				end
+			end
+			if previews[visitor.id] then
+				showPreview(visitor.id, previews[visitor.id])
+			end
+		end
+		loading = false
+	end)
+end
 
 local function renderIndex(force)
 	local data = Store.data
@@ -201,46 +267,65 @@ local function renderIndex(force)
 	)
 
 	clear(indexGrid)
+	table.clear(viewports)
 	for order, visitor in ipairs(Visitors) do
 		local rarity = Config.getRarity(visitor.rarity)
 		local sold = profile.index[visitor.id]
 		local card = Theme.create("Frame", {
 			LayoutOrder = order,
-			BackgroundColor3 = sold and Colors.panel or Colors.bg,
+			BackgroundColor3 = Color3.new(1, 1, 1),
 			Parent = indexGrid,
-		}, { Theme.corner(10), Theme.stroke(rarity.color, sold and 2 or 1, sold and 0 or 0.6) })
+		}, { Theme.corner(12), Theme.stroke(sold and rarity.color or Colors.stroke, sold and 3 or 2) })
+		Theme.fill(card, sold and { rarity.color:Lerp(Color3.new(1, 1, 1), 0.25), rarity.color:Lerp(Color3.new(0, 0, 0), 0.45) } or "navy")
+		local viewport = Theme.create("ViewportFrame", {
+			Position = UDim2.fromOffset(4, 22),
+			Size = UDim2.new(1, -8, 0, 118),
+			BackgroundTransparency = 1,
+			Ambient = sold and Color3.fromRGB(200, 200, 200) or Color3.new(0, 0, 0),
+			LightColor = sold and Color3.new(1, 1, 1) or Color3.new(0, 0, 0),
+			LightDirection = Vector3.new(-0.4, -0.6, 0.7),
+			Parent = card,
+		})
+		viewports[visitor.id] = { viewport = viewport, sold = sold ~= nil }
 		local tag = Theme.label({
 			Position = UDim2.fromOffset(6, 4),
-			Size = UDim2.new(1, -12, 0, 14),
+			Size = UDim2.new(1, -12, 0, 18),
 			Font = Theme.FontBlack,
 			Text = string.format("#%d  %s", visitor.number, string.upper(rarity.name)),
-			TextColor3 = rarity.color,
-			TextTransparency = sold and 0 or 0.4,
+			TextColor3 = sold and Colors.text or rarity.color,
+			Outline = 2,
 			Parent = card,
 		})
 		rarityGradient(rarity, tag)
 		Theme.label({
-			Position = UDim2.fromOffset(6, 22),
-			Size = UDim2.new(1, -12, 0, 40),
-			Font = Theme.FontBold,
+			Position = UDim2.new(0, 6, 1, -48),
+			Size = UDim2.new(1, -12, 0, 26),
+			Font = Theme.FontBlack,
 			Text = sold and visitor.name or "???",
 			TextWrapped = true,
-			TextColor3 = sold and Colors.text or Colors.muted,
+			Outline = 2,
 			Parent = card,
 		})
 		Theme.label({
-			Position = UDim2.new(0, 6, 1, -20),
-			Size = UDim2.new(1, -12, 0, 14),
-			Font = Theme.Font,
+			Position = UDim2.new(0, 6, 1, -21),
+			Size = UDim2.new(1, -12, 0, 16),
+			Font = Theme.FontBold,
 			Text = sold and string.format("sold x%d  ·  x%s", sold, Format.short(rarity.mult)) or ("1 in " .. Format.commas(rarity.odds)),
-			TextColor3 = Colors.muted,
+			TextColor3 = sold and Colors.gold or Colors.muted,
+			Outline = 1.5,
 			Parent = card,
 		})
+		local cached = previews[visitor.id]
+		if cached then
+			showPreview(visitor.id, cached)
+		end
 	end
+	loadPreviews()
 end
 
 local function buildIndex(screen)
 	indexModal = Modal.new(screen, "VISITOR INDEX", Colors.gold, Vector2.new(820, 620))
+	indexModal.key = "index"
 	indexHeader = Theme.label({
 		Size = UDim2.new(1, 0, 0, 46),
 		Font = Theme.Font,
@@ -258,7 +343,7 @@ local function buildIndex(screen)
 		Parent = indexModal.content,
 	})
 	indexGrid = scroller(holder, Theme.create("UIGridLayout", {
-		CellSize = UDim2.fromOffset(142, 86),
+		CellSize = UDim2.fromOffset(150, 196),
 		CellPadding = UDim2.fromOffset(6, 6),
 		SortOrder = Enum.SortOrder.LayoutOrder,
 	}))
@@ -327,6 +412,7 @@ end
 
 local function buildTeleport(screen)
 	tpModal = Modal.new(screen, "TELEPORT", Colors.blue, Vector2.new(640, 560))
+	tpModal.key = "teleport"
 	tpList = scroller(tpModal.content, Theme.create("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder }))
 	tpModal.onOpen = renderTeleport
 end

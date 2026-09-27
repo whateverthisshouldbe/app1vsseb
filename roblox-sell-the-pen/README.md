@@ -22,6 +22,12 @@ eigen eiland.
 Security* **Enable Studio Access to API Services** aan. Zonder die instelling werkt alles gewoon,
 alleen wordt je voortgang dan niet opgeslagen.
 
+## Tutorial
+Nieuwe spelers krijgen een speelbare tutorial van 12 stappen: een klant vinden (met een gouden lijn en
+"PITCH ME!"-marker), lines kiezen, tonality, de meters, closen, cash of recruit, de winkel, Firm,
+Index, Teleport, sprinten en flippen, en Rebirth. Een questkaart bovenin laat de stap en de voortgang
+zien, en een pijl wijst naar de juiste knop. **Beloning: 15 minuten ×2 geld** (sales én passief inkomen).
+
 ## Gameplay
 
 | Wat | Hoe |
@@ -41,11 +47,29 @@ alleen wordt je voortgang dan niet opgeslagen.
 
 ### Bewegen
 - **Sprinten**: houd **Left Shift** ingedrukt (op mobiel: de RUN-knop). Je camera zoomt iets uit.
-- **Flips**: bij ongeveer 1 op 3 sprongen doe je een backflip, frontflip, sideflip of kurkentrekker. Andere spelers zien hem ook.
+- **Double jump + flip**: druk in de lucht nog een keer op springen voor een tweede sprong met een backflip
+  of frontflip. Bij ongeveer 1 op 3 gewone sprongen flip je ook (backflip, frontflip, sideflip of
+  kurkentrekker). Andere spelers zien je flips.
+- **Je pak op je avatar**: koop je een pak, dan draag je het echt: colbert in de juiste kleur, revers,
+  overhemd, das of strik, pochet, en bij de Wolf Suit ook goud, een horloge en een zonnebril. Met het
+  Thrift-pak (en na een rebirth) houd je je eigen avatar-kleding.
 - **Loopstijl per pak**: Thrift = Cartoony, Off-the-Rack = Toy, Tailored = Ninja, Italian Silk = Stylish,
   Wolf Suit = Superhero (officiële Roblox-animatiepakketten).
 - **Visitors** lopen volgens hun persoonlijkheid: interns als zombies, accountants als robots, royals
   en Exotics zweven, FBI-agenten sluipen als ninja's, en Beldan Jolfort loopt als een superheld.
+
+### HUD
+In de stijl van de grote Roblox-simulators: grote gradient-knoppen links (Shop, Firm, Index, Rebirth,
+met een regenboogrand als je kunt rebirthen), brokers, geld en rebirths linksonder, je inkomen en een
+levelbalk (level uit je totale verdiensten) onderin, teleport- en hum-knoppen rechtsboven en actieve
+boosts rechts. De standaard Roblox-spelerslijst staat uit, zodat de HUD de hoek rechtsboven heeft.
+
+### Visitors
+Elke visitor heeft een vaste, eigen look: colberts met revers en das, overalls, doktersjassen, hoodies,
+jurken, capes, kapsels, petten, cowboyhoeden, zonnebrillen, monocles, kettingen, horloges, koffertjes
+en zelfs een gitaar. Zeldzamere visitors krijgen kronen, halo's, aura's en gloed. Een deel draagt echte
+catalogusitems (Pal Hair, Man Face). In de **Index** zie je van elke visitor een 3D-preview, en een
+zwart silhouet zolang je hem nog niet hebt verkocht.
 
 ### Rarities
 
@@ -80,7 +104,8 @@ De Penthouse bereik je ook met de gouden lift aan Pen Street (onder aan de blauw
 
 ### Easter eggs en events
 - **Het servet**: soms verschijnt een gouden line: *"Write your name on this napkin for me."* Supply and demand.
-- **The Wolf Speech**: elke 7 minuten sales ×2 voor iedereen en ×3 op de tradingvloer, met confetti en geldregen.
+- **The Wolf Speech**: op een willekeurig moment (tussen 1 en 7 minuten, zonder aftelling) sales ×2,5 voor
+  iedereen, een minuut lang, met confetti en geldregen. Je ziet hem niet aankomen.
 - **The Hum** (**H**): de borstklop-hum. Sales ×1,1 en ×1,25 als 3+ spelers tegelijk hummen.
 - **Undercover FBI Agents**: gebruik je Pressure, Hype of Urgency, dan krijg je een boete. Blijf eerlijk en ze betalen ×3.
 - **Beldan Jolfort** trapt niet in hype. Hij wil dat je eerst vragen stelt, net als in zijn eigen verkooptraining.

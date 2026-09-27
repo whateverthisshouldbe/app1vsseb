@@ -15,6 +15,7 @@ local Collection = require(script.Parent.UI.Collection)
 local PitchUI = require(script.Parent.UI.PitchUI)
 local World = require(script.Parent.World)
 local Movement = require(script.Parent.Movement)
+local Tutorial = require(script.Parent.Tutorial)
 
 local Remotes = ReplicatedStorage:WaitForChild("Remotes")
 local player = Players.LocalPlayer
@@ -41,7 +42,6 @@ Hud.mount(screen, {
 	openIndex = Collection.toggleIndex,
 	openTeleport = Collection.toggleTeleport,
 	openIPO = Shop.openIPO,
-	openHelp = Shop.openHelp,
 })
 Shop.mount(screen)
 Collection.mount(screen)
@@ -51,6 +51,8 @@ Movement.start(screen)
 
 pcall(function()
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Health, false)
+	-- The HUD owns the top-right corner (like the big simulators).
+	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
 end)
 
 UserInputService.InputBegan:Connect(function(input, processed)
@@ -84,14 +86,5 @@ Store.Changed:Connect(function(data, previous)
 	end
 end)
 
--- First time here? Show how to play.
-task.spawn(function()
-	repeat
-		task.wait(0.5)
-	until Store.profile()
-	if Store.profile().pensSold == 0 then
-		task.wait(2)
-		Shop.openHelp()
-		Notifier.show("Walk up to anyone in the parking lot and press E. Sell them a pen.", "big")
-	end
-end)
+-- New players get the playthrough tutorial.
+Tutorial.start(screen)

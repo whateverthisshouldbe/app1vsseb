@@ -1,6 +1,6 @@
--- Sprint (hold Left Shift, or the RUN button on touch screens) and the
--- occasional flip when you jump. Flips are visual only: they rotate the
--- root joint, so physics and collisions are untouched.
+-- Sprint (hold Left Shift, or the RUN button on touch screens), a double
+-- jump that always flips, and the occasional flip on a normal jump. Flips
+-- are visual only: they rotate the root joint, so physics are untouched.
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -16,9 +16,14 @@ local player = Players.LocalPlayer
 
 local Movement = {}
 
+-- Fires "sprint" (after a proper sprint) and "flip" for the tutorial.
+local signal = Instance.new("BindableEvent")
+Movement.Event = signal.Event
+
 local WALK_SPEED = 16
 local SPRINT_SPEED = 28
-local FLIP_CHANCE = 0.35
+local FLIP_CHANCE = 0.3
+local DOUBLE_JUMP_VELOCITY = 55
 local FLIP_TIME = 0.5
 
 local FLIPS = {
@@ -79,21 +84,61 @@ function Movement.flip(character, kind)
 	end)
 end
 
+local function doFlip(character, kind)
+	kind = kind or FLIP_KINDS[math.random(1, #FLIP_KINDS)]
+	Movement.flip(character, kind)
+	Remotes.Flip:FireServer(kind)
+	signal:Fire("flip")
+end
+
+local jumpedAt = 0
+local doubleJumped = false
+
 local function onCharacter(character)
 	local humanoid = character:WaitForChild("Humanoid")
+	doubleJumped = false
 	humanoid.StateChanged:Connect(function(_, new)
+		if new == Enum.HumanoidStateType.Landed or new == Enum.HumanoidStateType.Running then
+			doubleJumped = false
+		end
 		if new ~= Enum.HumanoidStateType.Jumping or Store.inPitch then
 			return
 		end
+		jumpedAt = os.clock()
 		if math.random() < FLIP_CHANCE then
-			local kind = FLIP_KINDS[math.random(1, #FLIP_KINDS)]
 			-- Wait until we're actually off the ground.
-			task.delay(0.08, function()
-				Movement.flip(character, kind)
-				Remotes.Flip:FireServer(kind)
-			end)
+			task.delay(0.08, doFlip, character)
 		end
 	end)
+end
+
+-- Jump again in the air: a second jump, and you always flip.
+local lastRequest = 0
+local function onJumpRequest()
+	-- JumpRequest repeats every frame while the button is held; only a new
+	-- press (after a short gap) counts.
+	local fresh = os.clock() - lastRequest > 0.12
+	lastRequest = os.clock()
+	if not fresh then
+		return
+	end
+	local character = player.Character
+	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+	local root = character and character:FindFirstChild("HumanoidRootPart")
+	if not humanoid or not root or Store.inPitch or doubleJumped then
+		return
+	end
+	local state = humanoid:GetState()
+	local airborne = state == Enum.HumanoidStateType.Freefall or state == Enum.HumanoidStateType.Jumping
+	if not airborne or os.clock() - jumpedAt < 0.2 then
+		return
+	end
+	doubleJumped = true
+	local velocity = root.AssemblyLinearVelocity
+	root.AssemblyLinearVelocity = Vector3.new(velocity.X, DOUBLE_JUMP_VELOCITY, velocity.Z)
+	if not character:GetAttribute("Flipping") then
+		doFlip(character, math.random() < 0.5 and "back" or "front")
+	end
 end
 
 local function buildSprintButton(screen)
@@ -134,6 +179,7 @@ function Movement.start(screen)
 		end
 	end)
 
+	UserInputService.JumpRequest:Connect(onJumpRequest)
 	UserInputService.InputBegan:Connect(function(input, processed)
 		if input.KeyCode == Enum.KeyCode.LeftShift and not processed then
 			sprintHeld = true
@@ -147,6 +193,7 @@ function Movement.start(screen)
 	buildSprintButton(screen)
 
 	local fov = 70
+	local sprintTime = 0
 	RunService.RenderStepped:Connect(function(dt)
 		local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
 		-- The pitch screen plants your feet and runs its own camera.
@@ -155,6 +202,10 @@ function Movement.start(screen)
 		end
 		local sprinting = (sprintHeld or sprintToggled) and humanoid.MoveDirection.Magnitude > 0.1
 		humanoid.WalkSpeed = sprinting and SPRINT_SPEED or WALK_SPEED
+		sprintTime = sprinting and sprintTime + dt or 0
+		if sprintTime > 1.2 and sprintTime - dt <= 1.2 then
+			signal:Fire("sprint")
+		end
 		local camera = Workspace.CurrentCamera
 		if camera.CameraType == Enum.CameraType.Custom then
 			fov += ((sprinting and 80 or 70) - fov) * math.min(1, dt * 6)

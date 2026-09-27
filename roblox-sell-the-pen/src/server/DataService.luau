@@ -44,6 +44,9 @@ local function defaultProfile()
 		perfectCloses = 0,
 		napkins = 0,
 		lastOnline = 0,
+		tutorialStep = 0, -- steps finished
+		tutorialDone = false,
+		boostUntil = 0, -- os.time() until x2 money ends
 		lastDaily = 0,
 	}
 end

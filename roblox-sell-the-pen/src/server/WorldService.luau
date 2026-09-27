@@ -81,16 +81,10 @@ local SPEECH_LINES = {
 
 local function runSpeechLoop()
 	while true do
-		local startsAt = os.time() + Config.Speech.interval
-		Workspace:SetAttribute("SpeechAt", startsAt)
-		task.wait(Config.Speech.interval - Config.Speech.warning)
-		EconomyService.notifyAll(
-			"The Wolf takes the stage in " .. Config.Speech.warning .. "s! Get to the Trading Floor for x"
-				.. Config.Speech.floorMult .. " sales!",
-			"event"
-		)
-		task.wait(Config.Speech.warning)
+		-- Nobody knows when the Wolf will speak.
+		task.wait(math.random(Config.Speech.minInterval, Config.Speech.maxInterval))
 
+		EconomyService.notifyAll(string.format("THE WOLF IS SPEAKING! x%.1f money for %ds!", Config.Speech.mult, Config.Speech.duration), "event")
 		Workspace:SetAttribute("SpeechActive", true)
 		Workspace:SetAttribute("SpeechEndsAt", os.time() + Config.Speech.duration)
 		Workspace:SetAttribute("SpeechLine", SPEECH_LINES[math.random(1, #SPEECH_LINES)])

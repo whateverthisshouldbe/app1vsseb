@@ -1,15 +1,14 @@
 -- Spawns the customers that wander each zone, and gives each of them a
 -- "Sell Me This Pen" prompt. PitchService takes over when one is pitched.
 
-local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 
 local Config = require(ReplicatedStorage.Shared.Config)
-local PitchData = require(ReplicatedStorage.Shared.PitchData)
 local Visitors = require(ReplicatedStorage.Shared.Visitors)
 local Animations = require(ReplicatedStorage.Shared.Animations)
 local AnimationService = require(script.Parent.AnimationService)
+local OutfitService = require(script.Parent.OutfitService)
 
 local Remotes = ReplicatedStorage.Remotes
 
@@ -109,161 +108,13 @@ local function makeNameTag(head, visitor, rarity)
 	gui.Parent = head
 end
 
-local function weld(model, anchorName, part, offset)
-	local anchor = model:FindFirstChild(anchorName)
-	if not anchor then
-		return
-	end
-	part.CanCollide = false
-	part.CanQuery = false
-	part.Massless = true
-	part.CFrame = anchor.CFrame * offset
-	local constraint = Instance.new("WeldConstraint")
-	constraint.Part0 = anchor
-	constraint.Part1 = part
-	constraint.Parent = part
-	part.Parent = model
-end
-
--- Rarer visitors look the part: hats, gold, auras.
-local function decorate(model, rarity)
-	local head = model:FindFirstChild("Head")
-	if not head then
-		return
-	end
-	local id = rarity.id
-	if id == "epic" or id == "mythic" then
-		local brim = Instance.new("Part")
-		brim.Size = Vector3.new(1.9, 0.12, 1.9)
-		brim.Color = Color3.fromRGB(20, 20, 20)
-		weld(model, "Head", brim, CFrame.new(0, head.Size.Y / 2 + 0.05, 0))
-		local top = Instance.new("Part")
-		top.Size = Vector3.new(1.2, 1.2, 1.2)
-		top.Color = id == "mythic" and rarity.color or Color3.fromRGB(20, 20, 20)
-		weld(model, "Head", top, CFrame.new(0, head.Size.Y / 2 + 0.7, 0))
-	end
-	if id == "mythic" or id == "legendary" or id == "exotic" or id == "ultra" then
-		local chain = Instance.new("Part")
-		chain.Size = Vector3.new(1.3, 0.25, 0.12)
-		chain.Color = Color3.fromRGB(255, 210, 60)
-		chain.Material = Enum.Material.Foil
-		local torso = model:FindFirstChild("UpperTorso")
-		if torso then
-			weld(model, "UpperTorso", chain, CFrame.new(0, 0.35, -torso.Size.Z / 2 - 0.05))
-		end
-	end
-	if id == "legendary" or id == "exotic" or id == "ultra" then
-		local crown = Instance.new("Part")
-		crown.Size = Vector3.new(1.3, 0.6, 1.3)
-		crown.Color = id == "exotic" and rarity.color or Color3.fromRGB(255, 205, 50)
-		crown.Material = Enum.Material.Foil
-		weld(model, "Head", crown, CFrame.new(0, head.Size.Y / 2 + 0.3, 0))
-	end
-	if id ~= "common" and id ~= "rare" then
-		local root = model:FindFirstChild("HumanoidRootPart")
-		local aura = Instance.new("ParticleEmitter")
-		aura.Name = "Aura"
-		aura.Color = ColorSequence.new(rarity.color)
-		aura.LightEmission = 0.8
-		aura.Size = NumberSequence.new(0.35, 0)
-		aura.Lifetime = NumberRange.new(0.8, 1.4)
-		aura.Speed = NumberRange.new(0.5, 1.5)
-		aura.SpreadAngle = Vector2.new(180, 180)
-		aura.Rate = ({ superrare = 6, epic = 12, mythic = 20, legendary = 30, exotic = 45, ultra = 80 })[id] or 5
-		aura.Parent = root
-		if id == "legendary" or id == "exotic" or id == "ultra" then
-			local glow = Instance.new("PointLight")
-			glow.Color = id == "ultra" and Color3.fromRGB(255, 230, 150) or rarity.color
-			glow.Brightness = 2
-			glow.Range = 14
-			glow.Parent = root
-		end
-	end
-	if id == "ultra" then
-		-- Beldan Jolfort: the full golden treatment.
-		for _, part in model:GetChildren() do
-			if part:IsA("BasePart") and part.Name ~= "Head" and part.Name ~= "HumanoidRootPart" and not part.Name:find("Hand") then
-				if part.Name:find("Torso") or part.Name:find("Arm") or part.Name:find("Leg") or part.Name:find("Foot") then
-					part.Color = Color3.fromRGB(25, 25, 25)
-				end
-			end
-		end
-		local sparkles = Instance.new("Sparkles")
-		sparkles.SparkleColor = Color3.fromRGB(255, 215, 80)
-		sparkles.Parent = model:FindFirstChild("HumanoidRootPart")
-	end
-end
-
-local function addTie(model, color)
-	local torso = model:FindFirstChild("UpperTorso") or model:FindFirstChild("Torso")
-	if not torso then
-		return
-	end
-	local tie = Instance.new("Part")
-	tie.Name = "Tie"
-	tie.Size = Vector3.new(0.35, 1.1, 0.1)
-	tie.Color = color
-	tie.Material = Enum.Material.Fabric
-	tie.CanCollide = false
-	tie.CanQuery = false
-	tie.Massless = true
-	tie.CFrame = torso.CFrame * CFrame.new(0, 0.05, -torso.Size.Z / 2 - 0.04)
-	local constraint = Instance.new("WeldConstraint")
-	constraint.Part0 = torso
-	constraint.Part1 = tie
-	constraint.Parent = tie
-	tie.Parent = model
-end
-
-local TIE_COLORS = {
-	Color3.fromRGB(200, 30, 40),
-	Color3.fromRGB(230, 180, 40),
-	Color3.fromRGB(40, 60, 160),
-	Color3.fromRGB(20, 20, 20),
-}
-
-local SKIN_TONES = {
-	Color3.fromRGB(255, 220, 190),
-	Color3.fromRGB(240, 195, 160),
-	Color3.fromRGB(215, 160, 120),
-	Color3.fromRGB(175, 120, 85),
-	Color3.fromRGB(130, 85, 60),
-	Color3.fromRGB(95, 60, 45),
-}
-
-local function vary(color, seeded, amount)
-	local function channel(value)
-		return math.clamp(value + seeded:NextNumber(-amount, amount), 0, 1)
-	end
-	return Color3.new(channel(color.R), channel(color.G), channel(color.B))
-end
-
 local slotOwners = {} -- door zones: [zoneId] = { [slot] = state }
 
 local function buildCustomer(visitor, zone)
 	local archetypeKey = visitor.archetype
-	local archetype = PitchData.Archetypes[archetypeKey]
 	local rarity = Config.getRarity(visitor.rarity)
-	-- The same visitor always looks the same.
-	local seeded = Random.new(visitor.number * 7919)
-	local skin = SKIN_TONES[seeded:NextInteger(1, #SKIN_TONES)]
-	local shirt = vary(archetype.shirt, seeded, 0.12)
-	local pants = vary(archetype.pants, seeded, 0.08)
-	local description = Instance.new("HumanoidDescription")
-	description.HeadColor = skin
-	description.LeftArmColor = shirt
-	description.RightArmColor = shirt
-	description.TorsoColor = shirt
-	description.LeftLegColor = pants
-	description.RightLegColor = pants
-	description.HeightScale = seeded:NextNumber(0.92, 1.08)
-	description.WidthScale = seeded:NextNumber(0.9, 1.15)
-
-	local ok, model = pcall(function()
-		return Players:CreateHumanoidModelFromDescription(description, Enum.HumanoidRigType.R15)
-	end)
-	if not ok or not model then
-		warn("[CustomerService] could not build customer:", model)
+	local model = OutfitService.buildVisitor(visitor)
+	if not model then
 		return nil
 	end
 
@@ -277,19 +128,8 @@ local function buildCustomer(visitor, zone)
 	humanoid.Health = math.huge
 
 	local head = model:WaitForChild("Head")
-	-- Hands are the arm color by default; keep them skin colored.
-	for _, name in { "LeftHand", "RightHand" } do
-		local hand = model:FindFirstChild(name)
-		if hand then
-			hand.Color = skin
-		end
-	end
-	if archetypeKey ~= "tourist" and archetypeKey ~= "plumber" and archetypeKey ~= "mom" and archetypeKey ~= "crypto" then
-		addTie(model, TIE_COLORS[seeded:NextInteger(1, #TIE_COLORS)])
-	end
 	makeNameTag(head, visitor, rarity)
 	makeSpeechBubble(head)
-	decorate(model, rarity)
 
 	local root = model:WaitForChild("HumanoidRootPart")
 	local prompt = Instance.new("ProximityPrompt")

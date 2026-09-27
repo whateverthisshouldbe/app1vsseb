@@ -181,13 +181,13 @@ Config.Pitch = {
 	napkinChance = 0.12,
 }
 
--- The Wolf Speech: a server-wide boost that fires on a timer.
+-- The Wolf Speech: a surprise server-wide boost. It starts at a random
+-- moment (no countdown), announced only once it begins.
 Config.Speech = {
-	interval = 7 * 60,
-	warning = 20,
+	minInterval = 60,
+	maxInterval = 7 * 60,
 	duration = 60,
-	globalMult = 2,
-	floorMult = 3, -- replaces globalMult for players standing on the trading floor
+	mult = 2.5,
 }
 
 Config.Hum = {
@@ -214,6 +214,38 @@ function Config.findById(list, id)
 		end
 	end
 	return nil, nil
+end
+
+-- Titles by lifetime earnings (shown over your head and on the level bar).
+Config.Ranks = {
+	{ min = 0, title = "Pen Pusher", color = Color3.fromRGB(220, 220, 220) },
+	{ min = 1_000, title = "Cold Caller", color = Color3.fromRGB(140, 230, 140) },
+	{ min = 25_000, title = "Stockbroker", color = Color3.fromRGB(110, 190, 255) },
+	{ min = 500_000, title = "Big Swinging Pen", color = Color3.fromRGB(200, 140, 255) },
+	{ min = 10_000_000, title = "The Wolf", color = Color3.fromRGB(255, 210, 60) },
+	{ min = 1_000_000_000, title = "Wolf of Pen Street", color = Color3.fromRGB(255, 120, 40) },
+}
+
+function Config.rankFor(lifetime)
+	local best = Config.Ranks[1]
+	for _, rank in Config.Ranks do
+		if lifetime >= rank.min then
+			best = rank
+		end
+	end
+	return best
+end
+
+-- Levels grow with lifetime earnings: each level needs 1.5x the last.
+local LEVEL_BASE, LEVEL_GROWTH = 100, 1.5
+local function levelThreshold(level)
+	return LEVEL_BASE * (LEVEL_GROWTH ^ (level - 1) - 1)
+end
+
+function Config.levelFor(lifetime)
+	local level = math.floor(math.log(math.max(0, lifetime) / LEVEL_BASE + 1) / math.log(LEVEL_GROWTH)) + 1
+	local current, nextAt = levelThreshold(level), levelThreshold(level + 1)
+	return level, math.clamp((lifetime - current) / (nextAt - current), 0, 1), nextAt
 end
 
 function Config.rebirthCost(rebirths)

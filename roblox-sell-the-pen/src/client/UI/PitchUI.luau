@@ -24,6 +24,10 @@ local player = Players.LocalPlayer
 
 local PitchUI = {}
 
+-- Fires ("start" | "line" | "tonality" | "close" | "deal" | "done" | "failed") for the tutorial.
+local signal = Instance.new("BindableEvent")
+PitchUI.Event = signal.Event
+
 local METERS = {
 	{ key = "pen", label = "PEN", color = Colors.pen },
 	{ key = "you", label = "YOU", color = Colors.you },
@@ -554,6 +558,7 @@ function PitchUI.choose(index)
 		return
 	end
 	chosenIndex = index
+	signal:Fire("line")
 	playDing(1.2)
 	needle.pos = math.random()
 	needle.dir = math.random() < 0.5 and -1 or 1
@@ -589,6 +594,7 @@ function PitchUI.stopNeedle()
 	end
 	say(verdict, accuracy >= 0.8 and Colors.money or Colors.red)
 	setPhase("waiting")
+	signal:Fire("tonality", accuracy)
 	Remotes.PitchAction:FireServer({ type = "line", index = chosenIndex, tonality = accuracy })
 end
 
@@ -598,6 +604,7 @@ function PitchUI.close()
 	end
 	setPhase("waiting")
 	say("...", Colors.muted)
+	signal:Fire("close")
 	Remotes.PitchAction:FireServer({ type = "close" })
 end
 
@@ -713,6 +720,7 @@ local function onStart(data)
 	say('"' .. data.customer.greeting .. '"', Colors.text)
 	openUI()
 	setPhase("choose")
+	signal:Fire("start")
 	startCamera(data.model)
 	playDing(0.8)
 end
@@ -878,6 +886,9 @@ end
 
 local function onEnd(data)
 	-- These arrive after the pitch screen is gone.
+	if data.result == "sold" or data.result == "recruited" then
+		signal:Fire("done", data.result)
+	end
 	if data.result == "sold" then
 		closeDeal()
 		showStamp("SOLD!", Colors.gold, "+" .. Format.cash(data.amount), Colors.money, nil)
@@ -894,8 +905,12 @@ local function onEnd(data)
 		return
 	end
 	if data.result == "deal" then
+		signal:Fire("deal")
 		openDeal(data)
-	elseif data.result == "busted" then
+	else
+		signal:Fire("failed", data.result)
+	end
+	if data.result == "busted" then
 		showStamp("BUSTED!", Colors.red, Format.cash(data.amount), Colors.red, data.line)
 	elseif data.result == "walked" then
 		showStamp("NO SALE", Colors.red, "", nil, data.line and ('"' .. data.line .. '"'))

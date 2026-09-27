@@ -1,5 +1,4 @@
--- The shop (pens, suits, phones), the rebirth screen and the how-to-play
--- screen.
+-- The shop (pens, suits, phones) and the rebirth screen.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -22,7 +21,7 @@ local TABS = {
 	{ id = "phone", name = "Phones", color = Colors.money },
 }
 
-local shopModal, ipoModal, helpModal
+local shopModal, ipoModal
 local list
 local currentTab = "pen"
 local tabButtons = {}
@@ -156,6 +155,7 @@ end
 
 local function buildShop(screen)
 	shopModal = Modal.new(screen, "PEN STREET SUPPLY CO.", Colors.money, Vector2.new(720, 500))
+	shopModal.key = "shop"
 	local content = shopModal.content
 
 	local tabs = Theme.create("Frame", {
@@ -231,6 +231,7 @@ end
 
 local function buildIPO(screen)
 	ipoModal = Modal.new(screen, "REBIRTH: RING THE BELL", Colors.purple, Vector2.new(560, 420))
+	ipoModal.key = "rebirth"
 	ipoInfo = Theme.label({
 		Size = UDim2.new(1, 0, 1, -80),
 		Font = Theme.FontBold,
@@ -259,56 +260,9 @@ local function buildIPO(screen)
 	ipoModal.onOpen = renderIPO
 end
 
-local HELP_TEXT = [[<b><font color="#FFC846">1. Find a customer.</font></b> Walk up to anyone and press <b>E</b> to pitch.
-
-<b><font color="#FFC846">2. Build certainty.</font></b> Every buyer needs to be sure about three things: the <font color="#6EBEFF">PEN</font>, <font color="#FFAA46">YOU</font> and your <font color="#BE82FF">FIRM</font>. Pick a line, then stop the tonality needle in the green zone. Better timing = bigger effect.
-
-<b><font color="#FFC846">3. Read the room.</font></b> Customers like and hate certain kinds of lines. Hedge fund bros love pressure; duchesses do not. The Undercover FBI Agent only trusts honesty.
-
-<b><font color="#FFC846">4. Close.</font></b> Hit CLOSE whenever you like. Higher certainty = better odds and a bigger sale. Max all three bars for a PERFECT CLOSE.
-
-<b><font color="#FFC846">5. Rarities.</font></b> Every visitor has a rarity, from Common (x3) to the one and only Ultra Exotic <b>Beldan Jolfort</b> (x6000). Rarer visitors pay far more, but are harder to convince. Fancier zones attract rarer visitors.
-
-<b><font color="#FFC846">6. Cash or recruit?</font></b> After every sale you choose: take the money, or recruit the visitor as a broker. You can have 8 brokers; they earn their daily wage all the time (half while you're offline).
-
-<b><font color="#FFC846">7. Index.</font></b> 150 unique visitors to collect. Every one you sell to adds +0.5% to all your sales.
-
-<b><font color="#FFC846">8. Rebirth.</font></b> Buy better pens, suits and phones, then rebirth. New zones open at 1, 3, 5, 8, 10 and 14 rebirths. Use TP to travel.
-
-<b><font color="#FFC846">Moving.</font></b> Hold <b>Left Shift</b> to sprint (RUN button on mobile). Better suits give you a cooler walk. Jump often: sometimes you'll pull off a flip.
-
-<b><font color="#FFC846">Secrets.</font></b> Sometimes a mysterious napkin line appears. Use it. Hum (H) with other players for a crowd boost. Be on the Trading Floor when the Wolf gives his speech.]]
-
-local function buildHelp(screen)
-	helpModal = Modal.new(screen, "HOW TO SELL A PEN", Colors.blue, Vector2.new(640, 520))
-	local scroll = Theme.create("ScrollingFrame", {
-		Size = UDim2.fromScale(1, 1),
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		ScrollBarThickness = 6,
-		AutomaticCanvasSize = Enum.AutomaticSize.Y,
-		CanvasSize = UDim2.new(),
-		Parent = helpModal.content,
-	})
-	Theme.label({
-		Size = UDim2.new(1, -12, 0, 0),
-		AutomaticSize = Enum.AutomaticSize.Y,
-		Font = Theme.Font,
-		TextScaled = false,
-		TextSize = 18,
-		TextWrapped = true,
-		RichText = true,
-		TextXAlignment = Enum.TextXAlignment.Left,
-		TextYAlignment = Enum.TextYAlignment.Top,
-		Text = HELP_TEXT,
-		Parent = scroll,
-	})
-end
-
 function Shop.mount(screen)
 	buildShop(screen)
 	buildIPO(screen)
-	buildHelp(screen)
 	Store.Changed:Connect(function()
 		if shopModal.frame.Visible then
 			render()
@@ -330,8 +284,5 @@ function Shop.openIPO()
 	ipoModal:toggle()
 end
 
-function Shop.openHelp()
-	helpModal:toggle()
-end
 
 return Shop
